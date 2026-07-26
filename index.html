@@ -1,87 +1,145 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ToolNest - Free Online Tools</title>
-
-<style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-    text-align:center;
-}
-header{
-    background:#2563eb;
-    color:white;
-    padding:20px;
-}
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:40px 20px;
-}
-.tool{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    margin:20px 0;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-button{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:6px;
-    cursor:pointer;
-}
-footer{
-    margin-top:40px;
-    padding:20px;
-    background:#222;
-    color:white;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolNest - Free Online Tools</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+            color: #333;
+        }
+        header {
+            background: #2563eb;
+            color: white;
+            padding: 30px 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+        .tool {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        .tool h2 {
+            margin-top: 0;
+            color: #2563eb;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .stat-box {
+            background: #f0f7ff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-right: 5px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background: #222;
+            color: white;
+        }
+    </style>
 </head>
-
 <body>
 
 <header>
-<h1>ToolNest</h1>
-<p>Free Online Tools for Everyone</p>
+    <h1>ToolNest</h1>
+    <p>Free Online Tools for Everyone</p>
 </header>
 
 <div class="container">
 
-<div class="tool">
-<h2>Word Counter</h2>
-<p>Coming Soon...</p>
-<button>Use Tool</button>
-</div>
+    <!-- Tool 1: Word Counter -->
+    <div class="tool">
+        <h2>📝 Word Counter</h2>
+        <p>Type or paste your text below to count words and characters in real-time.</p>
+        <textarea id="wordInput" placeholder="Type or paste text here..."></textarea>
+        <div class="stats">
+            <div class="stat-box">Words: <span id="wordCount">0</span></div>
+            <div class="stat-box">Characters: <span id="charCount">0</span></div>
+        </div>
+    </div>
 
-<div class="tool">
-<h2>Image Converter</h2>
-<p>Coming Soon...</p>
-<button>Use Tool</button>
-</div>
+    <!-- Tool 2: Password Generator -->
+    <div class="tool">
+        <h2>🔒 Strong Password Generator</h2>
+        <p>Generate secure random passwords instantly.</p>
+        <input type="text" id="passwordOutput" readonly placeholder="Click generate to get password">
+        <button onclick="generatePassword()">Generate Password</button>
+        <button onclick="copyPassword()">Copy</button>
+    </div>
 
-<div class="tool">
-<h2>PDF Tools</h2>
-<p>Coming Soon...</p>
-<button>Use Tool</button>
-</div>
+    <!-- Tool 3: Text Case Converter -->
+    <div class="tool">
+        <h2>🔤 Text Case Converter</h2>
+        <p>Convert your text easily between UPPERCASE and lowercase.</p>
+        <textarea id="caseInput" placeholder="Enter text here..."></textarea>
+        <button onclick="convertCase('upper')">UPPERCASE</button>
+        <button onclick="convertCase('lower')">lowercase</button>
+    </div>
 
 </div>
 
 <footer>
-© 2026 ToolNest
+    © 2026 ToolNest - Built for Speed & Utility
 </footer>
 
-</body>
-</html>
-[26-07-2026 20:18] Youssef: document.getElementById('wordCount').innerText = words;
+<script>
+    // Word Counter Logic
+    const wordInput = document.getElementById('wordInput');
+    wordInput.addEventListener('input', () => {
+        const text = wordInput.value.trim();
+        const words = text ? text.split(/\s+/).length : 0;
+        const chars = text.length;
+
+        document.getElementById('wordCount').innerText = words;
         document.getElementById('charCount').innerText = chars;
     });
 
