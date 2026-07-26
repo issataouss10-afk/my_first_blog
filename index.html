@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToolNest - Free Online Tools</title>
+    <!-- QRCode library CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -79,6 +81,17 @@
         button:hover {
             background: #1d4ed8;
         }
+        #qrcode-box {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #qrcode img, #qrcode canvas {
+            margin-top: 10px;
+            border: 5px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
         footer {
             margin-top: 50px;
             padding: 20px;
@@ -96,7 +109,20 @@
 
 <div class="container">
 
-    <!-- Tool 1: Word Counter -->
+    <!-- Tool 1: QR Code Generator -->
+    <div class="tool">
+        <h2>📱 Free QR Code Generator</h2>
+        <p>Enter a URL or text below to generate a downloadable QR code instantly.</p>
+        <input type="text" id="qrText" placeholder="https://example.com or enter text here...">
+        <button onclick="generateQRCode()">Generate QR Code</button>
+        
+        <div id="qrcode-box">
+            <div id="qrcode"></div>
+            <button id="downloadBtn" style="display:none;" onclick="downloadQR()">Download QR Code</button>
+        </div>
+    </div>
+
+    <!-- Tool 2: Word Counter -->
     <div class="tool">
         <h2>📝 Word Counter</h2>
         <p>Type or paste your text below to count words and characters in real-time.</p>
@@ -106,8 +132,7 @@
             <div class="stat-box">Characters: <span id="charCount">0</span></div>
         </div>
     </div>
-
-    <!-- Tool 2: Password Generator -->
+ <!-- Tool 3: Password Generator -->
     <div class="tool">
         <h2>🔒 Strong Password Generator</h2>
         <p>Generate secure random passwords instantly.</p>
@@ -116,7 +141,7 @@
         <button onclick="copyPassword()">Copy</button>
     </div>
 
-    <!-- Tool 3: Text Case Converter -->
+    <!-- Tool 4: Text Case Converter -->
     <div class="tool">
         <h2>🔤 Text Case Converter</h2>
         <p>Convert your text easily between UPPERCASE and lowercase.</p>
@@ -132,6 +157,57 @@
 </footer>
 
 <script>
+    // QR Code Generator Logic
+    let qrcodeObj = null;
+
+    function generateQRCode() {
+        const text = document.getElementById('qrText').value.trim();
+        const qrContainer = document.getElementById('qrcode');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        if (!text) {
+            alert('Please enter some text or a URL first!');
+            return;
+        }
+
+        qrContainer.innerHTML = ''; // Clear previous QR
+
+        qrcodeObj = new QRCode(qrContainer, {
+            text: text,
+            width: 160,
+            height: 160,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // Show download button after short delay
+        setTimeout(() => {
+            downloadBtn.style.display = 'inline-block';
+        }, 300);
+    }
+
+    function downloadQR() {
+        const img = document.querySelector('#qrcode img');
+        const canvas = document.querySelector('#qrcode canvas');
+
+        let imageSrc = "";
+        if (img && img.src) {
+            imageSrc = img.src;
+        } else if (canvas) {
+            imageSrc = canvas.toDataURL("image/png");
+        }
+
+        if (imageSrc) {
+            const link = document.createElement('a');
+            link.href = imageSrc;
+            link.download = 'toolnest-qrcode.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
     // Word Counter Logic
     const wordInput = document.getElementById('wordInput');
     wordInput.addEventListener('input', () => {
