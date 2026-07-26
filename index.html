@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[26-07-2026 19:45] Youssef: <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -78,6 +78,42 @@ footer{
 <footer>
 © 2026 ToolNest
 </footer>
+
+</body>
+</html>
+[26-07-2026 20:08] Youssef: document.getElementById('wordCount').innerText = words;
+        document.getElementById('charCount').innerText = chars;
+    });
+
+    // Password Generator Logic
+    function generatePassword() {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+        let password = "";
+        for (let i = 0; i < 12; i++) {
+            password += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        document.getElementById('passwordOutput').value = password;
+    }
+
+    function copyPassword() {
+        const passInput = document.getElementById('passwordOutput');
+        if (passInput.value) {
+            passInput.select();
+            navigator.clipboard.writeText(passInput.value);
+            alert("Password copied to clipboard!");
+        }
+    }
+
+    // Case Converter Logic
+    function convertCase(type) {
+        const caseInput = document.getElementById('caseInput');
+        if (type === 'upper') {
+            caseInput.value = caseInput.value.toUpperCase();
+        } else if (type === 'lower') {
+            caseInput.value = caseInput.value.toLowerCase();
+        }
+    }
+</script>
 
 </body>
 </html>
