@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolNest - 100% Free Online Web Utilities</title>
-    <meta name="description" content="ToolNest offers free online tools like QR Generator, Word Counter, BMI Calculator, and more.">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>ToolNest - Free Online Web Utilities Dashboard</title>
+    <meta name="description" content="ToolNest offers free online utilities like QR Generator, Word Counter, BMI Calculator, and more.">
     <style>
         * { box-sizing: border-box; }
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f1f5f9;
+            background: #f8fafc;
             color: #0f172a;
         }
         nav {
@@ -34,11 +33,11 @@
         header {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
         }
         header h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
-        header p { margin: 0 0 20px 0; opacity: 0.9; }
+        header p { margin: 0 0 25px 0; opacity: 0.9; }
         
         .search-box { max-width: 500px; margin: auto; }
         .search-box input {
@@ -54,27 +53,13 @@
         .container {
             max-width: 1100px;
             margin: auto;
-            padding: 30px 20px;
+            padding: 40px 20px;
         }
-
-        /* Filter Tabs */
-        .all-tools-btn {
-            display: inline-block;
-            margin-bottom: 20px;
-            background: #e2e8f0;
-            color: #334155;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-        }
-        .all-tools-btn:hover { background: #cbd5e1; }
 
         /* GRID SYSTEM */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
 
@@ -85,10 +70,13 @@
             border: 1px solid #e2e8f0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
             transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .tool-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
         }
         .tool-card h2 {
             margin-top: 0;
@@ -98,83 +86,44 @@
         .tool-card p.desc {
             color: #64748b;
             font-size: 13px;
-            line-height: 1.4;
-            margin-bottom: 15px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
 
-        /* Form Controls */
-        textarea, input[type="text"], input[type="number"], input[type="date"], select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 14px;
-            margin-top: 6px;
-            outline: none;
-        }
-        textarea { height: 80px; resize: vertical; }
-        input[type="color"] { width: 100%; height: 40px; border: none; border-radius: 6px; cursor: pointer; margin-top: 6px; }
-
-        .stats {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .stat-box {
-            background: #eff6ff;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: 600;
-            color: #2563eb;
-            font-size: 13px;
-        }
-
-        button.btn-primary {
+        .btn-open {
+            display: block;
+            text-align: center;
             background: #2563eb;
             color: white;
-            border: none;
-            padding: 9px 16px;
-            border-radius: 6px;
-            cursor: pointer;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
             font-weight: 600;
-            margin-top: 10px;
-            font-size: 13px;
+            font-size: 14px;
+            transition: background 0.2s;
         }
-        button.btn-primary:hover { background: #1d4ed8; }
-        button.btn-secondary {
-            background: #64748b;
-            color: white;
-            border: none;
-            padding: 9px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            font-size: 13px;
-        }
-
-        #qrcode-box { margin-top: 10px; text-align: center; }
-        #qrcode img, #qrcode canvas { margin: auto; }
+        .btn-open:hover { background: #1d4ed8; }
 
         footer {
-            margin-top: 50px;
-            padding: 20px;
+            margin-top: 60px;
+            padding: 25px;
             background: #0f172a;
             color: #94a3b8;
             text-align: center;
-            font-size: 13px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="#" class="logo">ToolNest</a>
+    <a href="index.html" class="logo">ToolNest</a>
 </nav>
 
 <header>
-    <h1>Free Online Utility Dashboard</h1>
-    <p>Select any tool below to use it instantly in your browser.</p>
+    <h1>Free Online Web Utilities</h1>
+    <p>Select any tool below to use it in a dedicated full-screen page.</p>
     <div class="search-box">
         <input type="text" id="searchTools" placeholder="🔍 Search tools (e.g. QR, BMI, Word)..." onkeyup="filterTools()">
     </div>
@@ -182,112 +131,48 @@
 
 <div class="container">
 
-    <!-- Grid Container -->
     <div class="tools-grid" id="toolsGrid">
 
         <!-- Tool 1 -->
         <div class="tool-card">
             <h2>📱 QR Code Generator</h2>
-            <p class="desc">Generate downloadable QR code from URL or text instantly.</p>
-            <input type="text" id="qrText" placeholder="https://example.com">
-            <button class="btn-primary" onclick="generateQRCode()">Generate</button>
-            <div id="qrcode-box">
-                <div id="qrcode"></div>
-                <button class="btn-secondary" id="downloadBtn" style="display:none; margin-top:8px;" onclick="downloadQR()">Download QR</button>
-            </div>
+            <p class="desc">Generate downloadable custom QR codes from URLs or plain text instantly.</p>
+            <a href="qr-generator.html" class="btn-open">Open Tool →</a>
         </div>
 
         <!-- Tool 2 -->
         <div class="tool-card">
             <h2>📝 Real-time Word Counter</h2>
-            <p class="desc">Count total words and characters in real-time as you type.</p>
-            <textarea id="wordInput" placeholder="Paste or type text..."></textarea>
-            <div class="stats">
-                <div class="stat-box">Words: <span id="wordCount">0</span></div>
-                <div class="stat-box">Chars: <span id="charCount">0</span></div>
-            </div>
+            <p class="desc">Count words and characters in real-time with instant text analytics.</p>
+            <a href="word-counter.html" class="btn-open">Open Tool →</a>
         </div>
 
         <!-- Tool 3 -->
         <div class="tool-card">
             <h2>⚖️ BMI Health Calculator</h2>
-            <p class="desc">Check your Body Mass Index (BMI) and health status quickly.</p>
-            <input type="number" id="bmiHeight" placeholder="Height in cm (175)">
-            <input type="number" id="bmiWeight" placeholder="Weight in kg (70)">
-            <button class="btn-primary" onclick="calculateBMI()">Calculate</button>
-            <div class="stats">
-                <div class="stat-box"><span id="bmiResult">Result will show here</span></div>
-            </div>
+            <p class="desc">Calculate your Body Mass Index (BMI) and discover your health category.</p>
+            <a href="bmi-calculator.html" class="btn-open">Open Tool →</a>
         </div>
 
         <!-- Tool 4 -->
         <div class="tool-card">
             <h2>🎨 Color Picker & HEX</h2>
-            <p class="desc">Pick colors and copy exact HEX codes for web design.</p>
-            <input type="color" id="colorPicker" value="#2563eb" oninput="updateColor()">
-            <input type="text" id="colorHex" value="#2563eb" readonly>
-            <button class="btn-secondary" onclick="copyColor()">Copy Code</button>
+            <p class="desc">Pick colors visually and get HEX/RGB color codes for web design.</p>
+            <a href="color-picker.html" class="btn-open">Open Tool →</a>
         </div>
 
         <!-- Tool 5 -->
         <div class="tool-card">
             <h2>🎂 Age Calculator</h2>
-            <p class="desc">Calculate exact age in years, months, and days from DOB.</p>
-            <input type="date" id="dobInput">
-            <button class="btn-primary" onclick="calculateAge()">Calculate</button>
-            <div class="stats">
-                <div class="stat-box"><span id="ageResult">Select birth date</span></div>
-            </div>
+            <p class="desc">Calculate exact age in years, months, and days from date of birth.</p>
+            <a href="age-calculator.html" class="btn-open">Open Tool →</a>
         </div>
 
         <!-- Tool 6 -->
         <div class="tool-card">
-            <h2>🔗 URL Slug Generator</h2>
-            <p class="desc">Convert titles into clean web-friendly URL slugs.</p>
-            <input type="text" id="slugInput" placeholder="e.g. My New Post" oninput="generateSlug()">
-            <input type="text" id="slugOutput" readonly placeholder="my-new-post">
-            <button class="btn-secondary" onclick="copySlug()">Copy Slug</button>
-        </div>
-
-        <!-- Tool 7 -->
-        <div class="tool-card">
-            <h2>🔊 Text to Speech Player</h2>
-            <p class="desc">Listen to your written text read aloud clearly.</p>
-            <textarea id="speechText" placeholder="Enter text to play..."></textarea>
-            <button class="btn-primary" onclick="speakText()">▶️ Play</button>
-            <button class="btn-secondary" onclick="stopSpeech()">⏹️ Stop</button>
-        </div>
-
-        <!-- Tool 8 -->
-        <div class="tool-card">
-            <h2>📏 Unit Converter (Km/Miles)</h2>
-            <p class="desc">Quickly convert between Kilometers and Miles.</p>
-            <input type="number" id="unitInput" placeholder="Enter distance..." oninput="convertUnits()">
-            <select id="unitType" onchange="convertUnits()">
-                <option value="kmToMiles">Km to Miles</option>
-                <option value="milesToKm">Miles to Km</option>
-            </select>
-            <div class="stats">
-                <div class="stat-box"><span id="unitResult">0</span></div>
-            </div>
-        </div>
-
-        <!-- Tool 9 -->
-        <div class="tool-card">
-            <h2>🔒 Strong Password Generator</h2>
-            <p class="desc">Create strong, secure random passwords for accounts.</p>
-            <input type="text" id="passwordOutput" readonly placeholder="Generated password">
-            <button class="btn-primary" onclick="generatePassword()">Generate</button>
-            <button class="btn-secondary" onclick="copyPassword()">Copy</button>
-        </div>
-
-        <!-- Tool 10 -->
-        <div class="tool-card">
-            <h2>🔤 Text Case Converter</h2>
-            <p class="desc">Convert text to UPPERCASE or lowercase easily.</p>
-            <textarea id="caseInput" placeholder="Enter text..."></textarea>
-            <button class="btn-primary" onclick="convertCase('upper')">UPPERCASE</button>
-            <button class="btn-secondary" onclick="convertCase('lower')">lowercase</button>
+            <h2>🔒 Password Generator</h2>
+            <p class="desc">Create strong, secure, and customizable random passwords instantly.</p>
+            <a href="password-generator.html" class="btn-open">Open Tool →</a>
         </div>
 
     </div>
@@ -295,7 +180,7 @@
 </div>
 
 <footer>
-    © 2026 ToolNest • Web Utilities Dashboard
+    © 2026 ToolNest • Professional Web Utilities
 </footer>
 
 <script>
@@ -304,106 +189,8 @@
         const cards = document.querySelectorAll('.tool-card');
         cards.forEach(card => {
             const text = card.innerText.toLowerCase();
-            card.style.display = text.includes(query) ? "block" : "none";
+            card.style.display = text.includes(query) ? "flex" : "none";
         });
-    }
-
-    // QR Code
-    function generateQRCode() {
-        const text = document.getElementById('qrText').value.trim();
-        const qrContainer = document.getElementById('qrcode');
-        if (!text) return alert('Enter text/URL');
-        qrContainer.innerHTML = '';
-        new QRCode(qrContainer, { text: text, width: 130, height: 130 });
-        document.getElementById('downloadBtn').style.display = 'inline-block';
-    }
-    function downloadQR() {
-        const img = document.querySelector('#qrcode img');
-        const canvas = document.querySelector('#qrcode canvas');
-        let imageSrc = img && img.src ? img.src : (canvas ? canvas.toDataURL("image/png") : "");
-        if (imageSrc) {
-            const link = document.createElement('a');
-            link.href = imageSrc;
-            link.download = 'qrcode.png';
-            link.click();
-        }
-    }
-
-    // Word Counter
-    document.getElementById('wordInput').addEventListener('input', (e) => {
-        const text = e.target.value.trim();
-        document.getElementById('wordCount').innerText = text ? text.split(/\s+/).length : 0;
-        document.getElementById('charCount').innerText = text.length;
-    });
-
-    // BMI
-    function calculateBMI() {
-        const h = parseFloat(document.getElementById('bmiHeight').value) / 100;
-        const w = parseFloat(document.getElementById('bmiWeight').value);
-        if (!h || !w) return alert('Enter valid height/weight');
-        const bmi = (w / (h * h)).toFixed(1);
-        document.getElementById('bmiResult').innerText = "BMI: " + bmi;
-    }
-
-    // Color
-    function updateColor() { document.getElementById('colorHex').value = document.getElementById('colorPicker').value; }
-    function copyColor() {
-        navigator.clipboard.writeText(document.getElementById('colorHex').value);
-        alert('Color copied!');
-    }
-
-    // Age
-    function calculateAge() {
-        const dob = document.getElementById('dobInput').value;
-        if (!dob) return alert('Select date');
-        const birth = new Date(dob);
-        const today = new Date();
-        let yrs = today.getFullYear() - birth.getFullYear();
-        document.getElementById('ageResult').innerText = ${yrs} Years Old;
-    }
-
-    // Slug
-    function generateSlug() {
-        document.getElementById('slugOutput').value = document.getElementById('slugInput').value.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-');
-    }
-    function copySlug() {
-        navigator.clipboard.writeText(document.getElementById('slugOutput').value);
-        alert('Slug copied!');
-    }
-
-    // Speech
-    function speakText() {
-        const text = document.getElementById('speechText').value;
-        if (!text) return;
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-    }
-    function stopSpeech() { window.speechSynthesis.cancel(); }
-
-    // Unit
-    function convertUnits() {
-        const val = parseFloat(document.getElementById('unitInput').value);
-        const type = document.getElementById('unitType').value;
-        if (isNaN(val)) return document.getElementById('unitResult').innerText = '0';
-        document.getElementById('unitResult').innerText = type === 'kmToMiles' ? (val * 0.621371).toFixed(2) + ' Miles' : (val / 0.621371).toFixed(2) + ' Km';
-    }
-
-    // Password
-    function generatePassword() {
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-        let pass = "";
-        for (let i = 0; i < 12; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
-        document.getElementById('passwordOutput').value = pass;
-    }
-    function copyPassword() {
-        navigator.clipboard.writeText(document.getElementById('passwordOutput').value);
-        alert('Password copied!');
-    }
-
-    // Case
-    function convertCase(type) {
-        const input = document.getElementById('caseInput');
-        input.value = type === 'upper' ? input.value.toUpperCase() : input.value.toLowerCase();
     }
 </script>
 
