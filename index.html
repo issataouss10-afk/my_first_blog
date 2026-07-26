@@ -38,13 +38,14 @@
         }
         .nav-links {
             display: flex;
-            gap: 15px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         .nav-links a {
             color: #64748b;
             text-decoration: none;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
             transition: color 0.2s;
         }
         .nav-links a:hover {
@@ -108,7 +109,7 @@
             font-size: 14px;
             margin-bottom: 15px;
         }
-        textarea, input[type="text"] {
+        textarea, input[type="text"], input[type="number"], select {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #cbd5e1;
@@ -118,7 +119,7 @@
             outline: none;
             transition: border 0.2s;
         }
-        textarea:focus, input[type="text"]:focus {
+        textarea:focus, input[type="text"]:focus, select:focus {
             border-color: #2563eb;
         }
         textarea {
@@ -192,8 +193,9 @@
     <div class="nav-links">
         <a href="#qr-tool">QR Generator</a>
         <a href="#word-tool">Word Counter</a>
-        <a href="#pass-tool">Password Generator</a>
-        <a href="#case-tool">Case Converter</a>
+        <a href="#pass-tool">Password</a>
+        <a href="#speech-tool">Text to Speech</a>
+        <a href="#unit-tool">Unit Converter</a>
     </div>
 </nav>
 
@@ -202,7 +204,7 @@
     <h1>Free Online Tools for Everyone</h1>
     <p>Fast, secure, and easy-to-use web utilities right in your browser.</p>
     <div class="search-box">
-        <input type="text" id="searchTools" placeholder="🔍 Search tools (e.g. QR, Word, Password)..." onkeyup="filterTools()">
+        <input type="text" id="searchTools" placeholder="🔍 Search tools (e.g. QR, Speech, Convert)..." onkeyup="filterTools()">
     </div>
 </header>
 
@@ -222,7 +224,7 @@
         </div>
     </div>
 
-    <!-- Tool 2: Word Counter -->
+    <!-- Tool 2: Real-time Word Counter -->
     <div class="tool" id="word-tool">
         <h2>📝 Real-time Word Counter</h2>
         <p class="desc">Type or paste your text below to count words and characters in real-time.</p>
@@ -233,7 +235,32 @@
         </div>
     </div>
 
-    <!-- Tool 3: Password Generator -->
+    <!-- Tool 3: Text to Speech Player -->
+    <div class="tool" id="speech-tool">
+        <h2>🔊 Text to Speech Player</h2>
+        <p class="desc">Type any text and listen to it read aloud instantly.</p>
+        <textarea id="speechText" placeholder="Enter text to convert into speech..."></textarea>
+        <div>
+            <button onclick="speakText()">▶️ Play Audio</button>
+            <button onclick="stopSpeech()" style="background:#dc2626;">⏹️ Stop</button>
+        </div>
+    </div>
+
+    <!-- Tool 4: Unit Converter -->
+    <div class="tool" id="unit-tool">
+        <h2>📏 Unit Converter (Km <-> Miles)</h2>
+        <p class="desc">Quickly convert distance between Kilometers and Miles.</p>
+        <input type="number" id="unitInput" placeholder="Enter distance number..." oninput="convertUnits()">
+        <select id="unitType" onchange="convertUnits()" style="margin-top:10px;">
+            <option value="kmToMiles">Kilometers to Miles</option>
+            <option value="milesToKm">Miles to Kilometers</option>
+        </select>
+        <div class="stats" style="margin-top:15px;">
+            <div class="stat-box">Result: <span id="unitResult">0</span></div>
+        </div>
+    </div>
+
+    <!-- Tool 5: Password Generator -->
     <div class="tool" id="pass-tool">
         <h2>🔒 Strong Password Generator</h2>
         <p class="desc">Generate secure random passwords instantly for your accounts.</p>
@@ -244,7 +271,7 @@
         </div>
     </div>
 
-    <!-- Tool 4: Text Case Converter -->
+    <!-- Tool 6: Text Case Converter -->
     <div class="tool" id="case-tool">
         <h2>🔤 Text Case Converter</h2>
         <p class="desc">Convert your text easily between UPPERCASE and lowercase.</p>
@@ -328,6 +355,37 @@
         document.getElementById('wordCount').innerText = words;
         document.getElementById('charCount').innerText = text.length;
     });
+
+    // Text to Speech Logic
+    function speakText() {
+        const text = document.getElementById('speechText').value;
+        if (!text) { alert('Please enter some text first!'); return; }
+        window.speechSynthesis.cancel(); // stop current
+        const utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+        window.speechSynthesis.cancel();
+    }
+
+    // Unit Converter Logic
+    function convertUnits() {
+        const val = parseFloat(document.getElementById('unitInput').value);
+        const type = document.getElementById('unitType').value;
+        const resBox = document.getElementById('unitResult');
+
+        if (isNaN(val)) {
+            resBox.innerText = '0';
+            return;
+        }
+
+        if (type === 'kmToMiles') {
+            resBox.innerText = (val * 0.621371).toFixed(2) + ' Miles';
+        } else {
+            resBox.innerText = (val / 0.621371).toFixed(2) + ' Km';
+        }
+    }
 
     // Password Generator Logic
     function generatePassword() {
