@@ -1,85 +1,160 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolNest - Free Online Tools</title>
+    <title>ToolNest - Free Online Tools for Everyone</title>
     <!-- QRCode library CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            text-align: center;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
         }
+        /* Navbar Styling */
+        nav {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero Section */
         header {
-            background: #2563eb;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
-            padding: 30px 20px;
+            padding: 50px 20px;
+            text-align: center;
         }
         header h1 {
-            margin: 0;
+            margin: 0 0 10px 0;
             font-size: 2.5rem;
         }
-        .container {
-            max-width: 800px;
+        header p {
+            margin: 0 0 25px 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .search-box {
+            max-width: 450px;
             margin: auto;
-            padding: 30px 20px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            outline: none;
+        }
+
+        /* Container & Tool Cards */
+        .container {
+            max-width: 850px;
+            margin: auto;
+            padding: 40px 20px;
         }
         .tool {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: left;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
         }
         .tool h2 {
             margin-top: 0;
-            color: #2563eb;
+            color: #1e293b;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        p.desc {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 15px;
         }
         textarea, input[type="text"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-            margin-top: 10px;
+            font-size: 15px;
+            margin-top: 8px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        textarea:focus, input[type="text"]:focus {
+            border-color: #2563eb;
         }
         textarea {
-            height: 120px;
+            height: 110px;
             resize: vertical;
         }
         .stats {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             margin-top: 15px;
-            flex-wrap: wrap;
         }
         .stat-box {
-            background: #f0f7ff;
-            padding: 10px 15px;
+            background: #eff6ff;
+            padding: 8px 16px;
             border-radius: 8px;
-            font-weight: bold;
+            font-weight: 600;
             color: #2563eb;
+            font-size: 14px;
         }
         button {
             background: #2563eb;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 11px 22px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-right: 5px;
-            transition: background 0.2s;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-right: 6px;
+            transition: background 0.2s, transform 0.1s;
         }
         button:hover {
             background: #1d4ed8;
+        }
+        button:active {
+            transform: scale(0.98);
         }
         #qrcode-box {
             margin-top: 15px;
@@ -89,33 +164,58 @@
         }
         #qrcode img, #qrcode canvas {
             margin-top: 10px;
-            border: 5px solid white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
         }
         footer {
-            margin-top: 50px;
-            padding: 20px;
-            background: #222;
-            color: white;
+            margin-top: 60px;
+            padding: 25px;
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            header h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
+<!-- Navigation Bar -->
+<nav>
+    <a href="#" class="logo">ToolNest</a>
+    <div class="nav-links">
+        <a href="#qr-tool">QR Generator</a>
+        <a href="#word-tool">Word Counter</a>
+        <a href="#pass-tool">Password Generator</a>
+        <a href="#case-tool">Case Converter</a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
 <header>
-    <h1>ToolNest</h1>
-    <p>Free Online Tools for Everyone</p>
+    <h1>Free Online Tools for Everyone</h1>
+    <p>Fast, secure, and easy-to-use web utilities right in your browser.</p>
+    <div class="search-box">
+        <input type="text" id="searchTools" placeholder="🔍 Search tools (e.g. QR, Word, Password)..." onkeyup="filterTools()">
+    </div>
 </header>
 
 <div class="container">
 
     <!-- Tool 1: QR Code Generator -->
-    <div class="tool">
-        <h2>📱 Free QR Code Generator</h2>
-        <p>Enter a URL or text below to generate a downloadable QR code instantly.</p>
+    <div class="tool" id="qr-tool">
+        <h2>📱 QR Code Generator</h2>
+        <p class="desc">Enter a URL or text below to generate a downloadable QR code instantly.</p>
         <input type="text" id="qrText" placeholder="https://example.com or enter text here...">
-        <button onclick="generateQRCode()">Generate QR Code</button>
-        
+        <div>
+            <button onclick="generateQRCode()">Generate QR Code</button>
+        </div>
         <div id="qrcode-box">
             <div id="qrcode"></div>
             <button id="downloadBtn" style="display:none;" onclick="downloadQR()">Download QR Code</button>
@@ -123,43 +223,63 @@
     </div>
 
     <!-- Tool 2: Word Counter -->
-    <div class="tool">
-        <h2>📝 Word Counter</h2>
-        <p>Type or paste your text below to count words and characters in real-time.</p>
+    <div class="tool" id="word-tool">
+        <h2>📝 Real-time Word Counter</h2>
+        <p class="desc">Type or paste your text below to count words and characters in real-time.</p>
         <textarea id="wordInput" placeholder="Type or paste text here..."></textarea>
         <div class="stats">
             <div class="stat-box">Words: <span id="wordCount">0</span></div>
             <div class="stat-box">Characters: <span id="charCount">0</span></div>
         </div>
     </div>
- <!-- Tool 3: Password Generator -->
-    <div class="tool">
+
+    <!-- Tool 3: Password Generator -->
+    <div class="tool" id="pass-tool">
         <h2>🔒 Strong Password Generator</h2>
-        <p>Generate secure random passwords instantly.</p>
+        <p class="desc">Generate secure random passwords instantly for your accounts.</p>
         <input type="text" id="passwordOutput" readonly placeholder="Click generate to get password">
-        <button onclick="generatePassword()">Generate Password</button>
-        <button onclick="copyPassword()">Copy</button>
+        <div>
+            <button onclick="generatePassword()">Generate Password</button>
+            <button onclick="copyPassword()" style="background:#475569;">Copy</button>
+        </div>
     </div>
 
     <!-- Tool 4: Text Case Converter -->
-    <div class="tool">
+    <div class="tool" id="case-tool">
         <h2>🔤 Text Case Converter</h2>
-        <p>Convert your text easily between UPPERCASE and lowercase.</p>
+        <p class="desc">Convert your text easily between UPPERCASE and lowercase.</p>
         <textarea id="caseInput" placeholder="Enter text here..."></textarea>
-        <button onclick="convertCase('upper')">UPPERCASE</button>
-        <button onclick="convertCase('lower')">lowercase</button>
+        <div>
+            <button onclick="convertCase('upper')">UPPERCASE</button>
+            <button onclick="convertCase('lower')" style="background:#475569;">lowercase</button>
+        </div>
     </div>
 
 </div>
 
 <footer>
-    © 2026 ToolNest - Built for Speed & Utility
+    © 2026 ToolNest • Built for Speed & Utility
 </footer>
 
 <script>
-    // QR Code Generator Logic
-    let qrcodeObj = null;
+    // Search Filter Logic
+    function filterTools() {
+        const query = document.getElementById('searchTools').value.toLowerCase();
+        const tools = document.querySelectorAll('.tool');
 
+        tools.forEach(tool => {
+            const title = tool.querySelector('h2').innerText.toLowerCase();
+            const desc = tool.querySelector('.desc').innerText.toLowerCase();
+            if (title.includes(query) || desc.includes(query)) {
+                tool.style.display = "block";
+            } else {
+                tool.style.display = "none";
+            }
+        });
+    }
+
+    // QR Code Logic
+    let qrcodeObj = null;
     function generateQRCode() {
         const text = document.getElementById('qrText').value.trim();
         const qrContainer = document.getElementById('qrcode');
@@ -170,8 +290,7 @@
             return;
         }
 
-        qrContainer.innerHTML = ''; // Clear previous QR
-
+        qrContainer.innerHTML = '';
         qrcodeObj = new QRCode(qrContainer, {
             text: text,
             width: 160,
@@ -181,7 +300,6 @@
             correctLevel : QRCode.CorrectLevel.H
         });
 
-        // Show download button after short delay
         setTimeout(() => {
             downloadBtn.style.display = 'inline-block';
         }, 300);
@@ -190,13 +308,7 @@
     function downloadQR() {
         const img = document.querySelector('#qrcode img');
         const canvas = document.querySelector('#qrcode canvas');
-
-        let imageSrc = "";
-        if (img && img.src) {
-            imageSrc = img.src;
-        } else if (canvas) {
-            imageSrc = canvas.toDataURL("image/png");
-        }
+        let imageSrc = img && img.src ? img.src : (canvas ? canvas.toDataURL("image/png") : "");
 
         if (imageSrc) {
             const link = document.createElement('a');
@@ -213,17 +325,15 @@
     wordInput.addEventListener('input', () => {
         const text = wordInput.value.trim();
         const words = text ? text.split(/\s+/).length : 0;
-        const chars = text.length;
-
         document.getElementById('wordCount').innerText = words;
-        document.getElementById('charCount').innerText = chars;
+        document.getElementById('charCount').innerText = text.length;
     });
 
     // Password Generator Logic
     function generatePassword() {
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
         let password = "";
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 14; i++) {
             password += chars.charAt(Math.floor(Math.random() * chars.length));
         }
         document.getElementById('passwordOutput').value = password;
