@@ -3,116 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolNest - Free Online Web Utilities Dashboard</title>
-    <meta name="description" content="ToolNest offers free online utilities like QR Generator, Word Counter, BMI Calculator, and more.">
+    <title>ToolNest - Free Online Utilities</title>
     <style>
         * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
-        }
-        nav {
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #2563eb;
-            text-decoration: none;
-        }
-        header {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-        }
-        header h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
-        header p { margin: 0 0 25px 0; opacity: 0.9; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; color: #0f172a; }
+        nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
         
-        .search-box { max-width: 500px; margin: auto; }
-        .search-box input {
-            width: 100%;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 30px;
-            font-size: 15px;
-            outline: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+        header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 50px 20px; text-align: center; }
+        header h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
+        header p { margin: 0; opacity: 0.9; }
 
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 20px;
-        }
-
-        /* GRID SYSTEM */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 
         .tool-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background: white; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between;
         }
-        .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-        }
-        .tool-card h2 {
-            margin-top: 0;
-            font-size: 1.2rem;
-            color: #1e293b;
-        }
-        .tool-card p.desc {
-            color: #64748b;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
+        .tool-card h2 { margin-top: 0; font-size: 1.2rem; color: #1e293b; }
+        .tool-card p { color: #64748b; font-size: 13px; line-height: 1.5; margin-bottom: 20px; }
 
         .btn-open {
-            display: block;
-            text-align: center;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background 0.2s;
+            display: block; text-align: center; background: #2563eb; color: white;
+            text-decoration: none; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 14px;
         }
         .btn-open:hover { background: #1d4ed8; }
-
-        footer {
-            margin-top: 60px;
-            padding: 25px;
-            background: #0f172a;
-            color: #94a3b8;
-            text-align: center;
-            font-size: 14px;
-        }
+        footer { margin-top: 60px; padding: 25px; background: #0f172a; color: #94a3b8; text-align: center; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -123,76 +40,23 @@
 
 <header>
     <h1>Free Online Web Utilities</h1>
-    <p>Select any tool below to use it in a dedicated full-screen page.</p>
-    <div class="search-box">
-        <input type="text" id="searchTools" placeholder="🔍 Search tools (e.g. QR, BMI, Word)..." onkeyup="filterTools()">
-    </div>
+    <p>Select any tool below to use it instantly.</p>
 </header>
 
 <div class="container">
+    <div class="tools-grid">
 
-    <div class="tools-grid" id="toolsGrid">
-
-        <!-- Tool 1 -->
+        <!-- الأداة 1: QR Code -->
         <div class="tool-card">
             <h2>📱 QR Code Generator</h2>
-            <p class="desc">Generate downloadable custom QR codes from URLs or plain text instantly.</p>
+            <p>Generate downloadable custom QR codes from URLs or plain text instantly.</p>
             <a href="qr-generator.html" class="btn-open">Open Tool →</a>
         </div>
 
-        <!-- Tool 2 -->
-        <div class="tool-card">
-            <h2>📝 Real-time Word Counter</h2>
-            <p class="desc">Count words and characters in real-time with instant text analytics.</p>
-            <a href="word-counter.html" class="btn-open">Open Tool →</a>
-        </div>
-
-        <!-- Tool 3 -->
-        <div class="tool-card">
-            <h2>⚖️ BMI Health Calculator</h2>
-            <p class="desc">Calculate your Body Mass Index (BMI) and discover your health category.</p>
-            <a href="bmi-calculator.html" class="btn-open">Open Tool →</a>
-        </div>
-
-        <!-- Tool 4 -->
-        <div class="tool-card">
-            <h2>🎨 Color Picker & HEX</h2>
-            <p class="desc">Pick colors visually and get HEX/RGB color codes for web design.</p>
-            <a href="color-picker.html" class="btn-open">Open Tool →</a>
-        </div>
-
-        <!-- Tool 5 -->
-        <div class="tool-card">
-            <h2>🎂 Age Calculator</h2>
-            <p class="desc">Calculate exact age in years, months, and days from date of birth.</p>
-            <a href="age-calculator.html" class="btn-open">Open Tool →</a>
-        </div>
-
-        <!-- Tool 6 -->
-        <div class="tool-card">
-            <h2>🔒 Password Generator</h2>
-            <p class="desc">Create strong, secure, and customizable random passwords instantly.</p>
-            <a href="password-generator.html" class="btn-open">Open Tool →</a>
-        </div>
-
     </div>
-
 </div>
 
-<footer>
-    © 2026 ToolNest • Professional Web Utilities
-</footer>
-
-<script>
-    function filterTools() {
-        const query = document.getElementById('searchTools').value.toLowerCase();
-        const cards = document.querySelectorAll('.tool-card');
-        cards.forEach(card => {
-            const text = card.innerText.toLowerCase();
-            card.style.display = text.includes(query) ? "flex" : "none";
-        });
-    }
-</script>
+<footer>© 2026 ToolNest • Professional Web Utilities</footer>
 
 </body>
 </html>
