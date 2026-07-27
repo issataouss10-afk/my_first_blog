@@ -18,10 +18,9 @@
             width: 100%;
             height: 120px;
             border-radius: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border: 2px solid #cbd5e1;
             background-color: #2563eb;
-            transition: background-color 0.1s;
         }
 
         .picker-container {
@@ -49,6 +48,7 @@
             height: 8px;
             border-radius: 5px;
             outline: none;
+            cursor: pointer;
         }
 
         .picker-row span {
@@ -99,56 +99,78 @@
             <div class="picker-container">
                 <div class="picker-row">
                     <label style="color: #ef4444;">Red</label>
-                    <input type="range" id="red" min="0" max="255" value="37" oninput="updateColor()">
+                    <input type="range" id="red" min="0" max="255" value="37">
                     <span id="redVal">37</span>
                 </div>
                 <div class="picker-row">
                     <label style="color: #22c55e;">Green</label>
-                    <input type="range" id="green" min="0" max="255" value="99" oninput="updateColor()">
+                    <input type="range" id="green" min="0" max="255" value="99">
                     <span id="greenVal">99</span>
                 </div>
                 <div class="picker-row">
                     <label style="color: #3b82f6;">Blue</label>
-                    <input type="range" id="blue" min="0" max="255" value="235" oninput="updateColor()">
+                    <input type="range" id="blue" min="0" max="255" value="235">
                     <span id="blueVal">235</span>
                 </div>
             </div>
 
             <div class="code-display">
                 <span>HEX: <span id="hexCode">#2563eb</span></span>
-                <button onclick="copyText('hexCode')">📋 Copy HEX</button>
+                <button id="copyHexBtn">📋 Copy HEX</button>
             </div>
 
             <div class="code-display">
                 <span>RGB: <span id="rgbCode">rgb(37, 99, 235)</span></span>
-                <button onclick="copyText('rgbCode')">📋 Copy RGB</button>
+                <button id="copyRgbBtn">📋 Copy RGB</button>
             </div>
         </div>
     </div>
 
     <script>
-        function updateColor() {
-            let r = parseInt(document.getElementById('red').value);
-            let g = parseInt(document.getElementById('green').value);
-            let b = parseInt(document.getElementById('blue').value);
+        const redInput = document.getElementById('red');
+        const greenInput = document.getElementById('green');
+        const blueInput = document.getElementById('blue');
 
-            document.getElementById('redVal').innerText = r;
-            document.getElementById('greenVal').innerText = g;
-            document.getElementById('blueVal').innerText = b;
+        const redVal = document.getElementById('redVal');
+        const greenVal = document.getElementById('greenVal');
+        const blueVal = document.getElementById('blueVal');
+
+        const preview = document.getElementById('preview');
+        const hexCode = document.getElementById('hexCode');
+        const rgbCode = document.getElementById('rgbCode');
+
+        function updateColor() {
+            let r = parseInt(redInput.value);
+            let g = parseInt(greenInput.value);
+            let b = parseInt(blueInput.value);
+
+            redVal.innerText = r;
+            greenVal.innerText = g;
+            blueVal.innerText = b;
 
             let rgbText = rgb(${r}, ${g}, ${b});
             let hexText = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 
-            document.getElementById('preview').style.backgroundColor = rgbText;
-            document.getElementById('rgbCode').innerText = rgbText;
-            document.getElementById('hexCode').innerText = hexText;
+            preview.style.backgroundColor = rgbText;
+            rgbCode.innerText = rgbText;
+            hexCode.innerText = hexText;
         }
 
-        function copyText(id) {
-            let text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text);
-            alert("Copied: " + text);
-        }
+        // ربط الأحداث مباشرة للضمان
+        [redInput, greenInput, blueInput].forEach(input => {
+            input.addEventListener('input', updateColor);
+            input.addEventListener('change', updateColor);
+        });
+
+        document.getElementById('copyHexBtn').onclick = function() {
+            navigator.clipboard.writeText(hexCode.innerText);
+            alert("Copied HEX: " + hexCode.innerText);
+        };
+
+        document.getElementById('copyRgbBtn').onclick = function() {
+            navigator.clipboard.writeText(rgbCode.innerText);
+            alert("Copied RGB: " + rgbCode.innerText);
+        };
 
         updateColor();
     </script>
