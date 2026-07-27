@@ -1,0 +1,30 @@
+[
+  {
+    "id": "qr-generator",
+    "name": "📱 QR Code Generator",
+    "category": "Image & Media Tools",
+    "desc": "Generate downloadable custom QR codes instantly.",
+    "url": "qr-generator.html"
+  },
+  {
+    "id": "image-compressor",
+    "name": "📷 Image Compressor",
+    "category": "Image & Media Tools",
+    "desc": "Reduce image file size instantly without quality loss.",
+    "url": "image-compressor.html"
+  },
+  {
+    "id": "word-counter",
+    "name": "📝 Word Counter",
+    "category": "Text & Content Tools",
+    "desc": "Count words, characters, and reading time in real-time.",
+    "url": "word-counter.html"
+  },
+  {
+    "id": "case-converter",
+    "name": "🔤 Text Case Converter",
+    "category": "Text & Content Tools",
+    "desc": "Convert text to UPPERCASE, lowercase, Title Case, and more.",
+    "url": "case-converter.html"
+  }
+]
