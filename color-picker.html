@@ -14,13 +14,38 @@
         h1 { font-size: 1.8rem; margin-bottom: 10px; color: #1e293b; }
         p.subtitle { color: #64748b; margin-bottom: 25px; }
         
-        .color-display-box {
+        .color-box-container {
+            position: relative;
             width: 100%;
             height: 120px;
-            border-radius: 10px;
             margin-bottom: 20px;
+        }
+
+        #colorNative {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .color-display-box {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
             border: 2px solid #cbd5e1;
             background-color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
         }
 
         .picker-container {
@@ -55,6 +80,7 @@
             width: 40px;
             font-family: monospace;
             font-weight: bold;
+            text-align: right;
         }
 
         .code-display {
@@ -91,10 +117,13 @@
 
     <div class="container">
         <div class="card">
-            <h1>🎨 Custom Color Picker</h1>
-            <p class="subtitle">Adjust Red, Green, and Blue sliders to generate custom color codes.</p>
+            <h1>🎨 Interactive Color Picker</h1>
+            <p class="subtitle">Click the color box or move sliders to pick any color!</p>
             
-            <div id="preview" class="color-display-box"></div>
+            <div class="color-box-container">
+                <input type="color" id="colorNative" value="#2563eb">
+                <div id="preview" class="color-display-box">Click here to choose color 🖌️</div>
+            </div>
 
             <div class="picker-container">
                 <div class="picker-row">
@@ -127,52 +156,83 @@
     </div>
 
     <script>
-        const redInput = document.getElementById('red');
-        const greenInput = document.getElementById('green');
-        const blueInput = document.getElementById('blue');
+        window.addEventListener('DOMContentLoaded', function() {
+            var redInput = document.getElementById('red');
+            var greenInput = document.getElementById('green');
+            var blueInput = document.getElementById('blue');
+            var colorNative = document.getElementById('colorNative');
 
-        const redVal = document.getElementById('redVal');
-        const greenVal = document.getElementById('greenVal');
-        const blueVal = document.getElementById('blueVal');
+            var redVal = document.getElementById('redVal');
+            var greenVal = document.getElementById('greenVal');
+            var blueVal = document.getElementById('blueVal');
 
-        const preview = document.getElementById('preview');
-        const hexCode = document.getElementById('hexCode');
-        const rgbCode = document.getElementById('rgbCode');
+            var preview = document.getElementById('preview');
+            var hexCode = document.getElementById('hexCode');
+            var rgbCode = document.getElementById('rgbCode');
 
-        function updateColor() {
-            let r = parseInt(redInput.value);
-            let g = parseInt(greenInput.value);
-            let b = parseInt(blueInput.value);
+            function rgbToHex(r, g, b) {
+                return "#" + [r, g, b].map(function(x) {
+                    var hex = parseInt(x).toString(16);
+                    return hex.length === 1 ? "0" + hex : hex;
+                }).join("");
+            }
 
-            redVal.innerText = r;
-            greenVal.innerText = g;
-            blueVal.innerText = b;
+            function hexToRgb(hex) {
+                var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : null;
+            }
 
-            let rgbText = rgb(${r}, ${g}, ${b});
-            let hexText = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            function updateFromSliders() {
+                var r = redInput.value;
+                var g = greenInput.value;
+                var b = blueInput.value;
 
-            preview.style.backgroundColor = rgbText;
-            rgbCode.innerText = rgbText;
-            hexCode.innerText = hexText;
-        }
+                redVal.innerHTML = r;
+                greenVal.innerHTML = g;
+                blueVal.innerHTML = b;
 
-        // ربط الأحداث مباشرة للضمان
-        [redInput, greenInput, blueInput].forEach(input => {
-            input.addEventListener('input', updateColor);
-            input.addEventListener('change', updateColor);
+                var hex = rgbToHex(r, g, b);
+                var rgb = "rgb(" + r + ", " + g + ", " + b + ")";
+
+                preview.style.backgroundColor = hex;
+                hexCode.innerHTML = hex;
+                rgbCode.innerHTML = rgb;
+                colorNative.value = hex;
+            }
+
+            function updateFromNative() {
+                var hex = colorNative.value;
+                var rgb = hexToRgb(hex);
+                if (rgb) {
+                    redInput.value = rgb.r;
+                    greenInput.value = rgb.g;
+                    blueInput.value = rgb.b;
+                    updateFromSliders();
+                }
+            }
+
+            redInput.oninput = updateFromSliders;
+            greenInput.oninput = updateFromSliders;
+            blueInput.oninput = updateFromSliders;
+
+            colorNative.oninput = updateFromNative;
+
+            document.getElementById('copyHexBtn').onclick = function() {
+                navigator.clipboard.writeText(hexCode.innerText);
+                alert("Copied HEX: " + hexCode.innerText);
+            };
+
+            document.getElementById('copyRgbBtn').onclick = function() {
+                navigator.clipboard.writeText(rgbCode.innerText);
+                alert("Copied RGB: " + rgbCode.innerText);
+            };
+
+            updateFromSliders();
         });
-
-        document.getElementById('copyHexBtn').onclick = function() {
-            navigator.clipboard.writeText(hexCode.innerText);
-            alert("Copied HEX: " + hexCode.innerText);
-        };
-
-        document.getElementById('copyRgbBtn').onclick = function() {
-            navigator.clipboard.writeText(rgbCode.innerText);
-            alert("Copied RGB: " + rgbCode.innerText);
-        };
-
-        updateColor();
     </script>
 
 </body>
