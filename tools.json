@@ -68,5 +68,12 @@
     "category": "Text & Content Tools",
     "desc": "Calculate estimated reading time and speaking duration for speeches and articles.",
     "url": "reading-time-calculator.html"
+  },
+  {
+    "id": "unit-converter",
+    "name": "📏 Universal Unit Converter",
+    "category": "Calculators & Utility",
+    "desc": "Convert length, weight, and temperature units instantly.",
+    "url": "unit-converter.html"
   }
 ]
