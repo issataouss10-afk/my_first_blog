@@ -3,142 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>ToolNest - Free Online Utilities & Web Tools</title>
-    <meta name="description" content="ToolNest provides 100% free online web utilities including QR Code Generator, Image Compressor, Word Counter, Text Case Converter, and more. Instant use with no sign-up required.">
-    <meta name="keywords" content="free online tools, qr code generator, image compressor, word counter, case converter, web utilities, toolnest">
+    <meta name="description" content="ToolNest provides 100% free online web utilities. Fast, secure, and no sign-up required.">
+    <meta name="keywords" content="free online tools, qr code generator, image compressor, word counter, case converter, toolnest">
     <meta name="robots" content="index, follow">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f8fafc;
-            color: #0f172a;
-        }
-
-        nav {
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #2563eb;
-            text-decoration: none;
-        }
-
-        header {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-
-        .search-container {
-            margin-top: 20px;
-        }
-
-        .search-input {
-            width: 100%;
-            max-width: 450px;
-            padding: 12px 20px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 25px;
-            outline: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .category-title {
-            font-size: 1.4rem;
-            color: #1e293b;
-            margin-bottom: 15px;
-            margin-top: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 8px;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .tool-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .tool-card h2 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #1e293b;
-        }
-
-        .tool-card p {
-            color: #64748b;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        .btn-open {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .btn-open:hover {
-            background: #1d4ed8;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #64748b;
-            margin-top: 40px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8fafc; color: #0f172a; }
+        nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
+        header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; text-align: center; padding: 40px 20px; }
+        header h1 { font-size: 2.2rem; margin-bottom: 10px; }
+        .search-container { margin-top: 20px; }
+        .search-input { width: 100%; max-width: 450px; padding: 12px 20px; font-size: 1rem; border: none; border-radius: 25px; outline: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .category-title { font-size: 1.4rem; color: #1e293b; margin-bottom: 15px; margin-top: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .tool-card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; }
+        .tool-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .tool-card h2 { font-size: 1.2rem; margin-bottom: 10px; color: #1e293b; }
+        .tool-card p { color: #64748b; font-size: 0.95rem; margin-bottom: 20px; }
+        .btn-open { display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 10px 15px; border-radius: 6px; text-align: center; font-weight: 600; }
+        .btn-open:hover { background: #1d4ed8; }
+        footer { text-align: center; padding: 20px; color: #64748b; margin-top: 40px; }
     </style>
 </head>
 <body>
@@ -150,50 +38,13 @@
     <header>
         <h1>Free Online Web Utilities</h1>
         <p>Select any tool below to use it instantly.</p>
-        
         <div class="search-container">
             <input type="text" id="searchInput" onkeyup="filterTools()" class="search-input" placeholder="🔍 Search for a tool...">
         </div>
     </header>
 
-    <div class="container">
-        
-        <!-- القسم 1: أدوات الصور -->
-        <h2 class="category-title">🖼️ Image & Media Tools</h2>
-        <div class="tools-grid">
-            
-            <div class="tool-card">
-                <h2>📱 QR Code Generator</h2>
-                <p>Generate downloadable custom QR codes instantly.</p>
-                <a href="qr-generator.html" class="btn-open">Open Tool →</a>
-            </div>
-
-            <div class="tool-card">
-                <h2>📷 Image Compressor</h2>
-                <p>Reduce image file size instantly without quality loss.</p>
-                <a href="image-compressor.html" class="btn-open">Open Tool →</a>
-            </div>
-
-        </div>
-
-        <!-- القسم 2: أدوات النصوص -->
-        <h2 class="category-title">📝 Text & Content Tools</h2>
-        <div class="tools-grid">
-            
-            <div class="tool-card">
-                <h2>📝 Word Counter</h2>
-                <p>Count words, characters, and reading time in real-time.</p>
-                <a href="word-counter.html" class="btn-open">Open Tool →</a>
-            </div>
-
-            <div class="tool-card">
-                <h2>🔤 Text Case Converter</h2>
-                <p>Convert text to UPPERCASE, lowercase, Title Case, and more.</p>
-                <a href="case-converter.html" class="btn-open">Open Tool →</a>
-            </div>
-
-        </div>
-
+    <div class="container" id="mainContainer">
+        <!-- غيتم تحميل الأدوات هنا أوتوماتيكيا -->
     </div>
 
     <footer>
@@ -201,6 +52,47 @@
     </footer>
 
     <script>
+        // تحميل الأدوات ديناميكياً من ملف JSON
+        fetch('tools.json')
+            .then(response => response.json())
+            .then(tools => {
+                const container = document.getElementById('mainContainer');
+                const categories = {};
+
+                // تجميع الأدوات حسب الكتيجوري
+                tools.forEach(tool => {
+                    if (!categories[tool.category]) {
+                        categories[tool.category] = [];
+                    }
+                    categories[tool.category].push(tool);
+                });
+
+                // عرض الكتيجوريات والأدوات
+                for (const cat in categories) {
+                    const catTitle = document.createElement('h2');
+                    catTitle.className = 'category-title';
+                    catTitle.innerText = cat;
+                    container.appendChild(catTitle);
+
+                    const grid = document.createElement('div');
+                    grid.className = 'tools-grid';
+
+                    categories[cat].forEach(tool => {
+                        const card = document.createElement('div');
+                        card.className = 'tool-card';
+                        card.innerHTML = `
+                            <h2>${tool.name}</h2>
+                            <p>${tool.desc}</p>
+                            <a href="${tool.url}" class="btn-open">Open Tool →</a>
+                        `;
+                        grid.appendChild(card);
+                    });
+
+                    container.appendChild(grid);
+                }
+            });
+
+        // خدمة البحث
         function filterTools() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.getElementsByClassName('tool-card');
