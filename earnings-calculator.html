@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok & YouTube Earnings Calculator - ToolNest</title>
+  <meta name="description" content="Estimate potential earnings and ad revenue for TikTok and YouTube channels based on views and video counts for free.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4RLN0M7YFJ');
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; min-height: 100vh; }
+    nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
+    header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; text-align: center; padding: 40px 20px; }
+    header h1 { font-size: 2.2rem; margin-bottom: 10px; }
+    header p { opacity: 0.9; max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+    
+    .container { max-width: 700px; margin: -30px auto 40px auto; padding: 0 20px; width: 100%; }
+    .tool-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    
+    .input-group { margin-bottom: 20px; text-align: left; }
+    .input-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #334155; }
+    select, input[type="number"] { width: 100%; padding: 12px; font-size: 1rem; border: 2px solid #cbd5e1; border-radius: 8px; outline: none; background: #fff; transition: 0.3s; }
+    select:focus, input[type="number"]:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+    
+    .calc-btn { background: #2563eb; color: white; border: none; width: 100%; padding: 14px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+    .calc-btn:hover { background: #1d4ed8; }
+
+    .result-box { margin-top: 25px; background: #f1f5f9; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center; display: none; }
+    .result-box h3 { color: #1e293b; margin-bottom: 8px; font-size: 1.2rem; }
+    .result-value { font-size: 2rem; font-weight: 800; color: #16a34a; }
+
+    footer { background: #0f172a; color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9rem; }
+    footer a { color: #60a5fa; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">ToolNest</a>
+  </nav>
+
+  <header>
+    <h1>TikTok & YouTube Earnings Calculator</h1>
+    <p>Estimate potential creator ad revenue based on daily views.</p>
+  </header>
+
+  <div class="container">
+    <div class="tool-card">
+      <div class="input-group">
+        <label for="platform">Select Platform:</label>
+        <select id="platform">
+          <option value="tiktok">TikTok (Creator Rewards / Gifts)</option>
+          <option value="youtube">YouTube (AdSense / CPM)</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="views">Estimated Daily Views:</label>
+        <input type="number" id="views" placeholder="e.g. 50000" min="0">
+      </div>
+
+      <button class="calc-btn" onclick="calculateEarnings()">Calculate Earnings</button>
+
+      <div id="resultBox" class="result-box">
+        <h3>Estimated Daily Earnings:</h3>
+        <div id="dailyResult" class="result-value">$0.00</div>
+        <p id="monthlyResult" style="color: #64748b; margin-top: 8px; font-size: 0.95rem;"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 ToolNest. All rights reserved. | <a href="index.html">Back to All Tools</a></p>
+  </footer>
+
+  <script>
+    function calculateEarnings() {
+      const platform = document.getElementById('platform').value;
+      const views = parseFloat(document.getElementById('views').value);
+
+      if (isNaN(views) || views < 0) {
+        alert('Please enter a valid number of views.');
+        return;
+      }
+
+      let dailyMin = 0;
+      let dailyMax = 0;
+
+      if (platform === 'tiktok') {
+        // TikTok estimated RPM roughly $0.02 to $0.05 per 1000 views
+        dailyMin = (views / 1000) * 0.02;
+        dailyMax = (views / 1000) * 0.05;
+      } else {
+        // YouTube estimated RPM roughly $1.00 to $4.00 per 1000 views
+        dailyMin = (views / 1000) * 1.00;
+        dailyMax = (views / 1000) * 4.00;
+      }
+
+      const monthlyMin = dailyMin * 30;
+      const monthlyMax = dailyMax * 30;
+
+      const resultBox = document.getElementById('resultBox');
+      const dailyResult = document.getElementById('dailyResult');
+      const monthlyResult = document.getElementById('monthlyResult');
+
+      dailyResult.innerText = $${dailyMin.toFixed(2)} - $${dailyMax.toFixed(2)};
+      monthlyResult.innerText = Estimated Monthly: $${monthlyMin.toFixed(2)} - $${monthlyMax.toFixed(2)};
+      resultBox.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
