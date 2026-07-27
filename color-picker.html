@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker & HEX Generator - ToolNest</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8fafc; color: #0f172a; }
+        nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
+        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: center; }
+        h1 { font-size: 1.8rem; margin-bottom: 10px; color: #1e293b; }
+        p.subtitle { color: #64748b; margin-bottom: 25px; }
+        .color-box { width: 100%; height: 150px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #e2e8f0; transition: background-color 0.2s; }
+        input[type="color"] { width: 100%; height: 50px; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 20px; background: none; }
+        .code-display { background: #f1f5f9; padding: 15px; border-radius: 8px; font-size: 1.2rem; font-weight: bold; font-family: monospace; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        button { background: #2563eb; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        button:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">← ToolNest</a>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <h1>🎨 Color Picker & HEX Code</h1>
+            <p class="subtitle">Select any color to get HEX and RGB codes instantly.</p>
+            
+            <div id="colorPreview" class="color-box" style="background-color: #2563eb;"></div>
+            
+            <input type="color" id="colorInput" value="#2563eb" oninput="updateColor()">
+
+            <div class="code-display">
+                <span>HEX: <span id="hexCode">#2563eb</span></span>
+                <button onclick="copyCode('hexCode')">📋 Copy HEX</button>
+            </div>
+
+            <div class="code-display">
+                <span>RGB: <span id="rgbCode">rgb(37, 99, 235)</span></span>
+                <button onclick="copyCode('rgbCode')">📋 Copy RGB</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateColor() {
+            let color = document.getElementById('colorInput').value;
+            document.getElementById('colorPreview').style.backgroundColor = color;
+            document.getElementById('hexCode').innerText = color;
+
+            // تحويل HEX لـ RGB
+            let r = parseInt(color.substr(1,2), 16);
+            let g = parseInt(color.substr(3,2), 16);
+            let b = parseInt(color.substr(5,2), 16);
+            document.getElementById('rgbCode').innerText = rgb(${r}, ${g}, ${b});
+        }
+
+        function copyCode(id) {
+            let text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Copied: " + text);
+        }
+    </script>
+
+</body>
+</html>
