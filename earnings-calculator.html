@@ -98,11 +98,9 @@
       let dailyMax = 0;
 
       if (platform === 'tiktok') {
-        // TikTok estimated RPM roughly $0.02 to $0.05 per 1000 views
         dailyMin = (views / 1000) * 0.02;
         dailyMax = (views / 1000) * 0.05;
       } else {
-        // YouTube estimated RPM roughly $1.00 to $4.00 per 1000 views
         dailyMin = (views / 1000) * 1.00;
         dailyMax = (views / 1000) * 4.00;
       }
