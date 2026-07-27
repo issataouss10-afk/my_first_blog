@@ -54,5 +54,12 @@
     "category": "Social & Text Tools",
     "desc": "Generate cool fonts and stylish text for Instagram bios, TikTok, and WhatsApp.",
     "url": "fancy-text.html"
+  },
+  {
+    "id": "earnings-calculator",
+    "name": "💰 TikTok & YouTube Calculator",
+    "category": "Social & Text Tools",
+    "desc": "Estimate creator earnings and ad revenue based on daily views.",
+    "url": "earnings-calculator.html"
   }
 ]
