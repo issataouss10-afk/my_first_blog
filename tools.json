@@ -33,5 +33,19 @@
     "category": "Security & Tech Tools",
     "desc": "Generate strong, secure, and random passwords instantly.",
     "url": "password-generator.html"
+  },
+  {
+    "id": "color-picker",
+    "name": "🎨 Color Picker & HEX Code",
+    "category": "Security & Tech Tools",
+    "desc": "Pick colors and copy HEX and RGB codes instantly.",
+    "url": "color-picker.html"
+  },
+  {
+    "id": "age-calculator",
+    "name": "🎂 Age Calculator",
+    "category": "Calculators & Utility",
+    "desc": "Calculate your exact age in years, months, and days.",
+    "url": "age-calculator.html"
   }
 ]
