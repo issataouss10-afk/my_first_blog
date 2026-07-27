@@ -4,64 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToolNest - Free Online Utilities</title>
-    <style>
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; color: #0f172a; }
-        nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
-        
-        header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 50px 20px; text-align: center; }
-        header h1 { margin: 0 0 10px 0; font-size: 2.2rem; }
-        header p { margin: 0; opacity: 0.9; }
-
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-
-        .tool-card {
-            background: white; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .tool-card h2 { margin-top: 0; font-size: 1.2rem; color: #1e293b; }
-        .tool-card p { color: #64748b; font-size: 13px; line-height: 1.5; margin-bottom: 20px; }
-
-        .btn-open {
-            display: block; text-align: center; background: #2563eb; color: white;
-            text-decoration: none; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 14px;
-        }
-        .btn-open:hover { background: #1d4ed8; }
-        footer { margin-top: 60px; padding: 25px; background: #0f172a; color: #94a3b8; text-align: center; font-size: 14px; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav>
-    <a href="index.html" class="logo">ToolNest</a>
-</nav>
+    <nav>
+        <a href="index.html" class="logo">ToolNest</a>
+    </nav>
 
-<header>
-    <h1>Free Online Web Utilities</h1>
-    <p>Select any tool below to use it instantly.</p>
-</header>
+    <header>
+        <h1>Free Online Web Utilities</h1>
+        <p>Select any tool below to use it instantly.</p>
+    </header>
 
-<div class="container">
-    <div class="tools-grid">
+    <div class="container">
+        <div class="tools-grid">
+            
+            <!-- الأداة 1: QR Code -->
+            <div class="tool-card">
+                <h2>📱 QR Code Generator</h2>
+                <p>Generate downloadable custom QR codes instantly.</p>
+                <a href="qr-generator.html" class="btn-open">Open Tool →</a>
+            </div>
 
-        <!-- الأداة 1: QR Code -->
-        <div class="tool-card">
-            <h2>📱 QR Code Generator</h2>
-            <p>Generate downloadable custom QR codes from URLs or plain text instantly.</p>
-            <a href="qr-generator.html" class="btn-open">Open Tool →</a>
-        </div>
-<!-- الأداة 2: Image Compressor -->
-        <div class="tool-card">
-            <h2>📷 Image Compressor</h2>
-            <p>Reduce image file size instantly without quality loss.</p>
-            <a href="image-compressor.html" class="btn-open">Open Tool -></a>
+            <!-- الأداة 2: Image Compressor -->
+            <div class="tool-card">
+                <h2>📷 Image Compressor</h2>
+                <p>Reduce image file size instantly without quality loss.</p>
+                <a href="image-compressor.html" class="btn-open">Open Tool →</a>
+            </div>
+
         </div>
     </div>
-</div>
 
-<footer>© 2026 ToolNest • Professional Web Utilities</footer>
+    <footer>
+        <p>© 2026 ToolNest • Professional Web Utilities</p>
+    </footer>
 
 </body>
 </html>
