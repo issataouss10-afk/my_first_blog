@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Compressor - ToolNest</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header style="text-align: center; padding: 20px;">
+        <h1><a href="index.html" style="text-decoration: none; color: #2563eb;">ToolNest</a></h1>
+    </header>
+
+    <main style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; text-align: center;">
+        <h2>📷 Image Compressor</h2>
+        <p>Select an image to reduce its file size:</p>
+        <br>
+        <input type="file" id="upload-image" accept="image/*" />
+        <br><br>
+        <button onclick="compressImage()" style="padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 5px; cursor: pointer;">Compress Image</button>
+
+        <div id="result" style="margin-top: 20px; display: none;">
+            <p id="size-info"></p>
+            <br>
+            <a id="download-btn" style="padding: 10px 15px; background: green; color: white; text-decoration: none; border-radius: 5px;" download="compressed.jpg">Download Image</a>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+    <script>
+    async function compressImage() {
+      const fileInput = document.getElementById('upload-image');
+      if (!fileInput.files[0]) {
+        alert('Please select an image first!');
+        return;
+      }
+      const options = { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true };
+      try {
+        const compressedFile = await imageCompression(fileInput.files[0], options);
+        document.getElementById('size-info').innerText = 
+          Original: ${(fileInput.files[0].size / 1024).toFixed(2)} KB ➔ New: ${(compressedFile.size / 1024).toFixed(2)} KB;
+        document.getElementById('download-btn').href = URL.createObjectURL(compressedFile);
+        document.getElementById('result').style.display = 'block';
+      } catch (e) {
+        alert('Error compressing image');
+      }
+    }
+    </script>
+</body>
+</html>
