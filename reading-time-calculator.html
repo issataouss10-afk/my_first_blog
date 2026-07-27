@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech & Reading Time Calculator - ToolNest</title>
+  <meta name="description" content="Calculate estimated reading time and speaking speed for speeches, presentations, and articles for free.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4RLN0M7YFJ');
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; min-height: 100vh; }
+    nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
+    header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; text-align: center; padding: 40px 20px; }
+    header h1 { font-size: 2.2rem; margin-bottom: 10px; }
+    header p { opacity: 0.9; max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+    
+    .container { max-width: 800px; margin: -30px auto 40px auto; padding: 0 20px; width: 100%; }
+    .tool-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    
+    textarea { width: 100%; height: 200px; padding: 15px; font-size: 1rem; border: 2px solid #cbd5e1; border-radius: 8px; outline: none; margin-bottom: 20px; resize: vertical; transition: 0.3s; }
+    textarea:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 10px; }
+    .stat-card { background: #f1f5f9; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center; }
+    .stat-card h4 { color: #64748b; font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; }
+    .stat-card p { font-size: 1.3rem; font-weight: 700; color: #2563eb; }
+
+    footer { background: #0f172a; color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9rem; }
+    footer a { color: #60a5fa; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">ToolNest</a>
+  </nav>
+
+  <header>
+    <h1>Speech & Reading Time Calculator</h1>
+    <p>Estimate how long it will take to read or present your text aloud.</p>
+  </header>
+
+  <div class="container">
+    <div class="tool-card">
+      <textarea id="textInput" placeholder="Paste or type your text here..." oninput="calculateTime()"></textarea>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h4>Total Words</h4>
+          <p id="wordCount">0</p>
+        </div>
+        <div class="stat-card">
+          <h4>Silent Reading Time</h4>
+          <p id="readingTime">0 sec</p>
+        </div>
+        <div class="stat-card">
+          <h4>Speech Time (Speaking)</h4>
+          <p id="speakingTime">0 sec</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 ToolNest. All rights reserved. | <a href="index.html">Back to All Tools</a></p>
+  </footer>
+
+  <script>
+    function calculateTime() {
+      const text = document.getElementById('textInput').value.trim();
+      const words = text ? text.split(/\s+/).filter(word => word.length > 0).length : 0;
+
+      document.getElementById('wordCount').innerText = words;
+
+      // Average reading speed: ~200 words per minute
+      const readMinutes = words / 200;
+      document.getElementById('readingTime').innerText = formatTime(readMinutes);
+
+      // Average speaking speed: ~130 words per minute
+      const speakMinutes = words / 130;
+      document.getElementById('speakingTime').innerText = formatTime(speakMinutes);
+    }
+
+    function formatTime(totalMinutes) {
+      if (totalMinutes === 0) return '0 sec';
+      const minutes = Math.floor(totalMinutes);
+      const seconds = Math.round((totalMinutes - minutes) * 60);
+
+      if (minutes === 0) {
+        return ${seconds} sec;
+      } else if (seconds === 0) {
+        return ${minutes} min;
+      } else {
+        return ${minutes} min ${seconds} sec;
+      }
+    }
+  </script>
+</body>
+</html>
