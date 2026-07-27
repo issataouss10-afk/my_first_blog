@@ -45,7 +45,6 @@
             margin-bottom: 10px;
         }
 
-        /* شريط البحث */
         .search-container {
             margin-top: 20px;
         }
@@ -67,7 +66,6 @@
             padding: 0 20px;
         }
 
-        /* عناوين الأقسام */
         .category-title {
             font-size: 1.4rem;
             color: #1e293b;
@@ -148,7 +146,6 @@
         <h1>Free Online Web Utilities</h1>
         <p>Select any tool below to use it instantly.</p>
         
-        <!-- خانة البحث -->
         <div class="search-container">
             <input type="text" id="searchInput" onkeyup="filterTools()" class="search-input" placeholder="🔍 Search for a tool...">
         </div>
@@ -156,7 +153,7 @@
 
     <div class="container">
         
-        <!-- قسم أدوات الصور -->
+        <!-- القسم 1: أدوات الصور -->
         <h2 class="category-title">🖼️ Image & Media Tools</h2>
         <div class="tools-grid">
             
@@ -174,13 +171,24 @@
 
         </div>
 
+        <!-- القسم 2: أدوات النصوص -->
+        <h2 class="category-title">📝 Text & Content Tools</h2>
+        <div class="tools-grid">
+            
+            <div class="tool-card">
+                <h2>📝 Word Counter</h2>
+                <p>Count words, characters, and reading time in real-time.</p>
+                <a href="word-counter.html" class="btn-open">Open Tool →</a>
+            </div>
+
+        </div>
+
     </div>
 
     <footer>
         <p>© 2026 ToolNest • Professional Web Utilities</p>
     </footer>
 
-    <!-- كود بسيط باش خدمة البحث تشتغل فالبلاصة -->
     <script>
         function filterTools() {
             let input = document.getElementById('searchInput').value.toLowerCase();
