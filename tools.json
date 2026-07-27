@@ -82,5 +82,12 @@
     "category": "Security & Tech Tools",
     "desc": "Convert markdown text into standard clean HTML code instantly.",
     "url": "markdown-converter.html"
+  },
+  {
+    "id": "base64-tool",
+    "name": "🔐 Base64 Encoder / Decoder",
+    "category": "Security & Tech Tools",
+    "desc": "Encode and decode text to and from Base64 format instantly.",
+    "url": "base64-tool.html"
   }
 ]
