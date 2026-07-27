@@ -47,5 +47,12 @@
     "category": "Calculators & Utility",
     "desc": "Calculate your exact age in years, months, and days.",
     "url": "age-calculator.html"
+  },
+  {
+    "id": "fancy-text",
+    "name": "✨ Fancy Text Generator",
+    "category": "Social & Text Tools",
+    "desc": "Generate cool fonts and stylish text for Instagram bios, TikTok, and WhatsApp.",
+    "url": "fancy-text.html"
   }
 ]
