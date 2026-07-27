@@ -61,5 +61,12 @@
     "category": "Social & Text Tools",
     "desc": "Estimate creator earnings and ad revenue based on daily views.",
     "url": "earnings-calculator.html"
+  },
+  {
+    "id": "reading-time-calculator",
+    "name": "⏱️ Speech & Reading Time Calculator",
+    "category": "Text & Content Tools",
+    "desc": "Calculate estimated reading time and speaking duration for speeches and articles.",
+    "url": "reading-time-calculator.html"
   }
 ]
