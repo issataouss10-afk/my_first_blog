@@ -26,5 +26,12 @@
     "category": "Text & Content Tools",
     "desc": "Convert text to UPPERCASE, lowercase, Title Case, and more.",
     "url": "case-converter.html"
+  },
+  {
+    "id": "password-generator",
+    "name": "🔐 Password Generator",
+    "category": "Security & Tech Tools",
+    "desc": "Generate strong, secure, and random passwords instantly.",
+    "url": "password-generator.html"
   }
 ]
