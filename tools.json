@@ -75,5 +75,12 @@
     "category": "Calculators & Utility",
     "desc": "Convert length, weight, and temperature units instantly.",
     "url": "unit-converter.html"
+  },
+  {
+    "id": "markdown-converter",
+    "name": "📝 Markdown to HTML Converter",
+    "category": "Security & Tech Tools",
+    "desc": "Convert markdown text into standard clean HTML code instantly.",
+    "url": "markdown-converter.html"
   }
 ]
