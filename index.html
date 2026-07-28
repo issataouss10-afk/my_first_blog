@@ -6,45 +6,79 @@
     <title>ToolNest - Free Online Developer Utilities</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom smooth transition and glow effects */
+        .tool-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(59 130 246 / 0.15), 0 8px 10px -6px rgb(59 130 246 / 0.1);
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
 
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-slate-200">
+    <header class="bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-blue-600 flex items-center gap-2">
+            <h1 class="text-2xl font-black tracking-tight text-blue-600 flex items-center gap-2">
                 <i class="fa-solid fa-toolbox"></i> ToolNest
             </h1>
-            <p class="text-sm text-slate-500 hidden sm:block">Free, Fast & Simple Online Utilities</p>
+            <p class="text-sm font-medium text-slate-500 hidden sm:block">Free, Fast & Pro Developer Utilities</p>
         </div>
     </header>
 
     <!-- Hero Section -->
     <main class="max-w-6xl mx-auto px-4 py-16 flex-grow">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3">Welcome to ToolNest</h2>
-            <p class="text-slate-600 text-lg max-w-2xl mx-auto">Your ultimate collection of free daily developer and web tools to make your work easier.</p>
+        <div class="text-center mb-16">
+            <span class="bg-blue-50 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 uppercase tracking-widest mb-3 inline-block shadow-sm">
+                <i class="fa-solid fa-bolt text-amber-500"></i> Next-Gen Utilities
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mb-4 tracking-tight">Welcome to ToolNest</h2>
+            <p class="text-slate-600 text-lg max-w-2xl mx-auto font-normal">Your ultimate collection of professional web tools, designed with elegance and speed to power your daily workflow.</p>
         </div>
 
         <!-- Tools Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tools-container">
-            <!-- QR Code Generator Card -->
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tools-container">
+            
+            <!-- QR Code Generator Pro Card (Animated & Glowing) -->
+            <div class="tool-card bg-white p-7 rounded-3xl shadow-sm border border-slate-200/80 flex flex-col justify-between relative overflow-hidden group">
+                <!-- Background ambient glow on hover -->
+                <div class="absolute -right-12 -top-12 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition duration-500"></div>
+
                 <div>
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                    <!-- Icon Box with animation -->
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-2xl flex items-center justify-center text-2xl mb-5 shadow-md shadow-blue-500/20 group-hover:scale-110 transition duration-300">
                         <i class="fa-solid fa-qrcode"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">QR Code Generator</h3>
-                    <p class="text-slate-600 text-sm mb-4">Generate clean and custom QR codes instantly for URLs, text, and contact info.</p>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition">QR Code Generator</h3>
+                    <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+                        Create custom, high-resolution QR codes instantly with real-time preview and HD downloads.
+                    </p>
                 </div>
-                <a href="qr-generator.html" class="block text-center bg-blue-600 text-white font-medium py-2 rounded-lg hover:bg-blue-700 transition">Use Tool</a>
+
+                <a href="qr-generator.html" class="w-full bg-slate-900 text-white font-semibold py-3.5 px-4 rounded-xl hover:bg-blue-600 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm group-hover:shadow-lg group-hover:shadow-blue-600/25">
+                    <span>Launch Tool</span>
+                    <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition duration-300"></i>
+                </a>
             </div>
+
+            <!-- Future tools slots (will be added soon) -->
+            <div class="border-2 border-dashed border-slate-200 rounded-3xl p-7 flex flex-col items-center justify-center text-center text-slate-400 min-h-[260px] hover:border-blue-400 hover:bg-blue-50/30 transition duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mb-3 text-lg">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <h4 class="font-bold text-slate-600 text-base mb-1">More Tools Coming</h4>
+                <p class="text-xs text-slate-400">We are building more utilities for you.</p>
+            </div>
+
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm text-slate-500">
-        <p>© 2026 ToolNest. All rights reserved.</p>
+        <p>© 2026 ToolNest. Built with passion & precision.</p>
     </footer>
 
 </body>
