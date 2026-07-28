@@ -73,9 +73,9 @@
       { transform: text => text.replace(/[a-zA-Z0-9]/g, c => String.fromCodePoint(c.charCodeAt(0) + (c >= 'a' ? 120361 : c >= 'A' ? 120355 : 120794))) },
       { transform: text => text.replace(/[a-zA-Z0-9]/g, c => String.fromCodePoint(c.charCodeAt(0) + (c >= 'a' ? 9327 : c >= 'A' ? 9333 : 9263))) },
       { transform: text => text.replace(/[a-zA-Z]/g, c => String.fromCodePoint(c.charCodeAt(0) + (c >= 'a' ? 127247 : 127215))) },
-      { transform: text => ░${text.split('').join('·')}░ },
-      { transform: text => ★彡 [${text}] 彡★ },
-      { transform: text => ✍️✨ ${text} ✨✍️ }
+      { transform: text => `░${text.split('').join('·')}░` },
+      { transform: text => `★彡 [${text}] 彡★` },
+      { transform: text => `✍️✨ ${text} ✨✍️` }
     ];
 
     function generateFonts() {
