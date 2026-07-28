@@ -3,260 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolNest - Free Online Tools & Utilities</title>
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --radius: 12px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-muted);
-            margin-left: 1.5rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-            flex: 1;
-            width: 100%;
-        }
-
-        .hero {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .tool-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            border-color: var(--primary);
-        }
-
-        .tool-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-        }
-
-        .tool-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            flex: 1;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            text-align: center;
-            transition: background-color 0.2s;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-hover);
-        }
-
-        footer {
-            background: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            padding: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
-    </style>
+    <title>ToolNest - Free Online Developer Utilities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
 
-    <header>
-        <a href="index.html" class="logo">ToolNest</a>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="qr-generator.html">QR Code</a>
-            <a href="image-compressor.html">Compressor</a>
-        </nav>
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600 flex items-center gap-2">
+                <i class="fa-solid fa-toolbox"></i> ToolNest
+            </h1>
+            <p class="text-sm text-slate-500 hidden sm:block">Free, Fast & Simple Online Utilities</p>
+        </div>
     </header>
 
-    <div class="container">
-        <div class="hero">
-            <h1>Welcome to ToolNest</h1>
-            <p>Your collection of free, fast, and simple online developer utilities.</p>
+    <!-- Hero Section -->
+    <main class="max-w-6xl mx-auto px-4 py-10 flex-grow">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3">Welcome to ToolNest</h2>
+            <p class="text-slate-600 text-lg max-w-2xl mx-auto">Your ultimate collection of free daily developer and web tools to make your work easier.</p>
         </div>
 
-        <div class="tools-grid">
-            <!-- Tool 1 -->
-            <div class="tool-card">
-                <h3>QR Code Generator</h3>
-                <p>Generate clean and custom QR codes instantly for URLs, text, and contact info.</p>
-                <a href="qr-generator.html" class="btn">Use Tool</a>
+        <!-- Tools Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="tools-container">
+            
+            <!-- Tool 1 Card -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">QR Code Generator</h3>
+                    <p class="text-slate-600 text-sm mb-4">Generate clean and custom QR codes instantly for URLs, text, and contact info.</p>
+                </div>
+                <a href="qr-generator.html" class="block text-center bg-blue-600 text-white font-medium py-2 rounded-lg hover:bg-blue-700 transition">Use Tool</a>
             </div>
 
-            <!-- Tool 2 -->
-            <div class="tool-card">
-                <h3>Image Compressor</h3>
-                <p>Compress your JPEG and PNG images quickly right inside your browser without losing quality.</p>
-                <a href="image-compressor.html" class="btn">Use Tool</a>
+            <!-- Tool 2 Card -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Password Generator</h3>
+                    <p class="text-slate-600 text-sm mb-4">Create strong, secure, and random passwords to keep your accounts safe.</p>
+                </div>
+                <a href="password-generator.html" class="block text-center bg-green-600 text-white font-medium py-2 rounded-lg hover:bg-green-700 transition">Use Tool</a>
             </div>
 
-            <!-- Tool 3 -->
-            <div class="tool-card">
-                <h3>Password Generator</h3>
-                <p>Create strong, secure, and random passwords to keep your accounts safe.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 4 -->
-            <div class="tool-card">
-                <h3>JSON Formatter</h3>
-                <p>Validate, format, and beautify your JSON data structures easily.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 5 -->
-            <div class="tool-card">
-                <h3>Base64 Encoder/Decoder</h3>
-                <p>Encode plain text to Base64 format or decode Base64 strings back to text.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 6 -->
-            <div class="tool-card">
-                <h3>Word Counter</h3>
-                <p>Count words, characters, sentences, and paragraphs in real time.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 7 -->
-            <div class="tool-card">
-                <h3>Color Converter</h3>
-                <p>Convert color codes between HEX, RGB, HSL, and CMYK formats seamlessly.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 8 -->
-            <div class="tool-card">
-                <h3>Markdown Previewer</h3>
-                <p>Write Markdown text on the left and see the live HTML preview on the right.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 9 -->
-            <div class="tool-card">
-                <h3>URL Encoder/Decoder</h3>
-                <p>Safely encode special characters for URLs or decode encoded URL strings.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 10 -->
-            <div class="tool-card">
-                <h3>UUID v4 Generator</h3>
-                <p>Generate standard unique identifiers (UUIDs) instantly with one click.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 11 -->
-            <div class="tool-card">
-                <h3>HTML Entity Encoder</h3>
-                <p>Escape or unescape HTML special characters for safe web displaying.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
-
-            <!-- Tool 12 -->
-            <div class="tool-card">
-                <h3>Timestamp Converter</h3>
-                <p>Convert Unix timestamps to readable dates and vice versa effortlessly.</p>
-                <a href="#" class="btn">Use Tool</a>
-            </div>
         </div>
-    </div>
+    </main>
 
-    <footer>
-        <p>&copy; 2026 ToolNest. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm text-slate-500">
+        <p>© 2026 ToolNest. All rights reserved.</p>
     </footer>
 
 </body>
