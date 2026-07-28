@@ -22,11 +22,11 @@
             --nav-bg: #111827;
             --card-bg: #1f2937;
             --border-color: #374151;
-            --primary: #10b981; /* لون أخضر زمردي حديث (Emerald) */
+            --primary: #10b981;
             --primary-hover: #059669;
             --card-text: #9ca3af;
             --card-title: #ffffff;
-            --header-bg: linear-gradient(135deg, #0f172a 1e%, #1e293b 100%);
+            --header-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         }
 
         [data-theme="light"] {
@@ -51,7 +51,6 @@
         .theme-toggle { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .theme-toggle:hover { border-color: var(--primary); }
 
-        /* هيدر عصري دارك وفخم محيد منو داك الأزرق القديم */
         header { background: var(--header-bg); color: white; text-align: center; padding: 60px 20px; border-bottom: 1px solid var(--border-color); }
         header h1 { font-size: 2.5rem; margin-bottom: 12px; font-weight: 800; letter-spacing: -1px; color: #ffffff; }
         header p { font-size: 1.1rem; color: #94a3b8; }
@@ -69,9 +68,14 @@
         .category-title { font-size: 1.3rem; color: var(--text-color); margin-bottom: 20px; margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; font-weight: 700; letter-spacing: -0.5px; }
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
         
-        .tool-card { background: var(--card-bg); padding: 25px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+        .tool-card { background: var(--card-bg); padding: 25px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
         .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.1); border-color: var(--primary); }
-        .tool-card h2 { font-size: 1.15rem; margin-bottom: 10px; color: var(--card-title); font-weight: 700; }
+        
+        /* زر المفضلة */
+        .fav-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.2rem; cursor: pointer; transition: transform 0.2s; }
+        .fav-btn:hover { transform: scale(1.2); }
+
+        .tool-card h2 { font-size: 1.15rem; margin-bottom: 10px; padding-right: 30px; color: var(--card-title); font-weight: 700; }
         .tool-card p { color: var(--card-text); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.5; }
         
         .btn-open { display: inline-block; background: var(--primary); color: white; text-decoration: none; padding: 10px 18px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 0.95rem; }
@@ -107,6 +111,7 @@
 
     <script>
         let allToolsData = [];
+        let favorites = JSON.parse(localStorage.getItem('toolnest_favorites')) || [];
 
         fetch('tools.json')
             .then(response => response.json())
@@ -118,7 +123,7 @@
 
         function buildCategoryTabs(tools) {
             const catNav = document.getElementById('catNav');
-            const categories = ['All', ...new Set(tools.map(t => t.category))];
+            const categories = ['All', '⭐ My Favorites', ...new Set(tools.map(t => t.category))];
             
             catNav.innerHTML = '';
             categories.forEach(cat => {
@@ -137,13 +142,20 @@
         function renderTools(tools) {
             const container = document.getElementById('mainContainer');
             container.innerHTML = '';
+
+            if (tools.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color: var(--card-text); margin-top: 40px; font-size: 1.1rem;">No tools found here yet!</p>`;
+                return;
+            }
+
             const categories = {};
 
             tools.forEach(tool => {
-                if (!categories[tool.category]) {
-                    categories[tool.category] = [];
+                const cat = tool.category || 'Other';
+                if (!categories[cat]) {
+                    categories[cat] = [];
                 }
-                categories[tool.category].push(tool);
+                categories[cat].push(tool);
             });
 
             for (const cat in categories) {
@@ -156,9 +168,11 @@
                 grid.className = 'tools-grid';
 
                 categories[cat].forEach(tool => {
+                    const isFav = favorites.includes(tool.id);
                     const card = document.createElement('div');
                     card.className = 'tool-card';
                     card.innerHTML = `
+                        <button class="fav-btn" onclick="toggleFavorite('${tool.id}')">${isFav ? '⭐' : '☆'}</button>
                         <h2>${tool.name}</h2>
                         <p>${tool.desc}</p>
                         <a href="${tool.url}" class="btn-open">Open Tool →</a>
@@ -170,9 +184,27 @@
             }
         }
 
+        function toggleFavorite(toolId) {
+            if (favorites.includes(toolId)) {
+                favorites = favorites.filter(id => id !== toolId);
+            } else {
+                favorites.push(toolId);
+            }
+            localStorage.setItem('toolnest_favorites', JSON.stringify(favorites));
+            
+            // إعادة عرض الأدوات حسب الفئة النشطة حالياً
+            const activeCategoryBtn = document.querySelector('.cat-btn.active');
+            if (activeCategoryBtn) {
+                filterCategory(activeCategoryBtn.innerText);
+            }
+        }
+
         function filterCategory(category) {
             if (category === 'All') {
                 renderTools(allToolsData);
+            } else if (category === '⭐ My Favorites') {
+                const favTools = allToolsData.filter(t => favorites.includes(t.id));
+                renderTools(favTools);
             } else {
                 const filtered = allToolsData.filter(t => t.category === category);
                 renderTools(filtered);
