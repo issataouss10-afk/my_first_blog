@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TikTok & YouTube Earnings Calculator - ToolNest</title>
-  <meta name="description" content="Estimate potential earnings and ad revenue for TikTok and YouTube channels based on views and video counts for free.">
+  <meta name="description" content="Estimate potential creator ad revenue based on daily views and video counts for free.">
   <meta name="robots" content="index, follow">
 
   <!-- Google tag (gtag.js) -->
@@ -86,16 +86,17 @@
 
   <script>
     function calculateEarnings() {
-      const platform = document.getElementById('platform').value;
-      const views = parseFloat(document.getElementById('views').value);
+      var platform = document.getElementById('platform').value;
+      var viewsInput = document.getElementById('views').value;
+      var views = parseFloat(viewsInput);
 
       if (isNaN(views) || views < 0) {
         alert('Please enter a valid number of views.');
         return;
       }
 
-      let dailyMin = 0;
-      let dailyMax = 0;
+      var dailyMin = 0;
+      var dailyMax = 0;
 
       if (platform === 'tiktok') {
         dailyMin = (views / 1000) * 0.02;
@@ -105,15 +106,15 @@
         dailyMax = (views / 1000) * 4.00;
       }
 
-      const monthlyMin = dailyMin * 30;
-      const monthlyMax = dailyMax * 30;
+      var monthlyMin = dailyMin * 30;
+      var monthlyMax = dailyMax * 30;
 
-      const resultBox = document.getElementById('resultBox');
-      const dailyResult = document.getElementById('dailyResult');
-      const monthlyResult = document.getElementById('monthlyResult');
+      var resultBox = document.getElementById('resultBox');
+      var dailyResult = document.getElementById('dailyResult');
+      var monthlyResult = document.getElementById('monthlyResult');
 
-      dailyResult.innerText = $${dailyMin.toFixed(2)} - $${dailyMax.toFixed(2)};
-      monthlyResult.innerText = Estimated Monthly: $${monthlyMin.toFixed(2)} - $${monthlyMax.toFixed(2)};
+      dailyResult.innerText = '$' + dailyMin.toFixed(2) + ' - $' + dailyMax.toFixed(2);
+      monthlyResult.innerText = 'Estimated Monthly: $' + monthlyMin.toFixed(2) + ' - $' + monthlyMax.toFixed(2);
       resultBox.style.display = 'block';
     }
   </script>
