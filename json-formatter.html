@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON Formatter & Validator - ToolNest</title>
-    <meta name="description" content="Format, validate and prettify your JSON data instantly.">
+    <title>Online JSON Formatter & Validator - ToolNest</title>
+    <meta name="description" content="Free online JSON formatter, validator, and beautifier. Parse, validate, and prettify your JSON data instantly with a single click.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -41,7 +41,7 @@
                 <!-- Input Area -->
                 <div class="flex flex-col">
                     <label for="json-input" class="block text-sm font-semibold text-slate-700 mb-2">Paste your raw JSON here:</label>
-                    <textarea id="json-input" rows="10" placeholder='{"name": "ToolNest", "active": true}' class="w-full bg-slate-50 text-slate-800 p-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-mono text-sm"></textarea>
+                    <textarea id="json-input" rows="10" placeholder='{"name": "ToolNest", "active": true}' class="w-full bg-slate-50 text-slate-800 p-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-mono text-sm">{"name": "ToolNest", "active": true}</textarea>
                 </div>
 
                 <!-- Output Area -->
@@ -65,6 +65,29 @@
             <div id="status-msg" class="hidden p-4 rounded-xl text-sm font-medium"></div>
 
         </div>
+
+        <!-- SEO Content Article Section -->
+        <article class="mt-12 bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose max-w-none text-slate-600">
+            <h2 class="text-2xl font-bold text-slate-900 mb-4">About Free Online JSON Formatter</h2>
+            <p class="mb-4">
+                Welcome to ToolNest's <strong>JSON Formatter & Validator</strong>, an essential developer utility designed to clean up, validate, and prettify messy JSON data strings instantly in your browser.
+            </p>
+            
+            <h3 class="text-xl font-semibold text-slate-900 mt-6 mb-3">Why Use Our JSON Tool?</h3>
+            <ul class="list-disc pl-5 space-y-2 mb-4">
+                <li><strong>Instant Validation:</strong> Instantly catches syntax errors, missing quotes, or misplaced brackets.</li>
+                <li><strong>Clean Indentation:</strong> Automatically structures compressed data into an easy-to-read indented format.</li>
+                <li><strong>100% Secure:</strong> All data processing happens locally in your browser; nothing is ever sent or stored on a server.</li>
+                <li><strong>Free & Fast:</strong> No registration, no limits, and completely free for developers and students.</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-slate-900 mt-6 mb-3">How to Format JSON Data</h3>
+            <ol class="list-decimal pl-5 space-y-2">
+                <li>Paste your raw or minified JSON text into the left input box.</li>
+                <li>Click the <strong>Format / Prettify</strong> button.</li>
+                <li>Check the syntax status and copy your clean, formatted JSON result from the right box.</li>
+            </ol>
+        </article>
 
     </main>
 
