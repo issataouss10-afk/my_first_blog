@@ -49,6 +49,13 @@
     "url": "age-calculator.html"
   },
   {
+    "id": "bmi-calculator",
+    "name": "⚖️ Advanced BMI Calculator",
+    "category": "Calculators & Utility",
+    "desc": "Calculate your Body Mass Index and find your ideal healthy weight range instantly.",
+    "url": "bmi-calculator.html"
+  },
+  {
     "id": "fancy-text",
     "name": "✨ Fancy Text Generator",
     "category": "Social & Text Tools",
