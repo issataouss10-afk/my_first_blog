@@ -13,85 +13,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToolNest - Free Online Utilities & Web Tools</title>
     <meta name="description" content="ToolNest provides 100% free online web utilities. Fast, secure, and no sign-up required.">
-    <meta name="keywords" content="free online tools, qr code generator, image compressor, word counter, case converter, toolnest">
     <meta name="robots" content="index, follow">
 
     <style>
         :root {
-            --bg-color: #f8fafc;
-            --text-color: #0f172a;
+            --bg-color: #0b0f19;
+            --text-color: #f3f4f6;
+            --nav-bg: #111827;
+            --card-bg: #1f2937;
+            --border-color: #374151;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --card-text: #9ca3af;
+            --card-title: #ffffff;
+            --header-bg: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f9fafb;
+            --text-color: #111827;
             --nav-bg: #ffffff;
             --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --card-text: #64748b;
-            --card-title: #1e293b;
+            --border-color: #e5e7eb;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --card-text: #4b5563;
+            --card-title: #1f2937;
+            --header-bg: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
         }
 
-        [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --text-color: #f8fafc;
-            --nav-bg: #1e293b;
-            --card-bg: #1e293b;
-            --border-color: #334155;
-            --primary: #3b82f6;
-            --primary-hover: #60a5fa;
-            --card-text: #94a3b8;
-            --card-title: #f1f5f9;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background 0.3s, color 0.3s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; transition: background 0.3s, color 0.3s; }
         body { background-color: var(--bg-color); color: var(--text-color); }
         
-        nav { background: var(--nav-bg); border-bottom: 1px solid var(--border-color); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+        nav { background: var(--nav-bg); border-bottom: 1px solid var(--border-color); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
         
-        .theme-toggle { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+        .theme-toggle { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .theme-toggle:hover { border-color: var(--primary); }
 
-        header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; text-align: center; padding: 40px 20px; }
-        header h1 { font-size: 2.2rem; margin-bottom: 10px; }
-        .search-container { margin-top: 20px; }
-        .search-input { width: 100%; max-width: 450px; padding: 12px 20px; font-size: 1rem; border: none; border-radius: 25px; outline: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header { background: var(--header-bg); color: white; text-align: center; padding: 60px 20px; border-bottom: 1px solid var(--border-color); }
+        header h1 { font-size: 2.5rem; margin-bottom: 12px; font-weight: 800; letter-spacing: -1px; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        
+        .search-container { margin-top: 25px; }
+        .search-input { width: 100%; max-width: 500px; padding: 14px 22px; font-size: 1rem; border: 1px solid var(--border-color); border-radius: 30px; outline: none; background: rgba(255, 255, 255, 0.1); color: inherit; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .search-input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.15); }
 
         /* Category Filter Tabs */
-        .categories-nav { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 30px 20px 10px; }
-        .cat-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
-        .cat-btn:hover, .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .categories-nav { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 35px 20px 10px; }
+        .cat-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 9px 18px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .cat-btn:hover, .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-1px); }
 
-        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
-        .category-title { font-size: 1.4rem; color: var(--text-color); margin-bottom: 15px; margin-top: 30px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .category-title { font-size: 1.3rem; color: var(--text-color); margin-bottom: 20px; margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; font-weight: 700; letter-spacing: -0.5px; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
         
-        .tool-card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; }
-        .tool-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-        .tool-card h2 { font-size: 1.2rem; margin-bottom: 10px; color: var(--card-title); }
-        .tool-card p { color: var(--card-text); font-size: 0.95rem; margin-bottom: 20px; }
+        .tool-card { background: var(--card-bg); padding: 25px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.1); border-color: var(--primary); }
+        .tool-card h2 { font-size: 1.15rem; margin-bottom: 10px; color: var(--card-title); font-weight: 700; }
+        .tool-card p { color: var(--card-text); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.5; }
         
-        .btn-open { display: inline-block; background: var(--primary); color: white; text-decoration: none; padding: 10px 15px; border-radius: 6px; text-align: center; font-weight: 600; }
+        .btn-open { display: inline-block; background: var(--primary); color: white; text-decoration: none; padding: 10px 18px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 0.95px; }
         .btn-open:hover { background: var(--primary-hover); }
 
-        footer { text-align: center; padding: 30px 20px; color: var(--card-text); margin-top: 50px; border-top: 1px solid var(--border-color); background: var(--nav-bg); }
-        footer a { color: var(--primary); text-decoration: none; }
+        footer { text-align: center; padding: 40px 20px; color: var(--card-text); margin-top: 60px; border-top: 1px solid var(--border-color); background: var(--nav-bg); }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 500; }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
-<body data-theme="light">
+<body data-theme="dark">
 
     <nav>
-        <a href="index.html" class="logo">ToolNest 🧰</a>
-        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark Mode</button>
+        <a href="index.html" class="logo">ToolNest ⚡</a>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light Mode</button>
     </nav>
 
     <header>
         <h1>Free Online Web Utilities</h1>
-        <p>Select any tool below to use it instantly.</p>
+        <p>Explore fast, secure, and modern tools built for everyday developers and creators.</p>
         <div class="search-container">
-            <input type="text" id="searchInput" onkeyup="filterTools()" class="search-input" placeholder="🔍 Search for a tool...">
+            <input type="text" id="searchInput" onkeyup="filterTools()" class="search-input" placeholder="🔍 Search for any tool...">
         </div>
     </header>
 
-    <!-- Category Filter Tabs Bar -->
     <div class="categories-nav" id="catNav">
         <button class="cat-btn active" onclick="filterCategory('All')">All Tools</button>
     </div>
@@ -103,7 +107,6 @@
     <script>
         let allToolsData = [];
 
-        // تحميل الأدوات ديناميكياً من ملف JSON
         fetch('tools.json')
             .then(response => response.json())
             .then(tools => {
@@ -112,7 +115,6 @@
                 renderTools(tools);
             });
 
-        // إنشاء أزرار الفئات الفوق تلقائياً
         function buildCategoryTabs(tools) {
             const catNav = document.getElementById('catNav');
             const categories = ['All', ...new Set(tools.map(t => t.category))];
@@ -131,7 +133,6 @@
             });
         }
 
-        // عرض الأدوات مرتبة حسب الفئات
         function renderTools(tools) {
             const container = document.getElementById('mainContainer');
             container.innerHTML = '';
@@ -168,7 +169,6 @@
             }
         }
 
-        // فلترة الأدوات حسب الفئة المحددة
         function filterCategory(category) {
             if (category === 'All') {
                 renderTools(allToolsData);
@@ -178,7 +178,6 @@
             }
         }
 
-        // خدمة البحث الفوري
         function filterTools() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.getElementsByClassName('tool-card');
@@ -194,23 +193,22 @@
             }
         }
 
-        // تفعيل الوضع الليلي (Dark Mode)
         function toggleTheme() {
             const body = document.body;
             const themeBtn = document.getElementById('themeBtn');
-            if (body.getAttribute('data-theme') === 'light') {
-                body.setAttribute('data-theme', 'dark');
-                themeBtn.innerText = '☀️ Light Mode';
-            } else {
+            if (body.getAttribute('data-theme') === 'dark') {
                 body.setAttribute('data-theme', 'light');
                 themeBtn.innerText = '🌙 Dark Mode';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeBtn.innerText = '☀️ Light Mode';
             }
         }
     </script>
 
     <footer>
-        <p>© 2026 ToolNest • Professional Web Utilities</p>
-        <div style="margin-top: 10px; display: flex; justify-content: center; gap: 20px;">
+        <p>© 2026 ToolNest • Built for Creators & Developers</p>
+        <div style="margin-top: 12px; display: flex; justify-content: center; gap: 24px;">
             <a href="about.html">About Us</a>
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms of Service</a>
