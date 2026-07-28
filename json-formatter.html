@@ -3,131 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online JSON Formatter & Validator - ToolNest</title>
-    <meta name="description" content="Free online JSON formatter, validator, and beautifier. Parse, validate, and prettify your JSON data instantly with a single click.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>JSON Formatter & Validator - ToolNest Free Developer Tools</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free online JSON formatter and validator tool. Format, validate, and beautify your messy JSON data instantly and securely on ToolNest.">
+    <meta name="keywords" content="json formatter, json validator, beautify json, json parser, developer tools, toolnest">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-layout { display: flex; gap: 20px; align-items: flex-start; }
+        /* مساحة فارغة نظيفة للإعلانات في الجانب */
+        .ad-sidebar { width: 200px; min-height: 400px; }
+        .tool-main-content { flex: 1; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        /* مساحة فارغة نظيفة للإعلانات في الفوق والتحت */
+        .ad-banner { width: 100%; min-height: 90px; margin-bottom: 20px; }
+        
+        .json-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
+        @media(max-width: 768px) { .json-grid { grid-template-columns: 1fr; } }
+        
+        textarea { width: 100%; height: 250px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: monospace; font-size: 0.95rem; resize: vertical; box-sizing: border-box; outline: none; }
+        textarea:focus { border-color: #2563eb; }
+        .btn-group { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        @media(max-width: 900px) { .ad-sidebar { display: none; } }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
-
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center gap-2">
-                <i class="fa-solid fa-toolbox"></i> ToolNest
-            </a>
-            <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition flex items-center gap-1 bg-slate-100 px-4 py-2 rounded-lg border border-slate-200">
-                <i class="fa-solid fa-arrow-left"></i> Home
-            </a>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1><a href="index.html" style="color:white; text-decoration:none;">ToolNest</a></h1>
+            <p>JSON Formatter & Validator</p>
         </div>
     </header>
 
-    <!-- Main Section -->
-    <main class="max-w-5xl mx-auto px-4 py-12 flex-grow w-full">
-        
-        <!-- Title -->
-        <div class="text-center mb-10">
-            <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3 shadow-sm">
-                <i class="fa-solid fa-code"></i>
-            </div>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-2">JSON Formatter & Validator</h1>
-            <p class="text-slate-600 text-base max-w-lg mx-auto">Format, validate, and beautify your messy JSON data instantly.</p>
-        </div>
+    <main class="container" style="margin-top: 2rem; margin-bottom: 3rem;">
+        <!-- مكان فارغ نظيف لإعلان الفوق -->
+        <div class="ad-banner"></div>
 
-        <!-- Tool Box -->
-        <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Input Area -->
-                <div class="flex flex-col">
-                    <label for="json-input" class="block text-sm font-semibold text-slate-700 mb-2">Paste your raw JSON here:</label>
-                    <textarea id="json-input" rows="10" placeholder='{"name": "ToolNest", "active": true}' class="w-full bg-slate-50 text-slate-800 p-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition font-mono text-sm">{"name": "ToolNest", "active": true}</textarea>
+        <div class="page-layout">
+            <!-- مكان فارغ نظيف لإعلان الجانب الأيسر -->
+            <div class="ad-sidebar"></div>
+
+            <!-- محتوى الأداة الأساسي -->
+            <div class="tool-main-content">
+                <h2>JSON Formatter & Validator</h2>
+                <p style="color: #64748b; margin-bottom: 1.5rem;">Format, validate, and beautify your messy JSON data instantly.</p>
+                
+                <div class="json-grid">
+                    <div>
+                        <label style="display:block; font-weight:bold; margin-bottom: 5px;">Paste your raw JSON here:</label>
+                        <textarea id="jsonInput" placeholder='{"name": "ToolNest", "active": true}'></textarea>
+                    </div>
+                    <div>
+                        <label style="display:block; font-weight:bold; margin-bottom: 5px;">Formatted Result:</label>
+                        <textarea id="jsonOutput" readonly placeholder="Formatted JSON will appear here..."></textarea>
+                    </div>
                 </div>
 
-                <!-- Output Area -->
-                <div class="flex flex-col">
-                    <label for="json-output" class="block text-sm font-semibold text-slate-700 mb-2">Formatted Result:</label>
-                    <textarea id="json-output" rows="10" readonly placeholder="Formatted JSON will appear here..." class="w-full bg-slate-100 text-slate-800 p-4 rounded-xl border border-slate-300 outline-none font-mono text-sm"></textarea>
+                <div class="btn-group">
+                    <button class="btn" onclick="formatJSON()">Format / Prettify</button>
+                    <button class="btn" style="background: #dc2626;" onclick="clearJSON()">Clear</button>
+                    <button class="btn" style="background: #475569;" onclick="copyJSON()">Copy Result</button>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="flex flex-wrap gap-4 pt-4 border-t border-slate-100">
-                <button onclick="formatJSON()" class="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-blue-700 transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Format / Prettify
-                </button>
-                <button onclick="clearJSON()" class="bg-slate-200 text-slate-700 font-semibold px-6 py-3 rounded-xl hover:bg-slate-300 transition flex items-center gap-2">
-                    <i class="fa-solid fa-trash"></i> Clear
-                </button>
-            </div>
-
-            <!-- Status message -->
-            <div id="status-msg" class="hidden p-4 rounded-xl text-sm font-medium"></div>
-
+            <!-- مكان فارغ نظيف لإعلان الجانب الأيمن -->
+            <div class="ad-sidebar"></div>
         </div>
 
-        <!-- SEO Content Article Section -->
-        <article class="mt-12 bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose max-w-none text-slate-600">
-            <h2 class="text-2xl font-bold text-slate-900 mb-4">About Free Online JSON Formatter</h2>
-            <p class="mb-4">
-                Welcome to ToolNest's <strong>JSON Formatter & Validator</strong>, an essential developer utility designed to clean up, validate, and prettify messy JSON data strings instantly in your browser.
-            </p>
-            
-            <h3 class="text-xl font-semibold text-slate-900 mt-6 mb-3">Why Use Our JSON Tool?</h3>
-            <ul class="list-disc pl-5 space-y-2 mb-4">
-                <li><strong>Instant Validation:</strong> Instantly catches syntax errors, missing quotes, or misplaced brackets.</li>
-                <li><strong>Clean Indentation:</strong> Automatically structures compressed data into an easy-to-read indented format.</li>
-                <li><strong>100% Secure:</strong> All data processing happens locally in your browser; nothing is ever sent or stored on a server.</li>
-                <li><strong>Free & Fast:</strong> No registration, no limits, and completely free for developers and students.</li>
-            </ul>
-
-            <h3 class="text-xl font-semibold text-slate-900 mt-6 mb-3">How to Format JSON Data</h3>
-            <ol class="list-decimal pl-5 space-y-2">
-                <li>Paste your raw or minified JSON text into the left input box.</li>
-                <li>Click the <strong>Format / Prettify</strong> button.</li>
-                <li>Check the syntax status and copy your clean, formatted JSON result from the right box.</li>
-            </ol>
-        </article>
-
+        <!-- مكان فارغ نظيف لإعلان التحت -->
+        <div class="ad-banner" style="margin-top: 20px;"></div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm text-slate-500 mt-12">
-        <p>© 2026 ToolNest. All rights reserved.</p>
+    <footer class="main-footer">
+        <p>&copy; 2026 ToolNest. Built for creators and developers.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+            <a href="index.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Home</a> | 
+            <a href="privacy-policy.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Privacy Policy</a> | 
+            <a href="about.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">About Us</a> | 
+            <a href="terms.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Terms of Service</a>
+        </p>
     </footer>
 
-    <!-- Script -->
     <script>
         function formatJSON() {
-            const input = document.getElementById('json-input').value.trim();
-            const output = document.getElementById('json-output');
-            const status = document.getElementById('status-msg');
-
-            if (!input) {
-                status.className = "p-4 rounded-xl text-sm font-medium bg-amber-50 text-amber-700 border border-amber-200";
-                status.textContent = "Please enter some JSON data first.";
-                status.classList.remove('hidden');
-                return;
-            }
-
             try {
+                const input = document.getElementById('jsonInput').value;
+                if(!input.trim()) {
+                    alert('Please enter some JSON data first.');
+                    return;
+                }
                 const parsed = JSON.parse(input);
-                output.value = JSON.stringify(parsed, null, 4);
-                status.className = "p-4 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200";
-                status.textContent = "Valid JSON! Formatted successfully.";
-                status.classList.remove('hidden');
-            } catch (error) {
-                output.value = "";
-                status.className = "p-4 rounded-xl text-sm font-medium bg-rose-50 text-rose-700 border border-rose-200";
-                status.textContent = "Invalid JSON Error: " + error.message;
-                status.classList.remove('hidden');
+                document.getElementById('jsonOutput').value = JSON.stringify(parsed, null, 4);
+            } catch(error) {
+                alert('Invalid JSON format: ' + error.message);
             }
         }
 
         function clearJSON() {
-            document.getElementById('json-input').value = "";
-            document.getElementById('json-output').value = "";
-            document.getElementById('status-msg').classList.add('hidden');
+            document.getElementById('jsonInput').value = '';
+            document.getElementById('jsonOutput').value = '';
+        }
+
+        function copyJSON() {
+            const out = document.getElementById('jsonOutput');
+            if(out.value) {
+                navigator.clipboard.writeText(out.value);
+                alert('Formatted JSON copied to clipboard!');
+            }
         }
     </script>
 </body>
