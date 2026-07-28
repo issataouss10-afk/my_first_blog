@@ -17,33 +17,66 @@
   </script>
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; min-height: 100vh; }
-    nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
-    header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; text-align: center; padding: 40px 20px; }
-    header h1 { font-size: 2.2rem; margin-bottom: 10px; }
-    header p { opacity: 0.9; max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+    :root {
+        --bg-color: #0b0f19;
+        --text-color: #f3f4f6;
+        --nav-bg: #111827;
+        --card-bg: #1f2937;
+        --border-color: #374151;
+        --primary: #10b981;
+        --primary-hover: #059669;
+        --card-text: #9ca3af;
+        --card-title: #ffffff;
+        --header-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    }
+
+    [data-theme="light"] {
+        --bg-color: #f8fafc;
+        --text-color: #0f172a;
+        --nav-bg: #ffffff;
+        --card-bg: #ffffff;
+        --border-color: #e2e8f0;
+        --primary: #0d9488;
+        --primary-hover: #0f766e;
+        --card-text: #64748b;
+        --card-title: #1e293b;
+        --header-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; transition: background 0.3s, color 0.3s; }
+    body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
     
-    .container { max-width: 800px; margin: -30px auto 40px auto; padding: 0 20px; width: 100%; }
-    .tool-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    nav { background: var(--nav-bg); border-bottom: 1px solid var(--border-color); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
     
-    textarea { width: 100%; height: 200px; padding: 15px; font-size: 1rem; border: 2px solid #cbd5e1; border-radius: 8px; outline: none; margin-bottom: 20px; resize: vertical; transition: 0.3s; }
-    textarea:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.2); }
+    .theme-toggle { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .theme-toggle:hover { border-color: var(--primary); }
+
+    header { background: var(--header-bg); color: white; text-align: center; padding: 50px 20px; border-bottom: 1px solid var(--border-color); }
+    header h1 { font-size: 2.2rem; margin-bottom: 10px; font-weight: 800; color: #ffffff; }
+    header p { opacity: 0.9; max-width: 600px; margin: 0 auto; font-size: 1.1rem; color: #94a3b8; }
+    
+    .container { max-width: 800px; margin: -30px auto 40px auto; padding: 0 20px; width: 100%; position: relative; z-index: 10; }
+    .tool-card { background: var(--card-bg); border-radius: 14px; padding: 30px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2); }
+    
+    textarea { width: 100%; height: 200px; padding: 16px; font-size: 1rem; border: 1px solid var(--border-color); border-radius: 10px; outline: none; margin-bottom: 20px; resize: vertical; background: rgba(255, 255, 255, 0.05); color: var(--text-color); }
+    textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
 
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 10px; }
-    .stat-card { background: #f1f5f9; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center; }
-    .stat-card h4 { color: #64748b; font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; }
-    .stat-card p { font-size: 1.3rem; font-weight: 700; color: #2563eb; }
+    .stat-card { background: var(--bg-color); padding: 18px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center; }
+    .stat-card h4 { color: var(--card-text); font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+    .stat-card p { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
 
-    footer { background: #0f172a; color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9rem; }
-    footer a { color: #60a5fa; text-decoration: none; }
+    footer { background: var(--nav-bg); color: var(--card-text); text-align: center; padding: 30px; margin-top: auto; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+    footer a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
-<body>
+<body data-theme="dark">
 
   <nav>
-    <a href="index.html" class="logo">ToolNest</a>
+    <a href="index.html" class="logo">ToolNest ⚡</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light Mode</button>
   </nav>
 
   <header>
@@ -73,7 +106,7 @@
   </div>
 
   <footer>
-    <p>&copy; 2026 ToolNest. All rights reserved. | <a href="index.html">Back to All Tools</a></p>
+    <p>&copy; 2026 ToolNest • Built for Creators & Developers | <a href="index.html">Back to All Tools</a></p>
   </footer>
 
   <script>
@@ -104,6 +137,18 @@
       } else {
         return minutes + ' min ' + seconds + ' sec';
       }
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        const themeBtn = document.getElementById('themeBtn');
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.setAttribute('data-theme', 'light');
+            themeBtn.innerText = '🌙 Dark Mode';
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            themeBtn.innerText = '☀️ Light Mode';
+        }
     }
   </script>
 </body>
