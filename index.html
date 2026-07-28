@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4RLN0M7YFJ');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4RLN0M7YFJ');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToolNest - Free Online Utilities & Web Tools</title>
@@ -18,30 +17,70 @@
     <meta name="robots" content="index, follow">
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8fafc; color: #0f172a; }
-        nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #0f172a;
+            --nav-bg: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --card-text: #64748b;
+            --card-title: #1e293b;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --nav-bg: #1e293b;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --card-text: #94a3b8;
+            --card-title: #f1f5f9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background 0.3s, color 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-color); }
+        
+        nav { background: var(--nav-bg); border-bottom: 1px solid var(--border-color); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+        
+        .theme-toggle { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+        .theme-toggle:hover { border-color: var(--primary); }
+
         header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; text-align: center; padding: 40px 20px; }
         header h1 { font-size: 2.2rem; margin-bottom: 10px; }
         .search-container { margin-top: 20px; }
         .search-input { width: 100%; max-width: 450px; padding: 12px 20px; font-size: 1rem; border: none; border-radius: 25px; outline: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .category-title { font-size: 1.4rem; color: #1e293b; margin-bottom: 15px; margin-top: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+
+        /* Category Filter Tabs */
+        .categories-nav { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 30px 20px 10px; }
+        .cat-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+        .cat-btn:hover, .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .category-title { font-size: 1.4rem; color: var(--text-color); margin-bottom: 15px; margin-top: 30px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .tool-card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; }
+        
+        .tool-card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; }
         .tool-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-        .tool-card h2 { font-size: 1.2rem; margin-bottom: 10px; color: #1e293b; }
-        .tool-card p { color: #64748b; font-size: 0.95rem; margin-bottom: 20px; }
-        .btn-open { display: inline-block; background: #2563eb; color: white; text-decoration: none; padding: 10px 15px; border-radius: 6px; text-align: center; font-weight: 600; }
-        .btn-open:hover { background: #1d4ed8; }
-        footer { text-align: center; padding: 20px; color: #64748b; margin-top: 40px; }
+        .tool-card h2 { font-size: 1.2rem; margin-bottom: 10px; color: var(--card-title); }
+        .tool-card p { color: var(--card-text); font-size: 0.95rem; margin-bottom: 20px; }
+        
+        .btn-open { display: inline-block; background: var(--primary); color: white; text-decoration: none; padding: 10px 15px; border-radius: 6px; text-align: center; font-weight: 600; }
+        .btn-open:hover { background: var(--primary-hover); }
+
+        footer { text-align: center; padding: 30px 20px; color: var(--card-text); margin-top: 50px; border-top: 1px solid var(--border-color); background: var(--nav-bg); }
+        footer a { color: var(--primary); text-decoration: none; }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
     <nav>
-        <a href="index.html" class="logo">ToolNest</a>
+        <a href="index.html" class="logo">ToolNest 🧰</a>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 Dark Mode</button>
     </nav>
 
     <header>
@@ -52,72 +91,129 @@
         </div>
     </header>
 
+    <!-- Category Filter Tabs Bar -->
+    <div class="categories-nav" id="catNav">
+        <button class="cat-btn active" onclick="filterCategory('All')">All Tools</button>
+    </div>
+
     <div class="container" id="mainContainer">
         <!-- غيتم تحميل الأدوات هنا أوتوماتيكيا -->
     </div>
+
     <script>
+        let allToolsData = [];
+
         // تحميل الأدوات ديناميكياً من ملف JSON
         fetch('tools.json')
             .then(response => response.json())
             .then(tools => {
-                const container = document.getElementById('mainContainer');
-                const categories = {};
-
-                // تجميع الأدوات حسب الكتيجوري
-                tools.forEach(tool => {
-                    if (!categories[tool.category]) {
-                        categories[tool.category] = [];
-                    }
-                    categories[tool.category].push(tool);
-                });
-
-                // عرض الكتيجوريات والأدوات
-                for (const cat in categories) {
-                    const catTitle = document.createElement('h2');
-                    catTitle.className = 'category-title';
-                    catTitle.innerText = cat;
-                    container.appendChild(catTitle);
-
-                    const grid = document.createElement('div');
-                    grid.className = 'tools-grid';
-
-                    categories[cat].forEach(tool => {
-                        const card = document.createElement('div');
-                        card.className = 'tool-card';
-                        card.innerHTML = `
-                            <h2>${tool.name}</h2>
-                            <p>${tool.desc}</p>
-                            <a href="${tool.url}" class="btn-open">Open Tool →</a>
-                        `;
-                        grid.appendChild(card);
-                    });
-
-                    container.appendChild(grid);
-                }
+                allToolsData = tools;
+                buildCategoryTabs(tools);
+                renderTools(tools);
             });
 
-        // خدمة البحث
+        // إنشاء أزرار الفئات الفوق تلقائياً
+        function buildCategoryTabs(tools) {
+            const catNav = document.getElementById('catNav');
+            const categories = ['All', ...new Set(tools.map(t => t.category))];
+            
+            catNav.innerHTML = '';
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `cat-btn ${cat === 'All' ? 'active' : ''}`;
+                btn.innerText = cat;
+                btn.onclick = () => {
+                    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterCategory(cat);
+                };
+                catNav.appendChild(btn);
+            });
+        }
+
+        // عرض الأدوات مرتبة حسب الفئات
+        function renderTools(tools) {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = '';
+            const categories = {};
+
+            tools.forEach(tool => {
+                if (!categories[tool.category]) {
+                    categories[tool.category] = [];
+                }
+                categories[tool.category].push(tool);
+            });
+
+            for (const cat in categories) {
+                const catTitle = document.createElement('h2');
+                catTitle.className = 'category-title';
+                catTitle.innerText = cat;
+                container.appendChild(catTitle);
+
+                const grid = document.createElement('div');
+                grid.className = 'tools-grid';
+
+                categories[cat].forEach(tool => {
+                    const card = document.createElement('div');
+                    card.className = 'tool-card';
+                    card.innerHTML = `
+                        <h2>${tool.name}</h2>
+                        <p>${tool.desc}</p>
+                        <a href="${tool.url}" class="btn-open">Open Tool →</a>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                container.appendChild(grid);
+            }
+        }
+
+        // فلترة الأدوات حسب الفئة المحددة
+        function filterCategory(category) {
+            if (category === 'All') {
+                renderTools(allToolsData);
+            } else {
+                const filtered = allToolsData.filter(t => t.category === category);
+                renderTools(filtered);
+            }
+        }
+
+        // خدمة البحث الفوري
         function filterTools() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.getElementsByClassName('tool-card');
 
             for (let i = 0; i < cards.length; i++) {
                 let title = cards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
-                if (title.includes(input)) {
+                let desc = cards[i].getElementsByTagName('p')[0].innerText.toLowerCase();
+                if (title.includes(input) || desc.includes(input)) {
                     cards[i].style.display = "";
                 } else {
                     cards[i].style.display = "none";
                 }
             }
         }
+
+        // تفعيل الوضع الليلي (Dark Mode)
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('themeBtn');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeBtn.innerText = '☀️ Light Mode';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeBtn.innerText = '🌙 Dark Mode';
+            }
+        }
     </script>
 
-    <footer style="text-align: center; padding: 30px 20px; color: #64748b; margin-top: 50px; border-top: 1px solid #e2e8f0; background: white;">
+    <footer>
         <p>© 2026 ToolNest • Professional Web Utilities</p>
         <div style="margin-top: 10px; display: flex; justify-content: center; gap: 20px;">
-            <a href="about.html" style="color: #2563eb; text-decoration: none;">About Us</a>
-            <a href="privacy.html" style="color: #2563eb; text-decoration: none;">Privacy Policy</a>
-            <a href="terms.html" style="color: #2563eb; text-decoration: none;">Terms of Service</a>
+            <a href="about.html">About Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
         </div>
     </footer>
 
