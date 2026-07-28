@@ -146,11 +146,11 @@
 
       if (cat === 'temp') {
         let res = convertTemp(val, unitsData.temp[from], unitsData.temp[to]);
-        resultDiv.innerText = ${val} = ${res.toFixed(2)} ${to};
+        resultDiv.innerText = `${val} ${from} = ${res.toFixed(2)} ${to}`;
       } else {
         let inBase = val * unitsData[cat][from];
         let res = inBase / unitsData[cat][to];
-        resultDiv.innerText = ${val} = ${res.toFixed(4)} ${to};
+        resultDiv.innerText = `${val} ${from} = ${res.toFixed(4)} ${to}`;
       }
     }
 
