@@ -33,17 +33,20 @@
                 <i class="fa-solid fa-qrcode"></i>
             </div>
             <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-2">QR Code Generator</h1>
-            <p class="text-slate-600 text-base max-w-lg mx-auto">Generate high-resolution, professional QR codes instantly as you type.</p>
+            <p class="text-slate-600 text-base max-w-lg mx-auto">Enter your text or URL and click generate to create your QR code.</p>
         </div>
 
         <!-- Tool Card -->
         <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-sm border border-slate-200 space-y-8">
             
-            <!-- Input Row -->
+            <!-- Input & Button Row (Inline) -->
             <div>
                 <label for="qr-input" class="block text-sm font-semibold text-slate-700 mb-2">URL or Text *</label>
-                <div class="flex">
-                    <input type="text" id="qr-input" value="https://toolnest.app" placeholder="Type to update QR code..." class="w-full bg-white text-slate-800 px-5 py-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm placeholder:text-slate-400">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="qr-input" placeholder="https://example.com" class="flex-grow bg-white text-slate-800 px-5 py-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm placeholder:text-slate-400">
+                    <button onclick="generateQR()" class="bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl hover:bg-blue-700 transition shadow-sm flex items-center justify-center gap-2 shrink-0">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate
+                    </button>
                 </div>
             </div>
 
@@ -53,17 +56,20 @@
                 <!-- QR Code Display Area -->
                 <div class="flex flex-col items-center justify-center bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 min-h-[280px]">
                     <div id="qrcode" class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-center min-h-[220px] min-w-[220px]">
-                        <!-- QR Code will render here automatically -->
+                        <div class="text-center text-slate-400">
+                            <i class="fa-regular fa-image text-5xl mb-2"></i>
+                            <p class="text-sm">Your QR Code will appear here</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Download & Details -->
                 <div class="space-y-6 flex flex-col justify-center">
-                    <button id="download-btn" onclick="downloadQR()" class="w-full bg-slate-900 text-white font-medium px-6 py-4 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-sm">
+                    <button id="download-btn" onclick="downloadQR()" class="hidden w-full bg-slate-900 text-white font-medium px-6 py-4 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-sm">
                         <i class="fa-solid fa-download"></i> Download HD PNG
                     </button>
                     <p class="text-xs text-slate-500 leading-relaxed">
-                        ToolNest generates high-quality matrix codes instantly. Changes update in real-time as you type your text or link.
+                        ToolNest generates high-quality matrix codes instantly upon clicking the generate button.
                     </p>
                 </div>
 
@@ -81,7 +87,7 @@
             <h3 class="text-xl font-semibold text-slate-900 mt-6 mb-3">Why Use Our QR Code Tool?</h3>
             <ul class="list-disc pl-5 space-y-2 mb-4">
                 <li><strong>100% Free:</strong> No hidden fees, subscriptions, or watermarks on generated codes.</li>
-                <li><strong>Real-time Generation:</strong> Built with live input detection so your code updates automatically as you type.</li>
+                <li><strong>On-Demand Generation:</strong> Click to generate your custom code precisely when you need it.</li>
                 <li><strong>Secure & Private:</strong> Your data stays in your browser; nothing is stored on external servers.</li>
                 <li><strong>High-Resolution Downloads:</strong> Export clean PNG images suitable for both digital screens and print materials.</li>
             </ul>
@@ -89,7 +95,7 @@
             <h3 class="text-xl font-semibold text-slate-900 mt-6 mb-3">How to Create a QR Code</h3>
             <ol class="list-decimal pl-5 space-y-2">
                 <li>Type or paste your destination link (URL) or message into the text box.</li>
-                <li>Watch the QR code update automatically in real-time.</li>
+                <li>Click the <strong>Generate</strong> button.</li>
                 <li>Click <strong>Download HD PNG</strong> to save it instantly to your device.</li>
             </ol>
         </article>
@@ -101,38 +107,35 @@
         <p>© 2026 ToolNest. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for Live QR Code Update -->
+    <!-- JavaScript -->
     <script>
-        const qrContainer = document.getElementById('qrcode');
-        const qrInput = document.getElementById('qr-input');
+        function generateQR() {
+            const inputVal = document.getElementById('qr-input').value.trim();
+            const qrContainer = document.getElementById('qrcode');
+            const downloadBtn = document.getElementById('download-btn');
 
-        // Function to render QR Code
-        function makeCode(text) {
+            if (!inputVal) {
+                alert('Please enter a valid URL or text first!');
+                return;
+            }
+
+            // Clear previous placeholder/QR code
             qrContainer.innerHTML = '';
+
+            // Generate new QR code
             new QRCode(qrContainer, {
-                text: text,
+                text: inputVal,
                 width: 220,
                 height: 220,
                 colorDark: "#0f172a",
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
             });
+
+            // Show download button
+            downloadBtn.classList.remove('hidden');
         }
 
-        // Generate initial default QR code on page load
-        makeCode(qrInput.value);
-
-        // Update QR code automatically as the user types
-        qrInput.addEventListener('input', function () {
-            const val = qrInput.value.trim();
-            if (val === '') {
-                qrContainer.innerHTML = '<p class="text-slate-400 text-sm text-center">Type something to generate...</p>';
-            } else {
-                makeCode(val);
-            }
-        });
-
-        // Download function
         function downloadQR() {
             const img = document.querySelector('#qrcode img') || document.querySelector('#qrcode canvas');
             if (!img) return;
