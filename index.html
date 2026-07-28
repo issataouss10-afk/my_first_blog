@@ -3,395 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolNest — Free Online Utilities & Developer Tools</title>
-    <meta name="description" content="A collection of fast, secure, and free online tools including QR Code Generator, Image Compressor, and more.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    
+    <title>ToolNest - Free Online Tools & Utilities</title>
     <style>
-      :root {
-        --bg: #ffffff;
-        --surface: #f6f7fb;
-        --surface-2: #eef0f8;
-        --border: #e6e8f2;
-        --border-strong: #d7daeb;
-        --text: #12131f;
-        --text-muted: #5b5f74;
-        --text-faint: #8b8fa3;
-        --primary: #2563eb;
-        --primary-dark: #1d4ed8;
-        --indigo: #4f46e5;
-        --cyan: #06b6d4;
-        --gradient-brand: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
-        --gradient-soft: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(79, 70, 229, 0.08));
-        --gradient-text: linear-gradient(135deg, #2563eb, #4f46e5 55%, #06b6d4);
-        --radius-lg: 22px;
-        --radius-md: 16px;
-        --radius-sm: 10px;
-        --shadow-sm: 0 1px 2px rgba(18, 19, 31, 0.05);
-        --shadow-md: 0 8px 24px -8px rgba(18, 19, 31, 0.10);
-        --shadow-lg: 0 24px 60px -20px rgba(37, 99, 235, 0.28);
-        --ease: cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family: "Inter", system-ui, -apple-system, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        line-height: 1.5;
-      }
-      img, svg { display: block; }
-      a { color: inherit; text-decoration: none; }
-      .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-      .eyebrow {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 12.5px;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--primary);
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .eyebrow::before {
-        content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--gradient-brand);
-      }
-      .btn {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 600;
-        font-size: 14.5px;
-        border-radius: 999px;
-        padding: 13px 24px;
-        border: 1px solid transparent;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        white-space: nowrap;
-        transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s var(--ease), border-color 0.18s var(--ease);
-      }
-      .btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.1; }
-      .btn-primary { background: var(--gradient-brand); color: #ffffff; box-shadow: 0 12px 28px -10px rgba(37, 99, 235, 0.55); }
-      .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 16px 36px -10px rgba(37, 99, 235, 0.65); }
-      .btn-secondary { background: #ffffff; border-color: var(--border-strong); color: var(--text); }
-      .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
-      .btn-sm { padding: 9px 16px; font-size: 13.5px; border-radius: 10px; }
-      
-      .site-header {
-        position: sticky; top: 0; z-index: 50;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border);
-      }
-      .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 24px; }
-      .brand { display: flex; align-items: center; gap: 10px; }
-      .brand-mark {
-        width: 34px; height: 34px; border-radius: 10px;
-        background: var(--gradient-brand); display: grid; place-items: center;
-        box-shadow: 0 8px 18px -6px rgba(37, 99, 235, 0.55);
-      }
-      .brand-mark svg { width: 18px; height: 18px; stroke: #ffffff; }
-      .brand-name { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 18px; color: var(--text); }
-      .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
-      .nav-links a { color: var(--text-muted); font-size: 14.5px; font-weight: 500; transition: color 0.18s; }
-      .nav-links a:hover { color: var(--primary); }
-      .nav-actions { display: flex; align-items: center; gap: 12px; }
-      .nav-toggle { display: none; background: none; border: 1px solid var(--border-strong); border-radius: 10px; width: 40px; height: 40px; align-items: center; justify-content: center; cursor: pointer; }
-      .nav-toggle svg { width: 20px; height: 20px; stroke: var(--text); stroke-width: 2; }
-
-      @media (max-width: 880px) {
-        .nav-links {
-          position: absolute; top: 100%; left: 0; right: 0;
-          background: #ffffff; border-bottom: 1px solid var(--border);
-          flex-direction: column; align-items: flex-start; gap: 4px;
-          padding: 12px 24px 18px; box-shadow: var(--shadow-md); display: none;
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius: 12px;
         }
-        .nav-links.open { display: flex; }
-        .nav-links a { width: 100%; padding: 10px 0; }
-        .nav-toggle { display: flex; }
-        .nav-actions .btn-secondary { display: none; }
-      }
 
-      .hero { position: relative; overflow: hidden; padding: 88px 0 60px; }
-      .hero .container { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 48px; }
-      @media (max-width: 940px) { .hero .container { grid-template-columns: 1fr; text-align: center; } .hero-visual { order: -1; } }
-      .hero-copy h1 { font-family: "Space Grotesk", sans-serif; font-size: clamp(34px, 4.6vw, 54px); font-weight: 700; line-height: 1.08; margin: 18px 0; }
-      .hero-copy h1 .grad { background: var(--gradient-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
-      .hero-copy p { font-size: 17px; color: var(--text-muted); max-width: 480px; margin: 0 0 30px; }
-      @media (max-width: 940px) { .hero-copy p { margin-left: auto; margin-right: auto; } }
-      .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 34px; }
-      @media (max-width: 940px) { .hero-actions { justify-content: center; } }
-      .trust-strip { display: flex; flex-wrap: wrap; gap: 22px; padding-top: 26px; border-top: 1px solid var(--border); }
-      @media (max-width: 940px) { .trust-strip { justify-content: center; } }
-      .trust-item { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 500; color: var(--text-muted); }
-      .trust-item svg { width: 17px; height: 17px; stroke: var(--primary); stroke-width: 2; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
 
-      .hero-visual { position: relative; height: 380px; display: grid; place-items: center; }
-      .fan-card {
-        position: absolute; width: 230px; background: #ffffff; border: 1px solid var(--border);
-        border-radius: var(--radius-md); box-shadow: var(--shadow-lg); padding: 20px;
-      }
-      .fan-card .fan-icon { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; margin-bottom: 14px; background: var(--gradient-soft); }
-      .fan-card .fan-icon svg { width: 20px; height: 20px; stroke: var(--primary); stroke-width: 1.8; }
-      .fan-card h4 { margin: 0 0 5px; font-family: "Space Grotesk", sans-serif; font-size: 15px; font-weight: 700; }
-      .fan-card p { margin: 0; font-size: 12.5px; color: var(--text-faint); line-height: 1.45; }
-      .card-back { transform: rotate(-14deg) translate(-92px, 6px); z-index: 1; }
-      .card-mid { transform: rotate(9deg) translate(86px, 22px); z-index: 2; }
-      .card-front { transform: rotate(-3deg) translate(-6px, -18px); z-index: 3; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-      section { padding: 76px 0; }
-      .section-head { max-width: 620px; margin: 0 auto 44px; text-align: center; }
-      .section-head h2 { font-family: "Space Grotesk", sans-serif; font-size: clamp(26px, 3.4vw, 34px); font-weight: 700; margin: 14px 0 12px; }
-      .section-head p { color: var(--text-muted); font-size: 15.5px; margin: 0; }
+        /* Header */
+        header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-      .tools-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-      .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-      @media (max-width: 880px) { .tools-grid { grid-template-columns: 1fr; } }
-      .tool-card {
-        background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md);
-        padding: 28px; display: flex; flex-direction: column; box-shadow: var(--shadow-sm);
-        transition: transform 0.22s, box-shadow 0.22s;
-      }
-      .tool-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(37, 99, 235, 0.35); }
-      .tool-icon { width: 46px; height: 46px; border-radius: 12px; background: var(--gradient-brand); display: grid; place-items: center; margin-bottom: 16px; }
-      .tool-icon svg { width: 22px; height: 22px; stroke: #ffffff; stroke-width: 1.8; }
-      .tool-card h3 { font-family: "Space Grotesk", sans-serif; font-size: 18px; font-weight: 700; margin: 0 0 8px; }
-      .tool-card p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin: 0 0 20px; flex-grow: 1; }
-      .tool-tag { display: inline-flex; align-self: flex-start; font-size: 11px; font-weight: 600; color: var(--primary); background: var(--gradient-soft); padding: 4px 10px; border-radius: 999px; margin-bottom: 14px; }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
 
-      .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-      @media (max-width: 780px) { .why-grid { grid-template-columns: 1fr; } }
-      .why-card { padding: 28px 26px; border-radius: var(--radius-md); border: 1px solid var(--border); background: linear-gradient(180deg, #ffffff, var(--surface)); }
-      .why-icon { width: 42px; height: 42px; border-radius: 11px; background: var(--gradient-soft); display: grid; place-items: center; margin-bottom: 16px; }
-      .why-icon svg { width: 21px; height: 21px; stroke: var(--primary); stroke-width: 1.8; }
-      .why-card h3 { font-family: "Space Grotesk", sans-serif; font-size: 17px; margin: 0 0 8px; }
-      .why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin: 0; }
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
 
-      /* AdSense Friendly Footer */
-      .site-footer { background: #0f1220; color: rgba(255, 255, 255, 0.6); padding: 50px 0 30px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
-      .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-      @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 24px; } }
-      .footer-brand .brand-name { color: #ffffff; font-size: 20px; margin-bottom: 10px; }
-      .footer-brand p { font-size: 14px; color: rgba(255, 255, 255, 0.5); max-width: 320px; margin: 0; line-height: 1.5; }
-      .footer-col h4 { color: #ffffff; font-family: "Space Grotesk", sans-serif; font-size: 15px; margin: 0 0 16px; }
-      .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-      .footer-col ul a { font-size: 14px; color: rgba(255, 255, 255, 0.6); transition: color 0.18s; }
-      .footer-col ul a:hover { color: #ffffff; }
-      .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255, 255, 255, 0.4); flex-wrap: wrap; gap: 10px; }
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary);
+        }
+
+        .tool-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .tool-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="site-header">
-        <div class="container nav">
-            <a href="index.html" class="brand">
-                <div class="brand-mark">
-                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <span class="brand-name">ToolNest</span>
-            </a>
-
-            <!-- الترتيب الأصلي المطلوب -->
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#tools">All Tools</a></li>
-                <li><a href="#features">Why ToolNest</a></li>
-                <li><a href="qr-generator.html">QR Forge</a></li>
-                <li><a href="image-compressor.html">Image Compressor</a></li>
-            </ul>
-
-            <div class="nav-actions">
-                <a href="#tools" class="btn btn-primary btn-sm">Explore Tools</a>
-                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">
-                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                </button>
-            </div>
-        </div>
+    <header>
+        <a href="index.html" class="logo">ToolNest</a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="qr-generator.html">QR Code Generator</a>
+            <a href="image-compressor.html">Image Compressor</a>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-copy">
-                <div class="eyebrow">Free & Fast Developer Utilities</div>
-                <h1>Your All-in-One <span class="grad">Online Toolkit</span></h1>
-                <p>Boost your productivity with clean, instant, and secure utilities built for creators, developers, and everyday tasks.</p>
-                
-                <div class="hero-actions">
-                    <a href="#tools" class="btn btn-primary">
-                        Browse All Tools
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7l7 7-7 7"/></svg>
-                    </a>
-                    <a href="qr-generator.html" class="btn btn-secondary">Try QR Forge</a>
-                </div>
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to ToolNest</h1>
+            <p>Free, fast, and simple online tools to make your tasks easier.</p>
+        </div>
 
-                <div class="trust-strip">
-                    <div class="trust-item">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                        100% Free Forever
-                    </div>
-                    <div class="trust-item">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                        No Registration Required
-                    </div>
-                    <div class="trust-item">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                        Secure Client-Side
-                    </div>
-                </div>
+        <div class="tools-grid">
+            <!-- Tool 1: QR Generator -->
+            <div class="tool-card">
+                <h3>QR Code Generator</h3>
+                <p>Generate clean and custom QR codes instantly for websites, text, and contact info.</p>
+                <a href="qr-generator.html" class="btn">Use Tool</a>
             </div>
 
-            <div class="hero-visual">
-                <div class="fan-card card-back">
-                    <div class="fan-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h4>Image Compressor</h4>
-                    <p>Shrink file size instantly without losing visual quality.</p>
-                </div>
-                <div class="fan-card card-mid">
-                    <div class="fan-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                    </div>
-                    <h4>QR Forge</h4>
-                    <p>Custom clean QR codes for URLs, text, and contacts.</p>
-                </div>
-                <div class="fan-card card-front">
-                    <div class="fan-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                    </div>
-                    <h4>Code Snippets</h4>
-                    <p>Fast encoding and formatting utilities.</p>
-                </div>
+            <!-- Tool 2: Image Compressor -->
+            <div class="tool-card">
+                <h3>Image Compressor</h3>
+                <p>Compress your JPEG and PNG images quickly right inside your browser without losing quality.</p>
+                <a href="image-compressor.html" class="btn">Use Tool</a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Categories / Tools Section (الأدوات ديالنا المرتبة) -->
-    <section class="tools-section" id="tools">
-        <div class="container">
-            <div class="section-head">
-                <div class="eyebrow">Available Utilities</div>
-                <h2>Our Categories & Tools</h2>
-                <p>Everything you need to get things done quickly, right in your browser.</p>
-            </div>
-
-            <div class="tools-grid">
-                <!-- Tool 1: QR Generator -->
-                <div class="tool-card">
-                    <div class="tool-tag">QR Forge</div>
-                    <div class="tool-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                    </div>
-                    <h3>QR Code Generator</h3>
-                    <p>Generate high-res QR codes for URLs, emails, phone numbers, and plain text instantly.</p>
-                    <a href="qr-generator.html" class="btn btn-secondary btn-sm">Launch Tool →</a>
-                </div>
-
-                <!-- Tool 2: Image Compressor -->
-                <div class="tool-card">
-                    <div class="tool-tag">Image Tools</div>
-                    <div class="tool-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h3>Image Compressor</h3>
-                    <p>Reduce JPEG and PNG file sizes seamlessly right on your machine without losing quality.</p>
-                    <a href="image-compressor.html" class="btn btn-secondary btn-sm">Launch Tool →</a>
-                </div>
-
-                <!-- Tool 3: Developer Utilities -->
-                <div class="tool-card">
-                    <div class="tool-tag">Developer</div>
-                    <div class="tool-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                    </div>
-                    <h3>Code Snippets & JSON</h3>
-                    <p>Fast encoding, decoding, and formatting utilities built for everyday development tasks.</p>
-                    <a href="#tools" class="btn btn-secondary btn-sm" style="opacity: 0.6; pointer-events: none;">Coming Soon</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why ToolNest Section -->
-    <section id="features">
-        <div class="container">
-            <div class="section-head">
-                <div class="eyebrow">Core Advantages</div>
-                <h2>Why Choose ToolNest?</h2>
-                <p>Designed with performance, simplicity, and privacy in mind.</p>
-            </div>
-
-            <div class="why-grid">
-                <div class="why-card">
-                    <div class="why-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    </div>
-                    <h3>Lightning Fast</h3>
-                    <p>Executes entirely in your browser using modern client-side JavaScript for zero lag.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                    </div>
-                    <h3>100% Private</h3>
-                    <p>Your files and data never leave your computer or get uploaded to any third-party server.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h3>Responsive Design</h3>
-                    <p>Fully optimized to work smoothly across desktops, tablets, and mobile phones.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AdSense Friendly Footer (Clean, English, Required Pages) -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="brand-name">ToolNest</div>
-                    <p>A suite of free online utilities built to make web tasks easier, faster, and more accessible for everyone.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#tools">All Tools</a></li>
-                        <li><a href="#features">Why ToolNest</a></li>
-                        <li><a href="qr-generator.html">QR Forge</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Legal & Support</h4>
-                    <ul>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Support</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div>&copy; 2026 ToolNest. All rights reserved.</div>
-                <div>Built with privacy & performance in mind.</div>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2026 ToolNest. All rights reserved.</p>
     </footer>
 
-    <script>
-        function toggleNav() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('open');
-        }
-    </script>
 </body>
 </html>
