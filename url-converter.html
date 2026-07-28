@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encoder / Decoder - ToolNest</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        textarea { width: 100%; height: 140px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; resize: vertical; box-sizing: border-box; outline: none; margin-bottom: 15px; }
+        .btn-group { display: flex; gap: 10px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1><a href="index.html" style="color:white; text-decoration:none;">ToolNest</a></h1>
+            <p>URL Encoder & Decoder</p>
+        </div>
+    </header>
+    <main class="container" style="background: white; padding: 2rem; border-radius: 12px; margin-bottom: 3rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+        <h2>URL Encoder / Decoder</h2>
+        <p style="color: #64748b; margin-bottom: 1.5rem;">Encode special characters in URLs or decode them back to readable format.</p>
+        <label style="display:block; font-weight:bold; margin-bottom: 5px;">Input URL / Text:</label>
+        <textarea id="inputText" placeholder="Type or paste URL here..."></textarea>
+        <div class="btn-group">
+            <button class="btn" onclick="encodeURL()">Encode URL</button>
+            <button class="btn" style="background: #059669;" onclick="decodeURL()">Decode URL</button>
+        </div>
+        <label style="display:block; font-weight:bold; margin-bottom: 5px;">Output Result:</label>
+        <textarea id="outputText" readonly placeholder="Result will appear here..."></textarea>
+        <button class="btn" style="background: #475569;" onclick="copyOutput()">Copy Result</button>
+    </main>
+    <footer class="main-footer">
+        <p>&copy; 2026 ToolNest. Built for creators and developers.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+            <a href="index.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Home</a> | 
+            <a href="privacy-policy.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Privacy Policy</a> | 
+            <a href="about.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">About Us</a> | 
+            <a href="terms.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Terms of Service</a>
+        </p>
+    </footer>
+    <script>
+        function encodeURL() { document.getElementById('outputText').value = encodeURIComponent(document.getElementById('inputText').value); }
+        function decodeURL() { 
+            try { document.getElementById('outputText').value = decodeURIComponent(document.getElementById('inputText').value); } 
+            catch(e) { alert('Invalid URL encoding!'); } 
+        }
+        function copyOutput() { navigator.clipboard.writeText(document.getElementById('outputText').value); alert('Copied!'); }
+    </script>
+</body>
+</html>
