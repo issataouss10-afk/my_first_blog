@@ -1,252 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-4RLN0M7YFJ');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolNest - Free Online Utilities & Web Tools</title>
-    <meta name="description" content="ToolNest provides 100% free online web utilities. Fast, secure, and no sign-up required.">
-    <meta name="robots" content="index, follow">
-
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --text-color: #f3f4f6;
-            --nav-bg: #111827;
-            --card-bg: #1f2937;
-            --border-color: #374151;
-            --primary: #10b981;
-            --primary-hover: #059669;
-            --card-text: #9ca3af;
-            --card-title: #ffffff;
-            --header-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-
-        [data-theme="light"] {
-            --bg-color: #f8fafc;
-            --text-color: #0f172a;
-            --nav-bg: #ffffff;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --primary: #0d9488;
-            --primary-hover: #0f766e;
-            --card-text: #64748b;
-            --card-title: #1e293b;
-            --header-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; transition: background 0.3s, color 0.3s; }
-        body { background-color: var(--bg-color); color: var(--text-color); }
-        
-        nav { background: var(--nav-bg); border-bottom: 1px solid var(--border-color); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
-        
-        .theme-toggle { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .theme-toggle:hover { border-color: var(--primary); }
-
-        header { background: var(--header-bg); color: white; text-align: center; padding: 60px 20px; border-bottom: 1px solid var(--border-color); }
-        header h1 { font-size: 2.5rem; margin-bottom: 12px; font-weight: 800; letter-spacing: -1px; color: #ffffff; }
-        header p { font-size: 1.1rem; color: #94a3b8; }
-        
-        .search-container { margin-top: 25px; }
-        .search-input { width: 100%; max-width: 500px; padding: 14px 22px; font-size: 1rem; border: 1px solid var(--border-color); border-radius: 30px; outline: none; background: rgba(255, 255, 255, 0.05); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .search-input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.1); }
-
-        /* Category Filter Tabs */
-        .categories-nav { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 35px 20px 10px; }
-        .cat-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 9px 18px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-        .cat-btn:hover, .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-1px); }
-
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .category-title { font-size: 1.3rem; color: var(--text-color); margin-bottom: 20px; margin-top: 40px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; font-weight: 700; letter-spacing: -0.5px; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-        
-        .tool-card { background: var(--card-bg); padding: 25px; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
-        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.1); border-color: var(--primary); }
-        
-        /* زر المفضلة */
-        .fav-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.2rem; cursor: pointer; transition: transform 0.2s; }
-        .fav-btn:hover { transform: scale(1.2); }
-
-        .tool-card h2 { font-size: 1.15rem; margin-bottom: 10px; padding-right: 30px; color: var(--card-title); font-weight: 700; }
-        .tool-card p { color: var(--card-text); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.5; }
-        
-        .btn-open { display: inline-block; background: var(--primary); color: white; text-decoration: none; padding: 10px 18px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 0.95rem; }
-        .btn-open:hover { background: var(--primary-hover); }
-
-        footer { text-align: center; padding: 40px 20px; color: var(--card-text); margin-top: 60px; border-top: 1px solid var(--border-color); background: var(--nav-bg); }
-        footer a { color: var(--primary); text-decoration: none; font-weight: 500; }
-        footer a:hover { text-decoration: underline; }
-    </style>
+    <title>ToolNest — Free Online Utilities & Developer Tools</title>
+    <meta name="description" content="A collection of fast, secure, and free online tools including QR Code Generator, Image Compressor, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="dark">
+<body>
 
-    <nav>
-        <a href="index.html" class="logo">ToolNest ⚡</a>
-        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light Mode</button>
-    </nav>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container nav">
+            <a href="index.html" class="brand">
+                <div class="brand-mark">
+                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <span class="brand-name">ToolNest</span>
+            </a>
 
-    <header>
-        <h1>Free Online Web Utilities</h1>
-        <p>Explore fast, secure, and modern tools built for everyday developers and creators.</p>
-        <div class="search-container">
-            <input type="text" id="searchInput" onkeyup="filterTools()" class="search-input" placeholder="🔍 Search for any tool...">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#tools">All Tools</a></li>
+                <li><a href="#features">Why ToolNest</a></li>
+                <li><a href="qr-generator.html">QR Forge</a></li>
+                <li><a href="image-compressor.html">Image Compressor</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="#tools" class="btn btn-primary btn-sm">Explore Tools</a>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">
+                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
         </div>
     </header>
 
-    <div class="categories-nav" id="catNav">
-        <button class="cat-btn active" onclick="filterCategory('All')">All Tools</button>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-copy">
+                <div class="eyebrow">Free & Fast Developer Utilities</div>
+                <h1>Your All-in-One <span class="grad">Online Toolkit</span></h1>
+                <p>Boost your productivity with clean, instant, and secure utilities built for creators, developers, and everyday tasks.</p>
+                
+                <div class="hero-actions">
+                    <a href="#tools" class="btn btn-primary">
+                        Browse All Tools
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7l7 7-7 7"/></svg>
+                    </a>
+                    <a href="qr-generator.html" class="btn btn-secondary">Try QR Forge</a>
+                </div>
 
-    <div class="container" id="mainContainer">
-        <!-- غيتم تحميل الأدوات هنا أوتوماتيكيا -->
-    </div>
+                <div class="trust-strip">
+                    <div class="trust-item">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        100% Free Forever
+                    </div>
+                    <div class="trust-item">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        No Registration Required
+                    </div>
+                    <div class="trust-item">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        Secure Client-Side
+                    </div>
+                </div>
+            </div>
 
-    <script>
-        let allToolsData = [];
-        let favorites = JSON.parse(localStorage.getItem('toolnest_favorites')) || [];
+            <!-- Hero Visual (Fanned cards representation) -->
+            <div class="hero-visual">
+                <div class="fan-card card-back">
+                    <div class="fan-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h4>Image Compressor</h4>
+                    <p>Shrink file size instantly without losing visual quality.</p>
+                </div>
+                <div class="fan-card card-mid">
+                    <div class="fan-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                    </div>
+                    <h4>QR Forge</h4>
+                    <p>Custom clean QR codes for URLs, text, and contacts.</p>
+                </div>
+                <div class="fan-card card-front">
+                    <div class="fan-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        <h4>Code Snippets</h4>
+                        <p>Fast encoding and formatting utilities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        fetch('tools.json')
-            .then(response => response.json())
-            .then(tools => {
-                allToolsData = tools;
-                buildCategoryTabs(tools);
-                renderTools(tools);
-            });
+    <!-- Tools Grid Section -->
+    <section class="tools-section" id="tools">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Available Utilities</div>
+                <h2>Explore Popular Tools</h2>
+                <p>Everything you need to get things done quickly, right in your browser.</p>
+            </div>
 
-        function buildCategoryTabs(tools) {
-            const catNav = document.getElementById('catNav');
-            const categories = ['All', '⭐ My Favorites', ...new Set(tools.map(t => t.category))];
-            
-            catNav.innerHTML = '';
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = `cat-btn ${cat === 'All' ? 'active' : ''}`;
-                btn.innerText = cat;
-                btn.onclick = () => {
-                    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    filterCategory(cat);
-                };
-                catNav.appendChild(btn);
-            });
-        }
+            <div class="tools-grid">
+                <!-- Tool 1: QR Generator -->
+                <div class="tool-card">
+                    <div class="tool-tag">Popular</div>
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                    </div>
+                    <h3>QR Code Generator</h3>
+                    <p>Generate high-res QR codes for URLs, emails, phone numbers, and plain text.</p>
+                    <a href="qr-generator.html" class="btn btn-secondary btn-sm">Launch Tool →</a>
+                </div>
 
-        function renderTools(tools) {
-            const container = document.getElementById('mainContainer');
-            container.innerHTML = '';
+                <!-- Tool 2: Image Compressor -->
+                <div class="tool-card">
+                    <div class="tool-tag">Fast</div>
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h3>Image Compressor</h3>
+                    <p>Reduce JPEG and PNG file sizes seamlessly right on your machine.</p>
+                    <a href="image-compressor.html" class="btn btn-secondary btn-sm">Launch Tool →</a>
+                </div>
 
-            if (tools.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color: var(--card-text); margin-top: 40px; font-size: 1.1rem;">No tools found here yet!</p>`;
-                return;
-            }
+                <!-- Tool 3: Placeholder (Coming Soon) -->
+                <div class="tool-card" style="opacity: 0.75;">
+                    <div class="tool-tag" style="background: var(--surface-2); color: var(--text-faint);">Soon</div>
+                    <div class="tool-icon" style="background: var(--surface-2);">
+                        <svg viewBox="0 0 24 24" style="stroke: var(--text-muted);"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    </div>
+                    <h3>Base64 Encoder</h3>
+                    <p>Encode and decode strings or files into safe Base64 format easily.</p>
+                    <button class="btn btn-secondary btn-sm" disabled style="cursor: not-allowed;">Coming Soon</button>
+                </div>
 
-            const categories = {};
+                <!-- Tool 4: Placeholder (Coming Soon) -->
+                <div class="tool-card" style="opacity: 0.75;">
+                    <div class="tool-tag" style="background: var(--surface-2); color: var(--text-faint);">Soon</div>
+                    <div class="tool-icon" style="background: var(--surface-2);">
+                        <svg viewBox="0 0 24 24" style="stroke: var(--text-muted);"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    </div>
+                    <h3>JSON Formatter</h3>
+                    <p>Validate, format, and beautify your JSON payloads instantly.</p>
+                    <button class="btn btn-secondary btn-sm" disabled style="cursor: not-allowed;">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            tools.forEach(tool => {
-                const cat = tool.category || 'Other';
-                if (!categories[cat]) {
-                    categories[cat] = [];
-                }
-                categories[cat].push(tool);
-            });
+    <!-- Why ToolNest Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-head">
+                <div class="eyebrow">Core Advantages</div>
+                <h2>Why Choose ToolNest?</h2>
+                <p>Designed with performance, simplicity, and privacy in mind.</p>
+            </div>
 
-            for (const cat in categories) {
-                const catTitle = document.createElement('h2');
-                catTitle.className = 'category-title';
-                catTitle.innerText = cat;
-                container.appendChild(catTitle);
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3>Lightning Fast</h3>
+                    <p>Executes entirely in your browser using modern client-side JavaScript for zero lag.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    </div>
+                    <h3>100% Private</h3>
+                    <p>Your files and data never leave your computer or get uploaded to any third-party server.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>Fully optimized to work smoothly across desktops, tablets, and mobile phones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                const grid = document.createElement('div');
-                grid.className = 'tools-grid';
+    <!-- CTA Banner -->
+    <section style="padding: 20px 0 76px;">
+        <div class="container">
+            <div class="cta-banner">
+                <h2>Ready to streamline your workflow?</h2>
+                <p>Explore our tools and start saving time today. No downloads or installations required.</p>
+                <a href="#tools" class="btn btn-secondary">Get Started Now</a>
+            </div>
+        </div>
+    </section>
 
-                categories[cat].forEach(tool => {
-                    const isFav = favorites.includes(tool.id);
-                    const card = document.createElement('div');
-                    card.className = 'tool-card';
-                    card.innerHTML = `
-                        <button class="fav-btn" onclick="toggleFavorite('${tool.id}')">${isFav ? '⭐' : '☆'}</button>
-                        <h2>${tool.name}</h2>
-                        <p>${tool.desc}</p>
-                        <a href="${tool.url}" class="btn-open">Open Tool →</a>
-                    `;
-                    grid.appendChild(card);
-                });
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="brand-name" style="font-size: 20px; font-weight: 700;">ToolNest</span>
+                    <p>A suite of free online utilities built to make web tasks easier, faster, and more accessible.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Utilities</h5>
+                    <ul>
+                        <li><a href="qr-generator.html">QR Code Generator</a></li>
+                        <li><a href="image-compressor.html">Image Compressor</a></li>
+                        <li><a href="#tools">JSON Formatter</a></li>
+                        <li><a href="#tools">Base64 Encoder</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Platform</h5>
+                    <ul>
+                        <li><a href="#features">About Us</a></li>
+                        <li><a href="#features">Privacy Policy</a></li>
+                        <li><a href="#features">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Connect</h5>
+                    <ul>
+                        <li><a href="#">GitHub Repository</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
 
-                container.appendChild(grid);
-            }
-        }
-
-        function toggleFavorite(toolId) {
-            if (favorites.includes(toolId)) {
-                favorites = favorites.filter(id => id !== toolId);
-            } else {
-                favorites.push(toolId);
-            }
-            localStorage.setItem('toolnest_favorites', JSON.stringify(favorites));
-            
-            // إعادة عرض الأدوات حسب الفئة النشطة حالياً
-            const activeCategoryBtn = document.querySelector('.cat-btn.active');
-            if (activeCategoryBtn) {
-                filterCategory(activeCategoryBtn.innerText);
-            }
-        }
-
-        function filterCategory(category) {
-            if (category === 'All') {
-                renderTools(allToolsData);
-            } else if (category === '⭐ My Favorites') {
-                const favTools = allToolsData.filter(t => favorites.includes(t.id));
-                renderTools(favTools);
-            } else {
-                const filtered = allToolsData.filter(t => t.category === category);
-                renderTools(filtered);
-            }
-        }
-
-        function filterTools() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('tool-card');
-
-            for (let i = 0; i < cards.length; i++) {
-                let title = cards[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
-                let desc = cards[i].getElementsByTagName('p')[0].innerText.toLowerCase();
-                if (title.includes(input) || desc.includes(input)) {
-                    cards[i].style.display = "";
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
-        }
-
-        function toggleTheme() {
-            const body = document.body;
-            const themeBtn = document.getElementById('themeBtn');
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                themeBtn.innerText = '🌙 Dark Mode';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                themeBtn.innerText = '☀️ Light Mode';
-            }
-        }
-    </script>
-
-    <footer>
-        <p>© 2026 ToolNest • Built for Creators & Developers</p>
-        <div style="margin-top: 12px; display: flex; justify-content: center; gap: 24px;">
-            <a href="about.html">About Us</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms of Service</a>
+            <div class="footer-bottom">
+                <div>&copy; 2026 ToolNest. All rights reserved.</div>
+                <div class="footer-socials">
+                    <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <script>
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
