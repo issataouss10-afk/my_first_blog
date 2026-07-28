@@ -37,7 +37,7 @@
       try {
         const compressedFile = await imageCompression(fileInput.files[0], options);
         document.getElementById('size-info').innerText = 
-          Original: ${(fileInput.files[0].size / 1024).toFixed(2)} KB ➔ New: ${(compressedFile.size / 1024).toFixed(2)} KB;
+          'Original: ' + (fileInput.files[0].size / 1024).toFixed(2) + ' KB ➔ New: ' + (compressedFile.size / 1024).toFixed(2) + ' KB';
         document.getElementById('download-btn').href = URL.createObjectURL(compressedFile);
         document.getElementById('result').style.display = 'block';
       } catch (e) {
