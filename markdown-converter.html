@@ -59,7 +59,7 @@
       <div class="grid-2">
         <div class="pane">
           <label for="markdownInput">Markdown Input:</label>
-          <textarea id="markdownInput" placeholder="# Hello World&#10;&#10;Type your *markdown* here..." oninput="convertMarkdown()"></textarea>
+          <textarea id="markdownInput" placeholder="# Hello World&#10;&#10;Type your markdown here..." oninput="convertMarkdown()"></textarea>
         </div>
         <div class="pane">
           <label for="htmlOutput">Generated HTML:</label>
@@ -96,7 +96,7 @@
         .split(/\n\s*\n/).map(para => {
           para = para.trim();
           if (!para.startsWith('<h') && para.length > 0) {
-            return <p>${para.replace(/\n/g, '<br>')}</p>;
+            return '<p>' + para.replace(/\n/g, '<br>') + '</p>';
           }
           return para;
         }).join('\n');
