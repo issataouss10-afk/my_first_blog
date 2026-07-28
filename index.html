@@ -72,6 +72,41 @@
                 <p>Easily encode plain text to Base64 or decode Base64 back to text.</p>
                 <a href="base64-converter.html" class="btn">Use Tool</a>
             </div>
+
+            <div class="tool-card" data-category="developer">
+                <div class="tool-icon">🌐</div>
+                <h3>URL Encoder / Decoder</h3>
+                <p>Encode special characters in URLs or decode them safely.</p>
+                <a href="url-converter.html" class="btn">Use Tool</a>
+            </div>
+
+            <div class="tool-card" data-category="security">
+                <div class="tool-icon">🛡️</div>
+                <h3>Password Strength Checker</h3>
+                <p>Test how secure your password is against modern security threats.</p>
+                <a href="password-strength.html" class="btn">Use Tool</a>
+            </div>
+
+            <div class="tool-card" data-category="developer">
+                <div class="tool-icon">💻</div>
+                <h3>HTML Entity Converter</h3>
+                <p>Escape characters to HTML entities or unescape them easily.</p>
+                <a href="html-entity.html" class="btn">Use Tool</a>
+            </div>
+
+            <div class="tool-card" data-category="productivity">
+                <div class="tool-icon">📄</div>
+                <h3>Lorem Ipsum Generator</h3>
+                <p>Generate placeholder dummy text for your designs and layouts.</p>
+                <a href="lorem-ipsum.html" class="btn">Use Tool</a>
+            </div>
+
+            <div class="tool-card" data-category="productivity">
+                <div class="tool-icon">🔠</div>
+                <h3>Case Converter</h3>
+                <p>Convert your text to Uppercase, Lowercase, Title Case, and more.</p>
+                <a href="case-converter.html" class="btn">Use Tool</a>
+            </div>
         </section>
     </main>
 
@@ -91,14 +126,11 @@
         const cards = document.querySelectorAll('.tool-card');
         const searchInput = document.getElementById('toolSearch');
 
-        // Category Filtering Function
         buttons.forEach(button => {
             button.addEventListener('click', () => {
                 buttons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
-                
                 const category = button.getAttribute('data-category');
-                
                 cards.forEach(card => {
                     if (category === 'all' || card.getAttribute('data-category') === category) {
                         card.style.display = 'flex';
@@ -109,14 +141,11 @@
             });
         });
 
-        // Search Bar Function
         searchInput.addEventListener('input', (e) => {
             const searchText = e.target.value.toLowerCase();
-            
             cards.forEach(card => {
                 const title = card.querySelector('h3').textContent.toLowerCase();
                 const description = card.querySelector('p').textContent.toLowerCase();
-                
                 if (title.includes(searchText) || description.includes(searchText)) {
                     card.style.display = 'flex';
                 } else {
