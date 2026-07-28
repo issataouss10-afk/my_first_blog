@@ -22,13 +22,13 @@
     </header>
 
     <main class="container">
-        <!-- Categories & Search Section in the Center -->
+        <!-- Categories & Search Section -->
         <section class="filter-search-section">
             <div class="categories">
-                <button class="cat-btn active">All Tools</button>
-                <button class="cat-btn">Developer</button>
-                <button class="cat-btn">Productivity</button>
-                <button class="cat-btn">Security</button>
+                <button class="cat-btn active" data-category="all">All Tools</button>
+                <button class="cat-btn" data-category="developer">Developer</button>
+                <button class="cat-btn" data-category="productivity">Productivity</button>
+                <button class="cat-btn" data-category="security">Security</button>
             </div>
             
             <div class="search-box">
@@ -38,21 +38,21 @@
 
         <!-- Tools Grid -->
         <section class="tools-grid">
-            <div class="tool-card">
+            <div class="tool-card" data-category="productivity">
                 <div class="tool-icon">📱</div>
                 <h3>QR Code Generator</h3>
                 <p>Generate custom QR codes instantly for links, text, and more.</p>
                 <a href="qr-generator.html" class="btn">Use Tool</a>
             </div>
             
-            <div class="tool-card">
+            <div class="tool-card" data-category="developer">
                 <div class="tool-icon">📋</div>
                 <h3>JSON Formatter</h3>
                 <p>Format, validate, and beautify your JSON data easily and securely.</p>
                 <a href="json-formatter.html" class="btn">Use Tool</a>
             </div>
             
-            <div class="tool-card">
+            <div class="tool-card" data-category="security">
                 <div class="tool-icon">🔒</div>
                 <h3>Password Generator</h3>
                 <p>Create highly secure passwords with custom options and symbols.</p>
@@ -64,5 +64,46 @@
     <footer class="main-footer">
         <p>&copy; 2026 ToolNest. Built for creators and developers.</p>
     </footer>
+
+    <!-- JavaScript for Filtering and Searching -->
+    <script>
+        const buttons = document.querySelectorAll('.cat-btn');
+        const cards = document.querySelectorAll('.tool-card');
+        const searchInput = document.getElementById('toolSearch');
+
+        // Category Filtering Function
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const category = button.getAttribute('data-category');
+                
+                cards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search Bar Function
+        searchInput.addEventListener('input', (e) => {
+            const searchText = e.target.value.toLowerCase();
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchText) || description.includes(searchText)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
