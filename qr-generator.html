@@ -5,108 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free QR Code Generator - ToolNest</title>
     <meta name="description" content="Generate free downloadable QR codes instantly for websites, links, and text.">
+    
+    <!-- ربط ملف الـ CSS المشترك والفخم -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- مكتبة توليد QR Code -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
-        }
-        nav {
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo { font-size: 1.5rem; font-weight: 800; color: #2563eb; text-decoration: none; }
-        .back-link { color: #64748b; text-decoration: none; font-weight: 600; font-size: 14px; }
-        .back-link:hover { color: #2563eb; }
-
-        .container {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-        .tool-box {
-            background: white;
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            border: 1px solid #e2e8f0;
-        }
-        h1 { margin-top: 0; color: #1e293b; font-size: 1.8rem; }
-        p.desc { color: #64748b; margin-bottom: 25px; line-height: 1.5; }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-        input[type="text"]:focus { border-color: #2563eb; }
-
-        button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 15px;
-            margin-top: 15px;
-        }
-        button:hover { background: #1d4ed8; }
-
-        #qrcode-box {
-            margin-top: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #qrcode img, #qrcode canvas {
-            padding: 10px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-        }
-        
-        footer { margin-top: 60px; text-align: center; color: #94a3b8; font-size: 14px; padding: 20px; }
-    </style>
 </head>
-<body>
+<body data-theme="dark">
 
 <nav>
-    <a href="index.html" class="logo">ToolNest</a>
-    <a href="index.html" class="back-link">← Back to All Tools</a>
+    <a href="index.html" class="logo">ToolNest ⚡</a>
+    <div class="nav-actions">
+      <button class="fav-nav-btn" id="favBtn" onclick="toggleCurrentFavorite()">☆ Favorite</button>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light Mode</button>
+    </div>
 </nav>
 
 <div class="container">
-    <div class="tool-box">
+    <div class="tool-card">
         <h1>📱 Online QR Code Generator</h1>
-        <p class="desc">Enter any URL or plain text below to instantly create a high-quality QR code that you can download and share.</p>
+        <p style="color: var(--card-text); margin-bottom: 25px; line-height: 1.5;">Enter any URL or plain text below to instantly create a high-quality QR code that you can download and share.</p>
         
         <input type="text" id="qrText" placeholder="e.g. https://mywebsite.com or enter any text...">
         <div>
             <button onclick="generateQRCode()">Generate QR Code</button>
         </div>
 
-        <div id="qrcode-box">
-            <div id="qrcode"></div>
-            <button id="downloadBtn" style="display:none; background:#475569;" onclick="downloadQR()">Download PNG Image</button>
+        <div id="qrcode-box" style="margin-top: 25px; display: flex; flex-direction: column; align-items: center;">
+            <div id="qrcode" style="margin-bottom: 15px;"></div>
+            <button id="downloadBtn" style="display:none; background: var(--primary);" onclick="downloadQR()">Download PNG Image</button>
         </div>
     </div>
 </div>
 
-<footer>© 2026 ToolNest • Free Online Utilities</footer>
+<footer>© 2026 ToolNest • Free Online Utilities | <a href="index.html">Back to All Tools</a></footer>
 
 <script>
+    // معرف الأداة الخاص بالمفضلة
+    const toolId = "qr-generator"; 
+    let favorites = JSON.parse(localStorage.getItem('toolnest_favorites')) || [];
+
+    function updateFavButton() {
+        const favBtn = document.getElementById('favBtn');
+        if (favorites.includes(toolId)) {
+            favBtn.innerText = '⭐ Favorited';
+            favBtn.style.borderColor = 'var(--primary)';
+        } else {
+            favBtn.innerText = '☆ Favorite';
+            favBtn.style.borderColor = 'var(--border-color)';
+        }
+    }
+
+    function toggleCurrentFavorite() {
+        if (favorites.includes(toolId)) {
+            favorites = favorites.filter(id => id !== toolId);
+        } else {
+            favorites.push(toolId);
+        }
+        localStorage.setItem('toolnest_favorites', JSON.stringify(favorites));
+        updateFavButton();
+    }
+
+    window.onload = function() {
+        updateFavButton();
+    };
+
     function generateQRCode() {
         const text = document.getElementById('qrText').value.trim();
         const container = document.getElementById('qrcode');
@@ -126,6 +90,18 @@
             link.href = imageSrc;
             link.download = 'toolnest-qrcode.png';
             link.click();
+        }
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        const themeBtn = document.getElementById('themeBtn');
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.setAttribute('data-theme', 'light');
+            themeBtn.innerText = '🌙 Dark Mode';
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            themeBtn.innerText = '☀️ Light Mode';
         }
     }
 </script>
