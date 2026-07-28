@@ -3,50 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word & Character Counter - ToolNest</title>
+    <title>Word & Character Counter - ToolNest Free Productivity Tools</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free online word and character counter tool. Count words, characters, sentences, and paragraphs in real-time instantly on ToolNest.">
+    <meta name="keywords" content="word counter, character counter, text statistics, typing counter, productivity tools, toolnest">
     <link rel="stylesheet" href="style.css">
     <style>
-        .counter-box {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .stat-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-        .stat-card .num {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #2563eb;
-        }
-        .stat-card .label {
-            font-size: 0.85rem;
-            color: #64748b;
-        }
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 1rem;
-            resize: vertical;
-            box-sizing: border-box;
-            outline: none;
-        }
-        textarea:focus {
-            border-color: #2563eb;
-        }
-        .btn-group {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-        }
+        .page-layout { display: flex; gap: 20px; align-items: flex-start; }
+        /* مساحة فارغة نظيفة للإعلانات في الجانب */
+        .ad-sidebar { width: 200px; min-height: 400px; }
+        .tool-main-content { flex: 1; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        /* مساحة فارغة نظيفة للإعلانات في الفوق والتحت */
+        .ad-banner { width: 100%; min-height: 90px; margin-bottom: 20px; }
+        
+        .counters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .counter-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: center; }
+        .counter-box span { display: block; font-size: 1.8rem; font-weight: bold; color: #2563eb; }
+        .counter-box label { font-size: 0.85rem; color: #64748b; }
+        
+        textarea { width: 100%; height: 180px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; resize: vertical; box-sizing: border-box; outline: none; margin-bottom: 15px; }
+        textarea:focus { border-color: #2563eb; }
+        .btn-group { display: flex; gap: 10px; }
+        @media(max-width: 900px) { .ad-sidebar { display: none; } }
     </style>
 </head>
 <body>
@@ -57,35 +35,40 @@
         </div>
     </header>
 
-    <main class="container" style="background: white; padding: 2rem; border-radius: 12px; margin-bottom: 3rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-        <h2>Word & Character Counter</h2>
-        <p style="color: #64748b; margin-bottom: 1.5rem;">Type or paste your text below to count words, characters, and sentences instantly.</p>
+    <main class="container" style="margin-top: 2rem; margin-bottom: 3rem;">
+        <!-- مكان فارغ نظيف لإعلان الفوق -->
+        <div class="ad-banner"></div>
 
-        <div class="counter-box">
-            <div class="stat-card">
-                <div class="num" id="wordsCount">0</div>
-                <div class="label">Words</div>
+        <div class="page-layout">
+            <!-- مكان فارغ نظيف لإعلان الجانب الأيسر -->
+            <div class="ad-sidebar"></div>
+
+            <!-- محتوى الأداة الأساسي -->
+            <div class="tool-main-content">
+                <h2>Word & Character Counter</h2>
+                <p style="color: #64748b; margin-bottom: 1.5rem;">Type or paste your text below to count words, characters, and sentences instantly.</p>
+                
+                <div class="counters-grid">
+                    <div class="counter-box"><span id="wordCount">0</span><label>Words</label></div>
+                    <div class="counter-box"><span id="charCount">0</span><label>Characters</label></div>
+                    <div class="counter-box"><span id="sentenceCount">0</span><label>Sentences</label></div>
+                    <div class="counter-box"><span id="paragraphCount">0</span><label>Paragraphs</label></div>
+                </div>
+
+                <textarea id="textInput" placeholder="Start typing or paste text here..."></textarea>
+                
+                <div class="btn-group">
+                    <button class="btn" style="background: #dc2626;" onclick="clearText()">Clear Text</button>
+                    <button class="btn" style="background: #475569;" onclick="copyText()">Copy Text</button>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="num" id="charsCount">0</div>
-                <div class="label">Characters</div>
-            </div>
-            <div class="stat-card">
-                <div class="num" id="sentencesCount">0</div>
-                <div class="label">Sentences</div>
-            </div>
-            <div class="stat-card">
-                <div class="num" id="paragraphsCount">0</div>
-                <div class="label">Paragraphs</div>
-            </div>
+
+            <!-- مكان فارغ نظيف لإعلان الجانب الأيمن -->
+            <div class="ad-sidebar"></div>
         </div>
 
-        <textarea id="textInput" placeholder="Start typing or paste text here..."></textarea>
-
-        <div class="btn-group">
-            <button class="btn" style="background: #ef4444;" onclick="clearText()">Clear Text</button>
-            <button class="btn" onclick="copyText()">Copy Text</button>
-        </div>
+        <!-- مكان فارغ نظيف لإعلان التحت -->
+        <div class="ad-banner" style="margin-top: 20px;"></div>
     </main>
 
     <footer class="main-footer">
@@ -100,33 +83,40 @@
 
     <script>
         const textInput = document.getElementById('textInput');
-        
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const sentenceCount = document.getElementById('sentenceCount');
+        const paragraphCount = document.getElementById('paragraphCount');
+
         textInput.addEventListener('input', () => {
             const text = textInput.value;
             
-            // Chars
-            document.getElementById('charsCount').innerText = text.length;
+            // Characters
+            charCount.textContent = text.length;
             
             // Words
-            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-            document.getElementById('wordsCount').innerText = words;
-
+            const words = text.trim() === '' ? [] : text.trim().split(/\s+/);
+            wordCount.textContent = words.length;
+            
             // Sentences
-            const sentences = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
-            document.getElementById('sentencesCount').innerText = sentences;
-
+            const sentences = text.split(/[.!?]+/).filter(Boolean);
+            sentenceCount.textContent = sentences.length;
+            
             // Paragraphs
-            const paragraphs = text.trim() ? text.split(/\n+/).filter(Boolean).length : 0;
-            document.getElementById('paragraphsCount').innerText = paragraphs;
+            const paragraphs = text.split(/\n+/).filter(p => p.trim() !== '');
+            paragraphCount.textContent = paragraphs.length;
         });
 
         function clearText() {
             textInput.value = '';
-            textInput.dispatchEvent(new Event('input'));
+            wordCount.textContent = '0';
+            charCount.textContent = '0';
+            sentenceCount.textContent = '0';
+            paragraphCount.textContent = '0';
         }
 
         function copyText() {
-            if (textInput.value) {
+            if(textInput.value) {
                 navigator.clipboard.writeText(textInput.value);
                 alert('Text copied to clipboard!');
             }
