@@ -7,50 +7,377 @@
     <!-- SEO Meta Tags -->
     <meta name="description" content="Generate high-quality custom QR codes for URLs, text, or contacts instantly and for free with ToolNest QR Code Generator.">
     <meta name="keywords" content="qr code generator, free qr code creator, custom qr code, developer tools, toolnest">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .page-layout { display: flex; gap: 20px; align-items: flex-start; }
-        /* مساحة فارغة نظيفة للإعلانات في الجانب */
-        .ad-sidebar { width: 200px; min-height: 400px; }
-        .tool-main-content { flex: 1; background: #ffffff; }
-        /* مساحة فارغة نظيفة للإعلانات في الفوق والتحت */
-        .ad-banner { width: 100%; min-height: 90px; margin-bottom: 20px; }
-        @media(max-width: 900px) { .ad-sidebar { display: none; } }
-    </style>
+    
     <!-- مكتبة توليد الـ QR Code الحقيقية -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --surface: #f6f7fb;
+            --surface-2: #eef0f8;
+            --border: #e6e8f2;
+            --border-strong: #d7daeb;
+            --text: #12131f;
+            --text-muted: #5b5f74;
+            --text-faint: #8b8fa3;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --indigo: #4f46e5;
+            --gradient-brand: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            --shadow-md: 0 10px 30px -12px rgba(18, 19, 31, 0.12);
+            --shadow-glow: 0 20px 45px -18px rgba(37, 99, 235, 0.4);
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 10px;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Inter", system-ui, -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.55;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px 20px;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            background: var(--gradient-brand);
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            box-shadow: 0 6px 16px -6px rgba(37, 99, 235, 0.55);
+        }
+
+        .brand-mark svg {
+            width: 17px;
+            height: 17px;
+            stroke: #ffffff;
+            fill: none;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            font-size: 17px;
+            letter-spacing: -0.01em;
+            color: var(--text);
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 9px 16px;
+            border-radius: 10px;
+            transition: color 0.18s var(--ease), border-color 0.18s var(--ease);
+        }
+
+        .btn-home:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-home svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        /* Main layout & Ads spaces */
+        main { flex: 1; padding: 40px 0; }
+        .page-layout { display: flex; gap: 20px; align-items: flex-start; }
+        .ad-sidebar { width: 200px; min-height: 400px; }
+        .ad-banner { width: 100%; min-height: 90px; margin-bottom: 20px; }
+
+        @media(max-width: 900px) { .ad-sidebar { display: none; } }
+
+        /* Tool Section */
+        .tool-intro {
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto 30px;
+        }
+
+        .tool-icon-badge {
+            width: 54px;
+            height: 54px;
+            border-radius: 15px;
+            background: var(--gradient-brand);
+            display: grid;
+            place-items: center;
+            margin: 0 auto 18px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .tool-icon-badge svg {
+            width: 26px;
+            height: 26px;
+            stroke: #ffffff;
+            fill: none;
+            stroke-width: 1.7;
+        }
+
+        .tool-intro h1 {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+
+        .tool-intro p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .tool-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 32px;
+        }
+
+        @media (max-width: 560px) { .tool-card { padding: 20px; } }
+
+        .field label {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .field label .req { color: var(--primary); }
+
+        .input-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .input-row input[type="text"] {
+            flex: 1 1 240px;
+            background: #ffffff;
+            border: 1px solid var(--border-strong);
+            color: var(--text);
+            font-size: 14.5px;
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            outline: none;
+            transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+        }
+
+        .input-row input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .btn {
+            font-weight: 600;
+            font-size: 14.5px;
+            border-radius: var(--radius-sm);
+            padding: 14px 22px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+            transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.1;
+        }
+
+        .btn-primary {
+            background: var(--gradient-brand);
+            color: #ffffff;
+            box-shadow: 0 12px 26px -10px rgba(37, 99, 235, 0.55);
+        }
+
+        .btn-primary:hover { transform: translateY(-1px); }
+
+        .btn-dark {
+            width: 100%;
+            background: var(--text);
+            color: #ffffff;
+            margin-top: 15px;
+        }
+
+        .btn-dark:hover { background: #26283a; }
+
+        .field-hint {
+            margin: 8px 2px 0;
+            font-size: 12.5px;
+            color: var(--text-faint);
+            min-height: 16px;
+        }
+
+        .field-hint.is-error { color: #dc2626; }
+
+        /* Output Grid */
+        .output-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: center;
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 640px) { .output-grid { grid-template-columns: 1fr; } }
+
+        .qr-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            min-height: 240px;
+        }
+
+        .qr-display.has-code {
+            border-style: solid;
+            border-color: rgba(37, 99, 235, 0.25);
+            background: #ffffff;
+            box-shadow: var(--shadow-glow);
+        }
+
+        #qrcode {
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-placeholder {
+            text-align: center;
+            color: var(--text-faint);
+        }
+
+        .qr-placeholder svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--text-faint);
+            fill: none;
+            stroke-width: 1.5;
+            margin: 0 auto 8px;
+        }
+
+        .qr-placeholder p { margin: 0; font-size: 13px; }
+
+        .output-side p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin: 0 0 10px;
+        }
+
+        /* Footer */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 24px 0;
+            text-align: center;
+            font-size: 12.5px;
+            color: var(--text-faint);
+        }
+
+        .site-footer a { color: var(--text-muted); margin: 0 8px; }
+        .site-footer a:hover { color: var(--primary); }
+    </style>
 </head>
 <body>
 
-    <!-- Header مع زر Home المدمج -->
+    <!-- Header -->
     <header class="site-header">
         <div class="nav">
             <a href="index.html" class="brand">
                 <div class="brand-mark">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <span class="brand-name">ToolNest</span>
             </a>
             <a href="index.html" class="btn-home">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Home
             </a>
         </div>
     </header>
 
     <main class="container">
-        <!-- مكان فارغ نظيف لإعلان الفوق -->
+        <!-- مساحة إعلانات الفوق -->
         <div class="ad-banner"></div>
 
         <div class="page-layout">
-            <!-- مكان فارغ نظيف لإعلان الجانب الأيسر -->
+            <!-- مساحة إعلانات الجانب الأيسر -->
             <div class="ad-sidebar"></div>
 
-            <!-- محتوى الأداة الأساسي -->
+            <!-- المحتوى الأساسي -->
             <div style="flex: 1;">
-                <div class="tool-intro" style="margin-top: 0;">
+                <div class="tool-intro">
                     <div class="tool-icon-badge">
-                        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="3" width="7" height="7" rx="1" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="14" width="7" height="7" rx="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
                     <h1>QR Code Generator</h1>
                     <p>Generate high-quality custom QR codes for URLs, text, or contacts instantly.</p>
@@ -62,7 +389,7 @@
                         <div class="input-row">
                             <input type="text" id="qrInput" placeholder="https://example.com" autocomplete="off">
                             <button class="btn btn-primary" onclick="generateQR()">
-                                <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 Generate QR
                             </button>
                         </div>
@@ -73,7 +400,7 @@
                         <div class="qr-display" id="qrDisplayBox">
                             <div id="qrcode">
                                 <div class="qr-placeholder" id="qrPlaceholder">
-                                    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3"/></svg>
+                                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     <p>Your QR code will appear here</p>
                                 </div>
                             </div>
@@ -81,46 +408,30 @@
 
                         <div class="output-side">
                             <div>
-                                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; margin: 0 0 6px;">Instant & Secure</h3>
+                                <h3 style="font-size: 16px; margin: 0 0 6px;">Instant & Secure</h3>
                                 <p>Your QR code is generated entirely inside your browser. Scan it with any smartphone camera to test it immediately.</p>
                             </div>
                             <button class="btn btn-dark" id="downloadBtn" onclick="downloadQR()" hidden>
-                                <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 Download QR Code (PNG)
                             </button>
                         </div>
                     </div>
                 </div>
-
-                <!-- مقال السيو المرتبط بالأداة -->
-                <article class="tool-article">
-                    <h2>How to Use the Free ToolNest QR Code Generator</h2>
-                    <p>QR codes have become an essential part of modern marketing, packaging, and digital communication. Our free online tool allows you to create sharp, scannable QR codes instantly without any sign-ups or expiration limits.</p>
-                    
-                    <h3>Frequently Asked Questions</h3>
-                    <div class="faq-item">
-                        <h3>Do these QR codes expire?</h3>
-                        <p>No, static QR codes generated here will work forever because the text or URL is encoded directly into the image pattern.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Can I use them for commercial purposes?</h3>
-                        <p>Yes, all generated QR codes are 100% free for personal and commercial use.</p>
-                    </div>
-                </article>
             </div>
 
-            <!-- مكان فارغ نظيف لإعلان الجانب الأيمن -->
+            <!-- مساحة إعلانات الجانب الأيمن -->
             <div class="ad-sidebar"></div>
         </div>
 
-        <!-- مكان فارغ نظيف لإعلان التحت -->
+        <!-- مساحة إعلانات التحت -->
         <div class="ad-banner" style="margin-top: 28px;"></div>
     </main>
 
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 ToolNest. Built for creators and developers.</p>
-            <div style="margin-top: 8px;">
+            <div style="margin-top: 6px;">
                 <a href="index.html">Home</a> | 
                 <a href="#">Privacy Policy</a> | 
                 <a href="#">Terms of Service</a>
@@ -129,8 +440,6 @@
     </footer>
 
     <script>
-        let qrInstance = null;
-
         function generateQR() {
             const inputVal = document.getElementById('qrInput').value.trim();
             const hint = document.getElementById('qrHint');
@@ -150,14 +459,12 @@
             displayBox.classList.add('has-code');
             if (placeholder) placeholder.style.display = 'none';
 
-            // مسح أي QR قديم
             qrcodeContainer.innerHTML = '';
 
-            // توليد QR جديد
-            qrInstance = new QRCode(qrcodeContainer, {
+            new QRCode(qrcodeContainer, {
                 text: inputVal,
-                width: 200,
-                height: 200,
+                width: 180,
+                height: 180,
                 colorDark: "#12131f",
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
@@ -169,14 +476,7 @@
         function downloadQR() {
             const img = document.querySelector('#qrcode img') || document.querySelector('#qrcode canvas');
             if (!img) return;
-
-            let imageUrl = '';
-            if (img.tagName === 'CANVAS') {
-                imageUrl = img.toDataURL('image/png');
-            } else {
-                imageUrl = img.src;
-            }
-
+            const imageUrl = img.tagName === 'CANVAS' ? img.toDataURL('image/png') : img.src;
             const link = document.createElement('a');
             link.href = imageUrl;
             link.download = 'toolnest-qrcode.png';
