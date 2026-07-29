@@ -3,156 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolNest - Free Online Developer & Productivity Tools</title>
-    
-    <!-- SEO Meta Descriptions -->
-    <meta name="description" content="ToolNest is your ultimate destination for free online tools including QR Code generators, JSON formatters, Word counters, and Base64 converters. Boost your productivity today!">
-    
-    <!-- Google Search Console Verification -->
-    <meta name="google-site-verification" content="dF26rzhRfG5nt4Md966IGuWxsXqNmNg1fuUqLNxVJuI" />
-    
-    <link rel="stylesheet" href="style.css">
+    <title>ToolNest - Free Online Productivity and Developer Tools</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        /* البانر الأزرق */
+        .hero-banner {
+            background: linear-gradient(135deg, #0056b3, #007bff);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        /* مربع البحث وسط البانر */
+        .search-container-hero {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-container-hero input {
+            width: 100%;
+            max-width: 500px;
+            padding: 14px 22px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* حاوية المحتوى والأزرار */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* أزرار الفلترة */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            background-color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        /* شبكة الأدوات */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .tool-card h3 {
+            margin-bottom: 10px;
+            color: #007bff;
+            font-size: 1.25rem;
+        }
+
+        .tool-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+    </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <h1>ToolNest</h1>
-            <p>Your ultimate destination for free online productivity and developer tools.</p>
+
+    <!-- البانر الأزرق مع مربع البحث -->
+    <header class="hero-banner">
+        <h1>ToolNest</h1>
+        <p>Your ultimate destination for free online productivity and developer tools.</p>
+        
+        <div class="search-container-hero">
+            <input type="text" id="searchTools" placeholder="Search for developer and productivity tools...">
         </div>
     </header>
 
+    <!-- محتوى الصفحة والأدوات -->
     <main class="container">
-        <!-- Categories & Search Section -->
-        <section class="filter-search-section">
-            <div class="categories">
-                <button class="cat-btn active" data-category="all">All Tools</button>
-                <button class="cat-btn" data-category="developer">Developer</button>
-                <button class="cat-btn" data-category="productivity">Productivity</button>
-                <button class="cat-btn" data-category="security">Security</button>
-            </div>
-            
-            <div class="search-box">
-                <input type="text" placeholder="🔍 Search for developer and productivity tools..." id="toolSearch">
-            </div>
-        </section>
+        
+        <!-- أزرار الفلترة -->
+        <div class="filters">
+            <button class="filter-btn active">All Tools</button>
+            <button class="filter-btn">Developer</button>
+            <button class="filter-btn">Productivity</button>
+            <button class="filter-btn">Security</button>
+        </div>
 
-        <!-- Tools Grid -->
-        <section class="tools-grid">
-            <div class="tool-card" data-category="productivity">
-                <div class="tool-icon">📱</div>
+        <!-- بطاقات الأدوات -->
+        <div class="tools-grid">
+            <a href="qr-generator.html" class="tool-card">
                 <h3>QR Code Generator</h3>
                 <p>Generate custom QR codes instantly for links, text, and more.</p>
-                <a href="qr-generator.html" class="btn">Use Tool</a>
-            </div>
-            
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">📋</div>
+            </a>
+
+            <a href="json-formatter.html" class="tool-card">
                 <h3>JSON Formatter</h3>
                 <p>Format, validate, and beautify your JSON data easily and securely.</p>
-                <a href="json-formatter.html" class="btn">Use Tool</a>
-            </div>
-            
-            <div class="tool-card" data-category="security">
-                <div class="tool-icon">🔒</div>
+            </a>
+
+            <a href="password-generator.html" class="tool-card">
                 <h3>Password Generator</h3>
                 <p>Create highly secure passwords with custom options and symbols.</p>
-                <a href="password-generator.html" class="btn">Use Tool</a>
-            </div>
+            </a>
+        </div>
 
-            <div class="tool-card" data-category="productivity">
-                <div class="tool-icon">📝</div>
-                <h3>Word & Character Counter</h3>
-                <p>Count words, characters, sentences, and paragraphs in real-time.</p>
-                <a href="word-counter.html" class="btn">Use Tool</a>
-            </div>
-
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">🔤</div>
-                <h3>Base64 Encoder / Decoder</h3>
-                <p>Easily encode plain text to Base64 or decode Base64 back to text.</p>
-                <a href="base64-converter.html" class="btn">Use Tool</a>
-            </div>
-
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">🌐</div>
-                <h3>URL Encoder / Decoder</h3>
-                <p>Encode special characters in URLs or decode them safely.</p>
-                <a href="url-converter.html" class="btn">Use Tool</a>
-            </div>
-
-            <div class="tool-card" data-category="security">
-                <div class="tool-icon">🛡️</div>
-                <h3>Password Strength Checker</h3>
-                <p>Test how secure your password is against modern security threats.</p>
-                <a href="password-strength.html" class="btn">Use Tool</a>
-            </div>
-
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">💻</div>
-                <h3>HTML Entity Converter</h3>
-                <p>Escape characters to HTML entities or unescape them easily.</p>
-                <a href="html-entity.html" class="btn">Use Tool</a>
-            </div>
-
-            <div class="tool-card" data-category="productivity">
-                <div class="tool-icon">📄</div>
-                <h3>Lorem Ipsum Generator</h3>
-                <p>Generate placeholder dummy text for your designs and layouts.</p>
-                <a href="lorem-ipsum.html" class="btn">Use Tool</a>
-            </div>
-
-            <div class="tool-card" data-category="productivity">
-                <div class="tool-icon">🔠</div>
-                <h3>Case Converter</h3>
-                <p>Convert your text to Uppercase, Lowercase, Title Case, and more.</p>
-                <a href="case-converter.html" class="btn">Use Tool</a>
-            </div>
-        </section>
     </main>
 
-    <footer class="main-footer">
-        <p>&copy; 2026 ToolNest. Built for creators and developers.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.85rem;">
-            <a href="index.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Home</a> | 
-            <a href="privacy-policy.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Privacy Policy</a> | 
-            <a href="about.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">About Us</a> | 
-            <a href="terms.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Terms of Service</a>
-        </p>
-    </footer>
-
-    <!-- JavaScript for Filtering and Searching -->
-    <script>
-        const buttons = document.querySelectorAll('.cat-btn');
-        const cards = document.querySelectorAll('.tool-card');
-        const searchInput = document.getElementById('toolSearch');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                buttons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                const category = button.getAttribute('data-category');
-                cards.forEach(card => {
-                    if (category === 'all' || card.getAttribute('data-category') === category) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        searchInput.addEventListener('input', (e) => {
-            const searchText = e.target.value.toLowerCase();
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
-                if (title.includes(searchText) || description.includes(searchText)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    </script>
 </body>
 </html>
