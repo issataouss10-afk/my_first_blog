@@ -3,137 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator - ToolNest</title>
-    <meta name="description" content="Generate high-resolution, professional QR codes instantly.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- QR Code Library -->
+    <title>Free QR Code Generator - ToolNest Developer Tools</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Generate high-quality custom QR codes for URLs, text, or contacts instantly and for free with ToolNest QR Code Generator.">
+    <meta name="keywords" content="qr code generator, free qr code creator, custom qr code, developer tools, toolnest">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-layout { display: flex; gap: 20px; align-items: flex-start; }
+        /* مساحة فارغة نظيفة للإعلانات في الجانب */
+        .ad-sidebar { width: 200px; min-height: 400px; }
+        .tool-main-content { flex: 1; background: #ffffff; }
+        /* مساحة فارغة نظيفة للإعلانات في الفوق والتحت */
+        .ad-banner { width: 100%; min-height: 90px; margin-bottom: 20px; }
+        @media(max-width: 900px) { .ad-sidebar { display: none; } }
+    </style>
+    <!-- مكتبة توليد الـ QR Code الحقيقية -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+<body>
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center gap-2">
-                <i class="fa-solid fa-toolbox"></i> ToolNest
+    <!-- Header مع زر Home المدمج -->
+    <header class="site-header">
+        <div class="nav">
+            <a href="index.html" class="brand">
+                <div class="brand-mark">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <span class="brand-name">ToolNest</span>
             </a>
-            <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition flex items-center gap-1 bg-slate-100 px-4 py-2 rounded-lg border border-slate-200">
-                <i class="fa-solid fa-arrow-left"></i> Home
+            <a href="index.html" class="btn-home">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Home
             </a>
         </div>
     </header>
 
-    <!-- Main Tool Section -->
-    <main class="max-w-4xl mx-auto px-4 py-12 flex-grow w-full">
-        
-        <!-- Tool Title -->
-        <div class="text-center mb-10">
-            <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3 shadow-sm">
-                <i class="fa-solid fa-qrcode"></i>
-            </div>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-2">QR Code Generator</h1>
-            <p class="text-slate-600 text-base max-w-lg mx-auto">Enter your text or URL and click generate to create your QR code.</p>
-        </div>
+    <main class="container">
+        <!-- مكان فارغ نظيف لإعلان الفوق -->
+        <div class="ad-banner"></div>
 
-        <!-- Tool Card -->
-        <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-sm border border-slate-200 space-y-8">
-            
-            <!-- Input & Button Row (Inline) -->
-            <div>
-                <label for="qr-input" class="block text-sm font-semibold text-slate-700 mb-2">URL or Text *</label>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="text" id="qr-input" placeholder="https://example.com" class="flex-grow bg-white text-slate-800 px-5 py-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm placeholder:text-slate-400">
-                    <button onclick="generateQR()" class="bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl hover:bg-blue-700 transition shadow-sm flex items-center justify-center gap-2 shrink-0">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate
-                    </button>
+        <div class="page-layout">
+            <!-- مكان فارغ نظيف لإعلان الجانب الأيسر -->
+            <div class="ad-sidebar"></div>
+
+            <!-- محتوى الأداة الأساسي -->
+            <div style="flex: 1;">
+                <div class="tool-intro" style="margin-top: 0;">
+                    <div class="tool-icon-badge">
+                        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="3" width="7" height="7" rx="1" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="14" width="7" height="7" rx="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h1>QR Code Generator</h1>
+                    <p>Generate high-quality custom QR codes for URLs, text, or contacts instantly.</p>
                 </div>
-            </div>
 
-            <!-- Output Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-6 border-t border-slate-100">
-                
-                <!-- QR Code Display Area -->
-                <div class="flex flex-col items-center justify-center bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 min-h-[280px]">
-                    <div id="qrcode" class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-center min-h-[220px] min-w-[220px]">
-                        <div class="text-center text-slate-400">
-                            <i class="fa-regular fa-image text-5xl mb-2"></i>
-                            <p class="text-sm">Your QR Code will appear here</p>
+                <div class="tool-card">
+                    <div class="field">
+                        <label for="qrInput">Enter URL or Text <span class="req">*</span></label>
+                        <div class="input-row">
+                            <input type="text" id="qrInput" placeholder="https://example.com" autocomplete="off">
+                            <button class="btn btn-primary" onclick="generateQR()">
+                                <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                Generate QR
+                            </button>
+                        </div>
+                        <div class="field-hint" id="qrHint">Type a valid URL or text to generate your QR code.</div>
+                    </div>
+
+                    <div class="output-grid">
+                        <div class="qr-display" id="qrDisplayBox">
+                            <div id="qrcode">
+                                <div class="qr-placeholder" id="qrPlaceholder">
+                                    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3"/></svg>
+                                    <p>Your QR code will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="output-side">
+                            <div>
+                                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; margin: 0 0 6px;">Instant & Secure</h3>
+                                <p>Your QR code is generated entirely inside your browser. Scan it with any smartphone camera to test it immediately.</p>
+                            </div>
+                            <button class="btn btn-dark" id="downloadBtn" onclick="downloadQR()" hidden>
+                                <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                Download QR Code (PNG)
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Download & Details -->
-                <div class="space-y-6 flex flex-col justify-center">
-                    <button id="download-btn" onclick="downloadQR()" class="hidden w-full bg-slate-900 text-white font-medium px-6 py-4 rounded-xl hover:bg-slate-800 transition flex items-center justify-center gap-2 shadow-sm">
-                        <i class="fa-solid fa-download"></i> Download HD PNG
-                    </button>
-                    <p class="text-xs text-slate-500 leading-relaxed">
-                        ToolNest generates high-quality matrix codes instantly upon clicking the generate button.
-                    </p>
-                </div>
-
+                <!-- مقال السيو المرتبط بالأداة -->
+                <article class="tool-article">
+                    <h2>How to Use the Free ToolNest QR Code Generator</h2>
+                    <p>QR codes have become an essential part of modern marketing, packaging, and digital communication. Our free online tool allows you to create sharp, scannable QR codes instantly without any sign-ups or expiration limits.</p>
+                    
+                    <h3>Frequently Asked Questions</h3>
+                    <div class="faq-item">
+                        <h3>Do these QR codes expire?</h3>
+                        <p>No, static QR codes generated here will work forever because the text or URL is encoded directly into the image pattern.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use them for commercial purposes?</h3>
+                        <p>Yes, all generated QR codes are 100% free for personal and commercial use.</p>
+                    </div>
+                </article>
             </div>
 
+            <!-- مكان فارغ نظيف لإعلان الجانب الأيمن -->
+            <div class="ad-sidebar"></div>
         </div>
 
-        <!-- SEO Content Section -->
-        <article class="mt-12 bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose max-w-none text-slate-600">
-            <h2 class="text-2xl font-bold text-slate-900 mb-4">About Free Online QR Code Generator</h2>
-            <p class="mb-4">
-                Welcome to ToolNest's <strong>QR Code Generator</strong>, a fast, reliable, and completely free online utility designed to help businesses, creators, and developers convert URLs, plain text, and contact details into scannable matrix barcodes instantly.
-            </p>
-            
-            <h3 class="text-xl font-semibold text-slate-900 mt-6 mb-3">Why Use Our QR Code Tool?</h3>
-            <ul class="list-disc pl-5 space-y-2 mb-4">
-                <li><strong>100% Free:</strong> No hidden fees, subscriptions, or watermarks on generated codes.</li>
-                <li><strong>On-Demand Generation:</strong> Click to generate your custom code precisely when you need it.</li>
-                <li><strong>Secure & Private:</strong> Your data stays in your browser; nothing is stored on external servers.</li>
-                <li><strong>High-Resolution Downloads:</strong> Export clean PNG images suitable for both digital screens and print materials.</li>
-            </ul>
-
-            <h3 class="text-xl font-semibold text-slate-900 mt-6 mb-3">How to Create a QR Code</h3>
-            <ol class="list-decimal pl-5 space-y-2">
-                <li>Type or paste your destination link (URL) or message into the text box.</li>
-                <li>Click the <strong>Generate</strong> button.</li>
-                <li>Click <strong>Download HD PNG</strong> to save it instantly to your device.</li>
-            </ol>
-        </article>
-
+        <!-- مكان فارغ نظيف لإعلان التحت -->
+        <div class="ad-banner" style="margin-top: 28px;"></div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm text-slate-500 mt-12">
-        <p>© 2026 ToolNest. All rights reserved.</p>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 ToolNest. Built for creators and developers.</p>
+            <div style="margin-top: 8px;">
+                <a href="index.html">Home</a> | 
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
+        let qrInstance = null;
+
         function generateQR() {
-            const inputVal = document.getElementById('qr-input').value.trim();
-            const qrContainer = document.getElementById('qrcode');
-            const downloadBtn = document.getElementById('download-btn');
+            const inputVal = document.getElementById('qrInput').value.trim();
+            const hint = document.getElementById('qrHint');
+            const displayBox = document.getElementById('qrDisplayBox');
+            const placeholder = document.getElementById('qrPlaceholder');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const qrcodeContainer = document.getElementById('qrcode');
 
             if (!inputVal) {
-                alert('Please enter a valid URL or text first!');
+                hint.classList.add('is-error');
+                hint.textContent = 'Please enter a valid text or URL.';
                 return;
             }
 
-            // Clear previous placeholder/QR code
-            qrContainer.innerHTML = '';
+            hint.classList.remove('is-error');
+            hint.textContent = 'QR code generated successfully!';
+            displayBox.classList.add('has-code');
+            if (placeholder) placeholder.style.display = 'none';
 
-            // Generate new QR code
-            new QRCode(qrContainer, {
+            // مسح أي QR قديم
+            qrcodeContainer.innerHTML = '';
+
+            // توليد QR جديد
+            qrInstance = new QRCode(qrcodeContainer, {
                 text: inputVal,
-                width: 220,
-                height: 220,
-                colorDark: "#0f172a",
+                width: 200,
+                height: 200,
+                colorDark: "#12131f",
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
             });
 
-            // Show download button
-            downloadBtn.classList.remove('hidden');
+            downloadBtn.hidden = false;
         }
 
         function downloadQR() {
