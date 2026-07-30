@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invisible Blank Character Generator - ToolNest</title>
+    <meta name="description" content="Copy invisible or blank text characters instantly for your social media bios, nicknames, and chat apps.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
+        .nav-link:hover { color: #2563eb; background: #eff6ff; }
+        
+        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; }
+        .tool-desc { color: #64748b; margin-bottom: 2rem; }
+        
+        .box-display { background: #f8fafc; border: 2px dashed #cbd5e1; padding: 20px; border-radius: 8px; margin-bottom: 1.5rem; font-size: 1.1rem; color: #64748b; }
+        
+        .btn-primary { background: #2563eb; color: white; border: none; padding: 12px 25px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .success-msg { margin-top: 1rem; color: #10b981; font-weight: 500; display: none; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">ToolNest</a>
+        <a href="index.html" class="nav-link">← Back to Home</a>
+    </nav>
+
+    <div class="tool-container">
+        <h1 class="tool-title">👻 Invisible Character Generator</h1>
+        <p class="tool-desc">Click the button below to copy an invisible/blank Unicode character to your clipboard.</p>
+
+        <div class="box-display">
+            <span>[ Invisible Character Ready ]</span>
+        </div>
+
+        <button id="copyBtn" class="btn-primary">Copy Invisible Text</button>
+        <div id="successMsg" class="success-msg">Copied successfully! You can now paste it anywhere.</div>
+    </div>
+
+    <script>
+        const copyBtn = document.getElementById('copyBtn');
+        const successMsg = document.getElementById('successMsg');
+
+        copyBtn.addEventListener('click', () => {
+            // Unicode for Braille Blank Character (U+2800)
+            const invisibleChar = ' ';
+            
+            navigator.clipboard.writeText(invisibleChar).then(() => {
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+            }).catch(err => {
+                alert('Failed to copy text.');
+            });
+        });
+    </script>
+</body>
+</html>
