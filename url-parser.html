@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Parser - ToolNest</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .home-btn { background: #2563eb; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; }
+        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        h1 { font-size: 1.8rem; margin-bottom: 10px; color: #0f172a; }
+        .subtitle { color: #64748b; margin-bottom: 25px; font-size: 0.95rem; }
+        input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; margin-bottom: 15px; }
+        .result-box { background: #f1f5f9; padding: 15px; border-radius: 8px; font-size: 0.9rem; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">ToolNest</a>
+        <a href="index.html" class="home-btn">Home</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h1>URL Parser</h1>
+            <p class="subtitle">Break down a URL into its components.</p>
+            <input type="text" id="urlInput" placeholder="https://example.com:8080/path?name=test">
+            <div class="result-box" id="urlResult">Enter a valid URL above.</div>
+        </div>
+    </div>
+    <script>
+        const input = document.getElementById('urlInput');
+        const result = document.getElementById('urlResult');
+        input.addEventListener('input', (e) => {
+            try {
+                const url = new URL(e.target.value);
+                result.innerHTML = `
+                    <p><strong>Protocol:</strong> ${url.protocol}</p>
+                    <p><strong>Host:</strong> ${url.host}</p>
+                    <p><strong>Pathname:</strong> ${url.pathname}</p>
+                    <p><strong>Search:</strong> ${url.search || 'None'}</p>
+                `;
+            } catch {
+                result.textContent = 'Please enter a valid URL (including http://)';
+            }
+        });
+    </script>
+</body>
+</html>
