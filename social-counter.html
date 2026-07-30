@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Character Counter - ToolNest</title>
+    <meta name="description" content="Check text length against character limits for Twitter, Instagram, and LinkedIn.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
+        .nav-link:hover { color: #2563eb; background: #eff6ff; }
+        
+        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; }
+        .tool-desc { color: #64748b; margin-bottom: 2rem; }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-control { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; height: 150px; resize: vertical; }
+        .form-control:focus { border-color: #2563eb; }
+
+        .limits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .limit-card { background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .limit-card h4 { margin: 0 0 5px 0; color: #334155; font-size: 1rem; }
+        .limit-card p { margin: 0; color: #64748b; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">ToolNest</a>
+        <a href="index.html" class="nav-link">← Back to Home</a>
+    </nav>
+
+    <div class="tool-container">
+        <h1 class="tool-title">📱 Social Media Character Counter</h1>
+        <p class="tool-desc">Type or paste your text to check limits for various platforms.</p>
+
+        <div class="form-group">
+            <textarea id="textInput" class="form-control" placeholder="Type your caption here..."></textarea>
+        </div>
+
+        <div class="limits-grid">
+            <div class="limit-card">
+                <h4>X (Twitter) [280]</h4>
+                <p id="twitterCount">0 characters left</p>
+            </div>
+            <div class="limit-card">
+                <h4>LinkedIn Post [3000]</h4>
+                <p id="linkedinCount">0 characters left</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const textInput = document.getElementById('textInput');
+        const twitterCount = document.getElementById('twitterCount');
+        const linkedinCount = document.getElementById('linkedinCount');
+
+        textInput.addEventListener('input', () => {
+            const len = textInput.value.length;
+            
+            const twRemain = 280 - len;
+            twitterCount.textContent = twRemain >= 0 ? `${twRemain} characters left` : `${Math.abs(twRemain)} over limit!`;
+            twitterCount.style.color = twRemain < 0 ? '#dc2626' : '#64748b';
+
+            const liRemain = 3000 - len;
+            linkedinCount.textContent = liRemain >= 0 ? `${liRemain} characters left` : `${Math.abs(liRemain)} over limit!`;
+            linkedinCount.style.color = liRemain < 0 ? '#dc2626' : '#64748b';
+        });
+    </script>
+</body>
+</html>
