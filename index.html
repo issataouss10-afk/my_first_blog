@@ -13,21 +13,33 @@
     
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ستايل القائمة العلوية العالمية */
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        /* ستايل القائمة العلوية العالمية مع الأقسام */
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .nav-home-btn { background: #2563eb; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background 0.2s; }
-        .nav-home-btn:hover { background: #1d4ed8; }
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
+        .nav-link:hover, .nav-link.active-nav { color: #2563eb; background: #eff6ff; }
+        .nav-home-btn { background: #2563eb; color: white !important; padding: 6px 14px; border-radius: 6px; }
+        .nav-home-btn:hover { background: #1d4ed8 !important; }
 
-        .category-section { margin-bottom: 3rem; }
+        .category-section { margin-bottom: 3rem; scroll-margin-top: 80px; }
         .category-title { font-size: 1.5rem; color: #1e293b; margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
+        
+        @media(max-width: 768px) {
+            .nav-links { display: none; } /* إخفاء الأقسام في الشاشات الصغيرة جداً للحفاظ على التنسيق */
+        }
     </style>
 </head>
 <body>
-    <!-- القائمة العلوية بحال المواقع الكبرى -->
+    <!-- القائمة العلوية مع الشعار والأقسام -->
     <nav>
         <a href="index.html" class="nav-logo">ToolNest</a>
-        <a href="index.html" class="nav-home-btn">Home</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link nav-home-btn">Home</a>
+            <a href="#developer-section" class="nav-link">Developer</a>
+            <a href="#productivity-section" class="nav-link">Productivity</a>
+            <a href="#security-section" class="nav-link">Security</a>
+        </div>
     </nav>
 
     <!-- البانر الأزرق الرئيسي -->
@@ -54,7 +66,7 @@
         </section>
 
         <!-- Developer Tools Section -->
-        <div class="category-section" data-section="developer">
+        <div class="category-section" id="developer-section" data-section="developer">
             <h2 class="category-title">⚙️ Developer Tools</h2>
             <section class="tools-grid">
                 <div class="tool-card" data-category="developer">
@@ -116,7 +128,7 @@
         </div>
 
         <!-- Productivity Tools Section -->
-        <div class="category-section" data-section="productivity">
+        <div class="category-section" id="productivity-section" data-section="productivity">
             <h2 class="category-title">⚡ Productivity Tools</h2>
             <section class="tools-grid">
                 <div class="tool-card" data-category="productivity">
@@ -150,7 +162,7 @@
         </div>
 
         <!-- Security Tools Section -->
-        <div class="category-section" data-section="security">
+        <div class="category-section" id="security-section" data-section="security">
             <h2 class="category-title">🛡️ Security Tools</h2>
             <section class="tools-grid">
                 <div class="tool-card" data-category="security">
