@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTM Link Builder - ToolNest</title>
+    <meta name="description" content="Build campaign tracking URLs with UTM parameters easily.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
+        .nav-link:hover { color: #2563eb; background: #eff6ff; }
+        
+        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; }
+        .tool-desc { color: #64748b; margin-bottom: 2rem; }
+        
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.4rem; color: #334155; font-size: 0.95rem; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; }
+        .form-control:focus { border-color: #2563eb; }
+
+        .btn-primary { background: #2563eb; color: white; border: none; padding: 12px 20px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .btn-primary:hover { background: #1d4ed8; }
+
+        .result-box { margin-top: 2rem; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: none; }
+        .result-code { font-family: monospace; background: #e2e8f0; padding: 10px; border-radius: 6px; margin-top: 8px; word-break: break-all; color: #0f172a; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">ToolNest</a>
+        <a href="index.html" class="nav-link">← Back to Home</a>
+    </nav>
+
+    <div class="tool-container">
+        <h1 class="tool-title">🔗 UTM Link Builder</h1>
+        <p class="tool-desc">Create campaign URLs with tracking parameters for Google Analytics.</p>
+
+        <div class="form-group">
+            <label for="baseUrl">Website URL (e.g. https://example.com)</label>
+            <input type="text" id="baseUrl" class="form-control" placeholder="https://example.com">
+        </div>
+        <div class="form-group">
+            <label for="utmSource">Campaign Source (e.g. google, newsletter)</label>
+            <input type="text" id="utmSource" class="form-control" placeholder="google">
+        </div>
+        <div class="form-group">
+            <label for="utmMedium">Campaign Medium (e.g. cpc, banner, email)</label>
+            <input type="text" id="utmMedium" class="form-control" placeholder="cpc">
+        </div>
+        <div class="form-group">
+            <label for="utmCampaign">Campaign Name (e.g. summer_sale)</label>
+            <input type="text" id="utmCampaign" class="form-control" placeholder="summer_sale">
+        </div>
+
+        <button id="buildBtn" class="btn-primary">Generate UTM URL</button>
+
+        <div class="result-box" id="resultBox">
+            <strong>Generated Tracking URL:</strong>
+            <div class="result-code" id="outputUrl"></div>
+        </div>
+    </div>
+
+    <script>
+        const buildBtn = document.getElementById('buildBtn');
+        const resultBox = document.getElementById('resultBox');
+        const outputUrl = document.getElementById('outputUrl');
+
+        buildBtn.addEventListener('click', () => {
+            let base = document.getElementById('baseUrl').value.trim();
+            const source = document.getElementById('utmSource').value.trim();
+            const medium = document.getElementById('utmMedium').value.trim();
+            const campaign = document.getElementById('utmCampaign').value.trim();
+
+            if(!base) {
+                alert('Please enter a website URL');
+                return;
+            }
+
+            let url = new URL(base.startsWith('http') ? base : 'https://' + base);
+            if(source) url.searchParams.append('utm_source', source);
+            if(medium) url.searchParams.append('utm_medium', medium);
+            if(campaign) url.searchParams.append('utm_campaign', campaign);
+
+            outputUrl.textContent = url.toString();
+            resultBox.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
