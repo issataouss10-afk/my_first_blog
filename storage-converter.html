@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Storage Converter - ToolNest</title>
+    <meta name="description" content="Convert digital data storage units between Bytes, KB, MB, GB, and TB.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
+        .nav-link:hover { color: #2563eb; background: #eff6ff; }
+        
+        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; }
+        .tool-desc { color: #64748b; margin-bottom: 2rem; }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; }
+        .form-control:focus { border-color: #2563eb; }
+
+        .result-box { margin-top: 2rem; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .result-box p { margin: 8px 0; color: #334155; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">ToolNest</a>
+        <a href="index.html" class="nav-link">← Back to Home</a>
+    </nav>
+
+    <div class="tool-container">
+        <h1 class="tool-title">💾 Data Storage Converter</h1>
+        <p class="tool-desc">Easily convert MB to GB, TB, and Bytes instantly.</p>
+
+        <div class="form-group">
+            <label for="mbInput">Enter Megabytes (MB)</label>
+            <input type="number" id="mbInput" class="form-control" placeholder="e.g. 1024">
+        </div>
+
+        <div class="result-box" id="resultBox">
+            <p><strong>Bytes:</strong> <span id="resBytes">0</span></p>
+            <p><strong>Kilobytes (KB):</strong> <span id="resKb">0</span></p>
+            <p><strong>Gigabytes (GB):</strong> <span id="resGb">0</span></p>
+            <p><strong>Terabytes (TB):</strong> <span id="resTb">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const mbInput = document.getElementById('mbInput');
+        const resBytes = document.getElementById('resBytes');
+        const resKb = document.getElementById('resKb');
+        const resGb = document.getElementById('resGb');
+        const resTb = document.getElementById('resTb');
+
+        mbInput.addEventListener('input', () => {
+            const mb = parseFloat(mbInput.value) || 0;
+            resBytes.textContent = (mb * 1024 * 1024).toLocaleString();
+            resKb.textContent = (mb * 1024).toLocaleString();
+            resGb.textContent = (mb / 1024).toFixed(4);
+            resTb.textContent = (mb / (1024 * 1024)).toFixed(6);
+        });
+    </script>
+</body>
+</html>
