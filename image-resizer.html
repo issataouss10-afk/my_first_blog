@@ -4,26 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Resizer - ToolNest</title>
+    <meta name="description" content="Resize your images quickly to specific dimensions online for free.">
     <link rel="stylesheet" href="style.css">
+    <style>
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
+        .nav-link:hover { color: #2563eb; background: #eff6ff; }
+        
+        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px; }
+        .tool-desc { color: #64748b; margin-bottom: 2rem; }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155; }
+        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+        .form-control:focus { border-color: #2563eb; }
+        
+        .dimensions-row { display: flex; gap: 15px; }
+        .dimensions-row .form-group { flex: 1; }
+
+        .btn-primary { background: #2563eb; color: white; border: none; padding: 12px 20px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .btn-primary:hover { background: #1d4ed8; }
+
+        .preview-section { margin-top: 2rem; text-align: center; display: none; }
+        .preview-section img { max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem; }
+        
+        .btn-download { display: inline-block; background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 650; transition: background 0.2s; }
+        .btn-download:hover { background: #059669; }
+    </style>
 </head>
 <body>
-    <nav style="background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <a href="index.html" style="font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none;">ToolNest</a>
-        <a href="index.html" class="btn" style="padding: 6px 14px;">Back to Home</a>
+
+    <nav>
+        <a href="index.html" class="nav-logo">ToolNest</a>
+        <a href="index.html" class="nav-link">← Back to Home</a>
     </nav>
 
-    <main class="container" style="margin-top: 3rem; margin-bottom: 3rem;">
-        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-            <h2 style="margin-bottom: 1rem; color: #0f172a;">📐 Image Resizer</h2>
-            <p style="color: #64748b; margin-bottom: 1.5rem;">Upload an image and specify new dimensions.</p>
-            
-            <input type="file" id="imageUpload" accept="image/*" style="margin-bottom: 1rem; display: block;"><br>
-            <div style="display: flex; gap: 10px; margin-bottom: 1rem;">
-                <input type="number" id="imgWidth" placeholder="Width (px)" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                <input type="number" id="imgHeight" placeholder="Height (px)" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            </div>
-            <p style="color: #64748b; font-size: 0.9rem;">(Tool utility ready for expansion).</p>
+    <div class="tool-container">
+        <h1 class="tool-title">📐 Image Resizer</h1>
+        <p class="tool-desc">Upload an image, set your desired width and height, and download it instantly.</p>
+
+        <div class="form-group">
+            <label for="imageInput">Select Image</label>
+            <input type="file" id="imageInput" accept="image/*" class="form-control">
         </div>
-    </main>
+
+        <div class="dimensions-row">
+            <div class="form-group">
+                <label for="widthInput">Width (px)</label>
+                <input type="number" id="widthInput" class="form-control" placeholder="e.g. 500">
+            </div>
+            <div class="form-group">
+                <label for="heightInput">Height (px)</label>
+                <input type="number" id="heightInput" class="form-control" placeholder="e.g. 500">
+            </div>
+        </div>
+
+        <button id="resizeBtn" class="btn-primary">Resize Image</button>
+
+        <div class="preview-section" id="previewSection">
+            <h3>Resized Image Preview:</h3>
+            <canvas id="outputCanvas" style="display:none;"></canvas>
+            <div>
+                <img id="imagePreview" alt="Resized Preview">
+            </div>
+            <a id="downloadBtn" class="btn-download" download="resized-image.png">Download Resized Image</a>
+        </div>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
+        const resizeBtn = document.getElementById('resizeBtn');
+        const previewSection = document.getElementById('previewSection');
+        const imagePreview = document.getElementById('imagePreview');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const outputCanvas = document.getElementById('outputCanvas');
+        
+        let loadedImage = null;
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        loadedImage = img;
+                        widthInput.value = img.width;
+                        heightInput.value = img.height;
+                    }
+                    img.src = event.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        resizeBtn.addEventListener('click', () => {
+            if (!loadedImage) {
+                alert('Please select an image first!');
+                return;
+            }
+
+            const targetWidth = parseInt(widthInput.value);
+            const targetHeight = parseInt(heightInput.value);
+
+            if (!targetWidth || !targetHeight || targetWidth <= 0 || targetHeight <= 0) {
+                alert('Please enter valid dimensions!');
+                return;
+            }
+
+            outputCanvas.width = targetWidth;
+            outputCanvas.height = targetHeight;
+            const ctx = outputCanvas.getContext('2d');
+            ctx.drawImage(loadedImage, 0, 0, targetWidth, targetHeight);
+
+            const dataUrl = outputCanvas.toDataURL('image/png');
+            imagePreview.src = dataUrl;
+            downloadBtn.href = dataUrl;
+            previewSection.style.display = 'block';
+        });
+    </script>
 </body>
 </html>
