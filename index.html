@@ -13,20 +13,48 @@
     
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ستايل القائمة العلوية العالمية مع الأقسام */
+        /* ستايل القائمة العلوية */
         nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .nav-links { display: flex; gap: 15px; align-items: center; }
-        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
+        .nav-links { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
         .nav-link:hover, .nav-link.active-nav { color: #2563eb; background: #eff6ff; }
         .nav-home-btn { background: #2563eb; color: white !important; padding: 6px 14px; border-radius: 6px; }
         .nav-home-btn:hover { background: #1d4ed8 !important; }
 
-        .category-section { margin-bottom: 3rem; scroll-margin-top: 80px; }
+        /* تنسيق البانر الأزرق مع مربع البحث في الوسط */
+        .main-header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            text-align: center;
+            padding: 3.5rem 1rem 4rem 1rem;
+        }
+        .main-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .main-header p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; }
+        
+        .header-search-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .header-search-box input {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .header-search-box input:focus {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        .category-section { margin-bottom: 3rem; scroll-margin-top: 90px; }
         .category-title { font-size: 1.5rem; color: #1e293b; margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
         
-        @media(max-width: 768px) {
-            .nav-links { display: none; } /* إخفاء الأقسام في الشاشات الصغيرة جداً للحفاظ على التنسيق */
+        @media(max-width: 992px) {
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -39,32 +67,25 @@
             <a href="#developer-section" class="nav-link">Developer</a>
             <a href="#productivity-section" class="nav-link">Productivity</a>
             <a href="#security-section" class="nav-link">Security</a>
+            <a href="#seo-section" class="nav-link">SEO Tools</a>
+            <a href="#converters-section" class="nav-link">Converters</a>
+            <a href="#image-section" class="nav-link">Image Tools</a>
         </div>
     </nav>
 
-    <!-- البانر الأزرق الرئيسي -->
+    <!-- البانر الأزرق الرئيسي مع شريط البحث في الوسط -->
     <header class="main-header">
         <div class="container">
             <h1>ToolNest</h1>
             <p>Your ultimate destination for free online productivity and developer tools.</p>
+            
+            <div class="header-search-box">
+                <input type="text" placeholder="🔍 Search for developer and productivity tools..." id="toolSearch">
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <!-- Categories & Search Section -->
-        <section class="filter-search-section" style="margin-top: 2rem; margin-bottom: 2.5rem;">
-            <div class="categories">
-                <button class="cat-btn active" data-category="all">All Tools</button>
-                <button class="cat-btn" data-category="developer">Developer</button>
-                <button class="cat-btn" data-category="productivity">Productivity</button>
-                <button class="cat-btn" data-category="security">Security</button>
-            </div>
-            
-            <div class="search-box">
-                <input type="text" placeholder="🔍 Search for developer and productivity tools..." id="toolSearch">
-            </div>
-        </section>
-
+    <main class="container" style="margin-top: 2.5rem;">
         <!-- Developer Tools Section -->
         <div class="category-section" id="developer-section" data-section="developer">
             <h2 class="category-title">⚙️ Developer Tools</h2>
@@ -180,6 +201,45 @@
                 </div>
             </section>
         </div>
+
+        <!-- SEO Tools Section (Future-ready) -->
+        <div class="category-section" id="seo-section" data-section="seo">
+            <h2 class="category-title">📈 SEO & Marketing Tools</h2>
+            <section class="tools-grid">
+                <div class="tool-card" data-category="seo" style="border: 2px dashed #cbd5e1; background: #f8fafc;">
+                    <div class="tool-icon">🚀</div>
+                    <h3>Coming Soon</h3>
+                    <p>New SEO and website optimization tools will be added here soon.</p>
+                    <span class="btn" style="opacity: 0.6; cursor: not-allowed;">Stay Tuned</span>
+                </div>
+            </section>
+        </div>
+
+        <!-- Converters Section (Future-ready) -->
+        <div class="category-section" id="converters-section" data-section="converters">
+            <h2 class="category-title">🔄 File & Format Converters</h2>
+            <section class="tools-grid">
+                <div class="tool-card" data-category="converters" style="border: 2px dashed #cbd5e1; background: #f8fafc;">
+                    <div class="tool-icon">📦</div>
+                    <h3>Coming Soon</h3>
+                    <p>File format and document conversion tools coming soon.</p>
+                    <span class="btn" style="opacity: 0.6; cursor: not-allowed;">Stay Tuned</span>
+                </div>
+            </section>
+        </div>
+
+        <!-- Image Tools Section (Future-ready) -->
+        <div class="category-section" id="image-section" data-section="image">
+            <h2 class="category-title">🖼️ Image & Design Tools</h2>
+            <section class="tools-grid">
+                <div class="tool-card" data-category="image" style="border: 2px dashed #cbd5e1; background: #f8fafc;">
+                    <div class="tool-icon">🎨</div>
+                    <h3>Coming Soon</h3>
+                    <p>Image compressor and design utilities will appear here.</p>
+                    <span class="btn" style="opacity: 0.6; cursor: not-allowed;">Stay Tuned</span>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer class="main-footer">
@@ -192,29 +252,11 @@
         </p>
     </footer>
 
-    <!-- JavaScript for Filtering and Searching -->
+    <!-- JavaScript for Searching -->
     <script>
-        const buttons = document.querySelectorAll('.cat-btn');
-        const sections = document.querySelectorAll('.category-section');
-        const cards = document.querySelectorAll('.tool-card');
         const searchInput = document.getElementById('toolSearch');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                buttons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                const category = button.getAttribute('data-category');
-                
-                sections.forEach(section => {
-                    const secCategory = section.getAttribute('data-section');
-                    if (category === 'all' || secCategory === category) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-            });
-        });
+        const cards = document.querySelectorAll('.tool-card');
+        const sections = document.querySelectorAll('.category-section');
 
         searchInput.addEventListener('input', (e) => {
             const searchText = e.target.value.toLowerCase();
@@ -230,15 +272,7 @@
                     }
                 });
             } else {
-                const activeCat = document.querySelector('.cat-btn.active').getAttribute('data-category');
-                sections.forEach(section => {
-                    const secCategory = section.getAttribute('data-section');
-                    if (activeCat === 'all' || secCategory === activeCat) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
+                sections.forEach(sec => sec.style.display = 'block');
                 cards.forEach(card => card.style.display = 'flex');
             }
         });
