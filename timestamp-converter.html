@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timestamp Converter - ToolNest</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .home-btn { background: #2563eb; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; }
+        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        h1 { font-size: 1.8rem; margin-bottom: 10px; color: #0f172a; }
+        .subtitle { color: #64748b; margin-bottom: 25px; font-size: 0.95rem; }
+        .input-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+        .result-box { background: #f1f5f9; padding: 15px; border-radius: 8px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">ToolNest</a>
+        <a href="index.html" class="home-btn">Home</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h1>Timestamp Converter</h1>
+            <p class="subtitle">Convert Unix timestamp to readable date and vice versa.</p>
+            <div class="input-group">
+                <label>Enter Timestamp:</label>
+                <input type="number" id="timestampInput" placeholder="e.g. 1719840000">
+            </div>
+            <div class="result-box">
+                <p><strong>Readable Date:</strong> <span id="dateResult">-</span></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const input = document.getElementById('timestampInput');
+        const result = document.getElementById('dateResult');
+        input.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if(!val) { result.textContent = '-'; return; }
+            const date = new Date(val * 1000);
+            result.textContent = isNaN(date.getTime()) ? 'Invalid Timestamp' : date.toUTCString();
+        });
+    </script>
+</body>
+</html>
