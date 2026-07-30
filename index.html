@@ -12,6 +12,10 @@
     <meta name="google-site-verification" content="dF26rzhRfG5nt4Md966IGuWxsXqNmNg1fuUqLNxVJuI" />
     
     <link rel="stylesheet" href="style.css">
+    <style>
+        .category-section { margin-bottom: 3rem; }
+        .category-title { font-size: 1.5rem; color: #1e293b; margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
+    </style>
 </head>
 <body>
     <header class="main-header">
@@ -23,7 +27,7 @@
 
     <main class="container">
         <!-- Categories & Search Section -->
-        <section class="filter-search-section">
+        <section class="filter-search-section" style="margin-bottom: 2.5rem;">
             <div class="categories">
                 <button class="cat-btn active" data-category="all">All Tools</button>
                 <button class="cat-btn" data-category="developer">Developer</button>
@@ -36,109 +40,121 @@
             </div>
         </section>
 
-        <!-- Tools Grid -->
-        <section class="tools-grid">
-            <div class="tool-card" data-category="productivity">
-                <div class="tool-icon">📱</div>
-                <h3>QR Code Generator</h3>
-                <p>Generate custom QR codes instantly for links, text, and more.</p>
-                <a href="qr-generator.html" class="btn">Use Tool</a>
-            </div>
-            
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">📋</div>
-                <h3>JSON Formatter</h3>
-                <p>Format, validate, and beautify your JSON data easily and securely.</p>
-                <a href="json-formatter.html" class="btn">Use Tool</a>
-            </div>
-            
-            <div class="tool-card" data-category="security">
-                <div class="tool-icon">🔒</div>
-                <h3>Password Generator</h3>
-                <p>Create highly secure passwords with custom options and symbols.</p>
-                <a href="password-generator.html" class="btn">Use Tool</a>
-            </div>
+        <!-- Developer Tools Section -->
+        <div class="category-section" data-section="developer">
+            <h2 class="category-title">⚙️ Developer Tools</h2>
+            <section class="tools-grid">
+                <div class="tool-card" data-category="developer">
+                    <div class="tool-icon">📋</div>
+                    <h3>JSON Formatter</h3>
+                    <p>Format, validate, and beautify your JSON data easily and securely.</p>
+                    <a href="json-formatter.html" class="btn">Use Tool</a>
+                </div>
 
-            <div class="tool-card" data-category="productivity">
-                <div class="tool-icon">📝</div>
-                <h3>Word & Character Counter</h3>
-                <p>Count words, characters, sentences, and paragraphs in real-time.</p>
-                <a href="word-counter.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="developer">
+                    <div class="tool-icon">🔤</div>
+                    <h3>Base64 Encoder / Decoder</h3>
+                    <p>Easily encode plain text to Base64 or decode Base64 back to text.</p>
+                    <a href="base64-converter.html" class="btn">Use Tool</a>
+                </div>
 
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">🔤</div>
-                <h3>Base64 Encoder / Decoder</h3>
-                <p>Easily encode plain text to Base64 or decode Base64 back to text.</p>
-                <a href="base64-converter.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="developer">
+                    <div class="tool-icon">🌐</div>
+                    <h3>URL Encoder / Decoder</h3>
+                    <p>Encode special characters in URLs or decode them safely.</p>
+                    <a href="url-converter.html" class="btn">Use Tool</a>
+                </div>
 
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">🌐</div>
-                <h3>URL Encoder / Decoder</h3>
-                <p>Encode special characters in URLs or decode them safely.</p>
-                <a href="url-converter.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="developer">
+                    <div class="tool-icon">💻</div>
+                    <h3>HTML Entity Converter</h3>
+                    <p>Escape characters to HTML entities or unescape them easily.</p>
+                    <a href="html-entity.html" class="btn">Use Tool</a>
+                </div>
 
-            <div class="tool-card" data-category="security">
-                <div class="tool-icon">🛡️</div>
-                <h3>Password Strength Checker</h3>
-                <p>Test how secure your password is against modern security threats.</p>
-                <a href="password-strength.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="developer">
+                    <div class="tool-icon">🎨</div>
+                    <h3>Color Converter</h3>
+                    <p>Convert HEX color codes to RGB instantly.</p>
+                    <a href="color-converter.html" class="btn">Use Tool</a>
+                </div>
 
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">💻</div>
-                <h3>HTML Entity Converter</h3>
-                <p>Escape characters to HTML entities or unescape them easily.</p>
-                <a href="html-entity.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="developer">
+                    <div class="tool-icon">⏳</div>
+                    <h3>Timestamp Converter</h3>
+                    <p>Convert Unix timestamp to readable date and vice versa.</p>
+                    <a href="timestamp-converter.html" class="btn">Use Tool</a>
+                </div>
 
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">🎨</div>
-                <h3>Color Converter</h3>
-                <p>Convert HEX color codes to RGB instantly.</p>
-                <a href="color-converter.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="developer">
+                    <div class="tool-icon">🔗</div>
+                    <h3>URL Parser</h3>
+                    <p>Break down a URL into its components easily.</p>
+                    <a href="url-parser.html" class="btn">Use Tool</a>
+                </div>
 
-            <!-- الأداة 1 الجديدة: Timestamp Converter -->
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">⏳</div>
-                <h3>Timestamp Converter</h3>
-                <p>Convert Unix timestamp to readable date and vice versa.</p>
-                <a href="timestamp-converter.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="developer">
+                    <div class="tool-icon">✨</div>
+                    <h3>Box Shadow Generator</h3>
+                    <p>Generate CSS box-shadow effects visually and copy code.</p>
+                    <a href="box-shadow.html" class="btn">Use Tool</a>
+                </div>
+            </section>
+        </div>
 
-            <!-- الأداة 2 الجديدة: URL Parser -->
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">🔗</div>
-                <h3>URL Parser</h3>
-                <p>Break down a URL into its components easily.</p>
-                <a href="url-parser.html" class="btn">Use Tool</a>
-            </div>
+        <!-- Productivity Tools Section -->
+        <div class="category-section" data-section="productivity">
+            <h2 class="category-title">⚡ Productivity Tools</h2>
+            <section class="tools-grid">
+                <div class="tool-card" data-category="productivity">
+                    <div class="tool-icon">📱</div>
+                    <h3>QR Code Generator</h3>
+                    <p>Generate custom QR codes instantly for links, text, and more.</p>
+                    <a href="qr-generator.html" class="btn">Use Tool</a>
+                </div>
 
-            <!-- الأداة 3 الجديدة: Box Shadow Generator -->
-            <div class="tool-card" data-category="developer">
-                <div class="tool-icon">✨</div>
-                <h3>Box Shadow Generator</h3>
-                <p>Generate CSS box-shadow effects visually and copy code.</p>
-                <a href="box-shadow.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="productivity">
+                    <div class="tool-icon">📝</div>
+                    <h3>Word & Character Counter</h3>
+                    <p>Count words, characters, sentences, and paragraphs in real-time.</p>
+                    <a href="word-counter.html" class="btn">Use Tool</a>
+                </div>
 
-            <div class="tool-card" data-category="productivity">
-                <div class="tool-icon">📄</div>
-                <h3>Lorem Ipsum Generator</h3>
-                <p>Generate placeholder dummy text for your designs and layouts.</p>
-                <a href="lorem-ipsum.html" class="btn">Use Tool</a>
-            </div>
+                <div class="tool-card" data-category="productivity">
+                    <div class="tool-icon">📄</div>
+                    <h3>Lorem Ipsum Generator</h3>
+                    <p>Generate placeholder dummy text for your designs and layouts.</p>
+                    <a href="lorem-ipsum.html" class="btn">Use Tool</a>
+                </div>
 
-            <div class="tool-card" data-category="productivity">
-                <div class="tool-icon">🔠</div>
-                <h3>Case Converter</h3>
-                <p>Convert your text to Uppercase, Lowercase, Title Case, and more.</p>
-                <a href="case-converter.html" class="btn">Use Tool</a>
-            </div>
-        </section>
+                <div class="tool-card" data-category="productivity">
+                    <div class="tool-icon">🔠</div>
+                    <h3>Case Converter</h3>
+                    <p>Convert your text to Uppercase, Lowercase, Title Case, and more.</p>
+                    <a href="case-converter.html" class="btn">Use Tool</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Security Tools Section -->
+        <div class="category-section" data-section="security">
+            <h2 class="category-title">🛡️ Security Tools</h2>
+            <section class="tools-grid">
+                <div class="tool-card" data-category="security">
+                    <div class="tool-icon">🔒</div>
+                    <h3>Password Generator</h3>
+                    <p>Create highly secure passwords with custom options and symbols.</p>
+                    <a href="password-generator.html" class="btn">Use Tool</a>
+                </div>
+
+                <div class="tool-card" data-category="security">
+                    <div class="tool-icon">🛡️</div>
+                    <h3>Password Strength Checker</h3>
+                    <p>Test how secure your password is against modern security threats.</p>
+                    <a href="password-strength.html" class="btn">Use Tool</a>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer class="main-footer">
@@ -154,6 +170,7 @@
     <!-- JavaScript for Filtering and Searching -->
     <script>
         const buttons = document.querySelectorAll('.cat-btn');
+        const sections = document.querySelectorAll('.category-section');
         const cards = document.querySelectorAll('.tool-card');
         const searchInput = document.getElementById('toolSearch');
 
@@ -162,11 +179,13 @@
                 buttons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
                 const category = button.getAttribute('data-category');
-                cards.forEach(card => {
-                    if (category === 'all' || card.getAttribute('data-category') === category) {
-                        card.style.display = 'flex';
+                
+                sections.forEach(section => {
+                    const secCategory = section.getAttribute('data-section');
+                    if (category === 'all' || secCategory === category) {
+                        section.style.display = 'block';
                     } else {
-                        card.style.display = 'none';
+                        section.style.display = 'none';
                     }
                 });
             });
@@ -174,15 +193,31 @@
 
         searchInput.addEventListener('input', (e) => {
             const searchText = e.target.value.toLowerCase();
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
-                if (title.includes(searchText) || description.includes(searchText)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            if (searchText.trim() !== '') {
+                // إذا كان المستخدم كيكتب في البحث، نخفي العناوين ونعرض غير الكارتات المطابقة
+                sections.forEach(sec => sec.style.display = 'block');
+                cards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    if (title.includes(searchText) || description.includes(searchText)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            } else {
+                // إرجاع الأقسام لطبيعتها إذا خوى خانة البحث
+                const activeCat = document.querySelector('.cat-btn.active').getAttribute('data-category');
+                sections.forEach(section => {
+                    const secCategory = section.getAttribute('data-section');
+                    if (activeCat === 'all' || secCategory === activeCat) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+                cards.forEach(card => card.style.display = 'flex');
+            }
         });
     </script>
 </body>
