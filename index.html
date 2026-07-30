@@ -13,11 +13,24 @@
     
     <link rel="stylesheet" href="style.css">
     <style>
+        /* ستايل القائمة العلوية العالمية */
+        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .nav-home-btn { background: #2563eb; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+        .nav-home-btn:hover { background: #1d4ed8; }
+
         .category-section { margin-bottom: 3rem; }
         .category-title { font-size: 1.5rem; color: #1e293b; margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
     </style>
 </head>
 <body>
+    <!-- القائمة العلوية بحال المواقع الكبرى -->
+    <nav>
+        <a href="index.html" class="nav-logo">ToolNest</a>
+        <a href="index.html" class="nav-home-btn">Home</a>
+    </nav>
+
+    <!-- البانر الأزرق الرئيسي -->
     <header class="main-header">
         <div class="container">
             <h1>ToolNest</h1>
@@ -27,7 +40,7 @@
 
     <main class="container">
         <!-- Categories & Search Section -->
-        <section class="filter-search-section" style="margin-bottom: 2.5rem;">
+        <section class="filter-search-section" style="margin-top: 2rem; margin-bottom: 2.5rem;">
             <div class="categories">
                 <button class="cat-btn active" data-category="all">All Tools</button>
                 <button class="cat-btn" data-category="developer">Developer</button>
@@ -194,7 +207,6 @@
         searchInput.addEventListener('input', (e) => {
             const searchText = e.target.value.toLowerCase();
             if (searchText.trim() !== '') {
-                // إذا كان المستخدم كيكتب في البحث، نخفي العناوين ونعرض غير الكارتات المطابقة
                 sections.forEach(sec => sec.style.display = 'block');
                 cards.forEach(card => {
                     const title = card.querySelector('h3').textContent.toLowerCase();
@@ -206,7 +218,6 @@
                     }
                 });
             } else {
-                // إرجاع الأقسام لطبيعتها إذا خوى خانة البحث
                 const activeCat = document.querySelector('.cat-btn.active').getAttribute('data-category');
                 sections.forEach(section => {
                     const secCategory = section.getAttribute('data-section');
