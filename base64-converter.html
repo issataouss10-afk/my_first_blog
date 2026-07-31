@@ -89,7 +89,7 @@
   }
   </script>
 
-  <!-- Base & Component CSS with Dark Mode Support -->
+  <!-- CSS Design System -->
   <style>
     :root {
       --primary: #2563eb;
@@ -139,7 +139,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 0;
+      padding: 15px 0;
     }
     .logo {
       display: flex;
@@ -147,11 +147,11 @@
       gap: 10px;
       text-decoration: none;
       color: var(--primary);
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
     }
     .logo-icon {
-      font-size: 28px;
+      font-size: 24px;
     }
     .header-actions {
       display: flex;
@@ -160,11 +160,13 @@
     }
     .main-nav {
       display: flex;
-      gap: 25px;
+      gap: 20px;
+      align-items: center;
     }
     .main-nav a {
       text-decoration: none;
       color: var(--muted);
+      font-size: 14px;
       font-weight: 600;
     }
     .main-nav a:hover {
@@ -174,22 +176,19 @@
       background: none;
       border: 1px solid var(--border);
       color: var(--text);
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-    }
-    @media(max-width:900px){
-      .main-nav { display: none; }
+      font-size: 16px;
     }
     .breadcrumb {
-      margin: 35px 0 25px;
+      margin: 25px 0 20px;
       color: var(--muted);
-      font-size: .95rem;
+      font-size: .9rem;
     }
     .breadcrumb a {
       color: var(--primary);
@@ -197,36 +196,37 @@
     }
     .hero {
       text-align: center;
-      margin-bottom: 35px;
+      margin-bottom: 30px;
     }
     .hero-icon {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       margin: auto;
       background: #dbeafe;
-      border-radius: 20px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 38px;
-      margin-bottom: 18px;
+      font-size: 32px;
+      margin-bottom: 15px;
     }
     [data-theme="dark"] .hero-icon {
       background: #1e3a8a;
     }
     .hero h1 {
-      font-size: 2.2rem;
-      margin-bottom: 12px;
+      font-size: 2rem;
+      margin-bottom: 10px;
     }
     .hero p {
-      max-width: 760px;
+      max-width: 700px;
       margin: auto;
       color: var(--muted);
+      font-size: 14px;
     }
     .ad-banner {
       width: 100%;
-      min-height: 90px;
-      margin: 35px 0;
+      min-height: 80px;
+      margin: 25px 0;
       border: 1px dashed var(--border);
       border-radius: 12px;
       display: flex;
@@ -234,12 +234,13 @@
       justify-content: center;
       color: var(--muted);
       font-size: 13px;
+      background: var(--card);
     }
     .tool-card {
       background: var(--card);
       border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.06);
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.04);
       border: 1px solid var(--border);
     }
     .tool-header {
@@ -248,33 +249,33 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 15px;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
     .toolbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
     }
     .toolbar button, .toolbar-btn {
       background: var(--primary);
       color: white;
       border: none;
-      padding: 10px 16px;
-      border-radius: 10px;
+      padding: 8px 14px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
     }
     .toolbar button:hover, .toolbar-btn:hover {
       background: var(--primary-dark);
     }
     .options-bar {
       display: flex;
-      gap: 15px;
+      gap: 20px;
       align-items: center;
       margin-bottom: 20px;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--muted);
     }
     .options-bar label {
@@ -285,19 +286,20 @@
     }
     .upload-box {
       border: 2px dashed var(--border);
-      border-radius: 14px;
-      padding: 25px;
+      border-radius: 12px;
+      padding: 20px;
       text-align: center;
       background: var(--bg);
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
     .upload-box.drag {
       border-color: var(--primary);
       background: rgba(37, 99, 235, 0.05);
     }
     .upload-box p {
-      margin-top: 10px;
+      margin-top: 8px;
       color: var(--muted);
+      font-size: 13px;
     }
     .editor-grid {
       display: grid;
@@ -306,15 +308,15 @@
     }
     .editor-grid textarea {
       width: 100%;
-      height: 380px;
+      height: 340px;
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
-      border-radius: 12px;
-      padding: 18px;
+      border-radius: 10px;
+      padding: 15px;
       resize: vertical;
       font-family: Consolas, monospace;
-      font-size: 14px;
+      font-size: 13px;
     }
     .editor-grid textarea:focus {
       border-color: var(--primary);
@@ -324,32 +326,34 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-weight: 600;
+      font-size: 14px;
     }
     .textarea-header .actions-group {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
     .textarea-header button {
       background: var(--bg);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 4px 10px;
+      padding: 4px 8px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
     }
     .textarea-header button:hover {
       background: var(--border);
     }
     #statusMessage {
-      margin-top: 20px;
+      margin-top: 15px;
       font-weight: 600;
+      font-size: 13px;
     }
-    .stats-box, .file-info, .preview-card, .faq, .related-tools {
-      margin-top: 30px;
+    .stats-box, .file-info, .preview-card, .seo-content, .faq, .related-tools {
+      margin-top: 25px;
       padding: 25px;
       background: var(--bg);
       border: 1px solid var(--border);
@@ -357,102 +361,110 @@
     }
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(170px,1fr));
-      gap: 15px;
-      margin-top: 18px;
+      grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+      gap: 12px;
+      margin-top: 15px;
     }
     .stat-card {
       background: var(--card);
-      padding: 18px;
-      border-radius: 12px;
+      padding: 15px;
+      border-radius: 10px;
       text-align: center;
-      box-shadow: 0 3px 8px rgba(0,0,0,.03);
       border: 1px solid var(--border);
     }
     .stat-card span {
       display: block;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: bold;
       color: var(--primary);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .stat-card small {
       color: var(--muted);
+      font-size: 12px;
     }
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 15px;
-      margin-top: 18px;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 12px;
+      margin-top: 15px;
       color: var(--muted);
+      font-size: 13px;
     }
     .info-grid strong {
       color: var(--text);
     }
     #previewContainer {
-      margin-top: 20px;
+      margin-top: 15px;
       text-align: center;
     }
     #previewContainer img {
       max-width: 100%;
-      max-height: 300px;
-      border-radius: 12px;
+      max-height: 250px;
+      border-radius: 10px;
       border: 1px solid var(--border);
     }
     #previewContainer audio, #previewContainer video {
       width: 100%;
-      margin-top: 15px;
+      margin-top: 10px;
     }
-    .faq h2, .related-tools h2 {
-      margin-bottom: 15px;
+    .seo-content h2, .faq h2, .related-tools h2 {
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+    }
+    .seo-content p, .faq p {
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-size: 14px;
     }
     .faq h3 {
       margin-top: 15px;
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
-    .faq p {
-      color: var(--muted);
-      margin-top: 5px;
-    }
+    
+    /* تعديل Related Tools باش تولي مطابقة تماماً لصفحة JSON to TypeScript وبدون تزاحم */
     .related-tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 15px;
-      margin-top: 15px;
+      margin-top: 18px;
     }
     .related-tools-grid a {
       display: block;
       background: var(--card);
-      padding: 15px;
-      border-radius: 10px;
+      padding: 16px 20px;
+      border-radius: 12px;
       text-decoration: none;
       color: var(--primary);
       font-weight: 600;
       border: 1px solid var(--border);
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,.03);
+      font-size: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.02);
     }
     .related-tools-grid a:hover {
       background: rgba(37,99,235,0.05);
+      border-color: var(--primary);
     }
 
     /* Toast Notification */
     #toast {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 25px;
+      right: 25px;
       background: #0f172a;
       color: #fff;
-      padding: 12px 24px;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       z-index: 9999;
       transform: translateY(100px);
       opacity: 0;
       transition: transform 0.3s ease, opacity 0.3s ease;
+      font-size: 13px;
     }
     #toast.show {
       transform: translateY(0);
@@ -463,7 +475,7 @@
       color: #0f172a;
     }
 
-    /* Footer مطابق تماماً لصفحة JSON to TypeScript */
+    /* Footer */
     .site-footer {
       margin-top: 40px;
       padding: 30px 0;
@@ -471,14 +483,14 @@
       text-align: center;
       color: var(--muted);
       background: var(--card);
-      font-size: 14px;
+      font-size: 13px;
     }
     .site-footer nav {
-      margin-top: 10px;
+      margin-top: 8px;
     }
     .site-footer a {
       color: var(--primary);
-      margin: 0 12px;
+      margin: 0 10px;
       text-decoration: none;
     }
     .site-footer a:hover {
@@ -487,6 +499,7 @@
 
     @media(max-width:900px){
       .editor-grid { grid-template-columns: 1fr; }
+      .main-nav { display: none; }
     }
   </style>
 </head>
@@ -504,9 +517,9 @@
       <div class="header-actions">
         <nav class="main-nav">
           <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="privacy-policy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
+          <a href="about.html">About Us</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="contact.html">Contact</a>
         </nav>
         <button id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">🌙</button>
       </div>
@@ -519,7 +532,7 @@
     <nav class="breadcrumb">
       <a href="index.html">Home</a>
       <span>›</span>
-      <span>Developer Tools</span>
+      <span>Developer Utilities</span>
       <span>›</span>
       <span>Base64 Encoder & Decoder</span>
     </nav>
@@ -618,11 +631,27 @@
         </div>
     </section>
 
+    <!-- SEO Long-Form Article Content -->
+    <section class="seo-content">
+        <h2>Complete Guide to Base64 Encoding and Decoding</h2>
+        <p>Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It is widely used in web development, programming, and data transmission to ensure that complex data remains intact without modification during transport across diverse networks. Whether you are embedding images directly into HTML/CSS files, transmitting credentials through HTTP headers, or storing intricate configurations in databases, understanding Base64 is essential for modern developers.</p>
+        
+        <h3>Why Do We Need Base64 Encoding?</h3>
+        <p>Many communication protocols and data formats (such as XML, JSON, or standard email protocols like SMTP) were originally designed to handle text rather than raw binary data (like images, executables, or compressed archives). When binary data is transmitted through these text-only systems, bytes can be misinterpreted, corrupted, or stripped away by systems looking for specific control characters. Base64 solves this problem by translating every 3 bytes of binary data into 4 safe ASCII characters, guaranteeing secure transmission across any channel.</p>
+
+        <h3>Key Features of ToolNest Base64 Converter</h3>
+        <p>Our online Base64 utility is engineered with performance, security, and developer productivity in mind. Unlike other tools that send your sensitive data to remote servers, ToolNest executes all conversions 100% locally inside your web browser using client-side JavaScript. This ensures absolute privacy for API keys, personal credentials, and proprietary code files.</p>
+        <p>Additionally, the tool offers advanced functionalities such as <strong>Live Conversion</strong>, which translates text instantly as you type, and <strong>URL-Safe Base64</strong> encoding, which alters standard characters so the resulting strings can be safely integrated directly into URL parameters and file paths without breaking routing logic.</p>
+
+        <h3>Best Practices for Using Base64</h3>
+        <p>While Base64 is incredibly useful, developers should keep a few performance implications in mind. Because Base64 maps 3 bytes to 4 characters, encoded data typically experiences roughly a 33% increase in file size. Therefore, it is ideal for small assets, icons, configuration strings, or short snippets, but large media files are usually better served through direct binary hosting or cloud storage buckets.</p>
+    </section>
+
     <!-- FAQ Section -->
     <section class="faq">
         <h2>Frequently Asked Questions</h2>
         <h3>Is this Base64 tool free?</h3>
-        <p>Yes. It is completely free and accessible for all users.</p>
+        <p>Yes. It is completely free and accessible for all users worldwide.</p>
         <h3>Does my data leave my computer?</h3>
         <p>No. Everything runs locally inside your browser ensuring 100% privacy and security.</p>
         <h3>Can I encode images and files?</h3>
@@ -647,7 +676,6 @@
     </section>
   </main>
 
-  <!-- Footer مطابق لصفحة JSON to TypeScript -->
   <footer class="site-footer">
     <div class="container">
       <p>&copy; 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</p>
@@ -684,7 +712,6 @@
     const STORAGE_KEY = "toolnest_base64";
     const THEME_KEY = "toolnest_theme";
 
-    // Theme Setup
     const savedTheme = localStorage.getItem(THEME_KEY) || "light";
     document.documentElement.setAttribute("data-theme", savedTheme);
     themeToggle.textContent = savedTheme === "dark" ? "☀️" : "🌙";
