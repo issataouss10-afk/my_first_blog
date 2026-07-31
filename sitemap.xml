@@ -3,31 +3,161 @@
     <!-- Homepage -->
     <url>
         <loc>https://toolnest-jet.vercel.app/</loc>
-        <lastmod>2026-07-28</lastmod>
+        <lastmod>2026-07-31</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     
-    <!-- QR Code Generator -->
+    <!-- Main Pages & Legal -->
     <url>
-        <loc>https://toolnest-jet.vercel.app/qr-generator.html</loc>
-        <lastmod>2026-07-28</lastmod>
+        <loc>https://toolnest-jet.vercel.app/about.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/privacy-policy.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/terms.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+    <!-- Tools -->
+    <url>
+        <loc>https://toolnest-jet.vercel.app/base64-converter.html</loc>
+        <lastmod>2026-07-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
-
-    <!-- JSON Formatter -->
+    <url>
+        <loc>https://toolnest-jet.vercel.app/box-shadow.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/case-converter.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/color-converter.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/css-clamp.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/html-entity.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/image-resizer.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/invisible-text.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
     <url>
         <loc>https://toolnest-jet.vercel.app/json-formatter.html</loc>
-        <lastmod>2026-07-28</lastmod>
+        <lastmod>2026-07-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
-
-    <!-- Password Generator -->
+    <url>
+        <loc>https://toolnest-jet.vercel.app/lorem-ipsum.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/markdown-html.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/meta-tag-generator.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
     <url>
         <loc>https://toolnest-jet.vercel.app/password-generator.html</loc>
-        <lastmod>2026-07-28</lastmod>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/password-strength.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/qr-generator.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/social-counter.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/storage-converter.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/timestamp-converter.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/url-converter.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/url-parser.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/utm-builder.html</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/word-counter.html</loc>
+        <lastmod>2026-07-31</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
