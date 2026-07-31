@@ -3,10 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON Formatter & Validator - ToolNest Developer Tools</title>
+    <title>JSON Formatter & Validator - Free Online JSON Beautifier | ToolNest</title>
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Format, validate, and beautify your messy JSON data instantly and securely with ToolNest JSON Formatter.">
-    <meta name="keywords" content="json formatter, json validator, online json beautifier, developer tools, toolnest">
+    <meta name="description" content="Format, validate, beautify and minify JSON instantly for free. Fix invalid JSON, improve readability, and copy formatted JSON securely in your browser.">
+    <meta name="keywords" content="json formatter,json validator,json beautifier,json minifier,format json online,developer tools">
+    <meta name="robots" content="index,follow">
+
+    <link rel="canonical" href="https://toolnest-jet.vercel.app/json-formatter.html">
+
+    <meta property="og:title" content="JSON Formatter & Validator | ToolNest">
+    <meta property="og:description" content="Free online JSON formatter, validator and beautifier.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolnest-jet.vercel.app/json-formatter.html">
+    <meta property="og:site_name" content="ToolNest">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JSON Formatter & Validator">
+    <meta name="twitter:description" content="Beautify and validate JSON instantly for free.">
+
+    <meta name="theme-color" content="#2563eb">
+
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"FAQPage",
+      "mainEntity":[
+        {
+          "@type":"Question",
+          "name":"Is my JSON uploaded to your servers?",
+          "acceptedAnswer":{
+            "@type":"Answer",
+            "text":"No. Everything is processed locally in your browser. Your JSON data is never uploaded to any server."
+          }
+        },
+        {
+          "@type":"Question",
+          "name":"Can this tool validate invalid JSON?",
+          "acceptedAnswer":{
+            "@type":"Answer",
+            "text":"Yes. The tool detects invalid JSON syntax and displays an error message."
+          }
+        },
+        {
+          "@type":"Question",
+          "name":"Is this JSON formatter free?",
+          "acceptedAnswer":{
+            "@type":"Answer",
+            "text":"Yes. ToolNest JSON Formatter is completely free."
+          }
+        },
+        {
+          "@type":"Question",
+          "name":"Can I format large JSON files?",
+          "acceptedAnswer":{
+            "@type":"Answer",
+            "text":"Yes. Most JSON documents can be formatted instantly in your browser."
+          }
+        }
+      ]
+    }
+    </script>
     
     <style>
         :root {
@@ -291,10 +347,22 @@
             color: var(--text);
         }
 
+        .tool-article h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 20px;
+            color: var(--text);
+        }
+
         .tool-article p {
             font-size: 14.5px;
             color: var(--text-muted);
             line-height: 1.6;
+        }
+
+        .tool-article a {
+            color: var(--primary);
+            text-decoration: underline;
         }
 
         /* Footer */
@@ -359,15 +427,58 @@
                     <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     Format & Validate
                 </button>
+                <button class="btn btn-secondary" onclick="copyJSON()">
+                    Copy Result
+                </button>
+                <button class="btn btn-secondary" onclick="minifyJSON()">
+                    Minify JSON
+                </button>
+                <button class="btn btn-secondary" onclick="loadSample()">
+                    Sample JSON
+                </button>
                 <button class="btn btn-secondary" onclick="clearJSON()">Clear</button>
             </div>
             <div class="status-msg" id="statusMsg"></div>
+            
+            <div id="jsonStats" style="margin-top:15px;color:#64748b;font-size:14px;">
+                Characters: <b id="charCount">0</b> |
+                Lines: <b id="lineCount">0</b>
+            </div>
         </div>
 
         <article class="tool-article">
-            <h2>About ToolNest JSON Formatter</h2>
-            <p>This developer utility helps you clean up minified or messy JSON code instantly. It validates your syntax and formats it with proper indentation so it's readable and ready to use in your applications.</p>
+            <h2>About JSON Formatter & Validator</h2>
+            <p>
+            The ToolNest JSON Formatter helps developers format, validate, and beautify JSON instantly. It detects invalid syntax, organizes nested objects with proper indentation, and improves readability without sending your data to any server.
+            </p>
+            <p>
+            Everything runs entirely in your browser, making this tool fast, private, and secure. Whether you're debugging APIs, editing configuration files, or working with large JSON documents, ToolNest makes the process simple.
+            </p>
         </article>
+
+        <section class="tool-article">
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>Is my JSON uploaded to your servers?</h3>
+            <p>No. Everything runs locally in your browser. Your data never leaves your device.</p>
+
+            <h3>Can this tool validate invalid JSON?</h3>
+            <p>Yes. Invalid JSON is detected instantly with a clear error message.</p>
+
+            <h3>Can I format large JSON files?</h3>
+            <p>Yes. Most JSON documents can be formatted quickly depending on your browser.</p>
+
+            <h3>Is ToolNest JSON Formatter free?</h3>
+            <p>Yes. It is completely free with no registration required.</p>
+        </section>
+
+        <section class="tool-article">
+            <h2>Related Tools</h2>
+            <p><a href="base64-converter.html">Base64 Encoder / Decoder</a></p>
+            <p><a href="url-converter.html">URL Encoder / Decoder</a></p>
+            <p><a href="password-generator.html">Password Generator</a></p>
+            <p><a href="password-strength.html">Password Strength Checker</a></p>
+        </section>
 
         <!-- مساحة إعلانات التحت -->
         <div class="ad-banner" style="margin-top: 30px;"></div>
@@ -385,6 +496,11 @@
     </footer>
 
     <script>
+        function updateStats(text) {
+            document.getElementById("charCount").textContent = text.length;
+            document.getElementById("lineCount").textContent = text ? text.split("\n").length : 0;
+        }
+
         function formatJSON() {
             const input = document.getElementById('jsonInput').value;
             const output = document.getElementById('jsonOutput');
@@ -394,6 +510,7 @@
                 status.className = 'status-msg error';
                 status.textContent = 'Please enter some JSON data to format.';
                 output.value = '';
+                updateStats('');
                 return;
             }
 
@@ -402,17 +519,68 @@
                 output.value = JSON.stringify(parsed, null, 4);
                 status.className = 'status-msg success';
                 status.textContent = 'Valid JSON! Formatted successfully.';
+                updateStats(output.value);
             } catch (err) {
                 output.value = '';
                 status.className = 'status-msg error';
                 status.textContent = 'Invalid JSON: ' + err.message;
+                updateStats('');
             }
+        }
+
+        function copyJSON() {
+            const output = document.getElementById("jsonOutput");
+
+            if (!output.value) return;
+
+            navigator.clipboard.writeText(output.value);
+
+            const status = document.getElementById("statusMsg");
+            status.className = "status-msg success";
+            status.textContent = "Formatted JSON copied to clipboard.";
+        }
+
+        function minifyJSON() {
+            const input = document.getElementById("jsonInput").value;
+            const output = document.getElementById("jsonOutput");
+            const status = document.getElementById("statusMsg");
+
+            try {
+                const obj = JSON.parse(input);
+                output.value = JSON.stringify(obj);
+
+                status.className = "status-msg success";
+                status.textContent = "JSON minified successfully.";
+                updateStats(output.value);
+            } catch (err) {
+                output.value = '';
+                status.className = "status-msg error";
+                status.textContent = "Invalid JSON.";
+                updateStats('');
+            }
+        }
+
+        function loadSample() {
+            document.getElementById("jsonInput").value =
+`{
+  "name": "ToolNest",
+  "type": "Developer Tool",
+  "version": 1,
+  "active": true,
+  "features": [
+    "Formatter",
+    "Validator",
+    "Minifier"
+  ]
+}`;
+            formatJSON();
         }
 
         function clearJSON() {
             document.getElementById('jsonInput').value = '';
             document.getElementById('jsonOutput').value = '';
             document.getElementById('statusMsg').textContent = '';
+            updateStats('');
         }
     </script>
 </body>
