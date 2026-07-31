@@ -6,72 +6,67 @@
     <title>QR Code Scanner from Image - ToolNest</title>
     <meta name="description" content="Scan and decode QR codes from images instantly in your browser. Free online tool.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- مكتبة قراءة الـ QR من الصور -->
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
     <!-- Header -->
     <header class="bg-white border-b border-slate-200 py-4 px-6 shadow-sm">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
+        <div class="max-w-4xl mx-auto flex justify-between items-center w-full">
             <a href="index.html" class="text-xl font-bold text-blue-600">ToolNest</a>
-            <span class="text-sm text-slate-500">QR Code Scanner</span>
+            <a href="index.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">🏠 Home</a>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow max-w-4xl mx-auto w-full p-6 flex flex-col items-center">
-        <h1 class="text-2xl font-bold mb-2 text-slate-800">Scan QR Code from Image</h1>
-        <p class="text-slate-600 mb-6 text-center">Upload an image containing a QR code to read its content instantly.</p>
+    <!-- Main Content Centered -->
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div class="max-w-xl w-full bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center">
+            <h1 class="text-2xl font-bold mb-2 text-slate-800">Scan QR Code from Image</h1>
+            <p class="text-slate-600 mb-6 text-center text-sm">Upload an image containing a QR code to read its content.</p>
 
-        <!-- Upload Box -->
-        <div class="w-full bg-white border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:border-blue-500 transition cursor-pointer mb-6" onclick="document.getElementById('qrUpload').click()">
-            <input type="file" id="qrUpload" accept="image/*" class="hidden" onchange="handleQRUpload(event)">
-            <p class="text-slate-600 font-medium">Click here to upload QR image or drag & drop</p>
-            <span class="text-xs text-slate-400 mt-1 block">Supports PNG, JPG, WEBP</span>
-        </div>
-
-        <!-- Preview & Result -->
-        <div id="resultSection" class="w-full hidden flex flex-col items-center gap-6">
-            <div class="max-w-xs w-full bg-white p-3 rounded-lg shadow-sm border border-slate-200">
-                <img id="imagePreview" class="w-full h-auto rounded object-contain max-h-64" alt="QR Preview">
+            <!-- Upload Box -->
+            <div class="w-full bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-blue-500 transition cursor-pointer mb-6" onclick="document.getElementById('qrUpload').click()">
+                <input type="file" id="qrUpload" accept="image/*" class="hidden" onchange="handleQRUpload(event)">
+                <p class="text-slate-600 font-medium text-sm">Click here to upload QR image</p>
+                <span class="text-xs text-slate-400 mt-1 block">Supports PNG, JPG, WEBP</span>
             </div>
 
-            <div class="w-full bg-white p-4 rounded-lg shadow-sm border border-slate-200">
-                <label class="font-semibold text-sm text-slate-700 block mb-2">Scan Result:</label>
-                <div class="flex gap-2">
-                    <input type="text" id="qrResultText" readonly class="w-full p-2 border border-slate-300 rounded bg-slate-100 font-mono text-sm focus:outline-none">
-                    <button onclick="copyResult()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm transition">Copy</button>
+            <!-- Preview & Result -->
+            <div id="resultSection" class="w-full hidden flex flex-col items-center gap-4">
+                <div class="max-w-xs w-full bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img id="imagePreview" class="w-full h-auto rounded object-contain max-h-40 mx-auto" alt="QR Preview">
                 </div>
-                <div id="linkContainer" class="mt-3 hidden">
-                    <a id="openLinkBtn" href="#" target="_blank" class="text-blue-600 hover:underline text-sm font-medium">Open Link ↗</a>
+
+                <div class="w-full bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <label class="font-semibold text-xs text-slate-700 block mb-2">Scan Result:</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="qrResultText" readonly class="w-full p-2 border border-slate-300 rounded bg-white font-mono text-xs focus:outline-none">
+                        <button onclick="copyResult()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-xs transition">Copy</button>
+                    </div>
+                    <div id="linkContainer" class="mt-2 hidden">
+                        <a id="openLinkBtn" href="#" target="_blank" class="text-blue-600 hover:underline text-xs font-medium">Open Link ↗</a>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Script Logic -->
     <script>
         function handleQRUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(e) {
                 const img = new Image();
                 img.onload = function() {
                     document.getElementById('imagePreview').src = img.src;
                     document.getElementById('resultSection').classList.remove('hidden');
-                    
-                    // Draw image to canvas to read pixels
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
                     canvas.width = img.width;
                     canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
-
                     const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                     const code = jsQR(imgData.data, imgData.width, imgData.height);
-
                     const resultInput = document.getElementById('qrResultText');
                     const linkContainer = document.getElementById('linkContainer');
                     const openLinkBtn = document.getElementById('openLinkBtn');
@@ -85,7 +80,7 @@
                             linkContainer.classList.add('hidden');
                         }
                     } else {
-                        resultInput.value = "No QR code found in this image. Try another one.";
+                        resultInput.value = "No QR code found in this image.";
                         linkContainer.classList.add('hidden');
                     }
                 }
