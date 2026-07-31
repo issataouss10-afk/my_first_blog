@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to TypeScript Interface Generator - ToolNest</title>
+    <meta name="description" content="Convert JSON to TypeScript interfaces instantly. Free online developer tool.">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 shadow-sm">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold text-blue-600">ToolNest</a>
+            <span class="text-sm text-slate-500">JSON to TypeScript Generator</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-6xl mx-auto w-full p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Input Section -->
+        <div class="flex flex-col">
+            <label for="jsonInput" class="font-semibold mb-2 text-slate-700">Paste JSON here:</label>
+            <textarea id="jsonInput" rows="15" class="w-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm" placeholder='{ "id": 1, "name": "ToolNest", "active": true }'></textarea>
+            <button onclick="generateTS()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">Generate TypeScript</button>
+        </div>
+
+        <!-- Output Section -->
+        <div class="flex flex-col relative">
+            <div class="flex justify-between items-center mb-2">
+                <label for="tsOutput" class="font-semibold text-slate-700">TypeScript Interface:</label>
+                <button onclick="copyToClipboard()" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 py-1 px-3 rounded transition">Copy Code</button>
+            </div>
+            <textarea id="tsOutput" rows="15" readonly class="w-full p-4 border border-slate-300 rounded-lg bg-slate-100 font-mono text-sm focus:outline-none" placeholder="Generated TypeScript will appear here..."></textarea>
+        </div>
+    </main>
+
+    <!-- Script Logic -->
+    <script>
+        function jsonToTsType(value, rootName = 'Root') {
+            if (value === null) return 'any';
+            if (Array.isArray(value)) {
+                if (value.length === 0) return 'any[]';
+                return `${jsonToTsType(value[0], rootName)}[]`;
+            }
+            if (typeof value === 'object') {
+                let output = `interface ${rootName} {\n`;
+                for (let key in value) {
+                    const pascalKey = key.charAt(0).toUpperCase() + key.slice(1);
+                    const subType = jsonToTsType(value[key], pascalKey);
+                    output += `  ${key}: ${subType};\n`;
+                }
+                output += `}`;
+                return output;
+            }
+            return typeof value;
+        }
+
+        function generateTS() {
+            const input = document.getElementById('jsonInput').value.trim();
+            const outputArea = document.getElementById('tsOutput');
+            
+            if (!input) {
+                outputArea.value = '// Please enter a valid JSON string';
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(input);
+                const tsCode = jsonToTsType(parsed, 'RootObject');
+                outputArea.value = tsCode;
+            } catch (error) {
+                outputArea.value = '// Error: Invalid JSON format\n' + error.message;
+            }
+        }
+
+        function copyToClipboard() {
+            const outputArea = document.getElementById('tsOutput');
+            outputArea.select();
+            document.execCommand('copy');
+            alert('TypeScript interface copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
