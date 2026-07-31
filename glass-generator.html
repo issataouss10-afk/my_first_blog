@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Glassmorphism Generator - ToolNest</title>
+    <meta name="description" content="Generate CSS glassmorphism effects with live preview. Free online tool.">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-slate-700 py-4 px-6 shadow-sm">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold text-blue-400">ToolNest</a>
+            <span class="text-sm text-slate-400">CSS Glassmorphism Generator</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl mx-auto w-full p-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <!-- Controls -->
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 space-y-4">
+            <h1 class="text-xl font-bold text-white mb-4">Glassmorphism Generator</h1>
+            
+            <div>
+                <label class="block text-sm font-medium mb-1">Blur: <span id="blurVal">10</span>px</label>
+                <input type="range" id="blurRange" min="0" max="40" value="10" class="w-full accent-blue-500" oninput="updateGlass()">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-1">Transparency: <span id="transVal">0.25</span></label>
+                <input type="range" id="transRange" min="0.05" max="1" step="0.05" value="0.25" class="w-full accent-blue-500" oninput="updateGlass()">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Border Width: <span id="borderVal">1</span>px</label>
+                <input type="range" id="borderRange" min="0" max="5" value="1" class="w-full accent-blue-500" oninput="updateGlass()">
+            </div>
+
+            <div class="pt-2">
+                <label class="block text-sm font-medium mb-2">Generated CSS:</label>
+                <textarea id="cssOutput" rows="4" readonly class="w-full p-3 bg-slate-900 border border-slate-700 rounded font-mono text-xs text-blue-300 focus:outline-none"></textarea>
+                <button onclick="copyCSS()" class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-medium transition">Copy CSS</button>
+            </div>
+        </div>
+
+        <!-- Preview Box -->
+        <div class="h-80 rounded-xl relative flex items-center justify-center overflow-hidden bg-gradient-to-tr from-purple-600 via-pink-500 to-blue-500 shadow-inner">
+            <div class="absolute w-32 h-32 bg-yellow-400 rounded-full blur-xl opacity-60 -top-10 -left-10"></div>
+            <div class="absolute w-32 h-32 bg-cyan-400 rounded-full blur-xl opacity-60 -bottom-10 -right-10"></div>
+            
+            <div id="glassCard" class="w-64 h-48 rounded-xl flex items-center justify-center p-6 text-center font-bold text-white shadow-lg transition-all">
+                Preview Card
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function updateGlass() {
+            const blur = document.getElementById('blurRange').value;
+            const trans = document.getElementById('transRange').value;
+            const border = document.getElementById('borderRange').value;
+
+            document.getElementById('blurVal').innerText = blur;
+            document.getElementById('transVal').innerText = trans;
+            document.getElementById('borderVal').innerText = border;
+
+            const card = document.getElementById('glassCard');
+            card.style.background = `rgba(255, 255, 255, ${trans})`;
+            card.style.backdropFilter = `blur(${blur}px)`;
+            card.style.webkitBackdropFilter = `blur(${blur}px)`;
+            card.style.border = `${border}px solid rgba(255, 255, 255, 0.3)`;
+
+            const cssCode = `background: rgba(255, 255, 255, ${trans});\nbackdrop-filter: blur(${blur}px);\n-webkit-backdrop-filter: blur(${blur}px);\nborder: ${border}px solid rgba(255, 255, 255, 0.3);`;
+            document.getElementById('cssOutput').value = cssCode;
+        }
+
+        function copyCSS() {
+            const output = document.getElementById('cssOutput');
+            navigator.clipboard.writeText(output.value);
+            alert('CSS copied to clipboard!');
+        }
+
+        updateGlass();
+    </script>
+</body>
+</html>
