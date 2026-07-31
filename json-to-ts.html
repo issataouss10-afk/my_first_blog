@@ -9,15 +9,13 @@
   <meta name="theme-color" content="#2563eb">
   <link rel="canonical" href="https://toolnest-jet.vercel.app/json-to-ts.html">
 
-  <!-- Open Graph & Social Meta -->
+  <!-- Open Graph & Twitter Meta -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="JSON to TypeScript Converter & Smart Enum Generator | ToolNest">
   <meta property="og:description" content="Convert raw JSON objects into clean, production-ready TypeScript interfaces and Enums instantly.">
   <meta property="og:image" content="https://toolnest-jet.vercel.app/images/json-to-ts.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  
-  <!-- Twitter Card Meta -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="JSON to TypeScript Converter | ToolNest">
   <meta name="twitter:description" content="Convert JSON into production-ready TypeScript interfaces and Enums instantly.">
@@ -45,13 +43,13 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolnest-jet.vercel.app/" },
-      { "@type": "ListItem", "position": 2, "name": "Developer Tools", "item": "https://toolnest-jet.vercel.app/developer-tools" },
+      { "@type": "ListItem", "position": 2, "name": "Developer Tools", "item": "https://toolnest-jet.vercel.app/" },
       { "@type": "ListItem", "position": 3, "name": "JSON to TypeScript", "item": "https://toolnest-jet.vercel.app/json-to-ts.html" }
     ]
   }
   </script>
 
-  <!-- FAQPage Schema for Google Rich Snippets -->
+  <!-- FAQPage Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -112,13 +110,35 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
-    .container { max-width: 1200px; margin: 0 auto; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-    header { text-align: center; margin-bottom: 25px; }
-    header h1 { font-size: 2rem; color: #0f172a; margin-bottom: 8px; }
-    header p { color: #64748b; font-size: 1rem; }
+    /* Header & Navigation */
+    .site-header { background: #ffffff; border-bottom: 1px solid var(--border); padding: 14px 20px; sticky: top; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 800; font-size: 1.3rem; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .logo span { color: #0f172a; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; color: #475569; font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); font-weight: 600; }
 
+    .container { max-width: 1200px; margin: 25px auto; padding: 0 20px; }
+
+    /* Breadcrumbs */
+    .breadcrumb { display: flex; gap: 8px; font-size: 0.85rem; color: #64748b; margin-bottom: 20px; flex-wrap: wrap; }
+    .breadcrumb a { color: #64748b; text-decoration: none; }
+    .breadcrumb a:hover { color: var(--primary); }
+    .breadcrumb span { color: #cbd5e1; }
+
+    /* Hero Section */
+    .hero-section { text-align: center; margin-bottom: 30px; }
+    .hero-icon { font-size: 2.5rem; margin-bottom: 8px; display: inline-block; }
+    .hero-section h1 { font-size: 2.2rem; color: #0f172a; margin-bottom: 10px; font-weight: 800; }
+    .hero-section p { color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
+
+    /* Ad Placeholder Slots */
+    .ad-slot { background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 15px; text-align: center; color: #94a3b8; font-size: 0.85rem; margin: 25px 0; min-height: 90px; display: flex; align-items: center; justify-content: center; }
+
+    /* Mode Selector & Search */
     .mode-selector { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; font-weight: 600; }
     .mode-selector label { cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
@@ -128,10 +148,11 @@
     .search-box button { padding: 10px 16px; border: none; border-radius: 8px; cursor: pointer; background: var(--primary); color: white; font-weight: 600; }
     .search-box button:hover { background: var(--primary-hover); }
 
+    /* Tool Panels Layout */
     .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
     @media (max-width: 768px) { .editor-grid { grid-template-columns: 1fr; } }
 
-    .panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+    .panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
     .panel-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #334155; }
     
     textarea { width: 100%; min-height: 400px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-family: "Courier New", Courier, monospace; font-size: 14px; resize: vertical; outline: none; }
@@ -150,124 +171,186 @@
     .shortcuts-hint { font-size: 0.8rem; color: #64748b; margin-top: 5px; display: flex; gap: 12px; flex-wrap: wrap; }
     .shortcuts-hint kbd { background: #e2e8f0; padding: 2px 5px; border-radius: 4px; font-family: monospace; font-weight: bold; }
 
-    /* SEO Article & Related Tools */
-    .seo-article-content { margin-top: 50px; background: white; padding: 30px; border-radius: 12px; border: 1px solid var(--border); line-height: 1.8; color: #334155; }
-    .seo-article-content h2 { margin-top: 20px; margin-bottom: 10px; color: #0f172a; font-size: 1.5rem; }
-    .seo-article-content h3 { margin-top: 15px; margin-bottom: 8px; color: #1e293b; font-size: 1.2rem; }
-    .seo-article-content p, .seo-article-content ul { margin-bottom: 15px; }
-    .seo-article-content ul { padding-left: 20px; }
+    /* Structured Content Sections */
+    .content-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 30px; margin-top: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+    .content-card h2 { color: #0f172a; font-size: 1.5rem; margin-bottom: 15px; font-weight: 700; }
+    .content-card h3 { color: #1e293b; font-size: 1.2rem; margin-top: 20px; margin-bottom: 10px; font-weight: 600; }
+    .content-card p, .content-card ul, .content-card ol { color: #334155; margin-bottom: 15px; }
+    .content-card ul, .content-card ol { padding-left: 22px; }
 
+    /* FAQ Section Styles */
+    .faq-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question { font-weight: 600; color: #0f172a; font-size: 1.05rem; margin-bottom: 6px; }
+    .faq-answer { color: #475569; font-size: 0.95rem; }
+
+    /* Related Tools Grid */
     .related-tools-section { margin-top: 40px; }
-    .related-tools-section h3 { margin-bottom: 15px; color: #0f172a; }
+    .related-tools-section h3 { margin-bottom: 15px; color: #0f172a; font-size: 1.3rem; font-weight: 700; }
     .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-    .tool-card { display: block; padding: 14px; background: white; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: #1e293b; font-weight: 600; transition: all 0.2s; }
+    .tool-card { display: block; padding: 16px; background: white; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: #1e293b; font-weight: 600; transition: all 0.2s; }
     .tool-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-    footer { text-align: center; margin-top: 40px; padding: 20px 0; color: #64748b; font-size: 0.9rem; border-top: 1px solid var(--border); }
-    footer a { color: var(--primary); text-decoration: none; margin: 0 10px; }
+    /* Footer */
+    footer { background: #ffffff; border-top: 1px solid var(--border); margin-top: 60px; padding: 30px 20px; text-align: center; color: #64748b; font-size: 0.9rem; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 12px; }
+    .footer-links a { color: #475569; text-decoration: none; font-weight: 500; }
+    .footer-links a:hover { color: var(--primary); }
   </style>
 </head>
 <body>
 
+<!-- 1. Header & Global Navigation -->
+<header class="site-header">
+  <div class="nav-container">
+    <a href="/" class="logo">🪶 Tool<span>Nest</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/privacy.html">Privacy</a></li>
+        <li><a href="/terms.html">Terms</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 <div class="container">
-  <header>
+  <!-- 2. Breadcrumb Navigation -->
+  <nav class="breadcrumb">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/">Developer Tools</a> <span>/</span>
+    <strong style="color:#334155;">JSON to TypeScript</strong>
+  </nav>
+
+  <!-- 3. Hero Section -->
+  <section class="hero-section">
+    <span class="hero-icon">🔷</span>
     <h1>JSON to TypeScript Converter</h1>
-    <p>Convert raw JSON into production-ready TypeScript Interfaces, Types, and Smart Enums.</p>
-  </header>
+    <p>Convert raw JSON objects into production-ready TypeScript Interfaces, Types, and Smart Enums automatically.</p>
+  </section>
 
-  <div class="mode-selector">
-    <label><input type="radio" name="tsMode" value="interface" checked> Interface Mode</label>
-    <label><input type="radio" name="tsMode" value="type"> Type Mode</label>
+  <!-- 4. Top Advertisement Slot -->
+  <div class="ad-slot">
+    <span>Advertisement Area (Top Banner)</span>
   </div>
 
-  <div class="search-box">
-    <input type="text" id="jsonSearch" placeholder="Search key or value in TypeScript output...">
-    <button id="searchBtn">🔍 Search</button>
-    <button id="clearSearchBtn" type="button" style="background:#64748b;">✖ Clear</button>
-  </div>
-
-  <div id="statusMessage"></div>
-
-  <div class="editor-grid">
-    <div class="panel">
-      <div class="panel-header">
-        <span>JSON Input</span>
-        <span id="charCounter" style="font-size:0.8rem; color:#64748b;">0 characters</span>
-      </div>
-      <textarea id="jsonInput" placeholder='Paste your JSON here...\nExample:\n{\n  "status": "active",\n  "roles": ["admin", "editor", "user"]\n}'></textarea>
+  <!-- 5. Interactive Tool Section -->
+  <main>
+    <div class="mode-selector">
+      <label><input type="radio" name="tsMode" value="interface" checked> Interface Mode</label>
+      <label><input type="radio" name="tsMode" value="type"> Type Mode</label>
     </div>
 
-    <div class="panel">
-      <div class="panel-header">
-        <span>TypeScript Output</span>
-      </div>
-      <textarea id="tsOutput" readonly placeholder="Generated TypeScript interfaces will appear here..."></textarea>
-      <div id="preview" style="display:none; white-space:pre-wrap; font-family:monospace;"></div>
+    <div class="search-box">
+      <input type="text" id="jsonSearch" placeholder="Search key or value in TypeScript output...">
+      <button id="searchBtn">🔍 Search</button>
+      <button id="clearSearchBtn" type="button" style="background:#64748b;">✖ Clear</button>
     </div>
-  </div>
 
-  <div class="actions-bar">
-    <button id="convertBtn" class="btn btn-primary">⚡ Convert to TS</button>
-    <button id="copyBtn" class="btn btn-secondary">📋 Copy Output</button>
-    <button id="clearBtn" class="btn btn-secondary">✖ Clear All</button>
-  </div>
+    <div id="statusMessage"></div>
 
-  <div class="shortcuts-hint">
-    <span><kbd>Ctrl + Enter</kbd> Convert</span>
-    <span><kbd>Ctrl + Shift + C</kbd> Copy Output</span>
-    <span><kbd>Esc</kbd> Clear All</span>
-  </div>
+    <div class="editor-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <span>JSON Input</span>
+          <span id="charCounter" style="font-size:0.8rem; color:#64748b;">0 characters</span>
+        </div>
+        <textarea id="jsonInput" placeholder='Paste your JSON here...\nExample:\n{\n  "status": "active",\n  "roles": ["admin", "editor", "user"]\n}'></textarea>
+      </div>
 
-  <!-- Long-Form Article (SEO Content 800+ Words) -->
-  <article class="seo-article-content">
-    <h2>Complete Guide to Generating TypeScript Interfaces & Types from JSON</h2>
-    <p>In modern full-stack web development, TypeScript has become the industry standard for building robust, scalable applications. By enforcing compile-time type safety, TypeScript eliminates an entire class of runtime errors such as <code>TypeError: Cannot read properties of undefined</code>. However, when working with REST APIs, microservices, or third-party webhooks, raw payloads arrive as untyped JSON string objects. Manually writing corresponding interfaces for complex, deeply nested payloads is error-prone and time-consuming. That is why a dedicated <strong>JSON to TypeScript Converter</strong> is an indispensable utility in every developer's workflow.</p>
+      <div class="panel">
+        <div class="panel-header">
+          <span>TypeScript Output</span>
+        </div>
+        <textarea id="tsOutput" readonly placeholder="Generated TypeScript interfaces will appear here..."></textarea>
+        <div id="preview" style="display:none; white-space:pre-wrap; font-family:monospace;"></div>
+      </div>
+    </div>
 
-    <h3>What is JSON and Why Convert It to TypeScript?</h3>
-    <p>JSON (JavaScript Object Notation) is a lightweight, language-agnostic data interchange format. While JSON represents primitive values (strings, numbers, booleans, arrays, objects, and null), it lacks native type safety annotations. TypeScript wraps JavaScript with a static type system. Converting JSON schemas directly into TypeScript type declarations allows IDEs like Visual Studio Code to provide instant autocompletion, refactoring hints, and compile-time verification.</p>
+    <div class="actions-bar">
+      <button id="convertBtn" class="btn btn-primary">⚡ Convert to TS</button>
+      <button id="copyBtn" class="btn btn-secondary">📋 Copy Output</button>
+      <button id="clearBtn" class="btn btn-secondary">✖ Clear All</button>
+    </div>
 
-    <h3>Interfaces vs. Types in TypeScript: Which Should You Choose?</h3>
-    <p>When generating TypeScript definitions from JSON, developers often wonder whether to use <code>interface</code> or <code>type</code> aliases:</p>
+    <div class="shortcuts-hint">
+      <span><kbd>Ctrl + Enter</kbd> Convert</span>
+      <span><kbd>Ctrl + Shift + C</kbd> Copy Output</span>
+      <span><kbd>Esc</kbd> Clear All</span>
+    </div>
+  </main>
+
+  <!-- 6. How to Use Section -->
+  <section class="content-card">
+    <h2>How to Use ToolNest JSON to TypeScript Converter</h2>
+    <ol>
+      <li><strong>Paste Your Raw JSON:</strong> Insert your raw JSON string or API response payload into the left input editor.</li>
+      <li><strong>Select Output Mode:</strong> Choose between standard <code>Interface Mode</code> or <code>Type Mode</code> based on your project preferences.</li>
+      <li><strong>Convert Instantly:</strong> Click <strong>Convert to TS</strong> or press <kbd>Ctrl + Enter</kbd>. The tool parses your JSON structure and detects types recursively.</li>
+      <li><strong>Copy or Search:</strong> Use the built-in search tool to find specific interfaces or click <strong>Copy Output</strong> to paste into your codebase.</li>
+    </ol>
+  </section>
+
+  <!-- 7. Features Section -->
+  <section class="content-card">
+    <h2>Key Features</h2>
     <ul>
-      <li><strong>TypeScript Interfaces:</strong> Ideal for defining object structures and API responses. Interfaces support declaration merging (extending properties across multiple files) and offer slightly superior compiler performance.</li>
-      <li><strong>TypeScript Type Aliases:</strong> Highly versatile, supporting unions, primitives, tuples, and mapped types. Types are preferred when representing exact union responses or mapped objects.</li>
+      <li><strong>Smart Enum Detection:</strong> Automatically extracts recurring array strings into strongly typed TypeScript <code>enum</code> structures.</li>
+      <li><strong>Nested Schema Generation:</strong> Recursively parses deeply nested objects and generates distinct sub-interfaces.</li>
+      <li><strong>Date & Union Type Inference:</strong> Detects ISO timestamp strings and represents merged object array payloads accurately.</li>
+      <li><strong>100% Local & Secure:</strong> All data conversions run locally in your browser memory for maximum security and privacy.</li>
     </ul>
+  </section>
 
-    <h3>Understanding Smart Enum Generation</h3>
-    <p>One of the standout features of the ToolNest converter is <strong>Smart Enum Detection</strong>. When parsing JSON arrays containing repeating, fixed string values (such as status flags <code>["active", "pending", "inactive"]</code> or user roles <code>["admin", "editor"]</code>), our algorithm automatically creates a clean, dedicated <code>enum</code> declaration. Enums enforce strict value constraints across your frontend and backend codebases.</p>
-
-    <h3>Handling Nested Objects, Arrays, and Optional Fields</h3>
-    <p>Real-world JSON responses often feature arrays containing multiple object variations. Our converter scans through all items in an array, performs schema union merging, and accurately determines optional fields (annotated with <code>?</code>) when properties do not appear in every item. Additionally, string values formatted as ISO-8601 timestamps are automatically inferred as <code>Date</code> objects.</p>
-
-    <h3>Frequently Asked Questions (FAQ)</h3>
-    <p><strong>Q: Is my data safe when using ToolNest?</strong><br>A: Absolutely. Processing happens 100% on the client side inside your web browser. No JSON payload is ever transmitted over the network or saved to remote databases.</p>
-    <p><strong>Q: How are field names with special characters handled?</strong><br>A: Keys that contain spaces, hyphens, or special symbols are safely enclosed in quotes (e.g., <code>"user-role"?: string;</code>) to preserve syntax validity.</p>
-  </article>
-
-  <!-- Expanded Internal Links Section -->
-  <section class="related-tools-section">
-    <h3>Related Developer Utilities on ToolNest</h3>
-    <div class="tools-grid">
-      <a href="/json-formatter" class="tool-card">✨ JSON Formatter & Validator</a>
-      <a href="/base64-encoder" class="tool-card">🔐 Base64 Encoder & Decoder</a>
-      <a href="/jwt-decoder" class="tool-card">🔑 JWT Token Decoder</a>
-      <a href="/url-encoder" class="tool-card">🌐 URL Encoder / Decoder</a>
-      <a href="/regex-tester" class="tool-card">🔍 Regex Tester & Debugger</a>
-      <a href="/xml-formatter" class="tool-card">📄 XML Formatter & Validator</a>
-      <a href="/yaml-converter" class="tool-card">📝 JSON to YAML Converter</a>
-      <a href="/uuid-generator" class="tool-card">🎲 Random UUID Generator</a>
+  <!-- 8. FAQ Section -->
+  <section class="content-card">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-question">What is the difference between Interface Mode and Type Mode?</div>
+      <div class="faq-answer">Interface mode uses TypeScript's <code>interface</code> declaration, which is recommended for object schemas. Type mode generates <code>type</code> aliases, useful for union types and custom definitions.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Is my JSON payload uploaded to external servers?</div>
+      <div class="faq-answer">No. Conversion executes entirely on the client side inside your web browser.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Does this tool support optional fields?</div>
+      <div class="faq-answer">Yes. When converting arrays of objects, fields that do not appear in every array item are marked as optional using the <code>?</code> modifier.</div>
     </div>
   </section>
 
-  <footer>
-    <div>
-      <a href="/privacy">Privacy Policy</a> | 
-      <a href="/about">About ToolNest</a> | 
-      <a href="/contact">Contact Us</a>
+  <!-- 9. Related Tools Section -->
+  <section class="related-tools-section">
+    <h3>Related Developer Utilities</h3>
+    <div class="tools-grid">
+      <a href="/json-formatter.html" class="tool-card">✨ JSON Formatter & Validator</a>
+      <a href="/base64-encoder.html" class="tool-card">🔐 Base64 Encoder & Decoder</a>
+      <a href="/jwt-decoder.html" class="tool-card">🔑 JWT Token Decoder</a>
+      <a href="/url-encoder.html" class="tool-card">🌐 URL Encoder / Decoder</a>
+      <a href="/regex-tester.html" class="tool-card">🔍 Regex Tester & Debugger</a>
+      <a href="/xml-formatter.html" class="tool-card">📄 XML Formatter & Validator</a>
+      <a href="/yaml-converter.html" class="tool-card">📝 JSON to YAML Converter</a>
+      <a href="/uuid-generator.html" class="tool-card">🎲 Random UUID Generator</a>
     </div>
-    <p style="margin-top:10px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web utilities.</p>
-  </footer>
+  </section>
+
+  <!-- 10. Bottom Advertisement Slot -->
+  <div class="ad-slot">
+    <span>Advertisement Area (Bottom Banner)</span>
+  </div>
 </div>
+
+<!-- 11. Footer Section -->
+<footer>
+  <div class="footer-links">
+    <a href="/about.html">About Us</a>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+  <p>© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</p>
+</footer>
 
 <script>
   let interfaces = "";
