@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Extractor from Image - ToolNest</title>
+    <meta name="description" content="Extract dominant colors from any image instantly. Free online color picker tool for designers.">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 shadow-sm">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold text-blue-600">ToolNest</a>
+            <span class="text-sm text-slate-500">Color Palette Extractor</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto w-full p-6 flex flex-col items-center">
+        <h1 class="text-2xl font-bold mb-2 text-slate-800">Extract Colors from Image</h1>
+        <p class="text-slate-600 mb-6 text-center">Upload an image to extract its dominant color palette instantly.</p>
+
+        <!-- Upload Box -->
+        <div class="w-full bg-white border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:border-blue-500 transition cursor-pointer mb-6" onclick="document.getElementById('imageUpload').click()">
+            <input type="file" id="imageUpload" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+            <p class="text-slate-600 font-medium">Click here to upload an image or drag & drop</p>
+            <span class="text-xs text-slate-400 mt-1 block">Supports JPG, PNG, WEBP</span>
+        </div>
+
+        <!-- Image Preview & Colors -->
+        <div id="resultSection" class="w-full hidden flex flex-col items-center gap-6">
+            <div class="max-w-xs w-full bg-white p-3 rounded-lg shadow-sm border border-slate-200">
+                <img id="imagePreview" class="w-full h-auto rounded object-contain max-h-64" alt="Uploaded Preview">
+            </div>
+
+            <div class="w-full">
+                <h3 class="font-semibold text-lg mb-3 text-slate-700">Extracted Colors:</h3>
+                <div id="colorPalette" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                    <!-- Colors will load here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script Logic -->
+    <script>
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    document.getElementById('imagePreview').src = img.src;
+                    document.getElementById('resultSection').classList.remove('hidden');
+                    extractColors(img);
+                }
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function extractColors(img) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Resize for faster processing
+            canvas.width = 100;
+            canvas.height = 100 * (img.height / img.width);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            const colorCounts = {};
+
+            // Sample pixels (step by 5 for performance)
+            for (let i = 0; i < imgData.length; i += 20) {
+                const r = imgData[i];
+                const g = imgData[i+1];
+                const b = imgData[i+2];
+                const alpha = imgData[i+3];
+
+                if (alpha < 128) continue; // Skip transparent
+
+                // Quantize colors to group similar ones
+                const qR = Math.round(r / 32) * 32;
+                const qG = Math.round(g / 32) * 32;
+                const qB = Math.round(b / 32) * 32;
+
+                const hex = rgbToHex(qR, qG, qB);
+                colorCounts[hex] = (colorCounts[hex] || 0) + 1;
+            }
+
+            // Sort colors by frequency
+            const sortedColors = Object.keys(colorCounts).sort((a, b) => colorCounts[b] - colorCounts[a]);
+            const topColors = sortedColors.slice(0, 5); // Get top 5 colors
+
+            const paletteContainer = document.getElementById('colorPalette');
+            paletteContainer.innerHTML = '';
+
+            topColors.forEach(hex => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-3 rounded-lg shadow-sm border border-slate-200 flex flex-col items-center cursor-pointer hover:shadow-md transition';
+                div.onclick = () => copyColor(hex);
+                
+                div.innerHTML = `
+                    <div class="w-full h-16 rounded-md mb-2 border border-slate-100" style="background-color: ${hex};"></div>
+                    <span class="text-xs font-mono font-bold text-slate-700">${hex}</span>
+                    <span class="text-[10px] text-slate-400 mt-1">Click to copy</span>
+                `;
+                paletteContainer.appendChild(div);
+            });
+        }
+
+        function rgbToHex(r, g, b) {
+            return "#" + [r, g, b].map(x => {
+                const hex = x.toString(16);
+                return hex.length === 1 ? "0" + hex : hex;
+            }).join('').toUpperCase();
+        }
+
+        function copyColor(hex) {
+            navigator.clipboard.writeText(hex);
+            alert(`Color ${hex} copied to clipboard!`);
+        }
+    </script>
+</body>
+</html>
