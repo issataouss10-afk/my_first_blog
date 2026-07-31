@@ -107,12 +107,20 @@
             background:var(--bg); 
             color:var(--text); 
             line-height:1.6; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         } 
 
         .container { 
             width:min(1180px,92%); 
             margin:auto; 
         } 
+
+        main {
+            flex: 1;
+            padding: 15px 0 30px; /* تعديل الفراغ الفوقاني والتحتاني */
+        }
 
         /* Header */ 
         .site-header { 
@@ -161,7 +169,7 @@
 
         /* Breadcrumb */ 
         .breadcrumb { 
-            margin:35px 0 25px; 
+            margin:15px 0 20px; 
             color:var(--muted); 
             font-size:.95rem; 
         } 
@@ -174,7 +182,7 @@
         /* Hero */ 
         .hero { 
             text-align:center; 
-            margin-bottom:35px; 
+            margin-bottom:25px; 
         } 
 
         .hero-icon { 
@@ -431,7 +439,7 @@
         /* Related Tools Section */
         .related-tools {
             margin-top:40px;
-            margin-bottom:40px;
+            margin-bottom:20px;
             background:#fff;
             padding:30px;
             border-radius:var(--radius);
@@ -471,9 +479,41 @@
         /* Ads */ 
         .ad-banner { 
             width:100%; 
-            min-height:90px; 
-            margin:35px 0; 
+            min-height:0; 
+            margin:15px 0; 
         } 
+
+        /* Site Footer */
+        .site-footer {
+            margin-top:20px;
+            background:#fff;
+            border-top:1px solid var(--border);
+            padding:30px 0;
+        }
+
+        .site-footer p {
+            text-align:center;
+            color:var(--muted);
+            margin-bottom:12px;
+        }
+
+        .footer-links {
+            display:flex;
+            justify-content:center;
+            gap:25px;
+            flex-wrap:wrap;
+        }
+
+        .footer-links a {
+            color:#475569;
+            text-decoration:none;
+            font-weight:600;
+            transition:color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color:var(--primary);
+        }
 
         /* Mobile */ 
         @media(max-width:900px){ 
@@ -627,6 +667,19 @@
         <!-- Bottom Ad --> 
         <div class="ad-banner"></div> 
     </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 ToolNest. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const input = document.getElementById("jsonInput"); 
