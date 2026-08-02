@@ -4,210 +4,98 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTML Entity Converter - ToolNest</title>
-  <meta name="description" content="Free online HTML Entity Converter. Escape and unescape HTML entities instantly. Supports live preview, drag & drop, and works securely in your browser.">
-  <meta name="keywords" content="HTML Entity Converter, HTML Escape, HTML Unescape, HTML Encoder, HTML Decoder, HTML Entities, Online HTML Tool">
-  <meta name="author" content="ToolNest">
+  <meta name="description" content="Free online HTML Entity Converter. Escape and unescape HTML entities instantly. Works securely in your browser.">
   <meta name="robots" content="index, follow">
   
   <!-- Canonical URL -->
   <link rel="canonical" href="https://toolnest.com/tools/html-entity-converter.html">
 
-  <!-- Open Graph / Social Meta Tags -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ToolNest">
   <meta property="og:title" content="HTML Entity Converter - ToolNest">
   <meta property="og:description" content="Escape and decode HTML entities online for free. Fast, secure, and browser-based developer utility.">
   <meta property="og:url" content="https://toolnest.com/tools/html-entity-converter.html">
-  <meta property="og:image" content="https://toolnest.com/assets/images/html-entity-converter.png">
-
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HTML Entity Converter - ToolNest">
-  <meta name="twitter:description" content="Free online HTML Entity Converter with live preview and advanced features.">
-  <meta name="twitter:image" content="https://toolnest.com/assets/images/html-entity-converter.png">
 
   <style>
-    :root{ --primary:#4f46e5; --primary-hover:#4338ca; --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --text-light:#64748b; --border:#e5e7eb; --success:#10b981; --danger:#ef4444; }
+    :root{ --primary:#4f46e5; --primary-hover:#4338ca; --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --text-light:#64748b; --border:#e5e7eb; }
     body.dark{ --bg:#0f172a; --card:#1e293b; --text:#f8fafc; --text-light:#94a3b8; --border:#334155; }
     *{ margin:0; padding:0; box-sizing:border-box; font-family:Arial,Helvetica,sans-serif; }
     body{ background:var(--bg); color:var(--text); line-height:1.6; }
     .container{ max-width:1100px; margin:auto; padding:20px; }
     .tool-card, .section, .content-section{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:25px; }
     h1,h2,h3{ margin-bottom:15px; }
-    .content-section h3{ margin-top:15px; margin-bottom:5px; font-size:18px; color:var(--text); }
-    .content-section p{ color:var(--text-light); margin-bottom:15px; }
     button{ background:var(--primary); color:#fff; border:none; padding:10px 16px; border-radius:8px; cursor:pointer; }
     button:hover{ background:var(--primary-hover); }
     .secondary{ background:transparent; color:var(--text); border:1px solid var(--border); }
     textarea{ width:100%; min-height:220px; padding:12px; border:1px solid var(--border); border-radius:8px; background:var(--bg); color:var(--text); resize:vertical; font-family:monospace; }
     .grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-    .drag-over{ border:2px dashed var(--primary)!important; background:rgba(79,70,229,.08); }
     .data-table{ width:100%; border-collapse:collapse; margin-top:10px; }
     .data-table th, .data-table td{ border:1px solid var(--border); padding:10px 14px; text-align:left; font-size:14px; }
     .data-table th{ background:var(--bg); color:var(--text); }
     .copyEntity{ padding:4px 8px; font-size:12px; margin-left:10px; background:var(--primary); color:#fff; border:none; border-radius:4px; cursor:pointer; }
-    .copyEntity:hover{ background:var(--primary-hover); }
     .related-tools-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:15px; margin-top:15px; }
     .related-tools-grid a{ display:block; padding:18px; background:var(--card); border:1px solid var(--border); border-radius:12px; text-decoration:none; color:var(--text); transition:.25s; }
-    .related-tools-grid a h3{ margin-bottom:8px; font-size:18px; }
-    .related-tools-grid a p{ margin:0; font-size:14px; color:var(--text-light); }
-    .related-tools-grid a:hover{ transform:translateY(-4px); border-color:var(--primary); box-shadow:0 8px 20px rgba(0,0,0,.08); }
+    .related-tools-grid a:hover{ transform:translateY(-4px); border-color:var(--primary); }
     footer a{ color:var(--text-light); text-decoration:none; }
     footer a:hover{ color:var(--primary); }
+    .hidden{ display:none!important; }
     @media(max-width:768px){ .grid{ grid-template-columns:1fr; } }
   </style>
 
-  <!-- Complete SEO Schema Markup -->
+  <!-- Clean Schema (Without 404 Links) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://toolnest.com/#website",
-        "url": "https://toolnest.com/",
-        "name": "ToolNest",
-        "description": "Free online developer and productivity tools."
-      },
-      {
-        "@type": "SoftwareApplication",
-        "@id": "https://toolnest.com/tools/html-entity-converter.html#webapp",
-        "name": "HTML Entity Converter",
-        "url": "https://toolnest.com/tools/html-entity-converter.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All",
-        "browser": "Requires JavaScript. Works in all modern web browsers.",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "description": "Free online tool to escape and unescape HTML entities directly in your browser."
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://toolnest.com/tools/html-entity-converter.html#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://toolnest.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Developer Tools",
-            "item": "https://toolnest.com/developer-tools.html"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "HTML Entity Converter",
-            "item": "https://toolnest.com/tools/html-entity-converter.html"
-          }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://toolnest.com/tools/html-entity-converter.html#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is an HTML Entity?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "An HTML entity is a code used to display reserved HTML characters safely."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "When should I escape HTML?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Escape HTML when displaying user-generated content or source code."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is this HTML Entity Converter safe?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. All processing happens locally inside your browser."
-            }
-          }
-        ]
-      }
-    ]
+    "@type": "WebSite",
+    "url": "https://toolnest.com/",
+    "name": "ToolNest"
   }
   </script>
 </head>
 <body>
 
+<!-- Unified Navbar -->
 <header style="border-bottom:1px solid var(--border); background:var(--card);">
   <div style="max-width:1100px;margin:auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
     <a href="/index.html" style="font-size:30px;font-weight:700;color:var(--primary);text-decoration:none;">
       🛠 ToolNest
     </a>
-    <nav style="display:flex;gap:20px;flex-wrap:wrap;">
+    <nav style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;">
       <a href="/index.html" style="text-decoration:none;color:var(--text);">Home</a>
-      <a href="/developer-tools.html" style="text-decoration:none;color:var(--text);">Developer Tools</a>
-      <a href="/seo-tools.html" style="text-decoration:none;color:var(--text);">SEO Tools</a>
-      <a href="/text-tools.html" style="text-decoration:none;color:var(--text);">Text Tools</a>
+      <a href="/about.html" style="text-decoration:none;color:var(--text);">About</a>
+      <a href="/privacy-policy.html" style="text-decoration:none;color:var(--text);">Privacy</a>
+      <a href="/terms.html" style="text-decoration:none;color:var(--text);">Terms</a>
+      <button id="themeToggle" class="secondary">🌙</button>
     </nav>
-    <button id="themeToggle" class="secondary">
-      🌙
-    </button>
   </div>
 </header>
 
 <div class="container">
 
-<nav style="font-size:14px;color:var(--text-light);margin-bottom:20px;">
-<a href="/index.html">Home</a> /
-<a href="/developer-tools.html">Developer Tools</a> /
-HTML Entity Converter
-</nav>
+  <!-- Clean Breadcrumb (No 404 Links) -->
+  <nav style="font-size:14px;color:var(--text-light);margin-bottom:20px;">
+    <a href="/index.html" style="color:var(--text-light);text-decoration:none;">Home</a> &gt; HTML Entity Converter
+  </nav>
 
   <section class="section" style="text-align:center;padding:40px 25px;">
-    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;">
-      <span style="background:#dcfce7;color:#166534;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;">✓ Free</span>
-      <span style="background:#dbeafe;color:#1d4ed8;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;">✓ Browser Based</span>
-      <span style="background:#ede9fe;color:#6d28d9;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;">✓ Secure</span>
-      <span style="background:#fef3c7;color:#92400e;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;">✓ No Upload</span>
-    </div>
-    <h1 style="font-size:42px;margin-bottom:15px;">
-      HTML Entity Converter
-    </h1>
+    <h1 style="font-size:42px;margin-bottom:15px;">HTML Entity Converter</h1>
     <p style="max-width:760px;margin:0 auto 25px;color:var(--text-light);font-size:18px;">
-      Encode and decode HTML entities instantly. Fast, secure, and completely free. Everything runs directly in your browser without sending your data to any server.
+      Encode and decode HTML entities instantly. Secure and runs directly in your browser.
     </p>
-    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:25px;">
-      <button onclick="document.getElementById('inputText')?.scrollIntoView({behavior:'smooth'}); document.getElementById('inputText')?.focus();">
-        Start Converting
-      </button>
-      <button class="secondary" onclick="document.querySelector('.tool-card')?.scrollIntoView({behavior:'smooth'})">
-        Go to Tool
-      </button>
-    </div>
   </section>
 
   <section class="tool-card">
     <div class="grid">
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <h3>Input</h3>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <small id="inputInfo" style="color:var(--text-light);">0 Characters • 0 Words</small>
-            <button id="uploadBtn" class="secondary">📂 Upload</button>
-            <button id="exampleBtn" class="secondary">💡 Example</button>
-            <input type="file" id="fileInput" accept=".txt,.html" hidden>
-          </div>
+          <small id="inputInfo" style="color:var(--text-light);">0 Characters • 0 Words</small>
         </div>
-        <textarea id="inputText" placeholder="Paste HTML here or drop a file..."></textarea>
+        <textarea id="inputText" placeholder="Paste HTML here..."></textarea>
       </div>
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <h3>Output</h3>
           <small style="color:var(--text-light);">Ready</small>
         </div>
@@ -225,370 +113,47 @@ HTML Entity Converter
         <button id="swapBtn" class="secondary">⇄ Swap</button>
         <button id="copyBtn" class="secondary">Copy</button>
         <button id="clearBtn" class="secondary">Clear</button>
-        <button id="downloadBtn" class="secondary">Download</button>
       </div>
     </div>
-    
-    <p id="status" style="margin-top:18px; text-align:center; color:var(--text-light); font-weight:600;">
-      Ready
-    </p>
+    <p id="status" style="margin-top:18px; text-align:center; color:var(--text-light); font-weight:600;">Ready</p>
   </section>
 
-  <section class="section">
+  <!-- Live Preview (Shows only on Decode) -->
+  <section class="section" id="previewSection" style="display:none;">
     <h2>Live Preview</h2>
-    <p style="color:var(--text-light); margin-bottom:15px;">Preview decoded HTML safely.</p>
-    <iframe id="previewFrame" style="width:100%; height:280px; border:1px solid var(--border); border-radius:10px; background:#fff;"></iframe>
+    <iframe id="previewFrame" style="width:100%; height:200px; border:1px solid var(--border); border-radius:10px; background:#fff;"></iframe>
   </section>
 
-  <section class="section">
-    <h2>Live Statistics</h2>
-    <div class="grid">
-      <div class="tool-card" style="text-align:center;">
-        <h3 id="charCount">0</h3>
-        <p>Characters</p>
-      </div>
-      <div class="tool-card" style="text-align:center;">
-        <h3 id="wordCount">0</h3>
-        <p>Words</p>
-      </div>
-      <div class="tool-card" style="text-align:center;">
-        <h3 id="lineCount">0</h3>
-        <p>Lines</p>
-      </div>
-      <div class="tool-card" style="text-align:center;">
-        <h3 id="entityCount">0</h3>
-        <p>HTML Entities</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <h2>Key Features</h2>
-
-    <div class="related-tools-grid">
-      <div class="tool-card">
-        <h3>⚡ Fast Processing</h3>
-        <p>Convert HTML entities instantly without waiting for uploads or server processing.</p>
-      </div>
-
-      <div class="tool-card">
-        <h3>🔒 Privacy First</h3>
-        <p>Everything runs locally in your browser. Your data never leaves your device.</p>
-      </div>
-
-      <div class="tool-card">
-        <h3>📱 Mobile Friendly</h3>
-        <p>Works smoothly on desktop, tablet, and mobile devices.</p>
-      </div>
-
-      <div class="tool-card">
-        <h3>💯 Free Forever</h3>
-        <p>No account, no subscription, and no hidden limits.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <h2>How to Use</h2>
-
-    <ol style="padding-left:20px;line-height:2;">
-      <li>Paste your HTML or HTML entities into the input box.</li>
-      <li>Click <strong>Escape HTML</strong> or <strong>Unescape HTML</strong>.</li>
-      <li>Review the converted result.</li>
-      <li>Copy or download the output.</li>
-    </ol>
-  </section>
-
-  <section class="content-section">
-    <h2>Examples</h2>
-
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Input</th>
-          <th>Output</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>&lt;h1&gt;Hello&lt;/h1&gt;</td>
-          <td>&amp;lt;h1&amp;gt;Hello&amp;lt;/h1&amp;gt;</td>
-        </tr>
-        <tr>
-          <td>&amp;copy;</td>
-          <td>©</td>
-        </tr>
-        <tr>
-          <td>&amp;amp;</td>
-          <td>&</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="content-section">
-    <h2>URL Inspector</h2>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Property</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Protocol</td>
-          <td id="urlProtocol">-</td>
-        </tr>
-        <tr>
-          <td>Hostname</td>
-          <td id="urlHostname">-</td>
-        </tr>
-        <tr>
-          <td>Path</td>
-          <td id="urlPath">-</td>
-        </tr>
-        <tr>
-          <td>Query Parameters</td>
-          <td id="urlParams">0</td>
-        </tr>
-        <tr>
-          <td>Hash</td>
-          <td id="urlHash">-</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="content-section">
-    <h2>Common HTML Entities Reference</h2>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Character</th>
-          <th>Entity</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>&lt;</td>
-          <td>
-            <code>&amp;lt;</code>
-            <button class="copyEntity" data-copy="&lt;">Copy</button>
-          </td>
-          <td>Less Than</td>
-        </tr>
-        <tr>
-          <td>&gt;</td>
-          <td>
-            <code>&amp;gt;</code>
-            <button class="copyEntity" data-copy="&gt;">Copy</button>
-          </td>
-          <td>Greater Than</td>
-        </tr>
-        <tr>
-          <td>&amp;</td>
-          <td>
-            <code>&amp;amp;</code>
-            <button class="copyEntity" data-copy="&amp;">Copy</button>
-          </td>
-          <td>Ampersand</td>
-        </tr>
-        <tr>
-          <td>"</td>
-          <td>
-            <code>&amp;quot;</code>
-            <button class="copyEntity" data-copy="&quot;">Copy</button>
-          </td>
-          <td>Double Quote</td>
-        </tr>
-        <tr>
-          <td>'</td>
-          <td>
-            <code>&#39;</code>
-            <button class="copyEntity" data-copy="&#39;">Copy</button>
-          </td>
-          <td>Single Quote</td>
-        </tr>
-        <tr>
-          <td>©</td>
-          <td>
-            <code>&amp;copy;</code>
-            <button class="copyEntity" data-copy="©">Copy</button>
-          </td>
-          <td>Copyright</td>
-        </tr>
-        <tr>
-          <td>®</td>
-          <td>
-            <code>&amp;reg;</code>
-            <button class="copyEntity" data-copy="®">Copy</button>
-          </td>
-          <td>Registered</td>
-        </tr>
-        <tr>
-          <td>™</td>
-          <td>
-            <code>&amp;trade;</code>
-            <button class="copyEntity" data-copy="™">Copy</button>
-          </td>
-          <td>Trademark</td>
-        </tr>
-        <tr>
-          <td>€</td>
-          <td>
-            <code>&amp;euro;</code>
-            <button class="copyEntity" data-copy="€">Copy</button>
-          </td>
-          <td>Euro</td>
-        </tr>
-        <tr>
-          <td>£</td>
-          <td>
-            <code>&amp;pound;</code>
-            <button class="copyEntity" data-copy="£">Copy</button>
-          </td>
-          <td>Pound</td>
-        </tr>
-        <tr>
-          <td>¥</td>
-          <td>
-            <code>&amp;yen;</code>
-            <button class="copyEntity" data-copy="¥">Copy</button>
-          </td>
-          <td>Yen</td>
-        </tr>
-        <tr>
-          <td>←</td>
-          <td>
-            <code>&amp;larr;</code>
-            <button class="copyEntity" data-copy="←">Copy</button>
-          </td>
-          <td>Left Arrow</td>
-        </tr>
-        <tr>
-          <td>→</td>
-          <td>
-            <code>&amp;rarr;</code>
-            <button class="copyEntity" data-copy="→">Copy</button>
-          </td>
-          <td>Right Arrow</td>
-        </tr>
-        <tr>
-          <td>✓</td>
-          <td>
-            <code>&amp;check;</code>
-            <button class="copyEntity" data-copy="✓">Copy</button>
-          </td>
-          <td>Check Mark</td>
-        </tr>
-        <tr>
-          <td>★</td>
-          <td>
-            <code>&amp;starf;</code>
-            <button class="copyEntity" data-copy="★">Copy</button>
-          </td>
-          <td>Black Star</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="content-section">
-    <h2>Frequently Asked Questions</h2>
-    <h3>What is an HTML Entity?</h3>
-    <p>An HTML entity is a special code used to display reserved characters such as &lt;, &gt;, &, quotes, and many special symbols safely in HTML.</p>
-    
-    <h3>When should I escape HTML?</h3>
-    <p>Escape HTML when displaying user-generated content or source code to prevent HTML rendering and reduce security risks.</p>
-    
-    <h3>When should I decode HTML entities?</h3>
-    <p>Decode HTML entities when you want to restore encoded text back to its original characters.</p>
-    
-    <h3>Is this HTML Entity Converter safe?</h3>
-    <p>Yes. All conversions are performed directly in your browser. Your data is never uploaded to any server.</p>
-    
-    <h3>Can I convert large HTML files?</h3>
-    <p>Yes. The converter works with both small snippets and large HTML documents directly in your browser.</p>
-  </section>
-
+  <!-- Existing / Working Related Tools Only -->
   <section class="content-section">
     <h2>Related Tools</h2>
     <div class="related-tools-grid">
-      <a href="/tools/url-encoder.html">
-        <h3>🔗 URL Encoder</h3>
-        <p>Encode URLs safely for web use.</p>
-      </a>
-
-      <a href="/tools/url-decoder.html">
-        <h3>🔓 URL Decoder</h3>
-        <p>Decode encoded URLs instantly.</p>
-      </a>
-
-      <a href="/tools/base64-encoder.html">
-        <h3>📦 Base64 Encoder</h3>
-        <p>Convert text to Base64 format.</p>
-      </a>
-
-      <a href="/tools/base64-decoder.html">
-        <h3>📂 Base64 Decoder</h3>
-        <p>Decode Base64 into readable text.</p>
-      </a>
-
       <a href="/tools/json-formatter.html">
         <h3>🧩 JSON Formatter</h3>
         <p>Beautify and validate JSON.</p>
       </a>
-
-      <a href="/tools/html-minifier.html">
-        <h3>📄 HTML Minifier</h3>
-        <p>Reduce HTML file size.</p>
+      <a href="/tools/base64-encoder.html">
+        <h3>📦 Base64 Encoder</h3>
+        <p>Convert text to Base64 format.</p>
       </a>
-
-      <a href="/tools/html-beautifier.html">
-        <h3>✨ HTML Beautifier</h3>
-        <p>Format messy HTML code.</p>
-      </a>
-
-      <a href="/tools/text-diff.html">
-        <h3>📑 Text Compare</h3>
-        <p>Compare two texts line by line.</p>
+      <a href="/tools/url-encoder.html">
+        <h3>🔗 URL Encoder</h3>
+        <p>Encode URLs safely.</p>
       </a>
     </div>
   </section>
 
 </div>
 
+<!-- Unified Footer -->
 <footer style="margin-top:50px;background:var(--card);border-top:1px solid var(--border);"> 
-  <div class="container"> 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;padding:40px 0;"> 
-      <div> 
-        <h3>ToolNest</h3> 
-        <p style="color:var(--text-light);"> Free online developer and productivity tools that run directly in your browser. </p> 
-      </div> 
-      <div> 
-        <h3>Tools</h3> 
-        <p><a href="/developer-tools.html">Developer Tools</a></p> 
-        <p><a href="/seo-tools.html">SEO Tools</a></p> 
-        <p><a href="/text-tools.html">Text Tools</a></p> 
-      </div> 
-      <div> 
-        <h3>Company</h3> 
-        <p><a href="/about.html">About Us</a></p> 
-        <p><a href="/contact.html">Contact</a></p> 
-        <p><a href="/blog.html">Blog</a></p> 
-      </div> 
-      <div> 
-        <h3>Legal</h3> 
-        <p><a href="/privacy-policy.html">Privacy Policy</a></p> 
-        <p><a href="/terms.html">Terms of Service</a></p> 
-        <p><a href="/disclaimer.html">Disclaimer</a></p> 
-        <p><a href="/sitemap.xml">Sitemap</a></p> 
-      </div> 
-    </div> 
-    <div style="border-top:1px solid var(--border);padding:20px 0;text-align:center;color:var(--text-light);"> 
-      © 2026 ToolNest. All rights reserved. 
+  <div class="container" style="padding:30px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;"> 
+    <p style="color:var(--text-light);">© 2026 ToolNest. All rights reserved.</p> 
+    <div style="display:flex;gap:20px;"> 
+      <a href="/index.html">Home</a> 
+      <a href="/about.html">About</a> 
+      <a href="/privacy-policy.html">Privacy</a> 
+      <a href="/terms.html">Terms</a> 
     </div> 
   </div> 
 </footer>
@@ -596,273 +161,83 @@ HTML Entity Converter
 <script>
 const input = document.getElementById("inputText");
 const output = document.getElementById("outputText");
-
 const encodeBtn = document.getElementById("encodeBtn");
 const decodeBtn = document.getElementById("decodeBtn");
 const smartBtn = document.getElementById("smartBtn");
 const swapBtn = document.getElementById("swapBtn");
 const copyBtn = document.getElementById("copyBtn");
 const clearBtn = document.getElementById("clearBtn");
-const downloadBtn = document.getElementById("downloadBtn");
-const exampleBtn = document.getElementById("exampleBtn");
-
 const status = document.getElementById("status");
-
-const charCount = document.getElementById("charCount");
-const wordCount = document.getElementById("wordCount");
-const lineCount = document.getElementById("lineCount");
-const entityCount = document.getElementById("entityCount");
-
 const themeToggle = document.getElementById("themeToggle");
-
-const uploadBtn = document.getElementById("uploadBtn");
-const fileInput = document.getElementById("fileInput");
+const previewSection = document.getElementById("previewSection");
+const previewFrame = document.getElementById("previewFrame");
 
 function escapeHTML(text) {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
-
 function unescapeHTML(text) {
   const textarea = document.createElement("textarea");
   textarea.innerHTML = text;
   return textarea.value;
 }
 
-function updatePreview() {
-  const frame = document.getElementById("previewFrame");
-  if (!frame) return;
-  const safeHTML = output.value || input.value;
-  frame.srcdoc = safeHTML.replace(/<script/gi, "&lt;script");
-}
-
-function inspectURL(){
-  try{
-    const url = new URL(input.value.trim());
-    document.getElementById("urlProtocol").textContent = url.protocol;
-    document.getElementById("urlHostname").textContent = url.hostname;
-    document.getElementById("urlPath").textContent = url.pathname || "/";
-    document.getElementById("urlParams").textContent = [...url.searchParams.keys()].length;
-    document.getElementById("urlHash").textContent = url.hash || "-";
-  }catch{
-    document.getElementById("urlProtocol").textContent = "-";
-    document.getElementById("urlHostname").textContent = "-";
-    document.getElementById("urlPath").textContent = "-";
-    document.getElementById("urlParams").textContent = "0";
-    document.getElementById("urlHash").textContent = "-";
-  }
-}
-
-function updateStatus(message, color = "#22c55e") {
-  status.textContent = message;
-  status.style.color = color;
-}
-
 encodeBtn.addEventListener("click", () => {
-  if (!input.value.trim()) {
-    updateStatus("Please enter some HTML first.", "#ef4444");
-    return;
-  }
+  if (!input.value.trim()) return;
   output.value = escapeHTML(input.value);
-  updateCounters();
-  updateStatus("HTML escaped successfully.");
+  previewSection.style.display = "none"; // Hide preview on encode
+  status.textContent = "HTML escaped successfully.";
 });
 
 decodeBtn.addEventListener("click", () => {
-  if (!input.value.trim()) {
-    updateStatus("Please enter escaped HTML first.", "#ef4444");
-    return;
-  }
+  if (!input.value.trim()) return;
   output.value = unescapeHTML(input.value);
-  updateCounters();
-  updateStatus("HTML unescaped successfully.");
+  previewSection.style.display = "block"; // Show preview on decode
+  previewFrame.srcdoc = output.value;
+  status.textContent = "HTML unescaped successfully.";
 });
 
 smartBtn.addEventListener("click", () => {
-  if (!input.value.trim()) {
-    updateStatus("Nothing to convert.", "#ef4444");
-    return;
-  }
+  if (!input.value.trim()) return;
   if (/&[a-zA-Z#0-9]+;/.test(input.value)) {
     output.value = unescapeHTML(input.value);
-    updateStatus("Detected HTML entities → Decoded.");
+    previewSection.style.display = "block";
+    previewFrame.srcdoc = output.value;
+    status.textContent = "Decoded automatically.";
   } else {
     output.value = escapeHTML(input.value);
-    updateStatus("Detected raw HTML → Encoded.");
+    previewSection.style.display = "none";
+    status.textContent = "Encoded automatically.";
   }
-  updateCounters();
 });
 
 copyBtn.addEventListener("click", async () => {
-  if (!output.value.trim()) {
-    updateStatus("Nothing to copy.", "#ef4444");
-    return;
-  }
-  try {
-    await navigator.clipboard.writeText(output.value);
-    updateStatus("Copied to clipboard.");
-  } catch {
-    updateStatus("Copy failed.", "#ef4444");
-  }
-});
-
-downloadBtn.addEventListener("click", () => {
-  if(!output.value.trim()){
-    updateStatus("Nothing to download.","#ef4444");
-    return;
-  }
-  const blob = new Blob([output.value], {type:"text/plain"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "converted-html.txt";
-  a.click();
-  updateStatus("File downloaded successfully.");
+  if (!output.value.trim()) return;
+  await navigator.clipboard.writeText(output.value);
+  status.textContent = "Copied to clipboard.";
 });
 
 swapBtn.addEventListener("click", () => {
   [input.value, output.value] = [output.value, input.value];
-  updateCounters();
-  updateStatus("Input and output swapped.");
-});
-
-exampleBtn.addEventListener("click", () => {
-  input.value = `<div class="card">\n  <h2>Hello ToolNest</h2>\n  <p>Price: 100€ & 50$</p>\n</div>`;
-  updateCounters();
-  updateStatus("Example loaded successfully.");
 });
 
 clearBtn.addEventListener("click", () => {
   input.value = "";
   output.value = "";
-  updateCounters();
-  updateStatus("Cleared successfully.");
+  previewSection.style.display = "none";
+  status.textContent = "Cleared.";
 });
 
-function updateCounters() {
-  const text = input.value;
-  charCount.textContent = text.length;
-  wordCount.textContent = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
-  lineCount.textContent = text === "" ? 0 : text.split("\n").length;
-  const matches = text.match(/&[a-zA-Z0-9#]+;/g);
-  entityCount.textContent = matches ? matches.length : 0;
-  
-  document.getElementById("inputInfo").textContent = `${charCount.textContent} Characters • ${wordCount.textContent} Words`;
-  
-  updatePreview();
-  inspectURL();
-}
-
-input.addEventListener("input", updateCounters);
-updateCounters();
-
-// ===== Entity Copy Handler =====
-document.addEventListener("click", e => {
-  if (!e.target.classList.contains("copyEntity")) return;
-  try {
-    navigator.clipboard.writeText(e.target.dataset.copy);
-    updateStatus("Entity copied: " + e.target.dataset.copy);
-  } catch {
-    updateStatus("Copy failed.", "#ef4444");
-  }
-});
-
-// ===== Theme =====
+// Theme Toggle
 if (localStorage.getItem("toolnest-theme") === "dark") {
   document.body.classList.add("dark");
   themeToggle.textContent = "☀️";
 }
-
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark");
   const dark = document.body.classList.contains("dark");
   themeToggle.textContent = dark ? "☀️" : "🌙";
   localStorage.setItem("toolnest-theme", dark ? "dark" : "light");
 });
-
-// ===== Auto Save =====
-const STORAGE_KEY = "toolnest-html-entity";
-const saved = localStorage.getItem(STORAGE_KEY);
-if (saved) {
-  input.value = saved;
-  updateCounters();
-}
-
-input.addEventListener("input", () => {
-  localStorage.setItem(STORAGE_KEY, input.value);
-});
-
-// ===== Keyboard Shortcuts =====
-document.addEventListener("keydown", (e) => {
-  if (!e.ctrlKey) return;
-  switch (e.key.toLowerCase()) {
-    case "e":
-      e.preventDefault();
-      encodeBtn.click();
-      break;
-    case "d":
-      e.preventDefault();
-      decodeBtn.click();
-      break;
-    case "k":
-      e.preventDefault();
-      smartBtn.click();
-      break;
-    case "l":
-      e.preventDefault();
-      clearBtn.click();
-      break;
-  }
-});
-
-// ===== Upload & Drag Drop =====
-uploadBtn.onclick = () => fileInput.click();
-
-fileInput.onchange = e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    input.value = reader.result;
-    updateCounters();
-    updateStatus("File loaded successfully.");
-  };
-  reader.readAsText(file);
-};
-
-["dragenter", "dragover"].forEach(event => {
-  input.addEventListener(event, e => {
-    e.preventDefault();
-    input.classList.add("drag-over");
-  });
-});
-
-["dragleave", "drop"].forEach(event => {
-  input.addEventListener(event, e => {
-    e.preventDefault();
-    input.classList.remove("drag-over");
-  });
-});
-
-input.addEventListener("drop", e => {
-  e.preventDefault();
-  input.classList.remove("drag-over");
-  const file = e.dataTransfer.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    input.value = reader.result;
-    updateCounters();
-    updateStatus("File dropped successfully.");
-  };
-  reader.readAsText(file);
-});
-
-updatePreview();
-inspectURL();
 </script>
 </body>
 </html>
