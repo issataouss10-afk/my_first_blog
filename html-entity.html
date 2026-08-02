@@ -163,18 +163,6 @@
 
 <div class="container">
 
-<div style="
-margin:20px 0;
-padding:12px;
-text-align:center;
-border:1px dashed var(--border);
-border-radius:10px;
-background:var(--card);
-color:var(--text-light);
-">
-Advertisement Area (Top Banner 728×90)
-</div>
-
 <nav style="font-size:14px;color:var(--text-light);margin-bottom:20px;">
 <a href="/">Home</a> /
 <a href="/developer-tools/">Developer Tools</a> /
@@ -327,7 +315,7 @@ HTML Entity Converter
       <tbody>
         <tr>
           <td>&lt;h1&gt;Hello&lt;/h1&gt;</td>
-          <td>&amp;lt;h1&amp;gt;Hello&amp;lt;amp;lt;/h1&amp;gt;</td>
+          <td>&amp;lt;h1&amp;gt;Hello&amp;lt;/h1&amp;gt;</td>
         </tr>
         <tr>
           <td>&amp;copy;</td>
@@ -856,8 +844,9 @@ fileInput.onchange = e => {
 
 input.addEventListener("drop", e => {
   const file = e.dataTransfer.files[0];
-  if (!file) return;
-  const reader.onload = () => {
+  if !file return;
+  const reader = new FileReader();
+  reader.onload = () => {
     input.value = reader.result;
     updateCounters();
     updateStatus("File dropped successfully.");
