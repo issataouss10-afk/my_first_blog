@@ -183,10 +183,10 @@ HTML Entity Converter
       Encode and decode HTML entities instantly. Fast, secure, and completely free. Everything runs directly in your browser without sending your data to any server.
     </p>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:25px;">
-      <button onclick="document.getElementById('inputText').focus();">
+      <button onclick="document.getElementById('inputText')?.scrollIntoView({behavior:'smooth'}); document.getElementById('inputText')?.focus();">
         Start Converting
       </button>
-      <button class="secondary" onclick="window.scrollTo({top:document.querySelector('.tool-card').offsetTop-20,behavior:'smooth'})">
+      <button class="secondary" onclick="document.querySelector('.tool-card')?.scrollIntoView({behavior:'smooth'})">
         Go to Tool
       </button>
     </div>
@@ -843,7 +843,7 @@ fileInput.onchange = e => {
 ["dragleave", "drop"].forEach(event => {
   input.addEventListener(event, e => {
     e.preventDefault();
-    input.classList.remove("drag-other");
+    input.classList.remove("drag-over");
   });
 });
 
