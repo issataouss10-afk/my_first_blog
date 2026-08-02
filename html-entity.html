@@ -4,20 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTML Entity Converter - ToolNest</title>
-  <meta name="description" content="Free HTML Entity Converter online. Escape and unescape HTML entities instantly. Supports HTML encoding, decoding, live preview, drag & drop, and works entirely in your browser.">
+  <meta name="description" content="Free online HTML Entity Converter. Escape and unescape HTML entities instantly. Supports live preview, drag & drop, and works securely in your browser.">
   <meta name="keywords" content="HTML Entity Converter, HTML Escape, HTML Unescape, HTML Encoder, HTML Decoder, HTML Entities, Online HTML Tool">
   <meta name="author" content="ToolNest">
-  <meta name="robots" content="index,follow">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Canonical URL -->
   <link rel="canonical" href="https://toolnest.com/tools/html-entity-converter/">
+
+  <!-- Open Graph / Social Meta Tags -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ToolNest">
   <meta property="og:title" content="HTML Entity Converter - ToolNest">
-  <meta property="og:description" content="Escape and decode HTML entities online for free. Fast, secure and browser-based.">
+  <meta property="og:description" content="Escape and decode HTML entities online for free. Fast, secure, and browser-based developer utility.">
   <meta property="og:url" content="https://toolnest.com/tools/html-entity-converter/">
   <meta property="og:image" content="https://toolnest.com/assets/images/html-entity-converter.png">
+
+  <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="HTML Entity Converter - ToolNest">
   <meta name="twitter:description" content="Free online HTML Entity Converter with live preview and advanced features.">
   <meta name="twitter:image" content="https://toolnest.com/assets/images/html-entity-converter.png">
+
   <style>
     :root{ --primary:#4f46e5; --primary-hover:#4338ca; --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --text-light:#64748b; --border:#e5e7eb; --success:#10b981; --danger:#ef4444; }
     body.dark{ --bg:#0f172a; --card:#1e293b; --text:#f8fafc; --text-light:#94a3b8; --border:#334155; }
@@ -40,36 +48,172 @@
     .copyEntity{ padding:4px 8px; font-size:12px; margin-left:10px; background:var(--primary); color:#fff; border:none; border-radius:4px; cursor:pointer; }
     .copyEntity:hover{ background:var(--primary-hover); }
     .related-tools-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:15px; margin-top:15px; }
-    .related-tools-grid a{ display:block; padding:14px; text-align:center; text-decoration:none; background:var(--bg); border:1px solid var(--border); border-radius:10px; color:var(--text); font-weight:600; transition:.2s; }
-    .related-tools-grid a:hover{ border-color:var(--primary); background:rgba(79,70,229,.08); transform:translateY(-2px); }
+    .related-tools-grid a{ display:block; padding:18px; background:var(--card); border:1px solid var(--border); border-radius:12px; text-decoration:none; color:var(--text); transition:.25s; }
+    .related-tools-grid a h3{ margin-bottom:8px; font-size:18px; }
+    .related-tools-grid a p{ margin:0; font-size:14px; color:var(--text-light); }
+    .related-tools-grid a:hover{ transform:translateY(-4px); border-color:var(--primary); box-shadow:0 8px 20px rgba(0,0,0,.08); }
+    footer a{ color:var(--text-light); text-decoration:none; }
+    footer a:hover{ color:var(--primary); }
     @media(max-width:768px){ .grid{ grid-template-columns:1fr; } }
   </style>
+
+  <!-- Complete SEO Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://toolnest.com/#website",
+        "url": "https://toolnest.com/",
+        "name": "ToolNest",
+        "description": "Free online developer and productivity tools."
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://toolnest.com/tools/html-entity-converter/#webapp",
+        "name": "HTML Entity Converter",
+        "url": "https://toolnest.com/tools/html-entity-converter/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "browser": "Requires JavaScript. Works in all modern web browsers.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free online tool to escape and unescape HTML entities directly in your browser."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://toolnest.com/tools/html-entity-converter/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://toolnest.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer Tools",
+            "item": "https://toolnest.com/developer-tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "HTML Entity Converter",
+            "item": "https://toolnest.com/tools/html-entity-converter/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://toolnest.com/tools/html-entity-converter/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is an HTML Entity?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An HTML entity is a code used to display reserved HTML characters safely."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When should I escape HTML?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Escape HTML when displaying user-generated content or source code."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this HTML Entity Converter safe?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. All processing happens locally inside your browser."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-<div class="container">
-  
-  <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; border-bottom:1px solid var(--border); padding-bottom:18px;">
-    <a href="index.html" style="font-size:28px; font-weight:700; color:var(--primary); text-decoration:none;">
-      ToolNest
-    </a>
-    <button id="themeToggle" class="secondary">
-      🌙 Dark
-    </button>
-  </header>
 
-  <section class="section" style="text-align:center;">
-    <h1>HTML Entity Converter</h1>
-    <p style="max-width:700px; margin:auto; color:var(--text-light);">
-      Convert special HTML characters into HTML entities or decode entities back into readable text instantly. Fast, secure, and completely free.
+<header style="border-bottom:1px solid var(--border); background:var(--card);">
+  <div style="max-width:1100px;margin:auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
+    <a href="/" style="font-size:30px;font-weight:700;color:var(--primary);text-decoration:none;">
+      🛠 ToolNest
+    </a>
+    <nav style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="/" style="text-decoration:none;color:var(--text);">Home</a>
+      <a href="/developer-tools/" style="text-decoration:none;color:var(--text);">Developer Tools</a>
+      <a href="/seo-tools/" style="text-decoration:none;color:var(--text);">SEO Tools</a>
+      <a href="/text-tools/" style="text-decoration:none;color:var(--text);">Text Tools</a>
+    </nav>
+    <button id="themeToggle" class="secondary">
+      🌙
+    </button>
+  </div>
+</header>
+
+<div class="container">
+
+<div style="
+margin:20px 0;
+padding:12px;
+text-align:center;
+border:1px dashed var(--border);
+border-radius:10px;
+background:var(--card);
+color:var(--text-light);
+">
+Advertisement Area (Top Banner 728×90)
+</div>
+
+<nav style="font-size:14px;color:var(--text-light);margin-bottom:20px;">
+<a href="/">Home</a> /
+<a href="/developer-tools/">Developer Tools</a> /
+HTML Entity Converter
+</nav>
+
+  <section class="section" style="text-align:center;padding:40px 25px;">
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;">
+      <span style="background:#dcfce7;color:#166534;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;">✓ Free</span>
+      <span style="background:#dbeafe;color:#1d4ed8;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;">✓ Browser Based</span>
+      <span style="background:#ede9fe;color:#6d28d9;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;">✓ Secure</span>
+      <span style="background:#fef3c7;color:#92400e;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;">✓ No Upload</span>
+    </div>
+    <h1 style="font-size:42px;margin-bottom:15px;">
+      HTML Entity Converter
+    </h1>
+    <p style="max-width:760px;margin:0 auto 25px;color:var(--text-light);font-size:18px;">
+      Encode and decode HTML entities instantly. Fast, secure, and completely free. Everything runs directly in your browser without sending your data to any server.
     </p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:25px;">
+      <button onclick="document.getElementById('inputText').focus();">
+        Start Converting
+      </button>
+      <button class="secondary" onclick="window.scrollTo({top:document.querySelector('.tool-card').offsetTop-20,behavior:'smooth'})">
+        Go to Tool
+      </button>
+    </div>
+    <div style="margin-top:20px;padding:18px;border:1px dashed var(--border);border-radius:10px;color:var(--text-light);">
+      Advertisement Area
+    </div>
   </section>
 
   <section class="tool-card">
     <div class="grid">
       <div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
           <h3>Input</h3>
-          <div style="display:flex; gap:8px;">
+          <div style="display:flex; gap:8px; align-items:center;">
+            <small id="inputInfo" style="color:var(--text-light);">0 Characters • 0 Words</small>
             <button id="uploadBtn" class="secondary">📂 Upload</button>
             <button id="exampleBtn" class="secondary">💡 Example</button>
             <input type="file" id="fileInput" accept=".txt,.html" hidden>
@@ -78,18 +222,26 @@
         <textarea id="inputText" placeholder="Paste HTML here or drop a file..."></textarea>
       </div>
       <div>
-        <h3>Output</h3>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+          <h3>Output</h3>
+          <small style="color:var(--text-light);">Ready</small>
+        </div>
         <textarea id="outputText" placeholder="Result will appear here..." readonly></textarea>
       </div>
     </div>
     
-    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; justify-content:center;">
-      <button id="encodeBtn">Escape HTML</button>
-      <button id="decodeBtn">Unescape HTML</button>
-      <button id="smartBtn">Smart Detect</button>
-      <button id="swapBtn" class="secondary">⇄ Swap</button>
-      <button id="copyBtn" class="secondary">Copy</button>
-      <button id="clearBtn" class="secondary">Clear</button>
+    <div style="margin-top:25px;display:flex;flex-direction:column;gap:15px;">
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:10px;">
+        <button id="encodeBtn">Escape HTML</button>
+        <button id="decodeBtn">Unescape HTML</button>
+        <button id="smartBtn">Smart Detect</button>
+      </div>
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:10px;">
+        <button id="swapBtn" class="secondary">⇄ Swap</button>
+        <button id="copyBtn" class="secondary">Copy</button>
+        <button id="clearBtn" class="secondary">Clear</button>
+        <button id="downloadBtn" class="secondary">Download</button>
+      </div>
     </div>
     
     <p id="status" style="margin-top:18px; text-align:center; color:var(--text-light); font-weight:600;">
@@ -123,6 +275,70 @@
         <p>HTML Entities</p>
       </div>
     </div>
+  </section>
+
+  <section class="content-section">
+    <h2>Key Features</h2>
+
+    <div class="related-tools-grid">
+      <div class="tool-card">
+        <h3>⚡ Fast Processing</h3>
+        <p>Convert HTML entities instantly without waiting for uploads or server processing.</p>
+      </div>
+
+      <div class="tool-card">
+        <h3>🔒 Privacy First</h3>
+        <p>Everything runs locally in your browser. Your data never leaves your device.</p>
+      </div>
+
+      <div class="tool-card">
+        <h3>📱 Mobile Friendly</h3>
+        <p>Works smoothly on desktop, tablet, and mobile devices.</p>
+      </div>
+
+      <div class="tool-card">
+        <h3>💯 Free Forever</h3>
+        <p>No account, no subscription, and no hidden limits.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>How to Use</h2>
+
+    <ol style="padding-left:20px;line-height:2;">
+      <li>Paste your HTML or HTML entities into the input box.</li>
+      <li>Click <strong>Escape HTML</strong> or <strong>Unescape HTML</strong>.</li>
+      <li>Review the converted result.</li>
+      <li>Copy or download the output.</li>
+    </ol>
+  </section>
+
+  <section class="content-section">
+    <h2>Examples</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Input</th>
+          <th>Output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&lt;h1&gt;Hello&lt;/h1&gt;</td>
+          <td>&amp;lt;h1&amp;gt;Hello&amp;lt;amp;lt;/h1&amp;gt;</td>
+        </tr>
+        <tr>
+          <td>&amp;copy;</td>
+          <td>©</td>
+        </tr>
+        <tr>
+          <td>&amp;amp;</td>
+          <td>&</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <section class="content-section">
@@ -315,18 +531,82 @@
   <section class="content-section">
     <h2>Related Tools</h2>
     <div class="related-tools-grid">
-      <a href="/tools/url-encoder/">URL Encoder</a>
-      <a href="/tools/base64-encoder/">Base64 Encoder</a>
-      <a href="/tools/base64-decoder/">Base64 Decoder</a>
-      <a href="/tools/json-formatter/">JSON Formatter</a>
-      <a href="/tools/html-minifier/">HTML Minifier</a>
-      <a href="/tools/html-beautifier/">HTML Beautifier</a>
-      <a href="/tools/url-decoder/">URL Decoder</a>
-      <a href="/tools/text-diff/">Text Compare</a>
+      <a href="/tools/url-encoder/">
+        <h3>🔗 URL Encoder</h3>
+        <p>Encode URLs safely for web use.</p>
+      </a>
+
+      <a href="/tools/url-decoder/">
+        <h3>🔓 URL Decoder</h3>
+        <p>Decode encoded URLs instantly.</p>
+      </a>
+
+      <a href="/tools/base64-encoder/">
+        <h3>📦 Base64 Encoder</h3>
+        <p>Convert text to Base64 format.</p>
+      </a>
+
+      <a href="/tools/base64-decoder/">
+        <h3>📂 Base64 Decoder</h3>
+        <p>Decode Base64 into readable text.</p>
+      </a>
+
+      <a href="/tools/json-formatter/">
+        <h3>🧩 JSON Formatter</h3>
+        <p>Beautify and validate JSON.</p>
+      </a>
+
+      <a href="/tools/html-minifier/">
+        <h3>📄 HTML Minifier</h3>
+        <p>Reduce HTML file size.</p>
+      </a>
+
+      <a href="/tools/html-beautifier/">
+        <h3>✨ HTML Beautifier</h3>
+        <p>Format messy HTML code.</p>
+      </a>
+
+      <a href="/tools/text-diff/">
+        <h3>📑 Text Compare</h3>
+        <p>Compare two texts line by line.</p>
+      </a>
     </div>
   </section>
 
 </div>
+
+<footer style="margin-top:50px;background:var(--card);border-top:1px solid var(--border);"> 
+  <div class="container"> 
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;padding:40px 0;"> 
+      <div> 
+        <h3>ToolNest</h3> 
+        <p style="color:var(--text-light);"> Free online developer and productivity tools that run directly in your browser. </p> 
+      </div> 
+      <div> 
+        <h3>Tools</h3> 
+        <p><a href="/developer-tools/">Developer Tools</a></p> 
+        <p><a href="/seo-tools/">SEO Tools</a></p> 
+        <p><a href="/text-tools/">Text Tools</a></p> 
+      </div> 
+      <div> 
+        <h3>Company</h3> 
+        <p><a href="/about/">About Us</a></p> 
+        <p><a href="/contact/">Contact</a></p> 
+        <p><a href="/blog/">Blog</a></p> 
+      </div> 
+      <div> 
+        <h3>Legal</h3> 
+        <p><a href="/privacy-policy/">Privacy Policy</a></p> 
+        <p><a href="/terms/">Terms of Service</a></p> 
+        <p><a href="/disclaimer/">Disclaimer</a></p> 
+        <p><a href="/sitemap.xml">Sitemap</a></p> 
+      </div> 
+    </div> 
+    <div style="border-top:1px solid var(--border);padding:20px 0;text-align:center;color:var(--text-light);"> 
+      © 2026 ToolNest. All rights reserved. 
+    </div> 
+  </div> 
+</footer>
 
 <script>
 const input = document.getElementById("inputText");
@@ -338,6 +618,7 @@ const smartBtn = document.getElementById("smartBtn");
 const swapBtn = document.getElementById("swapBtn");
 const copyBtn = document.getElementById("copyBtn");
 const clearBtn = document.getElementById("clearBtn");
+const downloadBtn = document.getElementById("downloadBtn");
 const exampleBtn = document.getElementById("exampleBtn");
 
 const status = document.getElementById("status");
@@ -440,6 +721,19 @@ copyBtn.addEventListener("click", async () => {
   updateStatus("Copied to clipboard.");
 });
 
+downloadBtn.addEventListener("click", () => {
+  if(!output.value.trim()){
+    updateStatus("Nothing to download.","#ef4444");
+    return;
+  }
+  const blob = new Blob([output.value], {type:"text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "converted-html.txt";
+  a.click();
+  updateStatus("File downloaded successfully.");
+});
+
 swapBtn.addEventListener("click", () => {
   [input.value, output.value] = [output.value, input.value];
   updateCounters();
@@ -466,6 +760,9 @@ function updateCounters() {
   lineCount.textContent = text === "" ? 0 : text.split("\n").length;
   const matches = text.match(/&[a-zA-Z0-9#]+;/g);
   entityCount.textContent = matches ? matches.length : 0;
+  
+  document.getElementById("inputInfo").textContent = `${charCount.textContent} Characters • ${wordCount.textContent} Words`;
+  
   updatePreview();
   inspectURL();
 }
@@ -560,8 +857,7 @@ fileInput.onchange = e => {
 input.addEventListener("drop", e => {
   const file = e.dataTransfer.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
+  const reader.onload = () => {
     input.value = reader.result;
     updateCounters();
     updateStatus("File dropped successfully.");
@@ -571,39 +867,6 @@ input.addEventListener("drop", e => {
 
 updatePreview();
 inspectURL();
-</script>
-
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {
-      "@type":"Question",
-      "name":"What is an HTML Entity?",
-      "acceptedAnswer":{
-        "@type":"Answer",
-        "text":"An HTML entity is a code used to display reserved HTML characters safely."
-      }
-    },
-    {
-      "@type":"Question",
-      "name":"When should I escape HTML?",
-      "acceptedAnswer":{
-        "@type":"Answer",
-        "text":"Escape HTML when displaying user-generated content or source code."
-      }
-    },
-    {
-      "@type":"Question",
-      "name":"Is this HTML Entity Converter safe?",
-      "acceptedAnswer":{
-        "@type":"Answer",
-        "text":"Yes. All processing happens inside your browser."
-      }
-    }
-  ]
-}
 </script>
 </body>
 </html>
