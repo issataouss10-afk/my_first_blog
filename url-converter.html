@@ -15,7 +15,6 @@
     <meta property="og:url" content="https://toolnest-jet.vercel.app/url-encoder.html">
     <meta property="og:title" content="URL Encoder & Decoder – Free Online Tool | ToolNest">
     <meta property="og:description" content="Encode and decode URLs instantly using our free online URL Encoder & Decoder. Secure, fast and client-side tool.">
-    <!-- Fix 6: Tool-specific OG Image -->
     <meta property="og:image" content="https://toolnest-jet.vercel.app/assets/url-encoder-og.png">
 
     <!-- Twitter -->
@@ -42,7 +41,7 @@
     }
     </script>
 
-    <!-- Fix 1 & 7: SoftwareApplication Schema with Browser Requirements, Features & AggregateRating -->
+    <!-- SoftwareApplication Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -104,7 +103,7 @@
     }
     </script>
 
-    <!-- Fix 5: Updated Breadcrumb Schema (linking Developer Tools to page) -->
+    <!-- Breadcrumb Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -117,8 +116,7 @@
       },{
         "@type": "ListItem",
         "position": 2,
-        "name": "Developer Tools",
-        "item": "https://toolnest-jet.vercel.app/developer-tools.html"
+        "name": "Developer Tools"
       },{
         "@type": "ListItem",
         "position": 3,
@@ -782,11 +780,11 @@
     <span>✓ Free Forever</span>
   </div>
 
-  <!-- Breadcrumb pointing correctly to developer-tools.html -->
+  <!-- Breadcrumb with text-only Developer Tools -->
   <nav class="breadcrumb">
     <a href="index.html">Home</a>
     <span>›</span>
-    <a href="developer-tools.html">Developer Tools</a>
+    <span>Developer Tools</span>
     <span>›</span>
     <span>URL Encoder / Decoder</span>
   </nav>
