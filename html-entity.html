@@ -1,722 +1,609 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Entity Converter Pro - ToolNest</title>
-    <style>
-        :root {
-            --bg-primary: #0f172a;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --border: #334155;
-            --success: #22c55e;
-            --danger: #ef4444;
-        }
-
-        body.light-mode {
-            --bg-primary: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            transition: background 0.2s, color 0.2s;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 15px;
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 8px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .content-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 18px;
-            margin-bottom: 12px;
-        }
-
-        .search-panel {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-
-        .search-panel input {
-            flex: 1;
-            min-width: 180px;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-primary);
-            color: var(--text-main);
-        }
-
-        .textarea-wrapper {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 180px;
-            padding: 15px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-primary);
-            color: var(--text-main);
-            font-size: 14px;
-            resize: vertical;
-            outline: none;
-        }
-
-        textarea:focus {
-            border-color: var(--primary);
-        }
-
-        .drop-zone-active {
-            border: 2px dashed var(--primary) !important;
-            background: rgba(79, 70, 229, 0.08);
-        }
-
-        .draft-badge {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 12px;
-            color: var(--success);
-            display: none;
-        }
-
-        .toolbar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        button {
-            padding: 10px 18px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-hover);
-        }
-
-        .btn-secondary {
-            background: var(--bg-primary);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--primary);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .stat-card {
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-card span {
-            display: block;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .stat-card small {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        .data-table th, .data-table td {
-            padding: 10px;
-            border-bottom: 1px solid var(--border);
-            text-align: left;
-            font-size: 13px;
-        }
-
-        .data-table th {
-            color: var(--text-muted);
-        }
-
-        .command-palette {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.45);
-            display: none;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 90px;
-            z-index: 9999;
-        }
-
-        .command-box {
-            width: 550px;
-            max-width: 95%;
-            background: var(--bg-card);
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .command-box input {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            background: var(--bg-primary);
-            color: var(--text-main);
-        }
-
-        .command-item {
-            padding: 14px 18px;
-            cursor: pointer;
-            border-top: 1px solid var(--border);
-        }
-
-        .command-item:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        #statusMessage {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Entity Converter - ToolNest</title>
+  <meta name="description" content="Free HTML Entity Converter online. Escape and unescape HTML entities instantly. Supports HTML encoding, decoding, live preview, drag & drop, and works entirely in your browser.">
+  <meta name="keywords" content="HTML Entity Converter, HTML Escape, HTML Unescape, HTML Encoder, HTML Decoder, HTML Entities, Online HTML Tool">
+  <meta name="author" content="ToolNest">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://toolnest.com/tools/html-entity-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HTML Entity Converter - ToolNest">
+  <meta property="og:description" content="Escape and decode HTML entities online for free. Fast, secure and browser-based.">
+  <meta property="og:url" content="https://toolnest.com/tools/html-entity-converter/">
+  <meta property="og:image" content="https://toolnest.com/assets/images/html-entity-converter.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HTML Entity Converter - ToolNest">
+  <meta name="twitter:description" content="Free online HTML Entity Converter with live preview and advanced features.">
+  <meta name="twitter:image" content="https://toolnest.com/assets/images/html-entity-converter.png">
+  <style>
+    :root{ --primary:#4f46e5; --primary-hover:#4338ca; --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --text-light:#64748b; --border:#e5e7eb; --success:#10b981; --danger:#ef4444; }
+    body.dark{ --bg:#0f172a; --card:#1e293b; --text:#f8fafc; --text-light:#94a3b8; --border:#334155; }
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:Arial,Helvetica,sans-serif; }
+    body{ background:var(--bg); color:var(--text); line-height:1.6; }
+    .container{ max-width:1100px; margin:auto; padding:20px; }
+    .tool-card, .section, .content-section{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:25px; }
+    h1,h2,h3{ margin-bottom:15px; }
+    .content-section h3{ margin-top:15px; margin-bottom:5px; font-size:18px; color:var(--text); }
+    .content-section p{ color:var(--text-light); margin-bottom:15px; }
+    button{ background:var(--primary); color:#fff; border:none; padding:10px 16px; border-radius:8px; cursor:pointer; }
+    button:hover{ background:var(--primary-hover); }
+    .secondary{ background:transparent; color:var(--text); border:1px solid var(--border); }
+    textarea{ width:100%; min-height:220px; padding:12px; border:1px solid var(--border); border-radius:8px; background:var(--bg); color:var(--text); resize:vertical; font-family:monospace; }
+    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .drag-over{ border:2px dashed var(--primary)!important; background:rgba(79,70,229,.08); }
+    .data-table{ width:100%; border-collapse:collapse; margin-top:10px; }
+    .data-table th, .data-table td{ border:1px solid var(--border); padding:10px 14px; text-align:left; font-size:14px; }
+    .data-table th{ background:var(--bg); color:var(--text); }
+    .copyEntity{ padding:4px 8px; font-size:12px; margin-left:10px; background:var(--primary); color:#fff; border:none; border-radius:4px; cursor:pointer; }
+    .copyEntity:hover{ background:var(--primary-hover); }
+    .related-tools-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:15px; margin-top:15px; }
+    .related-tools-grid a{ display:block; padding:14px; text-align:center; text-decoration:none; background:var(--bg); border:1px solid var(--border); border-radius:10px; color:var(--text); font-weight:600; transition:.2s; }
+    .related-tools-grid a:hover{ border-color:var(--primary); background:rgba(79,70,229,.08); transform:translateY(-2px); }
+    @media(max-width:768px){ .grid{ grid-template-columns:1fr; } }
+  </style>
 </head>
 <body>
+<div class="container">
+  
+  <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; border-bottom:1px solid var(--border); padding-bottom:18px;">
+    <a href="index.html" style="font-size:28px; font-weight:700; color:var(--primary); text-decoration:none;">
+      ToolNest
+    </a>
+    <button id="themeToggle" class="secondary">
+      🌙 Dark
+    </button>
+  </header>
 
-    <div class="container">
-        <header>
-            <h1>ToolNest — HTML Entity Converter Pro</h1>
-            <button class="theme-toggle" id="themeToggle">🌓 Theme</button>
-        </header>
+  <section class="section" style="text-align:center;">
+    <h1>HTML Entity Converter</h1>
+    <p style="max-width:700px; margin:auto; color:var(--text-light);">
+      Convert special HTML characters into HTML entities or decode entities back into readable text instantly. Fast, secure, and completely free.
+    </p>
+  </section>
 
-        <div class="content-section">
-            <div class="search-panel">
-                <input type="text" id="searchText" placeholder="Find...">
-                <input type="text" id="replaceText" placeholder="Replace with...">
-                <button id="replaceBtn" class="btn-secondary">Replace All</button>
-            </div>
+  <section class="tool-card">
+    <div class="grid">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:10px;">
+          <h3>Input</h3>
+          <div style="display:flex; gap:8px;">
+            <button id="uploadBtn" class="secondary">📂 Upload</button>
+            <button id="exampleBtn" class="secondary">💡 Example</button>
+            <input type="file" id="fileInput" accept=".txt,.html" hidden>
+          </div>
         </div>
-
-        <div class="content-section">
-            <h2>Input HTML / Text</h2>
-            <div class="textarea-wrapper">
-                <textarea id="input" placeholder="Paste HTML or drop a file here... (Press Ctrl+K for commands)"></textarea>
-                <span id="draftStatus" class="draft-badge">💾 Draft Saved</span>
-            </div>
-            
-            <div class="toolbar">
-                <button id="encodeBtn" class="btn-primary">Escape HTML</button>
-                <button id="decodeBtn" class="btn-secondary">Unescape HTML</button>
-                <button id="smartBtn" class="btn-secondary">Smart Detect</button>
-                <button id="batchBtn" class="btn-secondary">⚡ Batch Convert</button>
-                <button id="swapBtn" class="btn-secondary">⇄ Swap</button>
-                <button id="undoBtn" class="btn-secondary">↶ Undo</button>
-                <button id="redoBtn" class="btn-secondary">↷ Redo</button>
-                <button id="clearBtn" class="btn-secondary">Clear</button>
-            </div>
-        </div>
-
-        <div class="content-section">
-            <h2>Output Result</h2>
-            <div class="textarea-wrapper">
-                <textarea id="output" readonly placeholder="Result will appear here..."></textarea>
-            </div>
-            <div class="toolbar">
-                <button id="copyBtn" class="btn-primary">📋 Copy Output</button>
-                <button id="selectBtn" class="btn-secondary">Select All</button>
-                <button id="downloadBtn" class="btn-secondary">Download TXT</button>
-                <button id="fullscreenBtn" class="btn-secondary">⛶ Fullscreen</button>
-                <label style="display:flex; align-items:center; gap:5px; font-size:13px; cursor:pointer;">
-                    <input type="checkbox" id="autoCopy"> Auto-copy
-                </label>
-            </div>
-            <div id="statusMessage">Ready</div>
-        </div>
-
-        <div class="content-section">
-            <h2>Conversion Statistics & Analysis</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span id="charCount">0</span>
-                    <small>Characters</small>
-                </div>
-                <div class="stat-card">
-                    <span id="wordCount">0</span>
-                    <small>Words</small>
-                </div>
-                <div class="stat-card">
-                    <span id="entityCount">0</span>
-                    <small>Entities</small>
-                </div>
-                <div class="stat-card">
-                    <span id="namedEntities">0</span>
-                    <small>Named</small>
-                </div>
-                <div class="stat-card">
-                    <span id="numericEntities">0</span>
-                    <small>Numeric</small>
-                </div>
-                <div class="stat-card">
-                    <span id="invalidEntities">0</span>
-                    <small>Invalid</small>
-                </div>
-                <div class="stat-card">
-                    <span id="uniqueEntities">0</span>
-                    <small>Unique</small>
-                </div>
-                <div class="stat-card">
-                    <span id="changedChars">0</span>
-                    <small>Changed Chars</small>
-                </div>
-                <div class="stat-card">
-                    <span id="changePercent">0%</span>
-                    <small>Difference</small>
-                </div>
-                <div class="stat-card">
-                    <span id="sizeDifference">0</span>
-                    <small>Size Diff</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-section">
-            <h2>Entity Breakdown</h2>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Entity</th>
-                        <th>Character</th>
-                        <th>Occurrences</th>
-                    </tr>
-                </thead>
-                <tbody id="entityAnalyzer">
-                    <tr>
-                        <td colspan="3" style="text-align:center; color:var(--text-muted);">No entities detected.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="content-section">
-            <h2>Recent Conversion History</h2>
-            <div id="historyList" class="stats-grid">
-                <p style="grid-column:1/-1; color:var(--text-muted); font-size:13px;">No history yet.</p>
-            </div>
-            <div style="margin-top:15px;">
-                <button id="clearHistoryBtn" class="btn-secondary" style="font-size:12px; padding:6px 12px;">🗑 Clear History</button>
-            </div>
-        </div>
+        <textarea id="inputText" placeholder="Paste HTML here or drop a file..."></textarea>
+      </div>
+      <div>
+        <h3>Output</h3>
+        <textarea id="outputText" placeholder="Result will appear here..." readonly></textarea>
+      </div>
     </div>
-
-    <div id="commandPalette" class="command-palette">
-        <div class="command-box">
-            <input id="commandInput" placeholder="Type a command (escape, unescape, copy, clear...)">
-            <div class="command-item" data-command="escape">Escape HTML</div>
-            <div class="command-item" data-command="unescape">Unescape HTML</div>
-            <div class="command-item" data-command="smart">Smart Detect</div>
-            <div class="command-item" data-command="copy">Copy Output</div>
-            <div class="command-item" data-command="clear">Clear</div>
-            <div class="command-item" data-command="swap">Swap</div>
-            <div class="command-item" data-command="download">Download TXT</div>
-        </div>
+    
+    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; justify-content:center;">
+      <button id="encodeBtn">Escape HTML</button>
+      <button id="decodeBtn">Unescape HTML</button>
+      <button id="smartBtn">Smart Detect</button>
+      <button id="swapBtn" class="secondary">⇄ Swap</button>
+      <button id="copyBtn" class="secondary">Copy</button>
+      <button id="clearBtn" class="secondary">Clear</button>
     </div>
+    
+    <p id="status" style="margin-top:18px; text-align:center; color:var(--text-light); font-weight:600;">
+      Ready
+    </p>
+  </section>
 
-    <script>
-        const input = document.getElementById("input");
-        const output = document.getElementById("output");
-        const encodeBtn = document.getElementById("encodeBtn");
-        const decodeBtn = document.getElementById("decodeBtn");
-        const smartBtn = document.getElementById("smartBtn");
-        const batchBtn = document.getElementById("batchBtn");
-        const swapBtn = document.getElementById("swapBtn");
-        const copyBtn = document.getElementById("copyBtn");
-        const selectBtn = document.getElementById("selectBtn");
-        const clearBtn = document.getElementById("clearBtn");
-        const downloadBtn = document.getElementById("downloadBtn");
-        const fullscreenBtn = document.getElementById("fullscreenBtn");
-        const themeToggle = document.getElementById("themeToggle");
-        const autoCopy = document.getElementById("autoCopy");
-        const statusMessage = document.getElementById("statusMessage");
+  <section class="section">
+    <h2>Live Preview</h2>
+    <p style="color:var(--text-light); margin-bottom:15px;">Preview decoded HTML safely.</p>
+    <iframe id="previewFrame" style="width:100%; height:280px; border:1px solid var(--border); border-radius:10px; background:#fff;"></iframe>
+  </section>
 
-        const undoBtn = document.getElementById("undoBtn");
-        const redoBtn = document.getElementById("redoBtn");
-        const searchText = document.getElementById("searchText");
-        const replaceText = document.getElementById("replaceText");
-        const replaceBtn = document.getElementById("replaceBtn");
-        const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+  <section class="section">
+    <h2>Live Statistics</h2>
+    <div class="grid">
+      <div class="tool-card" style="text-align:center;">
+        <h3 id="charCount">0</h3>
+        <p>Characters</p>
+      </div>
+      <div class="tool-card" style="text-align:center;">
+        <h3 id="wordCount">0</h3>
+        <p>Words</p>
+      </div>
+      <div class="tool-card" style="text-align:center;">
+        <h3 id="lineCount">0</h3>
+        <p>Lines</p>
+      </div>
+      <div class="tool-card" style="text-align:center;">
+        <h3 id="entityCount">0</h3>
+        <p>HTML Entities</p>
+      </div>
+    </div>
+  </section>
 
-        const palette = document.getElementById("commandPalette");
-        const commandInput = document.getElementById("commandInput");
-        const draftBadge = document.getElementById("draftStatus");
+  <section class="content-section">
+    <h2>URL Inspector</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Protocol</td>
+          <td id="urlProtocol">-</td>
+        </tr>
+        <tr>
+          <td>Hostname</td>
+          <td id="urlHostname">-</td>
+        </tr>
+        <tr>
+          <td>Path</td>
+          <td id="urlPath">-</td>
+        </tr>
+        <tr>
+          <td>Query Parameters</td>
+          <td id="urlParams">0</td>
+        </tr>
+        <tr>
+          <td>Hash</td>
+          <td id="urlHash">-</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-        const HISTORY_KEY = "toolnest_html_history";
-        const DRAFT_KEY = "toolnest_html_draft";
+  <section class="content-section">
+    <h2>Common HTML Entities Reference</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Character</th>
+          <th>Entity</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&lt;</td>
+          <td>
+            <code>&amp;lt;</code>
+            <button class="copyEntity" data-copy="&lt;">Copy</button>
+          </td>
+          <td>Less Than</td>
+        </tr>
+        <tr>
+          <td>&gt;</td>
+          <td>
+            <code>&amp;gt;</code>
+            <button class="copyEntity" data-copy="&gt;">Copy</button>
+          </td>
+          <td>Greater Than</td>
+        </tr>
+        <tr>
+          <td>&amp;</td>
+          <td>
+            <code>&amp;amp;</code>
+            <button class="copyEntity" data-copy="&amp;">Copy</button>
+          </td>
+          <td>Ampersand</td>
+        </tr>
+        <tr>
+          <td>"</td>
+          <td>
+            <code>&amp;quot;</code>
+            <button class="copyEntity" data-copy="&quot;">Copy</button>
+          </td>
+          <td>Double Quote</td>
+        </tr>
+        <tr>
+          <td>'</td>
+          <td>
+            <code>&#39;</code>
+            <button class="copyEntity" data-copy="&#39;">Copy</button>
+          </td>
+          <td>Single Quote</td>
+        </tr>
+        <tr>
+          <td>©</td>
+          <td>
+            <code>&amp;copy;</code>
+            <button class="copyEntity" data-copy="©">Copy</button>
+          </td>
+          <td>Copyright</td>
+        </tr>
+        <tr>
+          <td>®</td>
+          <td>
+            <code>&amp;reg;</code>
+            <button class="copyEntity" data-copy="®">Copy</button>
+          </td>
+          <td>Registered</td>
+        </tr>
+        <tr>
+          <td>™</td>
+          <td>
+            <code>&amp;trade;</code>
+            <button class="copyEntity" data-copy="™">Copy</button>
+          </td>
+          <td>Trademark</td>
+        </tr>
+        <tr>
+          <td>€</td>
+          <td>
+            <code>&amp;euro;</code>
+            <button class="copyEntity" data-copy="€">Copy</button>
+          </td>
+          <td>Euro</td>
+        </tr>
+        <tr>
+          <td>£</td>
+          <td>
+            <code>&amp;pound;</code>
+            <button class="copyEntity" data-copy="£">Copy</button>
+          </td>
+          <td>Pound</td>
+        </tr>
+        <tr>
+          <td>¥</td>
+          <td>
+            <code>&amp;yen;</code>
+            <button class="copyEntity" data-copy="¥">Copy</button>
+          </td>
+          <td>Yen</td>
+        </tr>
+        <tr>
+          <td>←</td>
+          <td>
+            <code>&amp;larr;</code>
+            <button class="copyEntity" data-copy="←">Copy</button>
+          </td>
+          <td>Left Arrow</td>
+        </tr>
+        <tr>
+          <td>→</td>
+          <td>
+            <code>&amp;rarr;</code>
+            <button class="copyEntity" data-copy="→">Copy</button>
+          </td>
+          <td>Right Arrow</td>
+        </tr>
+        <tr>
+          <td>✓</td>
+          <td>
+            <code>&amp;check;</code>
+            <button class="copyEntity" data-copy="✓">Copy</button>
+          </td>
+          <td>Check Mark</td>
+        </tr>
+        <tr>
+          <td>★</td>
+          <td>
+            <code>&amp;starf;</code>
+            <button class="copyEntity" data-copy="★">Copy</button>
+          </td>
+          <td>Black Star</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-        let historyStack = [];
-        let redoStack = [];
+  <section class="content-section">
+    <h2>Frequently Asked Questions</h2>
+    <h3>What is an HTML Entity?</h3>
+    <p>An HTML entity is a special code used to display reserved characters such as &lt;, &gt;, &, quotes, and many special symbols safely in HTML.</p>
+    
+    <h3>When should I escape HTML?</h3>
+    <p>Escape HTML when displaying user-generated content or source code to prevent HTML rendering and reduce security risks.</p>
+    
+    <h3>When should I decode HTML entities?</h3>
+    <p>Decode HTML entities when you want to restore encoded text back to its original characters.</p>
+    
+    <h3>Is this HTML Entity Converter safe?</h3>
+    <p>Yes. All conversions are performed directly in your browser. Your data is never uploaded to any server.</p>
+    
+    <h3>Can I convert large HTML files?</h3>
+    <p>Yes. The converter works with both small snippets and large HTML documents directly in your browser.</p>
+  </section>
 
-        function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, tag => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                "'": '&#39;',
-                '"': '&quot;'
-            }[tag] || tag));
-        }
+  <section class="content-section">
+    <h2>Related Tools</h2>
+    <div class="related-tools-grid">
+      <a href="/tools/url-encoder/">URL Encoder</a>
+      <a href="/tools/base64-encoder/">Base64 Encoder</a>
+      <a href="/tools/base64-decoder/">Base64 Decoder</a>
+      <a href="/tools/json-formatter/">JSON Formatter</a>
+      <a href="/tools/html-minifier/">HTML Minifier</a>
+      <a href="/tools/html-beautifier/">HTML Beautifier</a>
+      <a href="/tools/url-decoder/">URL Decoder</a>
+      <a href="/tools/text-diff/">Text Compare</a>
+    </div>
+  </section>
 
-        function unescapeHTML(str) {
-            const doc = new DOMParser().parseFromString(str, "text/html");
-            return doc.documentElement.textContent;
-        }
+</div>
 
-        function saveHistory(inputText, outputText, type) {
-            if (!inputText.trim()) return;
-            let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
-            history.unshift({
-                type: type,
-                date: new Date().toLocaleTimeString(),
-                input: inputText.substring(0, 60),
-                output: outputText.substring(0, 60)
-            });
-            history = history.slice(0, 10);
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-            renderHistory();
-        }
+<script>
+const input = document.getElementById("inputText");
+const output = document.getElementById("outputText");
 
-        function renderHistory() {
-            const container = document.getElementById("historyList");
-            const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
-            if (history.length === 0) {
-                container.innerHTML = '<p style="grid-column:1/-1;color:var(--text-muted);font-size:13px;">No history yet.</p>';
-                return;
-            }
-            container.innerHTML = "";
-            history.forEach(item => {
-                const div = document.createElement("div");
-                div.className = "stat-card";
-                div.style.textAlign = "left";
-                div.innerHTML = `<strong>${item.type}</strong><br><small>${item.date}</small><hr style="margin:4px 0;border-color:var(--border)"><small style="word-break:break-all">${item.input}</small>`;
-                container.appendChild(div);
-            });
-        }
+const encodeBtn = document.getElementById("encodeBtn");
+const decodeBtn = document.getElementById("decodeBtn");
+const smartBtn = document.getElementById("smartBtn");
+const swapBtn = document.getElementById("swapBtn");
+const copyBtn = document.getElementById("copyBtn");
+const clearBtn = document.getElementById("clearBtn");
+const exampleBtn = document.getElementById("exampleBtn");
 
-        function saveUndoState() {
-            if (historyStack.length === 0 || historyStack[historyStack.length - 1] !== input.value) {
-                historyStack.push(input.value);
-                if (historyStack.length > 100) historyStack.shift();
-                redoStack = [];
-            }
-        }
+const status = document.getElementById("status");
 
-        function analyzeEntities() {
-            const tbody = document.getElementById("entityAnalyzer");
-            const text = output.value || input.value;
-            const matches = text.match(/&[a-zA-Z0-9#]+;/g);
-            
-            if (!matches) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No entities detected.</td></tr>`;
-                return;
-            }
+const charCount = document.getElementById("charCount");
+const wordCount = document.getElementById("wordCount");
+const lineCount = document.getElementById("lineCount");
+const entityCount = document.getElementById("entityCount");
 
-            const map = {};
-            matches.forEach(e => map[e] = (map[e] || 0) + 1);
-            tbody.innerHTML = "";
-            Object.entries(map).forEach(([entity, count]) => {
-                const decoder = document.createElement("textarea");
-                decoder.innerHTML = entity;
-                tbody.innerHTML += `<tr><td><code>${entity}</code></td><td>${decoder.value}</td><td>${count}</td></tr>`;
-            });
-        }
+const themeToggle = document.getElementById("themeToggle");
 
-        function updateStats() {
-            const val = input.value;
-            const outVal = output.value;
-            
-            document.getElementById("charCount").textContent = val.length;
-            document.getElementById("wordCount").textContent = val.trim() ? val.trim().split(/\s+/).length : 0;
-            
-            const entityMatches = outVal.match(/&[a-zA-Z0-9#]+;/g);
-            document.getElementById("entityCount").textContent = entityMatches ? entityMatches.length : 0;
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
 
-            const allEntities = outVal.match(/&[^;\s]+;/g) || [];
-            document.getElementById("namedEntities").textContent = allEntities.filter(e => /^&[a-zA-Z]+;$/.test(e)).length;
-            document.getElementById("numericEntities").textContent = allEntities.filter(e => /^&#/.test(e)).length;
-            document.getElementById("invalidEntities").textContent = allEntities.filter(e => !/^&(#[0-9]+|#x[0-9a-fA-F]+|[a-zA-Z]+);$/.test(e)).length;
-            document.getElementById("uniqueEntities").textContent = [...new Set(allEntities)].length;
+function escapeHTML(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
-            const inputLen = val.length;
-            const outputLen = outVal.length;
-            let changed = 0;
-            const max = Math.max(inputLen, outputLen);
-            for (let i = 0; i < max; i++) {
-                if (val[i] !== outVal[i]) changed++;
-            }
-            document.getElementById("changedChars").textContent = changed;
-            document.getElementById("changePercent").textContent = inputLen === 0 ? "0%" : ((changed / inputLen) * 100).toFixed(1) + "%";
-            document.getElementById("sizeDifference").textContent = outputLen - inputLen;
+function unescapeHTML(text) {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = text;
+  return textarea.value;
+}
 
-            analyzeEntities();
-        }
+function updatePreview() {
+  const frame = document.getElementById("previewFrame");
+  if (!frame) return;
+  const safeHTML = output.value || input.value;
+  frame.srcdoc = safeHTML.replace(/<script/gi, "&lt;script");
+}
 
-        encodeBtn.onclick = () => {
-            const start = performance.now();
-            output.value = escapeHTML(input.value);
-            const end = performance.now();
-            updateStats();
-            saveHistory(input.value, output.value, "Escape");
-            if (autoCopy.checked) navigator.clipboard.writeText(output.value);
-            statusMessage.textContent = `Completed in ${(end - start).toFixed(2)} ms`;
-        };
+function inspectURL(){
+  try{
+    const url = new URL(input.value.trim());
+    document.getElementById("urlProtocol").textContent = url.protocol;
+    document.getElementById("urlHostname").textContent = url.hostname;
+    document.getElementById("urlPath").textContent = url.pathname || "/";
+    document.getElementById("urlParams").textContent = [...url.searchParams.keys()].length;
+    document.getElementById("urlHash").textContent = url.hash || "-";
+  }catch{
+    document.getElementById("urlProtocol").textContent = "-";
+    document.getElementById("urlHostname").textContent = "-";
+    document.getElementById("urlPath").textContent = "-";
+    document.getElementById("urlParams").textContent = "0";
+    document.getElementById("urlHash").textContent = "-";
+  }
+}
 
-        decodeBtn.onclick = () => {
-            const start = performance.now();
-            output.value = unescapeHTML(input.value);
-            const end = performance.now();
-            updateStats();
-            saveHistory(input.value, output.value, "Unescape");
-            if (autoCopy.checked) navigator.clipboard.writeText(output.value);
-            statusMessage.textContent = `Completed in ${(end - start).toFixed(2)} ms`;
-        };
+function updateStatus(message, color = "#22c55e") {
+  status.textContent = message;
+  status.style.color = color;
+}
 
-        smartBtn.onclick = () => {
-            if (/&[a-zA-Z0-9#]+;/.test(input.value)) {
-                output.value = unescapeHTML(input.value);
-                saveHistory(input.value, output.value, "Smart Decode");
-                statusMessage.textContent = "Smart: Decoded entities";
-            } else {
-                output.value = escapeHTML(input.value);
-                saveHistory(input.value, output.value, "Smart Escape");
-                statusMessage.textContent = "Smart: Escaped HTML";
-            }
-            updateStats();
-            if (autoCopy.checked) navigator.clipboard.writeText(output.value);
-        };
+encodeBtn.addEventListener("click", () => {
+  if (!input.value.trim()) {
+    updateStatus("Please enter some HTML first.", "#ef4444");
+    return;
+  }
+  output.value = escapeHTML(input.value);
+  updateCounters();
+  updateStatus("HTML escaped successfully.");
+});
 
-        batchBtn.onclick = () => {
-            const mode = confirm("OK = Escape HTML\nCancel = Unescape HTML");
-            const lines = input.value.split("\n");
-            output.value = lines.map(line => mode ? escapeHTML(line) : unescapeHTML(line)).join("\n");
-            updateStats();
-            saveHistory(input.value, output.value, "Batch");
-            statusMessage.textContent = "Batch conversion completed!";
-        };
+decodeBtn.addEventListener("click", () => {
+  if (!input.value.trim()) {
+    updateStatus("Please enter escaped HTML first.", "#ef4444");
+    return;
+  }
+  output.value = unescapeHTML(input.value);
+  updateCounters();
+  updateStatus("HTML unescaped successfully.");
+});
 
-        swapBtn.onclick = () => {
-            const temp = input.value;
-            input.value = output.value;
-            output.value = temp;
-            updateStats();
-        };
+smartBtn.addEventListener("click", () => {
+  if (!input.value.trim()) {
+    updateStatus("Nothing to convert.", "#ef4444");
+    return;
+  }
+  if (/&[a-zA-Z#0-9]+;/.test(input.value)) {
+    output.value = unescapeHTML(input.value);
+    updateStatus("Detected HTML entities → Decoded.");
+  } else {
+    output.value = escapeHTML(input.value);
+    updateStatus("Detected raw HTML → Encoded.");
+  }
+  updateCounters();
+});
 
-        copyBtn.onclick = () => {
-            navigator.clipboard.writeText(output.value);
-            statusMessage.textContent = "Copied to clipboard!";
-        };
+copyBtn.addEventListener("click", async () => {
+  if (!output.value.trim()) {
+    updateStatus("Nothing to copy.", "#ef4444");
+    return;
+  }
+  await navigator.clipboard.writeText(output.value);
+  updateStatus("Copied to clipboard.");
+});
 
-        selectBtn.onclick = () => output.select();
+swapBtn.addEventListener("click", () => {
+  [input.value, output.value] = [output.value, input.value];
+  updateCounters();
+  updateStatus("Input and output swapped.");
+});
 
-        clearBtn.onclick = () => {
-            input.value = "";
-            output.value = "";
-            localStorage.removeItem(DRAFT_KEY);
-            updateStats();
-            statusMessage.textContent = "Cleared!";
-        };
+exampleBtn.addEventListener("click", () => {
+  input.value = `<div class="card">\n  <h2>Hello ToolNest</h2>\n  <p>Price: 100€ & 50$</p>\n</div>`;
+  updateCounters();
+  updateStatus("Example loaded successfully.");
+});
 
-        downloadBtn.onclick = () => {
-            const blob = new Blob([output.value], { type: "text/html" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "toolnest-output.txt";
-            a.click();
-        };
+clearBtn.addEventListener("click", () => {
+  input.value = "";
+  output.value = "";
+  updateCounters();
+  updateStatus("Cleared successfully.");
+});
 
-        fullscreenBtn.onclick = () => {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
-        };
+function updateCounters() {
+  const text = input.value;
+  charCount.textContent = text.length;
+  wordCount.textContent = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  lineCount.textContent = text === "" ? 0 : text.split("\n").length;
+  const matches = text.match(/&[a-zA-Z0-9#]+;/g);
+  entityCount.textContent = matches ? matches.length : 0;
+  updatePreview();
+  inspectURL();
+}
 
-        themeToggle.onclick = () => {
-            document.body.classList.toggle("light-mode");
-        };
+input.addEventListener("input", updateCounters);
+updateCounters();
 
-        replaceBtn.onclick = () => {
-            if (!searchText.value) return;
-            const regex = new RegExp(searchText.value, "g");
-            input.value = input.value.replace(regex, replaceText.value);
-            updateStats();
-            statusMessage.textContent = "Replacement completed!";
-        };
+// ===== Entity Copy Handler =====
+document.addEventListener("click", e => {
+  if (!e.target.classList.contains("copyEntity")) return;
+  navigator.clipboard.writeText(e.target.dataset.copy);
+  updateStatus("Entity copied: " + e.target.dataset.copy);
+});
 
-        undoBtn.onclick = () => {
-            if (historyStack.length < 2) return;
-            redoStack.push(historyStack.pop());
-            input.value = historyStack[historyStack.length - 1];
-            updateStats();
-        };
+// ===== Theme =====
+if (localStorage.getItem("toolnest-theme") === "dark") {
+  document.body.classList.add("dark");
+  themeToggle.textContent = "☀️";
+}
 
-        redoBtn.onclick = () => {
-            if (!redoStack.length) return;
-            const value = redoStack.pop();
-            historyStack.push(value);
-            input.value = value;
-            updateStats();
-        };
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  const dark = document.body.classList.contains("dark");
+  themeToggle.textContent = dark ? "☀️" : "🌙";
+  localStorage.setItem("toolnest-theme", dark ? "dark" : "light");
+});
 
-        clearHistoryBtn.onclick = () => {
-            localStorage.removeItem(HISTORY_KEY);
-            renderHistory();
-        };
+// ===== Auto Save =====
+const STORAGE_KEY = "toolnest-html-entity";
+const saved = localStorage.getItem(STORAGE_KEY);
+if (saved) {
+  input.value = saved;
+  updateCounters();
+}
 
-        input.addEventListener("input", () => {
-            saveUndoState();
-            localStorage.setItem(DRAFT_KEY, input.value);
-            updateStats();
-            draftBadge.style.display = "inline";
-            setTimeout(() => draftBadge.style.display = "none", 1200);
-        });
+input.addEventListener("input", () => {
+  localStorage.setItem(STORAGE_KEY, input.value);
+});
 
-        input.addEventListener("keydown", e => {
-            if (e.key === "Tab") {
-                e.preventDefault();
-                const start = input.selectionStart;
-                input.setRangeText("    ", start, start, "end");
-            }
-        });
+// ===== Keyboard Shortcuts =====
+document.addEventListener("keydown", (e) => {
+  if (!e.ctrlKey) return;
+  switch (e.key.toLowerCase()) {
+    case "e":
+      e.preventDefault();
+      encodeBtn.click();
+      break;
+    case "d":
+      e.preventDefault();
+      decodeBtn.click();
+      break;
+    case "k":
+      e.preventDefault();
+      smartBtn.click();
+      break;
+    case "l":
+      e.preventDefault();
+      clearBtn.click();
+      break;
+  }
+});
 
-        ["dragenter", "dragover"].forEach(event => {
-            input.addEventListener(event, e => { e.preventDefault(); input.classList.add("drop-zone-active"); });
-        });
-        ["dragleave", "drop"].forEach(event => {
-            input.addEventListener(event, e => { e.preventDefault(); input.classList.remove("drop-zone-active"); });
-        });
-        input.addEventListener("drop", e => {
-            const file = e.dataTransfer.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = () => { input.value = reader.result; updateStats(); };
-            reader.readAsText(file);
-        });
+// ===== Upload & Drag Drop =====
+uploadBtn.onclick = () => fileInput.click();
 
-        document.addEventListener("keydown", e => {
-            if (e.ctrlKey && e.key.toLowerCase() === "k") {
-                e.preventDefault();
-                palette.style.display = "flex";
-                commandInput.focus();
-            }
-            if (e.key === "Escape") palette.style.display = "none";
-        });
+fileInput.onchange = e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    input.value = reader.result;
+    updateCounters();
+    updateStatus("File loaded successfully.");
+  };
+  reader.readAsText(file);
+};
 
-        document.querySelectorAll(".command-item").forEach(item => {
-            item.onclick = () => {
-                const cmd = item.dataset.command;
-                palette.style.display = "none";
-                if (cmd === "escape") encodeBtn.click();
-                if (cmd === "unescape") decodeBtn.click();
-                if (cmd === "smart") smartBtn.click();
-                if (cmd === "copy") copyBtn.click();
-                if (cmd === "swap") swapBtn.click();
-                if (cmd === "clear") clearBtn.click();
-                if (cmd === "download") downloadBtn.click();
-            };
-        });
+["dragenter", "dragover"].forEach(event => {
+  input.addEventListener(event, e => {
+    e.preventDefault();
+    input.classList.add("drag-over");
+  });
+});
 
-        window.onload = () => {
-            const draft = localStorage.getItem(DRAFT_KEY);
-            if (draft) input.value = draft;
-            historyStack = [input.value];
-            updateStats();
-            renderHistory();
-        };
-    </script>
+["dragleave", "drop"].forEach(event => {
+  input.addEventListener(event, e => {
+    e.preventDefault();
+    input.classList.remove("drag-over");
+  });
+});
+
+input.addEventListener("drop", e => {
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    input.value = reader.result;
+    updateCounters();
+    updateStatus("File dropped successfully.");
+  };
+  reader.readAsText(file);
+});
+
+updatePreview();
+inspectURL();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"What is an HTML Entity?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"An HTML entity is a code used to display reserved HTML characters safely."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"When should I escape HTML?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Escape HTML when displaying user-generated content or source code."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Is this HTML Entity Converter safe?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Yes. All processing happens inside your browser."
+      }
+    }
+  ]
+}
+</script>
 </body>
 </html>
