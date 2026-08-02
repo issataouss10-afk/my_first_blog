@@ -151,9 +151,9 @@
     </a>
     <nav style="display:flex;gap:20px;flex-wrap:wrap;">
       <a href="/" style="text-decoration:none;color:var(--text);">Home</a>
-      <a href="/developer-tools/" style="text-decoration:none;color:var(--text);">Developer Tools</a>
-      <a href="/seo-tools/" style="text-decoration:none;color:var(--text);">SEO Tools</a>
-      <a href="/text-tools/" style="text-decoration:none;color:var(--text);">Text Tools</a>
+      <a href="#" style="text-decoration:none;color:var(--text);">Developer Tools</a>
+      <a href="#" style="text-decoration:none;color:var(--text);">SEO Tools</a>
+      <a href="#" style="text-decoration:none;color:var(--text);">Text Tools</a>
     </nav>
     <button id="themeToggle" class="secondary">
       🌙
@@ -165,7 +165,7 @@
 
 <nav style="font-size:14px;color:var(--text-light);margin-bottom:20px;">
 <a href="/">Home</a> /
-<a href="/developer-tools/">Developer Tools</a> /
+<a href="#">Developer Tools</a> /
 HTML Entity Converter
 </nav>
 
@@ -189,9 +189,6 @@ HTML Entity Converter
       <button class="secondary" onclick="window.scrollTo({top:document.querySelector('.tool-card').offsetTop-20,behavior:'smooth'})">
         Go to Tool
       </button>
-    </div>
-    <div style="margin-top:20px;padding:18px;border:1px dashed var(--border);border-radius:10px;color:var(--text-light);">
-      Advertisement Area
     </div>
   </section>
 
@@ -519,42 +516,42 @@ HTML Entity Converter
   <section class="content-section">
     <h2>Related Tools</h2>
     <div class="related-tools-grid">
-      <a href="/tools/url-encoder/">
+      <a href="#">
         <h3>🔗 URL Encoder</h3>
         <p>Encode URLs safely for web use.</p>
       </a>
 
-      <a href="/tools/url-decoder/">
+      <a href="#">
         <h3>🔓 URL Decoder</h3>
         <p>Decode encoded URLs instantly.</p>
       </a>
 
-      <a href="/tools/base64-encoder/">
+      <a href="#">
         <h3>📦 Base64 Encoder</h3>
         <p>Convert text to Base64 format.</p>
       </a>
 
-      <a href="/tools/base64-decoder/">
+      <a href="#">
         <h3>📂 Base64 Decoder</h3>
         <p>Decode Base64 into readable text.</p>
       </a>
 
-      <a href="/tools/json-formatter/">
+      <a href="#">
         <h3>🧩 JSON Formatter</h3>
         <p>Beautify and validate JSON.</p>
       </a>
 
-      <a href="/tools/html-minifier/">
+      <a href="#">
         <h3>📄 HTML Minifier</h3>
         <p>Reduce HTML file size.</p>
       </a>
 
-      <a href="/tools/html-beautifier/">
+      <a href="#">
         <h3>✨ HTML Beautifier</h3>
         <p>Format messy HTML code.</p>
       </a>
 
-      <a href="/tools/text-diff/">
+      <a href="#">
         <h3>📑 Text Compare</h3>
         <p>Compare two texts line by line.</p>
       </a>
@@ -572,22 +569,22 @@ HTML Entity Converter
       </div> 
       <div> 
         <h3>Tools</h3> 
-        <p><a href="/developer-tools/">Developer Tools</a></p> 
-        <p><a href="/seo-tools/">SEO Tools</a></p> 
-        <p><a href="/text-tools/">Text Tools</a></p> 
+        <p><a href="#">Developer Tools</a></p> 
+        <p><a href="#">SEO Tools</a></p> 
+        <p><a href="#">Text Tools</a></p> 
       </div> 
       <div> 
         <h3>Company</h3> 
-        <p><a href="/about/">About Us</a></p> 
-        <p><a href="/contact/">Contact</a></p> 
-        <p><a href="/blog/">Blog</a></p> 
+        <p><a href="#">About Us</a></p> 
+        <p><a href="#">Contact</a></p> 
+        <p><a href="#">Blog</a></p> 
       </div> 
       <div> 
         <h3>Legal</h3> 
-        <p><a href="/privacy-policy/">Privacy Policy</a></p> 
-        <p><a href="/terms/">Terms of Service</a></p> 
-        <p><a href="/disclaimer/">Disclaimer</a></p> 
-        <p><a href="/sitemap.xml">Sitemap</a></p> 
+        <p><a href="#">Privacy Policy</a></p> 
+        <p><a href="#">Terms of Service</a></p> 
+        <p><a href="#">Disclaimer</a></p> 
+        <p><a href="#">Sitemap</a></p> 
       </div> 
     </div> 
     <div style="border-top:1px solid var(--border);padding:20px 0;text-align:center;color:var(--text-light);"> 
@@ -705,8 +702,12 @@ copyBtn.addEventListener("click", async () => {
     updateStatus("Nothing to copy.", "#ef4444");
     return;
   }
-  await navigator.clipboard.writeText(output.value);
-  updateStatus("Copied to clipboard.");
+  try {
+    await navigator.clipboard.writeText(output.value);
+    updateStatus("Copied to clipboard.");
+  } catch {
+    updateStatus("Copy failed.", "#ef4444");
+  }
 });
 
 downloadBtn.addEventListener("click", () => {
@@ -761,8 +762,12 @@ updateCounters();
 // ===== Entity Copy Handler =====
 document.addEventListener("click", e => {
   if (!e.target.classList.contains("copyEntity")) return;
-  navigator.clipboard.writeText(e.target.dataset.copy);
-  updateStatus("Entity copied: " + e.target.dataset.copy);
+  try {
+    navigator.clipboard.writeText(e.target.dataset.copy);
+    updateStatus("Entity copied: " + e.target.dataset.copy);
+  } catch {
+    updateStatus("Copy failed.", "#ef4444");
+  }
 });
 
 // ===== Theme =====
@@ -838,13 +843,15 @@ fileInput.onchange = e => {
 ["dragleave", "drop"].forEach(event => {
   input.addEventListener(event, e => {
     e.preventDefault();
-    input.classList.remove("drag-over");
+    input.classList.remove("drag-other");
   });
 });
 
 input.addEventListener("drop", e => {
+  e.preventDefault();
+  input.classList.remove("drag-over");
   const file = e.dataTransfer.files[0];
-  if !file return;
+  if (!file) return;
   const reader = new FileReader();
   reader.onload = () => {
     input.value = reader.result;
