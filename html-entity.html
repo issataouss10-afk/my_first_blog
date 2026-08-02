@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTML Entity Converter - ToolNest</title>
-  <meta name="description" content="Free online HTML Entity Converter. Escape and unescape HTML entities instantly. Works securely in your browser.">
+  <meta name="description" content="Free online HTML Entity Converter. Escape and unescape HTML entities instantly. Supports live preview and works securely in your browser.">
   <meta name="robots" content="index, follow">
   
   <!-- Canonical URL -->
@@ -25,6 +25,8 @@
     .container{ max-width:1100px; margin:auto; padding:20px; }
     .tool-card, .section, .content-section{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:25px; }
     h1,h2,h3{ margin-bottom:15px; }
+    .content-section h3{ margin-top:15px; margin-bottom:5px; font-size:18px; color:var(--text); }
+    .content-section p{ color:var(--text-light); margin-bottom:15px; }
     button{ background:var(--primary); color:#fff; border:none; padding:10px 16px; border-radius:8px; cursor:pointer; }
     button:hover{ background:var(--primary-hover); }
     .secondary{ background:transparent; color:var(--text); border:1px solid var(--border); }
@@ -39,11 +41,9 @@
     .related-tools-grid a:hover{ transform:translateY(-4px); border-color:var(--primary); }
     footer a{ color:var(--text-light); text-decoration:none; }
     footer a:hover{ color:var(--primary); }
-    .hidden{ display:none!important; }
     @media(max-width:768px){ .grid{ grid-template-columns:1fr; } }
   </style>
 
-  <!-- Clean Schema (Without 404 Links) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -73,7 +73,7 @@
 
 <div class="container">
 
-  <!-- Clean Breadcrumb (No 404 Links) -->
+  <!-- Clean Breadcrumb -->
   <nav style="font-size:14px;color:var(--text-light);margin-bottom:20px;">
     <a href="/index.html" style="color:var(--text-light);text-decoration:none;">Home</a> &gt; HTML Entity Converter
   </nav>
@@ -85,6 +85,7 @@
     </p>
   </section>
 
+  <!-- Tool Core -->
   <section class="tool-card">
     <div class="grid">
       <div>
@@ -118,13 +119,74 @@
     <p id="status" style="margin-top:18px; text-align:center; color:var(--text-light); font-weight:600;">Ready</p>
   </section>
 
-  <!-- Live Preview (Shows only on Decode) -->
+  <!-- Live Preview (Shows on Decode) -->
   <section class="section" id="previewSection" style="display:none;">
     <h2>Live Preview</h2>
     <iframe id="previewFrame" style="width:100%; height:200px; border:1px solid var(--border); border-radius:10px; background:#fff;"></iframe>
   </section>
 
-  <!-- Existing / Working Related Tools Only -->
+  <!-- How to Use -->
+  <section class="content-section">
+    <h2>How to Use</h2>
+    <ol style="padding-left:20px;line-height:2; color:var(--text-light);">
+      <li>Paste your HTML code or entities into the input box.</li>
+      <li>Click <strong>Escape HTML</strong> to encode or <strong>Unescape HTML</strong> to decode.</li>
+      <li>Copy the result instantly to your clipboard.</li>
+    </ol>
+  </section>
+
+  <!-- Common HTML Entities Table -->
+  <section class="content-section">
+    <h2>Common HTML Entities Reference</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Character</th>
+          <th>Entity</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&lt;</td>
+          <td><code>&amp;lt;</code><button class="copyEntity" data-copy="&lt;">Copy</button></td>
+          <td>Less Than</td>
+        </tr>
+        <tr>
+          <td>&gt;</td>
+          <td><code>&amp;gt;</code><button class="copyEntity" data-copy="&gt;">Copy</button></td>
+          <td>Greater Than</td>
+        </tr>
+        <tr>
+          <td>&amp;</td>
+          <td><code>&amp;amp;</code><button class="copyEntity" data-copy="&amp;">Copy</button></td>
+          <td>Ampersand</td>
+        </tr>
+        <tr>
+          <td>"</td>
+          <td><code>&amp;quot;</code><button class="copyEntity" data-copy="&quot;">Copy</button></td>
+          <td>Double Quote</td>
+        </tr>
+        <tr>
+          <td>©</td>
+          <td><code>&amp;copy;</code><button class="copyEntity" data-copy="©">Copy</button></td>
+          <td>Copyright</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="content-section">
+    <h2>Frequently Asked Questions</h2>
+    <h3>What is an HTML Entity?</h3>
+    <p>An HTML entity is a code used to display reserved characters safely in web browsers.</p>
+    
+    <h3>Is this tool secure?</h3>
+    <p>Yes, all processing happens locally inside your browser. No data is sent to servers.</p>
+  </section>
+
+  <!-- Related Tools -->
   <section class="content-section">
     <h2>Related Tools</h2>
     <div class="related-tools-grid">
@@ -171,6 +233,8 @@ const status = document.getElementById("status");
 const themeToggle = document.getElementById("themeToggle");
 const previewSection = document.getElementById("previewSection");
 const previewFrame = document.getElementById("previewFrame");
+const charCount = document.getElementById("charCount");
+const wordCount = document.getElementById("wordCount");
 
 function escapeHTML(text) {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
@@ -181,17 +245,26 @@ function unescapeHTML(text) {
   return textarea.value;
 }
 
+function updateCounters() {
+  const text = input.value;
+  const chars = text.length;
+  const words = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  document.getElementById("inputInfo").textContent = `${chars} Characters • ${words} Words`;
+}
+
+input.addEventListener("input", updateCounters);
+
 encodeBtn.addEventListener("click", () => {
   if (!input.value.trim()) return;
   output.value = escapeHTML(input.value);
-  previewSection.style.display = "none"; // Hide preview on encode
+  previewSection.style.display = "none";
   status.textContent = "HTML escaped successfully.";
 });
 
 decodeBtn.addEventListener("click", () => {
   if (!input.value.trim()) return;
   output.value = unescapeHTML(input.value);
-  previewSection.style.display = "block"; // Show preview on decode
+  previewSection.style.display = "block";
   previewFrame.srcdoc = output.value;
   status.textContent = "HTML unescaped successfully.";
 });
@@ -218,13 +291,22 @@ copyBtn.addEventListener("click", async () => {
 
 swapBtn.addEventListener("click", () => {
   [input.value, output.value] = [output.value, input.value];
+  updateCounters();
 });
 
 clearBtn.addEventListener("click", () => {
   input.value = "";
   output.value = "";
   previewSection.style.display = "none";
+  updateCounters();
   status.textContent = "Cleared.";
+});
+
+// Entity Copy Handler
+document.addEventListener("click", e => {
+  if (!e.target.classList.contains("copyEntity")) return;
+  navigator.clipboard.writeText(e.target.dataset.copy);
+  status.textContent = "Entity copied: " + e.target.dataset.copy;
 });
 
 // Theme Toggle
