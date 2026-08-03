@@ -1,56 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Box Shadow Generator - ToolNest</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .home-btn { background: #2563eb; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; }
-        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        h1 { font-size: 1.8rem; margin-bottom: 10px; color: #0f172a; }
-        .subtitle { color: #64748b; margin-bottom: 25px; font-size: 0.95rem; }
-        .preview-box { width: 100%; height: 120px; background: #ffffff; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; border: 1px solid #e2e8f0; }
-        .control { margin-bottom: 12px; }
-        label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
-        input[type="range"] { width: 100%; }
-        code { display: block; background: #f1f5f9; padding: 10px; border-radius: 6px; font-family: monospace; margin-top: 15px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Box Shadow Generator | Live CSS Preview | ToolNest</title>
+<meta name="description" content="Generate CSS box-shadow code with a live preview. Adjust offset, blur, spread, color, and opacity instantly. Free, 100% client-side.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  @media (max-width:780px){.layout{grid-template-columns:1fr;}}
+
+  .preview-stage{
+    background:
+      linear-gradient(45deg,#f1f5f9 25%,transparent 25%),
+      linear-gradient(-45deg,#f1f5f9 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#f1f5f9 75%),
+      linear-gradient(-45deg,transparent 75%,#f1f5f9 75%);
+    background-size:20px 20px;
+    background-position:0 0,0 10px,10px -10px,-10px 0px;
+    background-color:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    min-height:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+  }
+  .preview-box{
+    width:140px;
+    height:140px;
+    background:#fff;
+    border-radius:16px;
+  }
+
+  .controls{display:flex;flex-direction:column;gap:16px;}
+  .ctrl-row{display:flex;flex-direction:column;gap:6px;}
+  .ctrl-row .ctrl-label{
+    display:flex;justify-content:space-between;
+    font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;
+  }
+  .ctrl-row .ctrl-label span.val{color:var(--ink);font-weight:700;text-transform:none;letter-spacing:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  input[type=range]{width:100%;accent-color:var(--blue);}
+
+  .row-inline{display:flex;align-items:center;gap:12px;}
+  input[type=color]{
+    width:44px;height:36px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff;cursor:pointer;
+  }
+  .checkbox-row{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink);}
+  .checkbox-row input{width:16px;height:16px;accent-color:var(--blue);}
+
+  .output-box{
+    margin-top:20px;
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:10px;
+    padding:14px 16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13.5px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .output-box span{word-break:break-all;white-space:pre-wrap;}
+  .copy-btn{
+    background:var(--blue);color:#fff;border:none;padding:7px 12px;border-radius:8px;
+    font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">ToolNest</a>
-        <a href="index.html" class="home-btn">Home</a>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
-    <div class="container">
-        <div class="card">
-            <h1>Box Shadow Generator</h1>
-            <p class="subtitle">Generate CSS box-shadow effects visually.</p>
-            <div class="preview-box" id="previewBox">Box Preview</div>
-            <div class="control">
-                <label>Blur: <span id="blurVal">15</span>px</label>
-                <input type="range" id="blurRange" min="0" max="50" value="15">
-            </div>
-            <code id="codeOutput">box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);</code>
-        </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>Box Shadow Generator</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">✨</div>
+    <div>
+      <h1>Box Shadow Generator</h1>
+      <p>Design a CSS box-shadow with a live preview and copy the exact code. 100% local — nothing leaves your browser.</p>
     </div>
-    <script>
-        const blurRange = document.getElementById('blurRange');
-        const blurVal = document.getElementById('blurVal');
-        const previewBox = document.getElementById('previewBox');
-        const codeOutput = document.getElementById('codeOutput');
-        blurRange.addEventListener('input', (e) => {
-            const val = e.target.value;
-            blurVal.textContent = val;
-            const shadow = `0px 10px ${val}px rgba(0, 0, 0, 0.1)`;
-            previewBox.style.boxShadow = shadow;
-            codeOutput.textContent = `box-shadow: ${shadow};`;
-        });
-        previewBox.style.boxShadow = '0px 10px 15px rgba(0, 0, 0, 0.1)';
-    </script>
+  </div>
+
+  <div class="panel">
+    <div class="layout">
+      <div class="preview-stage">
+        <div class="preview-box" id="previewBox"></div>
+      </div>
+
+      <div class="controls">
+        <div class="ctrl-row">
+          <div class="ctrl-label">Offset X <span class="val" id="xVal">10px</span></div>
+          <input type="range" id="xRange" min="-50" max="50" value="10">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Offset Y <span class="val" id="yVal">10px</span></div>
+          <input type="range" id="yRange" min="-50" max="50" value="10">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Blur Radius <span class="val" id="blurVal">20px</span></div>
+          <input type="range" id="blurRange" min="0" max="100" value="20">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Spread Radius <span class="val" id="spreadVal">0px</span></div>
+          <input type="range" id="spreadRange" min="-50" max="50" value="0">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Opacity <span class="val" id="opacityVal">0.25</span></div>
+          <input type="range" id="opacityRange" min="0" max="100" value="25">
+        </div>
+
+        <div class="row-inline">
+          <input type="color" id="colorPicker" value="#000000">
+          <div class="checkbox-row">
+            <input type="checkbox" id="insetCheck">
+            <label for="insetCheck">Inset shadow</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="output-box">
+      <span id="outputValue">box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.25);</span>
+      <button class="copy-btn" onclick="copyOutput()">Copy</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Live Preview</h3>
+      <p>Every slider updates the preview box and the generated code instantly.</p>
+    </div>
+    <div class="feature">
+      <h3>🎨 Full Color Control</h3>
+      <p>Pick any shadow color and fine-tune its opacity independently.</p>
+    </div>
+    <div class="feature">
+      <h3>🧩 Inset Shadows</h3>
+      <p>Toggle inset with one click to preview inner shadows for cards, inputs, and wells.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>Everything runs in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Box Shadow Generator</h2>
+  <ol class="steps">
+    <li><strong>Adjust the sliders:</strong> Set offset X/Y, blur, spread, and opacity to taste.</li>
+    <li><strong>Pick a color:</strong> Use the color swatch to change the shadow color.</li>
+    <li><strong>Toggle inset:</strong> Check the box for an inner shadow instead of a drop shadow.</li>
+    <li><strong>Copy the CSS:</strong> Click Copy and paste the box-shadow rule into your stylesheet.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>What's the difference between blur and spread?</summary>
+      <p>Blur softens the shadow's edges; spread grows or shrinks the shadow's size before blurring is applied.</p>
+    </details>
+    <details>
+      <summary>Can I generate an inset (inner) shadow?</summary>
+      <p>Yes. Check the "Inset shadow" box and the preview and generated code switch to an inset shadow.</p>
+    </details>
+    <details>
+      <summary>Is my data sent to a server?</summary>
+      <p>No. The preview and CSS are generated entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="/json-to-ts.html">🔷 JSON to TypeScript</a>
+    <a href="/color-converter.html">🎨 Color Converter</a>
+    <a href="/timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="/url-parser.html">🔗 URL Parser</a>
+    <a href="/css-clamp.html">🎨 CSS Clamp Generator</a>
+    <a href="/glass-generator.html">🔮 CSS Glassmorphism Generator</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const xRange = document.getElementById('xRange');
+const yRange = document.getElementById('yRange');
+const blurRange = document.getElementById('blurRange');
+const spreadRange = document.getElementById('spreadRange');
+const opacityRange = document.getElementById('opacityRange');
+const colorPicker = document.getElementById('colorPicker');
+const insetCheck = document.getElementById('insetCheck');
+const previewBox = document.getElementById('previewBox');
+const outputValue = document.getElementById('outputValue');
+
+function hexToRgbVals(hex){
+  const h = hex.replace('#','');
+  return [
+    parseInt(h.substring(0,2),16),
+    parseInt(h.substring(2,4),16),
+    parseInt(h.substring(4,6),16)
+  ];
+}
+
+function update(){
+  const x = xRange.value;
+  const y = yRange.value;
+  const blur = blurRange.value;
+  const spread = spreadRange.value;
+  const opacity = (opacityRange.value / 100).toFixed(2);
+  const [r,g,b] = hexToRgbVals(colorPicker.value);
+  const inset = insetCheck.checked ? 'inset ' : '';
+
+  document.getElementById('xVal').textContent = x + 'px';
+  document.getElementById('yVal').textContent = y + 'px';
+  document.getElementById('blurVal').textContent = blur + 'px';
+  document.getElementById('spreadVal').textContent = spread + 'px';
+  document.getElementById('opacityVal').textContent = opacity;
+
+  const shadow = `${inset}${x}px ${y}px ${blur}px ${spread}px rgba(${r}, ${g}, ${b}, ${opacity})`;
+  previewBox.style.boxShadow = shadow;
+  outputValue.textContent = `box-shadow: ${shadow};`;
+}
+
+[xRange, yRange, blurRange, spreadRange, opacityRange, colorPicker, insetCheck].forEach(el => {
+  el.addEventListener('input', update);
+});
+
+function copyOutput(){
+  navigator.clipboard.writeText(outputValue.textContent).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+update();
+</script>
+
 </body>
 </html>
