@@ -1,85 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Clamp Generator - ToolNest</title>
-    <meta name="description" content="Generate fluid typography CSS clamp() values easily for responsive web design.">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
-        .nav-link:hover { color: #2563eb; background: #eff6ff; }
-        
-        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; }
-        .tool-desc { color: #64748b; margin-bottom: 2rem; }
-        
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155; }
-        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; }
-        .form-control:focus { border-color: #2563eb; }
-        
-        .dimensions-row { display: flex; gap: 15px; }
-        .dimensions-row .form-group { flex: 1; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Clamp Generator | Fluid Typography &amp; Spacing | ToolNest</title>
+<meta name="description" content="Generate a CSS clamp() function for fluid, responsive typography and spacing. Free, 100% client-side clamp generator with live preview.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
 
-        .btn-primary { background: #2563eb; color: white; border: none; padding: 12px 20px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
-        .btn-primary:hover { background: #1d4ed8; }
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
 
-        .result-box { margin-top: 2rem; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; display: none; }
-        .result-code { font-family: monospace; background: #e2e8f0; padding: 10px; border-radius: 6px; margin-top: 8px; word-break: break-all; color: #0f172a; }
-    </style>
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .unit-tabs{display:flex;gap:8px;margin-bottom:18px;}
+  .unit-tabs button{
+    border:1px solid var(--line);background:#f8fafc;color:var(--muted);
+    padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;
+  }
+  .unit-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media (max-width:780px){.grid4{grid-template-columns:repeat(2,1fr);}}
+
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=number]{
+    width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:15px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);
+  }
+  input[type=number]:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  .preview-stage{
+    margin-top:22px;
+    background:#f8fafc;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:24px;
+    overflow:hidden;
+  }
+  .preview-text{
+    font-weight:800;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .preview-note{font-size:12px;color:var(--muted);margin-top:10px;}
+
+  .slider-row{margin-top:16px;}
+  .slider-row .ctrl-label{
+    display:flex;justify-content:space-between;
+    font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;
+  }
+  .slider-row .ctrl-label span.val{color:var(--ink);font-weight:700;text-transform:none;letter-spacing:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  input[type=range]{width:100%;accent-color:var(--blue);}
+
+  .output-box{
+    margin-top:20px;background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px 16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .output-box span{word-break:break-all;}
+  .copy-btn{
+    background:var(--blue);color:#fff;border:none;padding:7px 12px;border-radius:8px;
+    font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">ToolNest</a>
-        <a href="index.html" class="nav-link">← Back to Home</a>
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
+  </div>
+</header>
 
-    <div class="tool-container">
-        <h1 class="tool-title">🎨 CSS Clamp() Generator</h1>
-        <p class="tool-desc">Calculate fluid responsive font sizes effortlessly.</p>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>CSS Clamp Generator</strong></div>
 
-        <div class="dimensions-row">
-            <div class="form-group">
-                <label for="minSize">Min Size (rem)</label>
-                <input type="number" id="minSize" class="form-control" value="1" step="0.1">
-            </div>
-            <div class="form-group">
-                <label for="maxSize">Max Size (rem)</label>
-                <input type="number" id="maxSize" class="form-control" value="2.5" step="0.1">
-            </div>
-        </div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-        <button id="generateBtn" class="btn-primary">Generate Clamp Code</button>
+  <div class="hero">
+    <div class="icon">🎨</div>
+    <div>
+      <h1>CSS Clamp Generator</h1>
+      <p>Generate a fluid <code>clamp()</code> value that scales smoothly between a minimum and maximum viewport width. 100% local, nothing leaves your browser.</p>
+    </div>
+  </div>
 
-        <div class="result-box" id="resultBox">
-            <strong>Generated CSS:</strong>
-            <div class="result-code" id="outputCode"></div>
-        </div>
+  <div class="panel">
+    <div class="unit-tabs">
+      <button id="tabPx" class="active" onclick="setUnit('px')">px</button>
+      <button id="tabRem" onclick="setUnit('rem')">rem</button>
     </div>
 
-    <script>
-        const minSizeInput = document.getElementById('minSize');
-        const maxSizeInput = document.getElementById('maxSize');
-        const generateBtn = document.getElementById('generateBtn');
-        const resultBox = document.getElementById('resultBox');
-        const outputCode = document.getElementById('outputCode');
+    <div class="grid4">
+      <div class="field">
+        <label for="minSize">Min Size</label>
+        <input type="number" id="minSize" value="16" step="0.5">
+      </div>
+      <div class="field">
+        <label for="maxSize">Max Size</label>
+        <input type="number" id="maxSize" value="32" step="0.5">
+      </div>
+      <div class="field">
+        <label for="minVw">Min Viewport (px)</label>
+        <input type="number" id="minVw" value="360" step="10">
+      </div>
+      <div class="field">
+        <label for="maxVw">Max Viewport (px)</label>
+        <input type="number" id="maxVw" value="1440" step="10">
+      </div>
+    </div>
 
-        generateBtn.addEventListener('click', () => {
-            const min = minSizeInput.value;
-            const max = maxSizeInput.value;
-            if(!min || !max) {
-                alert('Please enter both values');
-                return;
-            }
-            // Simple formula approximation for demo clamp
-            const clampVal = `font-size: clamp(${min}rem, 2vw + 1rem, ${max}rem);`;
-            outputCode.textContent = clampVal;
-            resultBox.style.display = 'block';
-        });
-    </script>
+    <div class="preview-stage">
+      <div class="preview-text" id="previewText">The quick brown fox</div>
+      <div class="preview-note">Preview scaled to a simulated viewport width — drag the slider below.</div>
+      <div class="slider-row">
+        <div class="ctrl-label">Simulated Viewport Width <span class="val" id="simVwVal">900px</span></div>
+        <input type="range" id="simVw" min="320" max="1920" value="900">
+      </div>
+    </div>
+
+    <div class="output-box">
+      <span id="outputValue">font-size: clamp(1rem, 0.65rem + 1.48vw, 2rem);</span>
+      <button class="copy-btn" onclick="copyOutput()">Copy</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Generation</h3>
+      <p>Change any value and the clamp() expression and preview update immediately.</p>
+    </div>
+    <div class="feature">
+      <h3>👀 Live Simulated Preview</h3>
+      <p>Drag the viewport slider to see exactly how the size scales without resizing your browser.</p>
+    </div>
+    <div class="feature">
+      <h3>📐 px or rem Output</h3>
+      <p>Switch units to match your project's convention — pixels or root ems.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All calculation happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest CSS Clamp Generator</h2>
+  <ol class="steps">
+    <li><strong>Set your bounds:</strong> Enter the minimum and maximum sizes you want.</li>
+    <li><strong>Set the viewport range:</strong> Enter the viewport widths where scaling should start and end.</li>
+    <li><strong>Check the preview:</strong> Drag the simulated viewport slider to see the size scale.</li>
+    <li><strong>Copy the CSS:</strong> Click Copy and paste the clamp() value into your stylesheet.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>What does CSS clamp() do?</summary>
+      <p>clamp(min, preferred, max) picks the preferred value but never goes below min or above max, giving fluid scaling with safe limits.</p>
+    </details>
+    <details>
+      <summary>Should I use px or rem?</summary>
+      <p>rem respects the user's browser font-size setting and is generally recommended for typography; px is simpler for fixed spacing.</p>
+    </details>
+    <details>
+      <summary>Is my data sent to a server?</summary>
+      <p>No. The clamp() value is calculated entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="/json-to-ts.html">🔷 JSON to TypeScript</a>
+    <a href="/color-converter.html">🎨 Color Converter</a>
+    <a href="/box-shadow.html">✨ Box Shadow Generator</a>
+    <a href="/glass-generator.html">🔮 CSS Glassmorphism Generator</a>
+    <a href="/timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="/url-parser.html">🔗 URL Parser</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+let unit = 'px';
+
+function setUnit(u){
+  unit = u;
+  document.getElementById('tabPx').classList.toggle('active', u === 'px');
+  document.getElementById('tabRem').classList.toggle('active', u === 'rem');
+  update();
+}
+
+function update(){
+  const minSize = parseFloat(document.getElementById('minSize').value);
+  const maxSize = parseFloat(document.getElementById('maxSize').value);
+  const minVw = parseFloat(document.getElementById('minVw').value);
+  const maxVw = parseFloat(document.getElementById('maxVw').value);
+  const simVw = parseFloat(document.getElementById('simVw').value);
+
+  document.getElementById('simVwVal').textContent = simVw + 'px';
+
+  if([minSize,maxSize,minVw,maxVw,simVw].some(isNaN) || maxVw === minVw){
+    return;
+  }
+
+  // Convert px sizes to rem base (16px) when unit is rem
+  const base = 16;
+  const toUnit = v => unit === 'rem' ? (v / base) : v;
+  const unitLabel = unit;
+
+  const slope = (maxSize - minSize) / (maxVw - minVw); // in px per px
+  const intersectionPx = minSize - slope * minVw; // px value at 0vw
+  const slopeVw = slope * 100; // per 1vw (100 = 100vw)
+
+  const minOut = toUnit(minSize).toFixed(unit === 'rem' ? 3 : 1).replace(/\.?0+$/,'') || '0';
+  const maxOut = toUnit(maxSize).toFixed(unit === 'rem' ? 3 : 1).replace(/\.?0+$/,'') || '0';
+  const intersectionOut = toUnit(intersectionPx).toFixed(unit === 'rem' ? 3 : 2).replace(/\.?0+$/,'') || '0';
+  const slopeOut = slopeVw.toFixed(2).replace(/\.?0+$/,'') || '0';
+
+  const clampStr = `clamp(${minOut}${unitLabel}, ${intersectionOut}${unitLabel} + ${slopeOut}vw, ${maxOut}${unitLabel})`;
+  document.getElementById('outputValue').textContent = `font-size: ${clampStr};`;
+
+  // Live preview: compute actual size at simVw (clamped)
+  let previewPx = intersectionPx + slope * simVw;
+  previewPx = Math.max(minSize, Math.min(maxSize, previewPx));
+  document.getElementById('previewText').style.fontSize = previewPx + 'px';
+}
+
+['minSize','maxSize','minVw','maxVw','simVw'].forEach(id => {
+  document.getElementById(id).addEventListener('input', update);
+});
+
+function copyOutput(){
+  navigator.clipboard.writeText(document.getElementById('outputValue').textContent).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+update();
+</script>
+
 </body>
 </html>
