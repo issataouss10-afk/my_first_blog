@@ -1,80 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Glassmorphism Generator - ToolNest</title>
-    <meta name="description" content="Generate CSS glassmorphism effects with live preview. Free online tool.">
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Glassmorphism Generator | Frosted Glass Effect | ToolNest</title>
+<meta name="description" content="Generate a CSS glassmorphism (frosted glass) effect with a live preview. Adjust blur, transparency, and border instantly. Free, 100% client-side.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .layout{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;}
+  @media (max-width:780px){.layout{grid-template-columns:1fr;}}
+
+  .preview-stage{
+    background:linear-gradient(135deg,#6366f1,#ec4899 45%,#f59e0b);
+    border-radius:12px;
+    min-height:280px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+  }
+  .glass-card{
+    width:220px;
+    height:150px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-weight:700;
+    font-size:15px;
+    text-align:center;
+    padding:16px;
+  }
+
+  .controls{display:flex;flex-direction:column;gap:16px;}
+  .ctrl-row .ctrl-label{
+    display:flex;justify-content:space-between;
+    font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;
+  }
+  .ctrl-row .ctrl-label span.val{color:var(--ink);font-weight:700;text-transform:none;letter-spacing:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  input[type=range]{width:100%;accent-color:var(--blue);}
+
+  .row-inline{display:flex;align-items:center;gap:12px;}
+  input[type=color]{
+    width:44px;height:36px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff;cursor:pointer;
+  }
+  .row-inline label{font-size:13px;color:var(--muted);font-weight:600;}
+
+  .output-box{
+    margin-top:20px;
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:10px;
+    padding:14px 16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13.5px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .output-box pre{margin:0;white-space:pre-wrap;word-break:break-all;}
+  .copy-btn{
+    background:var(--blue);color:#fff;border:none;padding:7px 12px;border-radius:8px;
+    font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="bg-slate-800 border-b border-slate-700 py-4 px-6 shadow-sm">
-        <div class="max-w-5xl mx-auto flex justify-between items-center w-full">
-            <a href="index.html" class="text-xl font-bold text-blue-400">ToolNest</a>
-            <a href="index.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">🏠 Home</a>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>CSS Glassmorphism Generator</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🔮</div>
+    <div>
+      <h1>CSS Glassmorphism Generator</h1>
+      <p>Design a frosted-glass card effect with a live preview and copy the exact CSS. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="layout">
+      <div class="preview-stage">
+        <div class="glass-card" id="glassCard">Frosted Glass</div>
+      </div>
+
+      <div class="controls">
+        <div class="ctrl-row">
+          <div class="ctrl-label">Blur <span class="val" id="blurVal">10px</span></div>
+          <input type="range" id="blurRange" min="0" max="40" value="10">
         </div>
-    </header>
-
-    <!-- Main Content Centered -->
-    <main class="flex-grow flex items-center justify-center p-6">
-        <div class="max-w-4xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-800 p-8 rounded-2xl border border-slate-700 items-center shadow-lg">
-            <!-- Controls -->
-            <div class="space-y-4">
-                <h1 class="text-xl font-bold text-white mb-2">Glassmorphism Generator</h1>
-                <div>
-                    <label class="block text-xs font-medium mb-1">Blur: <span id="blurVal">10</span>px</label>
-                    <input type="range" id="blurRange" min="0" max="40" value="10" class="w-full accent-blue-500" oninput="updateGlass()">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium mb-1">Transparency: <span id="transVal">0.25</span></label>
-                    <input type="range" id="transRange" min="0.05" max="1" step="0.05" value="0.25" class="w-full accent-blue-500" oninput="updateGlass()">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium mb-1">Border Width: <span id="borderVal">1</span>px</label>
-                    <input type="range" id="borderRange" min="0" max="5" value="1" class="w-full accent-blue-500" oninput="updateGlass()">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium mb-1">Generated CSS:</label>
-                    <textarea id="cssOutput" rows="3" readonly class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded font-mono text-xs text-blue-300 focus:outline-none"></textarea>
-                    <button onclick="copyCSS()" class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-xs font-medium transition">Copy CSS</button>
-                </div>
-            </div>
-
-            <!-- Preview Box -->
-            <div class="h-64 rounded-xl relative flex items-center justify-center overflow-hidden bg-gradient-to-tr from-purple-600 via-pink-500 to-blue-500 shadow-inner">
-                <div class="absolute w-24 h-24 bg-yellow-400 rounded-full blur-xl opacity-60 -top-5 -left-5"></div>
-                <div class="absolute w-24 h-24 bg-cyan-400 rounded-full blur-xl opacity-60 -bottom-5 -right-5"></div>
-                <div id="glassCard" class="w-48 h-36 rounded-xl flex items-center justify-center p-4 text-center font-bold text-white shadow-md transition-all text-sm">
-                    Preview Card
-                </div>
-            </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Transparency <span class="val" id="alphaVal">0.20</span></div>
+          <input type="range" id="alphaRange" min="0" max="100" value="20">
         </div>
-    </main>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Saturation <span class="val" id="satVal">180%</span></div>
+          <input type="range" id="satRange" min="100" max="300" value="180">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Border Radius <span class="val" id="radiusVal">16px</span></div>
+          <input type="range" id="radiusRange" min="0" max="50" value="16">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label">Border Opacity <span class="val" id="borderVal">0.30</span></div>
+          <input type="range" id="borderRange" min="0" max="100" value="30">
+        </div>
 
-    <script>
-        function updateGlass() {
-            const blur = document.getElementById('blurRange').value;
-            const trans = document.getElementById('transRange').value;
-            const border = document.getElementById('borderRange').value;
-            document.getElementById('blurVal').innerText = blur;
-            document.getElementById('transVal').innerText = trans;
-            document.getElementById('borderVal').innerText = border;
+        <div class="row-inline">
+          <input type="color" id="glassColor" value="#ffffff">
+          <label for="glassColor">Glass tint color</label>
+        </div>
+      </div>
+    </div>
 
-            const card = document.getElementById('glassCard');
-            card.style.background = `rgba(255, 255, 255, ${trans})`;
-            card.style.backdropFilter = `blur(${blur}px)`;
-            card.style.webkitBackdropFilter = `blur(${blur}px)`;
-            card.style.border = `${border}px solid rgba(255, 255, 255, 0.3)`;
+    <div class="output-box">
+      <pre id="outputValue">background: rgba(255, 255, 255, 0.20);
+backdrop-filter: blur(10px) saturate(180%);
+-webkit-backdrop-filter: blur(10px) saturate(180%);
+border-radius: 16px;
+border: 1px solid rgba(255, 255, 255, 0.30);</pre>
+      <button class="copy-btn" onclick="copyOutput()">Copy</button>
+    </div>
+  </div>
 
-            const cssCode = `background: rgba(255, 255, 255, ${trans});\nbackdrop-filter: blur(${blur}px);\nborder: ${border}px solid rgba(255, 255, 255, 0.3);`;
-            document.getElementById('cssOutput').value = cssCode;
-        }
-        updateGlass();
-        function copyCSS() {
-            navigator.clipboard.writeText(document.getElementById('cssOutput').value);
-            alert('CSS copied to clipboard!');
-        }
-    </script>
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Live Preview</h3>
+      <p>Every slider updates the frosted glass card and the generated CSS instantly.</p>
+    </div>
+    <div class="feature">
+      <h3>🎨 Custom Tint</h3>
+      <p>Pick any glass tint color to match your brand, not just white frosted glass.</p>
+    </div>
+    <div class="feature">
+      <h3>🧩 Cross-Browser CSS</h3>
+      <p>Includes both <code>backdrop-filter</code> and the <code>-webkit-</code> prefix for Safari support.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>Everything runs in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest CSS Glassmorphism Generator</h2>
+  <ol class="steps">
+    <li><strong>Adjust blur and transparency:</strong> Set how frosted and how see-through the glass looks.</li>
+    <li><strong>Tune saturation and border:</strong> Boost saturation for a punchier look, and set the border opacity.</li>
+    <li><strong>Pick a tint color:</strong> Choose white for classic glass, or any color for a tinted effect.</li>
+    <li><strong>Copy the CSS:</strong> Click Copy and paste the rules onto any element in your stylesheet.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Why does the effect need a background behind it?</summary>
+      <p>Glassmorphism relies on <code>backdrop-filter</code> blurring whatever sits behind the element, so it needs a background, image, or gradient underneath to look right.</p>
+    </details>
+    <details>
+      <summary>Does backdrop-filter work in every browser?</summary>
+      <p>It's supported in all modern browsers. The generated CSS includes the <code>-webkit-</code> prefix for older Safari versions.</p>
+    </details>
+    <details>
+      <summary>Is my data sent to a server?</summary>
+      <p>No. The preview and CSS are generated entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="/json-to-ts.html">🔷 JSON to TypeScript</a>
+    <a href="/color-converter.html">🎨 Color Converter</a>
+    <a href="/box-shadow.html">✨ Box Shadow Generator</a>
+    <a href="/css-clamp.html">🎨 CSS Clamp Generator</a>
+    <a href="/timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="/url-parser.html">🔗 URL Parser</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const blurRange = document.getElementById('blurRange');
+const alphaRange = document.getElementById('alphaRange');
+const satRange = document.getElementById('satRange');
+const radiusRange = document.getElementById('radiusRange');
+const borderRange = document.getElementById('borderRange');
+const glassColor = document.getElementById('glassColor');
+const glassCard = document.getElementById('glassCard');
+const outputValue = document.getElementById('outputValue');
+
+function hexToRgbVals(hex){
+  const h = hex.replace('#','');
+  return [
+    parseInt(h.substring(0,2),16),
+    parseInt(h.substring(2,4),16),
+    parseInt(h.substring(4,6),16)
+  ];
+}
+
+function update(){
+  const blur = blurRange.value;
+  const alpha = (alphaRange.value / 100).toFixed(2);
+  const sat = satRange.value;
+  const radius = radiusRange.value;
+  const borderAlpha = (borderRange.value / 100).toFixed(2);
+  const [r,g,b] = hexToRgbVals(glassColor.value);
+
+  document.getElementById('blurVal').textContent = blur + 'px';
+  document.getElementById('alphaVal').textContent = alpha;
+  document.getElementById('satVal').textContent = sat + '%';
+  document.getElementById('radiusVal').textContent = radius + 'px';
+  document.getElementById('borderVal').textContent = borderAlpha;
+
+  const bg = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  const borderColor = `rgba(${r}, ${g}, ${b}, ${borderAlpha})`;
+
+  glassCard.style.background = bg;
+  glassCard.style.backdropFilter = `blur(${blur}px) saturate(${sat}%)`;
+  glassCard.style.webkitBackdropFilter = `blur(${blur}px) saturate(${sat}%)`;
+  glassCard.style.borderRadius = radius + 'px';
+  glassCard.style.border = `1px solid ${borderColor}`;
+
+  outputValue.textContent =
+`background: ${bg};
+backdrop-filter: blur(${blur}px) saturate(${sat}%);
+-webkit-backdrop-filter: blur(${blur}px) saturate(${sat}%);
+border-radius: ${radius}px;
+border: 1px solid ${borderColor};`;
+}
+
+[blurRange, alphaRange, satRange, radiusRange, borderRange, glassColor].forEach(el => {
+  el.addEventListener('input', update);
+});
+
+function copyOutput(){
+  navigator.clipboard.writeText(outputValue.textContent).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+update();
+</script>
+
 </body>
 </html>
