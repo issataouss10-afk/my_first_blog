@@ -1,506 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free QR Code Generator - ToolNest Developer Tools</title>
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Generate high-quality custom QR codes for URLs, text, or contacts instantly and for free with ToolNest QR Code Generator.">
-    <meta name="keywords" content="qr code generator, free qr code creator, custom qr code, developer tools, toolnest">
-    
-    <!-- مكتبة توليد الـ QR Code الحقيقية -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Generator | Create Custom QR Codes | ToolNest</title>
+<meta name="description" content="Generate a QR code from any text, link, or Wi-Fi info instantly. Customize size and colors, then download as PNG. Free, client-side QR code generator.">
+<meta name="theme-color" content="#2563eb">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
 
-    <style>
-        :root {
-            --bg: #ffffff;
-            --surface: #f6f7fb;
-            --surface-2: #eef0f8;
-            --border: #e6e8f2;
-            --border-strong: #d7daeb;
-            --text: #12131f;
-            --text-muted: #5b5f74;
-            --text-faint: #8b8fa3;
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --indigo: #4f46e5;
-            --gradient-brand: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
-            --shadow-md: 0 10px 30px -12px rgba(18, 19, 31, 0.12);
-            --shadow-glow: 0 20px 45px -18px rgba(37, 99, 235, 0.4);
-            --radius-lg: 20px;
-            --radius-md: 14px;
-            --radius-sm: 10px;
-            --ease: cubic-bezier(0.16, 1, 0.3, 1);
-        }
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
 
-        * { box-sizing: border-box; }
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
 
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: "Inter", system-ui, -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            line-height: 1.55;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
 
-        a { color: inherit; text-decoration: none; }
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
 
-        /* تم توسيع الحاوية لتفادي الفراغات الكبيرة في الجناب */
-        .container {
-            max-width: 1060px;
-            margin: 0 auto;
-            padding: 0 24px;
-            width: 100%;
-        }
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
 
-        /* Header */
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border);
-        }
+  .layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  @media (max-width:780px){.layout{grid-template-columns:1fr;}}
 
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 16px 24px;
-            max-width: 1060px;
-            margin: 0 auto;
-        }
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=text], textarea{
+    width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:15px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);
+    resize:vertical;
+  }
+  input:focus, textarea:focus{outline:2px solid var(--blue);outline-offset:1px;}
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+  .controls{display:flex;flex-direction:column;gap:16px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 
-        .brand-mark {
-            width: 32px;
-            height: 32px;
-            border-radius: 9px;
-            background: var(--gradient-brand);
-            display: grid;
-            place-items: center;
-            flex-shrink: 0;
-            box-shadow: 0 6px 16px -6px rgba(37, 99, 235, 0.55);
-        }
+  select{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:14px;color:var(--ink);background:#fff;
+  }
 
-        .brand-mark svg {
-            width: 17px;
-            height: 17px;
-            stroke: #ffffff;
-            fill: none;
-        }
+  .ctrl-row .ctrl-label{
+    display:flex;justify-content:space-between;
+    font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;
+  }
+  .ctrl-row .ctrl-label span.val{color:var(--ink);font-weight:700;text-transform:none;letter-spacing:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  input[type=range]{width:100%;accent-color:var(--blue);}
 
-        .brand-name {
-            font-weight: 700;
-            font-size: 17px;
-            letter-spacing: -0.01em;
-            color: var(--text);
-        }
+  .row-inline{display:flex;align-items:center;gap:10px;}
+  input[type=color]{
+    width:40px;height:36px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff;cursor:pointer;
+  }
+  .row-inline label{font-size:13px;color:var(--muted);font-weight:600;}
 
-        .btn-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 13.5px;
-            font-weight: 600;
-            color: var(--text-muted);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 9px 16px;
-            border-radius: 10px;
-            transition: color 0.18s var(--ease), border-color 0.18s var(--ease);
-        }
+  .qr-stage{
+    background:#f8fafc;
+    border:1px solid var(--line);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    min-height:260px;
+  }
+  #qrcodeCanvas{display:flex;align-items:center;justify-content:center;}
+  #qrcodeCanvas img, #qrcodeCanvas canvas{border-radius:8px;}
 
-        .btn-home:hover {
-            color: var(--primary);
-            border-color: var(--primary);
-        }
+  .download-btn{
+    margin-top:16px;
+    width:100%;
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .download-btn:hover{background:var(--blue-dark);}
+  .download-btn:disabled{background:#94a3b8;cursor:not-allowed;}
 
-        .btn-home svg {
-            width: 15px;
-            height: 15px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-        }
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
 
-        /* Main layout & Ads spaces */
-        main { flex: 1; padding: 40px 0; }
-        .ad-banner { width: 100%; min-height: 90px; margin-bottom: 24px; }
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
 
-        /* Tool Section */
-        .tool-intro {
-            text-align: center;
-            max-width: 620px;
-            margin: 0 auto 35px;
-        }
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
 
-        .tool-icon-badge {
-            width: 54px;
-            height: 54px;
-            border-radius: 15px;
-            background: var(--gradient-brand);
-            display: grid;
-            place-items: center;
-            margin: 0 auto 18px;
-            box-shadow: var(--shadow-glow);
-        }
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
 
-        .tool-icon-badge svg {
-            width: 26px;
-            height: 26px;
-            stroke: #ffffff;
-            fill: none;
-            stroke-width: 1.7;
-        }
-
-        .tool-intro h1 {
-            font-size: clamp(26px, 4vw, 34px);
-            font-weight: 700;
-            margin: 0 0 8px;
-        }
-
-        .tool-intro p {
-            color: var(--text-muted);
-            font-size: 15.5px;
-            margin: 0;
-        }
-
-        .tool-card {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            padding: 36px;
-        }
-
-        @media (max-width: 560px) { .tool-card { padding: 20px; } }
-
-        .field label {
-            display: block;
-            font-size: 13.5px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-
-        .field label .req { color: var(--primary); }
-
-        .input-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .input-row input[type="text"] {
-            flex: 1 1 280px;
-            background: #ffffff;
-            border: 1px solid var(--border-strong);
-            color: var(--text);
-            font-size: 15px;
-            padding: 14px 18px;
-            border-radius: var(--radius-sm);
-            outline: none;
-            transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
-        }
-
-        .input-row input[type="text"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-        }
-
-        .btn {
-            font-weight: 600;
-            font-size: 14.5px;
-            border-radius: var(--radius-sm);
-            padding: 14px 24px;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            white-space: nowrap;
-            transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
-        }
-
-        .btn svg {
-            width: 16px;
-            height: 16px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2.1;
-        }
-
-        .btn-primary {
-            background: var(--gradient-brand);
-            color: #ffffff;
-            box-shadow: 0 12px 26px -10px rgba(37, 99, 235, 0.55);
-        }
-
-        .btn-primary:hover { transform: translateY(-1px); }
-
-        .btn-dark {
-            width: 100%;
-            background: var(--text);
-            color: #ffffff;
-            margin-top: 15px;
-        }
-
-        .btn-dark:hover { background: #26283a; }
-
-        .field-hint {
-            margin: 8px 2px 0;
-            font-size: 12.5px;
-            color: var(--text-faint);
-            min-height: 16px;
-        }
-
-        .field-hint.is-error { color: #dc2626; }
-
-        /* Output Grid */
-        .output-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 32px;
-            align-items: center;
-            margin-top: 32px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border);
-        }
-
-        @media (max-width: 680px) { .output-grid { grid-template-columns: 1fr; } }
-
-        .qr-display {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--surface);
-            border: 1px dashed var(--border-strong);
-            border-radius: var(--radius-md);
-            padding: 24px;
-            min-height: 240px;
-        }
-
-        .qr-display.has-code {
-            border-style: solid;
-            border-color: rgba(37, 99, 235, 0.25);
-            background: #ffffff;
-            box-shadow: var(--shadow-glow);
-        }
-
-        #qrcode {
-            background: #ffffff;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .qr-placeholder {
-            text-align: center;
-            color: var(--text-faint);
-        }
-
-        .qr-placeholder svg {
-            width: 40px;
-            height: 40px;
-            stroke: var(--text-faint);
-            fill: none;
-            stroke-width: 1.5;
-            margin: 0 auto 8px;
-        }
-
-        .qr-placeholder p { margin: 0; font-size: 13px; }
-
-        .output-side p {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin: 0 0 12px;
-        }
-
-        /* Article / SEO Section to fill space nicely */
-        .tool-article {
-            margin-top: 40px;
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 36px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .tool-article h2 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 0;
-            color: var(--text);
-        }
-
-        .tool-article p {
-            font-size: 14.5px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        .site-footer {
-            border-top: 1px solid var(--border);
-            padding: 28px 0;
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-faint);
-            background: #fafafc;
-            margin-top: 60px;
-        }
-
-        .site-footer a { color: var(--text-muted); margin: 0 10px; }
-        .site-footer a:hover { color: var(--primary); }
-    </style>
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="site-header">
-        <div class="nav">
-            <a href="index.html" class="brand">
-                <div class="brand-mark">
-                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <span class="brand-name">ToolNest</span>
-            </a>
-            <a href="index.html" class="btn-home">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Home
-            </a>
-        </div>
-    </header>
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
 
-    <main class="container">
-        <!-- مساحة إعلانات الفوق -->
-        <div class="ad-banner"></div>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">⚡ Productivity Tools</a> / <strong>QR Code Generator</strong></div>
 
-        <div class="tool-intro">
-            <div class="tool-icon-badge">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h1>QR Code Generator</h1>
-            <p>Generate high-quality custom QR codes for URLs, text, or contacts instantly.</p>
-        </div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-        <div class="tool-card">
-            <div class="field">
-                <label for="qrInput">Enter URL or Text <span class="req">*</span></label>
-                <div class="input-row">
-                    <input type="text" id="qrInput" placeholder="https://example.com" autocomplete="off">
-                    <button class="btn btn-primary" onclick="generateQR()">
-                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        Generate QR
-                    </button>
-                </div>
-                <div class="field-hint" id="qrHint">Type a valid URL or text to generate your QR code.</div>
-            </div>
+  <div class="hero">
+    <div class="icon">📱</div>
+    <div>
+      <h1>QR Code Generator</h1>
+      <p>Turn any text, link, or Wi-Fi info into a QR code instantly, and download it as a PNG. Runs entirely in your browser.</p>
+    </div>
+  </div>
 
-            <div class="output-grid">
-                <div class="qr-display" id="qrDisplayBox">
-                    <div id="qrcode">
-                        <div class="qr-placeholder" id="qrPlaceholder">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 21h3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            <p>Your QR code will appear here</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="output-side">
-                    <div>
-                        <h3 style="font-size: 17px; margin: 0 0 8px;">Instant & Secure</h3>
-                        <p>Your QR code is generated entirely inside your browser. Scan it with any smartphone camera to test it immediately and download it in high resolution.</p>
-                    </div>
-                    <button class="btn btn-dark" id="downloadBtn" onclick="downloadQR()" hidden>
-                        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        Download QR Code (PNG)
-                    </button>
-                </div>
-            </div>
+  <div class="panel">
+    <div class="layout">
+      <div class="controls">
+        <div class="field">
+          <label for="qrText">Text or URL</label>
+          <textarea id="qrText" rows="3" placeholder="https://toolnest-jet.vercel.app">https://toolnest-jet.vercel.app</textarea>
         </div>
 
-        <!-- قسم معلوماتي لملء الفراغ وتحسين محركات البحث SEO -->
-        <article class="tool-article">
-            <h2>About ToolNest QR Code Generator</h2>
-            <p>Our online QR code generator is designed for developers, creators, and marketers who need a fast, reliable, and secure way to share links, text, and contact information. All generated codes are saved locally in your browser and remain active forever without any expiration limitations.</p>
-        </article>
-
-        <!-- مساحة إعلانات التحت -->
-        <div class="ad-banner" style="margin-top: 30px;"></div>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 ToolNest. Built for creators and developers.</p>
-            <div style="margin-top: 8px;">
-                <a href="index.html">Home</a> | 
-                <a href="#">Privacy Policy</a> | 
-                <a href="#">Terms of Service</a>
-            </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="sizeSelect">Size</label>
+            <select id="sizeSelect">
+              <option value="150">150 × 150</option>
+              <option value="200" selected>200 × 200</option>
+              <option value="300">300 × 300</option>
+              <option value="400">400 × 400</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="levelSelect">Error Correction</label>
+            <select id="levelSelect">
+              <option value="L">Low (L)</option>
+              <option value="M" selected>Medium (M)</option>
+              <option value="Q">Quartile (Q)</option>
+              <option value="H">High (H)</option>
+            </select>
+          </div>
         </div>
-    </footer>
 
-    <script>
-        function generateQR() {
-            const inputVal = document.getElementById('qrInput').value.trim();
-            const hint = document.getElementById('qrHint');
-            const displayBox = document.getElementById('qrDisplayBox');
-            const placeholder = document.getElementById('qrPlaceholder');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const qrcodeContainer = document.getElementById('qrcode');
+        <div class="grid2">
+          <div class="row-inline">
+            <input type="color" id="fgColor" value="#0f172a">
+            <label for="fgColor">Foreground</label>
+          </div>
+          <div class="row-inline">
+            <input type="color" id="bgColor" value="#ffffff">
+            <label for="bgColor">Background</label>
+          </div>
+        </div>
+      </div>
 
-            if (!inputVal) {
-                hint.classList.add('is-error');
-                hint.textContent = 'Please enter a valid text or URL.';
-                return;
-            }
+      <div>
+        <div class="qr-stage">
+          <div id="qrcodeCanvas"></div>
+        </div>
+        <button class="download-btn" id="downloadBtn" onclick="downloadQr()">Download PNG</button>
+      </div>
+    </div>
+  </div>
 
-            hint.classList.remove('is-error');
-            hint.textContent = 'QR code generated successfully!';
-            displayBox.classList.add('has-code');
-            if (placeholder) placeholder.style.display = 'none';
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Generation</h3>
+      <p>Type your text or link and the QR code updates immediately.</p>
+    </div>
+    <div class="feature">
+      <h3>🎨 Custom Colors</h3>
+      <p>Pick a foreground and background color to match your brand or a specific design.</p>
+    </div>
+    <div class="feature">
+      <h3>🛡️ Error Correction Levels</h3>
+      <p>Choose a higher error correction level if the code will be printed small or on textured surfaces.</p>
+    </div>
+    <div class="feature">
+      <h3>⬇️ One-Click Download</h3>
+      <p>Save your QR code as a PNG image ready to share or print.</p>
+    </div>
+  </div>
 
-            qrcodeContainer.innerHTML = '';
+  <h2 class="section-title">How to Use ToolNest QR Code Generator</h2>
+  <ol class="steps">
+    <li><strong>Enter your content:</strong> Type a URL, plain text, or any string you want encoded.</li>
+    <li><strong>Choose size and colors:</strong> Adjust size, error correction, and colors to fit your use case.</li>
+    <li><strong>Preview instantly:</strong> The QR code updates live as you change any setting.</li>
+    <li><strong>Download it:</strong> Click Download PNG to save the code to your device.</li>
+  </ol>
 
-            new QRCode(qrcodeContainer, {
-                text: inputVal,
-                width: 190,
-                height: 190,
-                colorDark: "#12131f",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
-            });
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>What does the error correction level do?</summary>
+      <p>Higher levels let the QR code still scan correctly even if part of it is damaged or obscured, at the cost of a denser pattern.</p>
+    </details>
+    <details>
+      <summary>Can I use this for Wi-Fi or contact info?</summary>
+      <p>Yes. Paste a properly formatted Wi-Fi or vCard string into the text field and it will encode just like a normal URL.</p>
+    </details>
+    <details>
+      <summary>Is my data sent to a server?</summary>
+      <p>No. The QR code is generated entirely in your browser using a client-side library.</p>
+    </details>
+  </div>
 
-            downloadBtn.hidden = false;
-        }
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="/json-to-ts.html">🔷 JSON to TypeScript</a>
+    <a href="/color-converter.html">🎨 Color Converter</a>
+    <a href="/url-parser.html">🔗 URL Parser</a>
+    <a href="/timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="/password-generator.html">🔑 Password Generator</a>
+    <a href="/qr-scanner.html">📷 QR Code Scanner</a>
+  </div>
 
-        function downloadQR() {
-            const img = document.querySelector('#qrcode img') || document.querySelector('#qrcode canvas');
-            if (!img) return;
-            const imageUrl = img.tagName === 'CANVAS' ? img.toDataURL('image/png') : img.src;
-            const link = document.createElement('a');
-            link.href = imageUrl;
-            link.download = 'toolnest-qrcode.png';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    </script>
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+let qr = null;
+const container = document.getElementById('qrcodeCanvas');
+
+function render(){
+  const text = document.getElementById('qrText').value.trim() || ' ';
+  const size = parseInt(document.getElementById('sizeSelect').value, 10);
+  const level = document.getElementById('levelSelect').value;
+  const fg = document.getElementById('fgColor').value;
+  const bg = document.getElementById('bgColor').value;
+
+  container.innerHTML = '';
+
+  const correctLevelMap = {
+    L: QRCode.CorrectLevel.L,
+    M: QRCode.CorrectLevel.M,
+    Q: QRCode.CorrectLevel.Q,
+    H: QRCode.CorrectLevel.H
+  };
+
+  qr = new QRCode(container, {
+    text: text,
+    width: size,
+    height: size,
+    colorDark: fg,
+    colorLight: bg,
+    correctLevel: correctLevelMap[level]
+  });
+
+  document.getElementById('downloadBtn').disabled = false;
+}
+
+function downloadQr(){
+  const img = container.querySelector('img');
+  const canvas = container.querySelector('canvas');
+  const source = (img && img.src) ? img.src : (canvas ? canvas.toDataURL('image/png') : null);
+  if(!source) return;
+  const a = document.createElement('a');
+  a.href = source;
+  a.download = 'qrcode.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+['qrText','sizeSelect','levelSelect','fgColor','bgColor'].forEach(id => {
+  document.getElementById(id).addEventListener('input', render);
+});
+
+window.addEventListener('load', render);
+</script>
+
 </body>
 </html>
