@@ -1,52 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Parser - ToolNest</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .home-btn { background: #2563eb; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; }
-        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        h1 { font-size: 1.8rem; margin-bottom: 10px; color: #0f172a; }
-        .subtitle { color: #64748b; margin-bottom: 25px; font-size: 0.95rem; }
-        input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; margin-bottom: 15px; }
-        .result-box { background: #f1f5f9; padding: 15px; border-radius: 8px; font-size: 0.9rem; word-break: break-all; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Parser | Break Down a URL Into Its Parts | ToolNest</title>
+<meta name="description" content="Parse any URL into its protocol, host, port, path, query parameters, and hash instantly. Free, 100% client-side URL parser.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{
+    background:#fff;
+    border-bottom:1px solid var(--line);
+  }
+  .site-inner{
+    max-width:1040px;
+    margin:0 auto;
+    padding:16px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;
+    border:1px dashed var(--line);
+    color:#94a3b8;
+    font-size:12px;
+    text-align:center;
+    padding:14px;
+    border-radius:10px;
+    margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;
+    background:#eef2ff;
+    width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:14px;
+    flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+    margin-top:22px;
+    box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=text]{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:15px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    color:var(--ink);
+  }
+  input[type=text]:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  .error{color:#dc2626;font-size:13px;margin-top:8px;min-height:16px;}
+
+  .result-list{margin-top:20px;display:flex;flex-direction:column;gap:10px;}
+  .result-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#f8fafc;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 14px;
+    gap:12px;
+  }
+  .result-row .rlabel{font-size:12px;color:var(--muted);font-weight:600;flex-shrink:0;min-width:110px;}
+  .result-row .rvalue{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;word-break:break-all;text-align:right;flex:1;}
+  .copy-btn{
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:7px 12px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+
+  .params-title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:22px 0 10px;}
+  table.params{width:100%;border-collapse:collapse;font-size:13.5px;}
+  table.params th, table.params td{
+    text-align:left;
+    padding:9px 12px;
+    border-bottom:1px solid var(--line);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  table.params th{color:var(--muted);font-family:inherit;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  table.params tr:last-child td{border-bottom:none;}
+  .empty-note{color:var(--muted);font-size:13px;margin-top:10px;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 16px;
+    margin-bottom:10px;
+  }
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{
+    background:#f1f5f9;
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:13px;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{
+    border-top:1px solid var(--line);
+    margin-top:40px;
+    padding:24px 20px;
+    text-align:center;
+    font-size:13px;
+    color:var(--muted);
+  }
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">ToolNest</a>
-        <a href="index.html" class="home-btn">Home</a>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
-    <div class="container">
-        <div class="card">
-            <h1>URL Parser</h1>
-            <p class="subtitle">Break down a URL into its components.</p>
-            <input type="text" id="urlInput" placeholder="https://example.com:8080/path?name=test">
-            <div class="result-box" id="urlResult">Enter a valid URL above.</div>
-        </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>URL Parser</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🔗</div>
+    <div>
+      <h1>URL Parser</h1>
+      <p>Break down any URL into its protocol, host, port, path, query parameters, and hash — instantly. 100% local, nothing leaves your browser.</p>
     </div>
-    <script>
-        const input = document.getElementById('urlInput');
-        const result = document.getElementById('urlResult');
-        input.addEventListener('input', (e) => {
-            try {
-                const url = new URL(e.target.value);
-                result.innerHTML = `
-                    <p><strong>Protocol:</strong> ${url.protocol}</p>
-                    <p><strong>Host:</strong> ${url.host}</p>
-                    <p><strong>Pathname:</strong> ${url.pathname}</p>
-                    <p><strong>Search:</strong> ${url.search || 'None'}</p>
-                `;
-            } catch {
-                result.textContent = 'Please enter a valid URL (including http://)';
-            }
-        });
-    </script>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label for="urlInput">URL</label>
+      <input type="text" id="urlInput" placeholder="https://example.com:8080/path/page?id=42&sort=asc#section" value="https://example.com:8080/path/page?id=42&sort=asc#section">
+      <div class="error" id="errorMsg"></div>
+    </div>
+
+    <div class="result-list" id="resultList"></div>
+
+    <div class="params-title">Query Parameters</div>
+    <div id="paramsWrap"></div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Parsing</h3>
+      <p>Paste any URL and every component updates as you type — no button needed.</p>
+    </div>
+    <div class="feature">
+      <h3>🔍 Query String Breakdown</h3>
+      <p>Query parameters are split into a clean key/value table, decoded automatically.</p>
+    </div>
+    <div class="feature">
+      <h3>📋 Copy Any Part</h3>
+      <p>Copy the protocol, host, path, or any other component with a single click.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All parsing happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest URL Parser</h2>
+  <ol class="steps">
+    <li><strong>Paste a URL:</strong> Drop any full URL into the input field above.</li>
+    <li><strong>Read the breakdown:</strong> Protocol, host, port, path, and hash appear instantly.</li>
+    <li><strong>Check the parameters:</strong> Every query parameter is listed in its own row below.</li>
+    <li><strong>Copy what you need:</strong> Click Copy next to any value to grab it for your code.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Does this decode URL-encoded characters?</summary>
+      <p>Yes. Query parameter values are automatically decoded, so %20 shows as a space, for example.</p>
+    </details>
+    <details>
+      <summary>Is my URL sent to a server?</summary>
+      <p>No. Parsing runs entirely client-side in your browser for privacy and speed.</p>
+    </details>
+    <details>
+      <summary>What if the URL has no query parameters?</summary>
+      <p>The parameters table stays empty and a short note lets you know none were found.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="/json-to-ts.html">🔷 JSON to TypeScript</a>
+    <a href="/color-converter.html">🎨 Color Converter</a>
+    <a href="/timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="/json-formatter.html">📋 JSON Formatter</a>
+    <a href="/base64-converter.html">🔤 Base64 Encoder / Decoder</a>
+    <a href="/url-converter.html">🌐 URL Encoder / Decoder</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+function copyValue(btn, text){
+  navigator.clipboard.writeText(text).then(() => {
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+function renderResultRow(label, value){
+  const row = document.createElement('div');
+  row.className = 'result-row';
+  const safe = (value || '').replace(/'/g, "\\'");
+  row.innerHTML = `
+    <div class="rlabel">${label}</div>
+    <div class="rvalue">${value && value.length ? value : '<span style="color:#94a3b8">—</span>'}</div>
+    <button class="copy-btn" onclick="copyValue(this, '${safe}')">Copy</button>
+  `;
+  return row;
+}
+
+function parseUrl(){
+  const raw = document.getElementById('urlInput').value.trim();
+  const errorEl = document.getElementById('errorMsg');
+  const resultList = document.getElementById('resultList');
+  const paramsWrap = document.getElementById('paramsWrap');
+  errorEl.textContent = '';
+  resultList.innerHTML = '';
+  paramsWrap.innerHTML = '';
+
+  if(!raw){ return; }
+
+  let u;
+  try{
+    u = new URL(raw);
+  } catch(e){
+    errorEl.textContent = 'Enter a valid full URL, including the protocol (e.g. https://)';
+    return;
+  }
+
+  const rows = [
+    ['Protocol', u.protocol.replace(':', '')],
+    ['Host', u.hostname],
+    ['Port', u.port || '(default)'],
+    ['Origin', u.origin],
+    ['Pathname', u.pathname || '/'],
+    ['Search', u.search || ''],
+    ['Hash', u.hash || ''],
+    ['Username', u.username || ''],
+    ['Password', u.password || ''],
+  ];
+
+  rows.forEach(([label, value]) => {
+    resultList.appendChild(renderResultRow(label, value));
+  });
+
+  const params = [...u.searchParams.entries()];
+  if(params.length === 0){
+    const note = document.createElement('div');
+    note.className = 'empty-note';
+    note.textContent = 'No query parameters found.';
+    paramsWrap.appendChild(note);
+  } else {
+    const table = document.createElement('table');
+    table.className = 'params';
+    table.innerHTML = `
+      <thead><tr><th>Key</th><th>Value</th></tr></thead>
+      <tbody>
+        ${params.map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
+      </tbody>
+    `;
+    paramsWrap.appendChild(table);
+  }
+}
+
+document.getElementById('urlInput').addEventListener('input', parseUrl);
+parseUrl();
+</script>
+
 </body>
 </html>
