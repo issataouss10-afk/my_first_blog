@@ -1,51 +1,503 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timestamp Converter - ToolNest</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .home-btn { background: #2563eb; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; }
-        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        h1 { font-size: 1.8rem; margin-bottom: 10px; color: #0f172a; }
-        .subtitle { color: #64748b; margin-bottom: 25px; font-size: 0.95rem; }
-        .input-group { margin-bottom: 15px; }
-        input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
-        .result-box { background: #f1f5f9; padding: 15px; border-radius: 8px; margin-top: 15px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timestamp Converter | Unix Time to Date &amp; Date to Unix Time | ToolNest</title>
+<meta name="description" content="Convert Unix timestamps to human-readable dates and back, instantly. Free, 100% client-side timestamp converter with live current time.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{
+    background:#fff;
+    border-bottom:1px solid var(--line);
+  }
+  .site-inner{
+    max-width:1040px;
+    margin:0 auto;
+    padding:16px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;
+    border:1px dashed var(--line);
+    color:#94a3b8;
+    font-size:12px;
+    text-align:center;
+    padding:14px;
+    border-radius:10px;
+    margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;
+    background:#eef2ff;
+    width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:14px;
+    flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+    margin-top:22px;
+    box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .now-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#eef2ff;
+    border:1px solid #dbe3fd;
+    border-radius:10px;
+    padding:12px 16px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .now-row .label{font-size:12px;font-weight:700;color:var(--blue-dark);text-transform:uppercase;letter-spacing:.04em;}
+  .now-row .value{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:15px;font-weight:600;}
+  .now-row button{
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:7px 14px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .now-row button:hover{background:var(--blue-dark);}
+
+  .mode-tabs{display:flex;gap:8px;margin-bottom:16px;}
+  .mode-tabs button{
+    border:1px solid var(--line);
+    background:#f8fafc;
+    color:var(--muted);
+    padding:8px 16px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .mode-tabs button.active{
+    background:var(--blue);
+    border-color:var(--blue);
+    color:#fff;
+  }
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media (max-width:720px){.grid{grid-template-columns:1fr;}}
+
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  .input-row{display:flex;gap:10px;align-items:center;}
+  input[type=text],input[type=datetime-local]{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:15px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  select{
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:14px;
+    color:var(--ink);
+    background:#fff;
+  }
+
+  .output-box{
+    margin-top:16px;
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:10px;
+    padding:14px 16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .output-box span{word-break:break-all;}
+  .copy-btn{
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:7px 12px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+  .error{color:#dc2626;font-size:13px;margin-top:8px;min-height:16px;}
+
+  .result-list{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+  .result-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#f8fafc;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 14px;
+    gap:12px;
+  }
+  .result-row .rlabel{font-size:12px;color:var(--muted);font-weight:600;flex-shrink:0;}
+  .result-row .rvalue{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;word-break:break-all;text-align:right;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 16px;
+    margin-bottom:10px;
+  }
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{
+    background:#f1f5f9;
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:13px;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{
+    border-top:1px solid var(--line);
+    margin-top:40px;
+    padding:24px 20px;
+    text-align:center;
+    font-size:13px;
+    color:var(--muted);
+  }
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">ToolNest</a>
-        <a href="index.html" class="home-btn">Home</a>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
-    <div class="container">
-        <div class="card">
-            <h1>Timestamp Converter</h1>
-            <p class="subtitle">Convert Unix timestamp to readable date and vice versa.</p>
-            <div class="input-group">
-                <label>Enter Timestamp:</label>
-                <input type="number" id="timestampInput" placeholder="e.g. 1719840000">
-            </div>
-            <div class="result-box">
-                <p><strong>Readable Date:</strong> <span id="dateResult">-</span></p>
-            </div>
-        </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>Timestamp Converter</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">⏳</div>
+    <div>
+      <h1>Timestamp Converter</h1>
+      <p>Convert Unix timestamps to human-readable dates and back, instantly. See the current time live. 100% local — nothing leaves your browser.</p>
     </div>
-    <script>
-        const input = document.getElementById('timestampInput');
-        const result = document.getElementById('dateResult');
-        input.addEventListener('input', (e) => {
-            const val = e.target.value;
-            if(!val) { result.textContent = '-'; return; }
-            const date = new Date(val * 1000);
-            result.textContent = isNaN(date.getTime()) ? 'Invalid Timestamp' : date.toUTCString();
-        });
-    </script>
+  </div>
+
+  <div class="panel">
+    <div class="now-row">
+      <div>
+        <div class="label">Current Unix Timestamp</div>
+        <div class="value" id="nowValue">0</div>
+      </div>
+      <button onclick="useNow()">Use Current Time</button>
+    </div>
+
+    <div class="mode-tabs">
+      <button id="tabUnix" class="active" onclick="setMode('unix')">Unix → Date</button>
+      <button id="tabDate" onclick="setMode('date')">Date → Unix</button>
+    </div>
+
+    <div class="grid">
+      <div class="field" id="inputField">
+        <label id="inputLabel">Unix Timestamp (seconds)</label>
+        <div class="input-row">
+          <input type="text" id="unixInput" placeholder="e.g. 1735689600">
+        </div>
+        <div class="input-row" id="dateInputRow" style="display:none;margin-top:0;">
+          <input type="datetime-local" id="dateInput" step="1">
+        </div>
+        <div class="error" id="errorMsg"></div>
+      </div>
+
+      <div class="field">
+        <label>Timezone</label>
+        <select id="tzSelect" onchange="convert()">
+          <option value="local">Local Timezone</option>
+          <option value="utc">UTC</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="result-list" id="resultList"></div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Conversion</h3>
+      <p>Type a timestamp or pick a date and every format updates as you go — no button needed.</p>
+    </div>
+    <div class="feature">
+      <h3>🕐 Live Current Time</h3>
+      <p>See the current Unix timestamp update in real time, and load it into the converter with one click.</p>
+    </div>
+    <div class="feature">
+      <h3>🌍 Local &amp; UTC</h3>
+      <p>Switch between your local timezone and UTC to check how a timestamp reads in either.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All conversion happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Timestamp Converter</h2>
+  <ol class="steps">
+    <li><strong>Pick a direction:</strong> Choose Unix → Date or Date → Unix using the tabs above.</li>
+    <li><strong>Enter a value:</strong> Type a timestamp, or pick a date and time.</li>
+    <li><strong>Choose a timezone:</strong> View the result in your local timezone or UTC.</li>
+    <li><strong>Copy the result:</strong> Click Copy next to any format to grab it for your code.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Does this support milliseconds as well as seconds?</summary>
+      <p>Yes. If you paste a 13-digit number, it's automatically read as milliseconds; a 10-digit number is read as seconds.</p>
+    </details>
+    <details>
+      <summary>Is my data sent to a server?</summary>
+      <p>No. All conversions run entirely client-side in your browser for privacy and speed.</p>
+    </details>
+    <details>
+      <summary>What is a Unix timestamp?</summary>
+      <p>It's the number of seconds that have elapsed since January 1, 1970 (UTC), commonly called the Unix epoch.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="/json-to-ts.html">🔷 JSON to TypeScript</a>
+    <a href="/color-converter.html">🎨 Color Converter</a>
+    <a href="/json-formatter.html">📋 JSON Formatter</a>
+    <a href="/base64-converter.html">🔤 Base64 Encoder / Decoder</a>
+    <a href="/url-converter.html">🌐 URL Encoder / Decoder</a>
+    <a href="/qr-generator.html">📱 QR Code Generator</a>
+    <a href="/password-generator.html">🔑 Password Generator</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+let mode = 'unix';
+
+function pad(n){ return n.toString().padStart(2,'0'); }
+
+function updateNow(){
+  document.getElementById('nowValue').textContent = Math.floor(Date.now()/1000);
+}
+setInterval(updateNow, 1000);
+updateNow();
+
+function useNow(){
+  if(mode === 'unix'){
+    document.getElementById('unixInput').value = Math.floor(Date.now()/1000);
+  } else {
+    const d = new Date();
+    document.getElementById('dateInput').value =
+      `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+  convert();
+}
+
+function setMode(m){
+  mode = m;
+  document.getElementById('tabUnix').classList.toggle('active', m === 'unix');
+  document.getElementById('tabDate').classList.toggle('active', m === 'date');
+  document.getElementById('inputLabel').textContent = m === 'unix' ? 'Unix Timestamp (seconds)' : 'Date & Time';
+  document.getElementById('unixInput').parentElement.style.display = m === 'unix' ? 'flex' : 'none';
+  document.getElementById('dateInputRow').style.display = m === 'date' ? 'flex' : 'none';
+  document.getElementById('errorMsg').textContent = '';
+  document.getElementById('resultList').innerHTML = '';
+}
+
+function parseUnixInput(raw){
+  const trimmed = raw.trim();
+  if(!/^-?\d+$/.test(trimmed)) return null;
+  let n = parseInt(trimmed, 10);
+  // 13-digit-ish numbers are treated as milliseconds
+  if(Math.abs(n) >= 1e11){
+    return n;
+  }
+  return n * 1000;
+}
+
+function formatResults(ms){
+  const tz = document.getElementById('tzSelect').value;
+  const d = new Date(ms);
+  if(isNaN(d.getTime())) return null;
+
+  let iso, readable, dateOnly, timeOnly;
+  if(tz === 'utc'){
+    iso = d.toISOString();
+    readable = d.toUTCString();
+    dateOnly = iso.substring(0,10);
+    timeOnly = iso.substring(11,19) + ' UTC';
+  } else {
+    iso = new Date(ms - d.getTimezoneOffset()*60000).toISOString().replace('Z','');
+    readable = d.toString();
+    dateOnly = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    timeOnly = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+
+  return [
+    { label: 'Unix (seconds)', value: Math.floor(ms/1000).toString() },
+    { label: 'Unix (milliseconds)', value: ms.toString() },
+    { label: 'ISO 8601', value: iso },
+    { label: 'Readable', value: readable },
+    { label: 'Date', value: dateOnly },
+    { label: 'Time', value: timeOnly },
+  ];
+}
+
+function renderResults(rows){
+  const list = document.getElementById('resultList');
+  list.innerHTML = '';
+  rows.forEach((r, i) => {
+    const row = document.createElement('div');
+    row.className = 'result-row';
+    row.innerHTML = `
+      <div class="rlabel">${r.label}</div>
+      <div class="rvalue">${r.value}</div>
+      <button class="copy-btn" onclick="copyValue(this, '${r.value.replace(/'/g,"\\'")}')">Copy</button>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function copyValue(btn, text){
+  navigator.clipboard.writeText(text).then(() => {
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+function convert(){
+  const errorEl = document.getElementById('errorMsg');
+  errorEl.textContent = '';
+
+  let ms;
+  if(mode === 'unix'){
+    const raw = document.getElementById('unixInput').value;
+    if(!raw.trim()){ document.getElementById('resultList').innerHTML=''; return; }
+    ms = parseUnixInput(raw);
+    if(ms === null){
+      errorEl.textContent = 'Enter a valid Unix timestamp (numbers only)';
+      document.getElementById('resultList').innerHTML = '';
+      return;
+    }
+  } else {
+    const raw = document.getElementById('dateInput').value;
+    if(!raw){ document.getElementById('resultList').innerHTML=''; return; }
+    const tz = document.getElementById('tzSelect').value;
+    const d = tz === 'utc' ? new Date(raw + 'Z') : new Date(raw);
+    ms = d.getTime();
+    if(isNaN(ms)){
+      errorEl.textContent = 'Enter a valid date and time';
+      document.getElementById('resultList').innerHTML = '';
+      return;
+    }
+  }
+
+  const rows = formatResults(ms);
+  if(!rows){
+    errorEl.textContent = 'Could not parse that value';
+    document.getElementById('resultList').innerHTML = '';
+    return;
+  }
+  renderResults(rows);
+}
+
+document.getElementById('unixInput').addEventListener('input', convert);
+document.getElementById('dateInput').addEventListener('input', convert);
+
+useNow();
+</script>
+
 </body>
 </html>
