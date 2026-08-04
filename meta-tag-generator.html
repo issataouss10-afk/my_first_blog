@@ -1,39 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meta Tag Generator - ToolNest</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Tag Generator | SEO, Open Graph &amp; Twitter Card Tags | ToolNest</title>
+<meta name="description" content="Generate SEO meta tags, Open Graph tags, and Twitter Card tags for your website instantly. Free, 100% client-side meta tag generator.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .group-title{
+    font-size:13px;font-weight:700;color:var(--blue-dark);
+    text-transform:uppercase;letter-spacing:.04em;
+    margin:26px 0 14px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .group-title:first-child{margin-top:0;}
+  .group-title::before{content:'';width:4px;height:14px;background:var(--blue);border-radius:2px;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:700px){.grid2{grid-template-columns:1fr;}}
+
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  .field .char-hint{font-size:11px;color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;float:right;}
+  input[type=text], input[type=url], textarea, select{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:14px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    margin-bottom:14px;
+  }
+  textarea{resize:vertical;min-height:70px;}
+  input:focus, textarea:focus, select:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  .output-box{
+    margin-top:24px;
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:10px;
+    padding:16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12.5px;
+    line-height:1.8;
+    white-space:pre-wrap;
+    word-break:break-all;
+    max-height:400px;
+    overflow-y:auto;
+  }
+  .output-actions{display:flex;justify-content:flex-end;margin-top:12px;}
+  .copy-btn{
+    background:var(--blue);color:#fff;border:none;padding:9px 18px;border-radius:8px;
+    font-size:13px;font-weight:700;cursor:pointer;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
-    <nav style="background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <a href="index.html" style="font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none;">ToolNest</a>
-        <a href="index.html" class="btn" style="padding: 6px 14px;">Back to Home</a>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
+  </div>
+</header>
 
-    <main class="container" style="margin-top: 3rem; margin-bottom: 3rem;">
-        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-            <h2 style="margin-bottom: 1rem; color: #0f172a;">📊 Meta Tag Generator</h2>
-            <p style="color: #64748b; margin-bottom: 1.5rem;">Fill in your website details to generate SEO-friendly meta tags.</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
-                <input type="text" id="siteTitle" placeholder="Site Title" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                <textarea id="siteDesc" placeholder="Site Description" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; height: 80px;"></textarea>
-                <button onclick="generateTags()" class="btn">Generate Tags</button>
-            </div>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">📈 SEO &amp; Marketing Tools</a> / <strong>Meta Tag Generator</strong></div>
 
-            <textarea id="outputTags" readonly style="width: 100%; height: 120px; padding: 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; font-family: monospace;" placeholder="Generated tags will appear here..."></textarea>
-        </div>
-    </main>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-    <script>
-        function generateTags() {
-            const title = document.getElementById('siteTitle').value;
-            const desc = document.getElementById('siteDesc').value;
-            const result = `<title>${title}</title>\n<meta name="description" content="${desc}">`;
-            document.getElementById('outputTags').value = result;
-        }
-    </script>
+  <div class="hero">
+    <div class="icon">🏷️</div>
+    <div>
+      <h1>Meta Tag Generator</h1>
+      <p>Generate SEO, Open Graph, and Twitter Card meta tags for your website instantly. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="group-title">Basic SEO</div>
+    <div class="field">
+      <label for="pageTitle">Page Title <span class="char-hint" id="titleCount">0 / 60</span></label>
+      <input type="text" id="pageTitle" value="ToolNest – Free Online Developer Tools" maxlength="80">
+    </div>
+    <div class="field">
+      <label for="pageDesc">Meta Description <span class="char-hint" id="descCount">0 / 160</span></label>
+      <textarea id="pageDesc" maxlength="220">Fast, free, client-side tools for developers: converters, generators, and formatters that run entirely in your browser.</textarea>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label for="pageKeywords">Keywords (comma-separated)</label>
+        <input type="text" id="pageKeywords" value="developer tools, online tools, converters">
+      </div>
+      <div class="field">
+        <label for="pageAuthor">Author</label>
+        <input type="text" id="pageAuthor" value="ToolNest">
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label for="robotsSelect">Robots</label>
+        <select id="robotsSelect">
+          <option value="index, follow" selected>index, follow</option>
+          <option value="noindex, follow">noindex, follow</option>
+          <option value="index, nofollow">index, nofollow</option>
+          <option value="noindex, nofollow">noindex, nofollow</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="canonicalUrl">Canonical URL</label>
+        <input type="url" id="canonicalUrl" value="https://toolnest-jet.vercel.app/">
+      </div>
+    </div>
+
+    <div class="group-title">Open Graph (Facebook, LinkedIn)</div>
+    <div class="grid2">
+      <div class="field">
+        <label for="ogType">og:type</label>
+        <select id="ogType">
+          <option value="website" selected>website</option>
+          <option value="article">article</option>
+          <option value="product">product</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ogImage">og:image URL</label>
+        <input type="url" id="ogImage" value="https://toolnest-jet.vercel.app/og-image.png">
+      </div>
+    </div>
+
+    <div class="group-title">Twitter Card</div>
+    <div class="field">
+      <label for="twitterCard">twitter:card</label>
+      <select id="twitterCard">
+        <option value="summary_large_image" selected>summary_large_image</option>
+        <option value="summary">summary</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="twitterHandle">twitter:site (your @handle, optional)</label>
+      <input type="text" id="twitterHandle" value="@toolnest" placeholder="@yourhandle">
+    </div>
+
+    <div class="output-box" id="outputBox"></div>
+    <div class="output-actions">
+      <button class="copy-btn" onclick="copyOutput()">📋 Copy Meta Tags</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Live Generation</h3>
+      <p>Every field updates the generated HTML meta tags instantly.</p>
+    </div>
+    <div class="feature">
+      <h3>📏 Character Counters</h3>
+      <p>Title and description show live counts against the limits search engines typically display.</p>
+    </div>
+    <div class="feature">
+      <h3>🌐 Open Graph &amp; Twitter</h3>
+      <p>Covers social preview tags for Facebook, LinkedIn, and Twitter/X in one place.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All generation happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Meta Tag Generator</h2>
+  <ol class="steps">
+    <li><strong>Fill in the basics:</strong> Title, description, keywords, and author.</li>
+    <li><strong>Set robots and canonical:</strong> Control indexing and pick your canonical URL.</li>
+    <li><strong>Add social tags:</strong> Fill in Open Graph and Twitter Card details for link previews.</li>
+    <li><strong>Copy the code:</strong> Click Copy Meta Tags and paste it into your page's &lt;head&gt;.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Why does the title have a 60-character guideline?</summary>
+      <p>Search engines typically truncate titles beyond about 60 characters in search results, so staying under that keeps your title fully visible.</p>
+    </details>
+    <details>
+      <summary>Do I need both Open Graph and Twitter Card tags?</summary>
+      <p>Twitter/X falls back to Open Graph tags if Twitter Card tags are missing, but including both gives you more precise control over each platform's preview.</p>
+    </details>
+    <details>
+      <summary>Is my data sent to a server?</summary>
+      <p>No. The meta tags are generated entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related SEO &amp; Marketing Tools</h2>
+  <div class="related">
+    <a href="/utm-builder.html">🔗 UTM Builder</a>
+    <a href="/word-counter.html">📝 Word & Character Counter</a>
+    <a href="/qr-generator.html">📱 QR Code Generator</a>
+    <a href="/url-parser.html">🔗 URL Parser</a>
+    <a href="/sitemap.xml">🗺️ Sitemap</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+function escapeAttr(str){
+  return (str || '').replace(/"/g, '&quot;');
+}
+
+function update(){
+  const title = document.getElementById('pageTitle').value;
+  const desc = document.getElementById('pageDesc').value;
+  const keywords = document.getElementById('pageKeywords').value;
+  const author = document.getElementById('pageAuthor').value;
+  const robots = document.getElementById('robotsSelect').value;
+  const canonical = document.getElementById('canonicalUrl').value;
+  const ogType = document.getElementById('ogType').value;
+  const ogImage = document.getElementById('ogImage').value;
+  const twitterCard = document.getElementById('twitterCard').value;
+  const twitterHandle = document.getElementById('twitterHandle').value;
+
+  document.getElementById('titleCount').textContent = `${title.length} / 60`;
+  document.getElementById('descCount').textContent = `${desc.length} / 160`;
+
+  const lines = [
+    `<title>${title}</title>`,
+    `<meta name="description" content="${escapeAttr(desc)}">`,
+  ];
+  if(keywords.trim()) lines.push(`<meta name="keywords" content="${escapeAttr(keywords)}">`);
+  if(author.trim()) lines.push(`<meta name="author" content="${escapeAttr(author)}">`);
+  lines.push(`<meta name="robots" content="${robots}">`);
+  if(canonical.trim()) lines.push(`<link rel="canonical" href="${escapeAttr(canonical)}">`);
+
+  lines.push('');
+  lines.push('<!-- Open Graph -->');
+  lines.push(`<meta property="og:type" content="${ogType}">`);
+  lines.push(`<meta property="og:title" content="${escapeAttr(title)}">`);
+  lines.push(`<meta property="og:description" content="${escapeAttr(desc)}">`);
+  if(canonical.trim()) lines.push(`<meta property="og:url" content="${escapeAttr(canonical)}">`);
+  if(ogImage.trim()) lines.push(`<meta property="og:image" content="${escapeAttr(ogImage)}">`);
+
+  lines.push('');
+  lines.push('<!-- Twitter Card -->');
+  lines.push(`<meta name="twitter:card" content="${twitterCard}">`);
+  lines.push(`<meta name="twitter:title" content="${escapeAttr(title)}">`);
+  lines.push(`<meta name="twitter:description" content="${escapeAttr(desc)}">`);
+  if(ogImage.trim()) lines.push(`<meta name="twitter:image" content="${escapeAttr(ogImage)}">`);
+  if(twitterHandle.trim()) lines.push(`<meta name="twitter:site" content="${escapeAttr(twitterHandle)}">`);
+
+  document.getElementById('outputBox').textContent = lines.join('\n');
+}
+
+document.querySelectorAll('input, textarea, select').forEach(el => {
+  el.addEventListener('input', update);
+});
+
+function copyOutput(){
+  const text = document.getElementById('outputBox').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const old = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+update();
+</script>
+
 </body>
 </html>
