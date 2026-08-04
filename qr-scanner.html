@@ -1,110 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Scanner from Image - ToolNest</title>
-    <meta name="description" content="Scan and decode QR codes from images instantly in your browser. Free online tool.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Scanner from Image | Decode QR Codes Online | ToolNest</title>
+<meta name="description" content="Upload an image and instantly decode any QR code inside it. Free, 100% client-side QR code scanner — no camera or app required.">
+<meta name="theme-color" content="#2563eb">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.js"></script>
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+    --green:#16a34a;
+    --red:#dc2626;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
 
-      gtag('config', 'G-4RLN0M7YFJ');
-    </script>
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .dropzone{
+    border:2px dashed var(--line);
+    border-radius:12px;
+    padding:40px 20px;
+    text-align:center;
+    cursor:pointer;
+    background:#f8fafc;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .dropzone:hover, .dropzone.dragover{border-color:var(--blue);background:#eef2ff;}
+  .dropzone .dz-icon{font-size:32px;margin-bottom:8px;}
+  .dropzone .dz-text{font-size:14px;color:var(--muted);}
+  .dropzone .dz-text strong{color:var(--blue);}
+  #fileInput{display:none;}
+
+  .result-wrap{display:none;margin-top:20px;}
+  .result-wrap.active{display:block;}
+
+  .preview-stage{
+    background:#f8fafc;
+    border:1px solid var(--line);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:200px;
+    padding:16px;
+  }
+  .preview-stage img{max-width:100%;max-height:260px;border-radius:6px;}
+
+  .status-row{
+    display:flex;align-items:center;gap:8px;
+    margin-top:16px;
+    font-size:14px;font-weight:700;
+  }
+  .status-row.ok{color:var(--green);}
+  .status-row.fail{color:var(--red);}
+
+  .result-box{
+    margin-top:12px;
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:10px;
+    padding:16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:14px;
+    word-break:break-all;
+    white-space:pre-wrap;
+    display:none;
+  }
+  .result-box.active{display:block;}
+
+  .result-actions{display:none;gap:10px;margin-top:12px;flex-wrap:wrap;}
+  .result-actions.active{display:flex;}
+  .copy-btn{
+    background:var(--blue);color:#fff;border:none;padding:9px 18px;border-radius:8px;
+    font-size:13px;font-weight:700;cursor:pointer;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+  .open-btn{
+    background:#f1f5f9;color:var(--ink);border:1px solid var(--line);padding:9px 18px;border-radius:8px;
+    font-size:13px;font-weight:700;cursor:pointer;
+  }
+  .open-btn:hover{background:#e2e8f0;}
+  .reset-btn{
+    background:#f1f5f9;color:var(--ink);border:1px solid var(--line);padding:9px 16px;border-radius:8px;
+    font-size:13px;font-weight:600;cursor:pointer;
+  }
+  .reset-btn:hover{background:#e2e8f0;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="bg-white border-b border-slate-200 py-4 px-6 shadow-sm">
-        <div class="max-w-4xl mx-auto flex justify-between items-center w-full">
-            <a href="index.html" class="text-xl font-bold text-blue-600">ToolNest</a>
-            <a href="index.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">🏠 Home</a>
-        </div>
-    </header>
+<body>
 
-    <!-- Main Content Centered -->
-    <main class="flex-grow flex items-center justify-center p-6">
-        <div class="max-w-xl w-full bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center">
-            <h1 class="text-2xl font-bold mb-2 text-slate-800">Scan QR Code from Image</h1>
-            <p class="text-slate-600 mb-6 text-center text-sm">Upload an image containing a QR code to read its content.</p>
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
 
-            <!-- Upload Box -->
-            <div class="w-full bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-blue-500 transition cursor-pointer mb-6" onclick="document.getElementById('qrUpload').click()">
-                <input type="file" id="qrUpload" accept="image/*" class="hidden" onchange="handleQRUpload(event)">
-                <p class="text-slate-600 font-medium text-sm">Click here to upload QR image</p>
-                <span class="text-xs text-slate-400 mt-1 block">Supports PNG, JPG, WEBP</span>
-            </div>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">⚡ Productivity Tools</a> / <strong>QR Code Scanner from Image</strong></div>
 
-            <!-- Preview & Result -->
-            <div id="resultSection" class="w-full hidden flex flex-col items-center gap-4">
-                <div class="max-w-xs w-full bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <img id="imagePreview" class="w-full h-auto rounded object-contain max-h-40 mx-auto" alt="QR Preview">
-                </div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-                <div class="w-full bg-slate-50 p-4 rounded-lg border border-slate-200">
-                    <label class="font-semibold text-xs text-slate-700 block mb-2">Scan Result:</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="qrResultText" readonly class="w-full p-2 border border-slate-300 rounded bg-white font-mono text-xs focus:outline-none">
-                        <button onclick="copyResult()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-xs transition">Copy</button>
-                    </div>
-                    <div id="linkContainer" class="mt-2 hidden">
-                        <a id="openLinkBtn" href="#" target="_blank" class="text-blue-600 hover:underline text-xs font-medium">Open Link ↗</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+  <div class="hero">
+    <div class="icon">📷</div>
+    <div>
+      <h1>QR Code Scanner from Image</h1>
+      <p>Upload an image and instantly decode any QR code inside it — no camera or app required. 100% local, nothing leaves your browser.</p>
+    </div>
+  </div>
 
-    <script>
-        function handleQRUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    document.getElementById('imagePreview').src = img.src;
-                    document.getElementById('resultSection').classList.remove('hidden');
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
-                    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const code = jsQR(imgData.data, imgData.width, imgData.height);
-                    const resultInput = document.getElementById('qrResultText');
-                    const linkContainer = document.getElementById('linkContainer');
-                    const openLinkBtn = document.getElementById('openLinkBtn');
+  <div class="panel">
+    <div class="dropzone" id="dropzone">
+      <div class="dz-icon">📷</div>
+      <div class="dz-text"><strong>Click to upload</strong> or drag and drop a QR code image</div>
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
 
-                    if (code) {
-                        resultInput.value = code.data;
-                        if (code.data.startsWith('http://') || code.data.startsWith('https://')) {
-                            openLinkBtn.href = code.data;
-                            linkContainer.classList.remove('hidden');
-                        } else {
-                            linkContainer.classList.add('hidden');
-                        }
-                    } else {
-                        resultInput.value = "No QR code found in this image.";
-                        linkContainer.classList.add('hidden');
-                    }
-                }
-                img.src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
+    <div class="result-wrap" id="resultWrap">
+      <div class="preview-stage">
+        <img id="previewImg" alt="Uploaded image">
+      </div>
 
-        function copyResult() {
-            const text = document.getElementById('qrResultText').value;
-            navigator.clipboard.writeText(text);
-            alert('Result copied to clipboard!');
-        }
-    </script>
+      <div class="status-row" id="statusRow"></div>
+      <div class="result-box" id="resultBox"></div>
+      <div class="result-actions" id="resultActions">
+        <button class="copy-btn" onclick="copyResult()">📋 Copy Result</button>
+        <button class="open-btn" id="openBtn" style="display:none;" onclick="openResult()">🔗 Open Link</button>
+        <button class="reset-btn" onclick="resetTool()">Scan Another</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Decoding</h3>
+      <p>QR codes are decoded directly in your browser the moment you upload an image.</p>
+    </div>
+    <div class="feature">
+      <h3>🔗 Smart Link Detection</h3>
+      <p>If the decoded content is a URL, an Open Link button appears alongside the copy option.</p>
+    </div>
+    <div class="feature">
+      <h3>📁 Any Image Source</h3>
+      <p>Works with screenshots, photos, and saved QR code images alike.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Private</h3>
+      <p>Your image never leaves your device — nothing is uploaded to any server.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest QR Code Scanner</h2>
+  <ol class="steps">
+    <li><strong>Upload an image:</strong> Click the dropzone or drag and drop a QR code image.</li>
+    <li><strong>Read the result:</strong> The decoded text or link appears automatically.</li>
+    <li><strong>Copy or open it:</strong> Copy the content, or open it directly if it's a link.</li>
+    <li><strong>Scan another:</strong> Click Scan Another to try a different image.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Why didn't it detect the QR code in my image?</summary>
+      <p>Try a clearer, higher-resolution image with good contrast and the QR code not cropped or heavily angled — blurry or very small codes can be hard to decode.</p>
+    </details>
+    <details>
+      <summary>Does this need my camera?</summary>
+      <p>No. This tool decodes QR codes from an uploaded image file, not a live camera feed.</p>
+    </details>
+    <details>
+      <summary>Is my image sent to a server?</summary>
+      <p>No. Decoding happens entirely in your browser using a client-side library — your image is never uploaded.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Productivity Tools</h2>
+  <div class="related">
+    <a href="/qr-generator.html">📱 QR Code Generator</a>
+    <a href="/word-counter.html">📝 Word & Character Counter</a>
+    <a href="/url-parser.html">🔗 URL Parser</a>
+    <a href="/image-resizer.html">🖼️ Image Resizer</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const resultWrap = document.getElementById('resultWrap');
+const previewImg = document.getElementById('previewImg');
+const statusRow = document.getElementById('statusRow');
+const resultBox = document.getElementById('resultBox');
+const resultActions = document.getElementById('resultActions');
+const openBtn = document.getElementById('openBtn');
+
+let decodedText = '';
+
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', () => {
+  if(fileInput.files.length) handleFile(fileInput.files[0]);
+});
+
+function handleFile(file){
+  if(!file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      previewImg.src = e.target.result;
+      resultWrap.classList.add('active');
+      decodeImage(img);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function isUrl(text){
+  try{
+    const u = new URL(text);
+    return u.protocol === 'http:' || u.protocol === 'https:';
+  } catch(e){
+    return false;
+  }
+}
+
+function decodeImage(img){
+  const canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+  const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+  if(code && code.data){
+    decodedText = code.data;
+    statusRow.className = 'status-row ok';
+    statusRow.textContent = '✅ QR code detected';
+    resultBox.textContent = decodedText;
+    resultBox.classList.add('active');
+    resultActions.classList.add('active');
+    if(isUrl(decodedText)){
+      openBtn.style.display = 'inline-block';
+    } else {
+      openBtn.style.display = 'none';
+    }
+  } else {
+    decodedText = '';
+    statusRow.className = 'status-row fail';
+    statusRow.textContent = '⚠️ No QR code found in this image';
+    resultBox.classList.remove('active');
+    resultActions.classList.remove('active');
+  }
+}
+
+function copyResult(){
+  if(!decodedText) return;
+  navigator.clipboard.writeText(decodedText).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const old = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+function openResult(){
+  if(decodedText && isUrl(decodedText)){
+    window.open(decodedText, '_blank', 'noopener');
+  }
+}
+
+function resetTool(){
+  decodedText = '';
+  resultWrap.classList.remove('active');
+  fileInput.value = '';
+  resultBox.classList.remove('active');
+  resultActions.classList.remove('active');
+}
+</script>
+
 </body>
 </html>
