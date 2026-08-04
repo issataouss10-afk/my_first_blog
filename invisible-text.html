@@ -1,64 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invisible Blank Character Generator - ToolNest</title>
-    <meta name="description" content="Copy invisible or blank text characters instantly for your social media bios, nicknames, and chat apps.">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
-        .nav-link:hover { color: #2563eb; background: #eff6ff; }
-        
-        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
-        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; }
-        .tool-desc { color: #64748b; margin-bottom: 2rem; }
-        
-        .box-display { background: #f8fafc; border: 2px dashed #cbd5e1; padding: 20px; border-radius: 8px; margin-bottom: 1.5rem; font-size: 1.1rem; color: #64748b; }
-        
-        .btn-primary { background: #2563eb; color: white; border: none; padding: 12px 25px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
-        .btn-primary:hover { background: #1d4ed8; }
-        .success-msg { margin-top: 1rem; color: #10b981; font-weight: 500; display: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invisible Character Generator | Copy Blank &amp; Invisible Text | ToolNest</title>
+<meta name="description" content="Generate and copy invisible, blank, and zero-width characters for usernames, bios, and messages. Free, 100% client-side invisible text generator.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .quick-copy{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#eef2ff;
+    border:1px solid #dbe3fd;
+    border-radius:10px;
+    padding:16px 18px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .quick-copy .qc-text{font-size:13.5px;color:var(--ink);}
+  .quick-copy .qc-text strong{display:block;font-size:12px;color:var(--blue-dark);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;}
+  .big-copy-btn{
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:10px 20px;
+    border-radius:10px;
+    font-size:13.5px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .big-copy-btn:hover{background:var(--blue-dark);}
+
+  .char-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+  @media (max-width:640px){.char-grid{grid-template-columns:1fr;}}
+  .char-card{
+    background:#f8fafc;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .char-card .info{min-width:0;}
+  .char-card .name{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .char-card .meta{font-size:11.5px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin-top:2px;}
+  .char-card .copy-small{
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:7px 12px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .char-card .copy-small:hover{background:var(--blue-dark);}
+
+  .repeat-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:22px;
+    flex-wrap:wrap;
+  }
+  .repeat-row label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  .repeat-row input[type=number]{
+    width:80px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;
+  }
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">ToolNest</a>
-        <a href="index.html" class="nav-link">← Back to Home</a>
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
+  </div>
+</header>
 
-    <div class="tool-container">
-        <h1 class="tool-title">👻 Invisible Character Generator</h1>
-        <p class="tool-desc">Click the button below to copy an invisible/blank Unicode character to your clipboard.</p>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">⚡ Productivity Tools</a> / <strong>Invisible Character Generator</strong></div>
 
-        <div class="box-display">
-            <span>[ Invisible Character Ready ]</span>
-        </div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-        <button id="copyBtn" class="btn-primary">Copy Invisible Text</button>
-        <div id="successMsg" class="success-msg">Copied successfully! You can now paste it anywhere.</div>
+  <div class="hero">
+    <div class="icon">👻</div>
+    <div>
+      <h1>Invisible Character Generator</h1>
+      <p>Copy invisible, blank, and zero-width characters for usernames, bios, and messages. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="quick-copy">
+      <div class="qc-text">
+        <strong>Quick Copy</strong>
+        Single invisible character, ready to paste
+      </div>
+      <button class="big-copy-btn" onclick="copyChar('\u2800')">📋 Copy Invisible Character</button>
     </div>
 
-    <script>
-        const copyBtn = document.getElementById('copyBtn');
-        const successMsg = document.getElementById('successMsg');
+    <div class="char-grid" id="charGrid"></div>
 
-        copyBtn.addEventListener('click', () => {
-            // Unicode for Braille Blank Character (U+2800)
-            const invisibleChar = ' ';
-            
-            navigator.clipboard.writeText(invisibleChar).then(() => {
-                successMsg.style.display = 'block';
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                }, 3000);
-            }).catch(err => {
-                alert('Failed to copy text.');
-            });
-        });
-    </script>
+    <div class="repeat-row">
+      <label for="repeatCount">Repeat selected character</label>
+      <input type="number" id="repeatCount" min="1" max="200" value="1">
+      <button class="copy-small" onclick="copyRepeated()">Copy Repeated</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>👻 Multiple Invisible Types</h3>
+      <p>Zero-width space, zero-width joiner, Braille blank, and more — each behaves slightly differently across apps.</p>
+    </div>
+    <div class="feature">
+      <h3>📋 One-Click Copy</h3>
+      <p>Copy any character straight to your clipboard, ready to paste anywhere.</p>
+    </div>
+    <div class="feature">
+      <h3>🔁 Repeatable</h3>
+      <p>Need several in a row? Set a repeat count and copy them all at once.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>Everything runs in your browser. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Invisible Character Generator</h2>
+  <ol class="steps">
+    <li><strong>Pick a character:</strong> Choose from the list — each works differently depending on the app.</li>
+    <li><strong>Copy it:</strong> Click Copy next to the one you want.</li>
+    <li><strong>Repeat if needed:</strong> Set a repeat count for multiple invisible characters in a row.</li>
+    <li><strong>Paste it:</strong> Paste into a username, bio, chat, or document field.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Why do some apps reject a truly empty message?</summary>
+      <p>Many platforms block empty text fields, so people use characters that render as blank but aren't technically empty to work around that.</p>
+    </details>
+    <details>
+      <summary>Why are there several different invisible characters?</summary>
+      <p>Different apps filter or trim different Unicode characters, so having several options increases the chance one works where you need it.</p>
+    </details>
+    <details>
+      <summary>Is my clipboard data sent to a server?</summary>
+      <p>No. Copying happens entirely through your browser's clipboard API, locally.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Productivity Tools</h2>
+  <div class="related">
+    <a href="/word-counter.html">📝 Word & Character Counter</a>
+    <a href="/case-converter.html">🔤 Case Converter</a>
+    <a href="/lorem-ipsum.html">📄 Lorem Ipsum Generator</a>
+    <a href="/html-entity.html">💻 HTML Entity Converter</a>
+    <a href="/password-generator.html">🔑 Password Generator</a>
+    <a href="/qr-generator.html">📱 QR Code Generator</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const CHARS = [
+  { name: 'Zero-Width Space', code: 'U+200B', char: '\u200B' },
+  { name: 'Zero-Width Joiner', code: 'U+200D', char: '\u200D' },
+  { name: 'Zero-Width Non-Joiner', code: 'U+200C', char: '\u200C' },
+  { name: 'Braille Blank', code: 'U+2800', char: '\u2800' },
+  { name: 'Hair Space', code: 'U+200A', char: '\u200A' },
+  { name: 'Ideographic Space', code: 'U+3000', char: '\u3000' },
+  { name: 'Word Joiner', code: 'U+2060', char: '\u2060' },
+  { name: 'Figure Space', code: 'U+2007', char: '\u2007' },
+];
+
+let selectedChar = CHARS[0].char;
+
+function renderGrid(){
+  const grid = document.getElementById('charGrid');
+  grid.innerHTML = '';
+  CHARS.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'char-card';
+    card.innerHTML = `
+      <div class="info">
+        <div class="name">${c.name}</div>
+        <div class="meta">${c.code}</div>
+      </div>
+      <button class="copy-small" data-idx="${i}">Copy</button>
+    `;
+    card.querySelector('button').addEventListener('click', () => {
+      selectedChar = c.char;
+      copyChar(c.char);
+    });
+    grid.appendChild(card);
+  });
+}
+
+function copyChar(char){
+  navigator.clipboard.writeText(char).then(() => {
+    flashButtons();
+  });
+}
+
+function copyRepeated(){
+  const count = Math.max(1, Math.min(200, parseInt(document.getElementById('repeatCount').value, 10) || 1));
+  const text = selectedChar.repeat(count);
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.repeat-row .copy-small');
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+function flashButtons(){
+  const btn = document.querySelector('.big-copy-btn');
+  const old = btn.textContent;
+  btn.textContent = '✅ Copied!';
+  setTimeout(() => btn.textContent = old, 1200);
+}
+
+renderGrid();
+</script>
+
 </body>
 </html>
