@@ -1,79 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Storage Converter - ToolNest</title>
-    <meta name="description" content="Convert digital data storage units between Bytes, KB, MB, GB, and TB.">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Storage Converter | Bytes, KB, MB, GB, TB | ToolNest</title>
+<meta name="description" content="Convert between bytes, KB, MB, GB, TB, and PB instantly, in both decimal and binary units. Free, 100% client-side data storage converter.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
 
-      gtag('config', 'G-4RLN0M7YFJ');
-    </script>
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
 
-    <link rel="stylesheet" href="style.css">
-    <style>
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
-        .nav-link:hover { color: #2563eb; background: #eff6ff; }
-        
-        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; }
-        .tool-desc { color: #64748b; margin-bottom: 2rem; }
-        
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155; }
-        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; }
-        .form-control:focus { border-color: #2563eb; }
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
 
-        .result-box { margin-top: 2rem; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .result-box p { margin: 8px 0; color: #334155; font-size: 1rem; }
-    </style>
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .input-row{display:grid;grid-template-columns:1fr 160px;gap:12px;}
+  @media (max-width:560px){.input-row{grid-template-columns:1fr;}}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=number]{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+    font-size:16px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  select{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+    font-size:14.5px;color:var(--ink);background:#fff;
+  }
+
+  .unit-tabs{display:flex;gap:8px;margin:18px 0 4px;}
+  .unit-tabs button{
+    border:1px solid var(--line);background:#f8fafc;color:var(--muted);
+    padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;
+  }
+  .unit-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .unit-tabs-note{font-size:12px;color:var(--muted);margin-bottom:16px;}
+
+  .result-list{margin-top:18px;display:flex;flex-direction:column;gap:8px;}
+  .result-row{
+    display:flex;justify-content:space-between;align-items:center;
+    background:#f8fafc;border:1px solid var(--line);border-radius:10px;
+    padding:11px 16px;
+  }
+  .result-row.highlight{background:#eef2ff;border-color:#c7d2fe;}
+  .result-row .rlabel{font-size:13px;font-weight:700;color:var(--ink);}
+  .result-row .rvalue{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;color:var(--blue-dark);font-weight:700;}
+  .copy-small{
+    background:var(--blue);color:#fff;border:none;padding:6px 12px;border-radius:8px;
+    font-size:11.5px;font-weight:700;cursor:pointer;margin-left:10px;
+  }
+  .copy-small:hover{background:var(--blue-dark);}
+  .rvalue-wrap{display:flex;align-items:center;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">ToolNest</a>
-        <a href="index.html" class="nav-link">← Back to Home</a>
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
+  </div>
+</header>
 
-    <div class="tool-container">
-        <h1 class="tool-title">💾 Data Storage Converter</h1>
-        <p class="tool-desc">Easily convert MB to GB, TB, and Bytes instantly.</p>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">🔁 File &amp; Format Converters</a> / <strong>Data Storage Converter</strong></div>
 
-        <div class="form-group">
-            <label for="mbInput">Enter Megabytes (MB)</label>
-            <input type="number" id="mbInput" class="form-control" placeholder="e.g. 1024">
-        </div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-        <div class="result-box" id="resultBox">
-            <p><strong>Bytes:</strong> <span id="resBytes">0</span></p>
-            <p><strong>Kilobytes (KB):</strong> <span id="resKb">0</span></p>
-            <p><strong>Gigabytes (GB):</strong> <span id="resGb">0</span></p>
-            <p><strong>Terabytes (TB):</strong> <span id="resTb">0</span></p>
-        </div>
+  <div class="hero">
+    <div class="icon">💾</div>
+    <div>
+      <h1>Data Storage Converter</h1>
+      <p>Convert between bytes, KB, MB, GB, TB, and PB instantly — in both decimal and binary units. 100% local, nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="input-row">
+      <div class="field">
+        <label for="amountInput">Amount</label>
+        <input type="number" id="amountInput" value="1" min="0" step="any">
+      </div>
+      <div class="field">
+        <label for="unitSelect">From Unit</label>
+        <select id="unitSelect">
+          <option value="B">Bytes (B)</option>
+          <option value="KB">Kilobytes (KB)</option>
+          <option value="MB" selected>Megabytes (MB)</option>
+          <option value="GB">Gigabytes (GB)</option>
+          <option value="TB">Terabytes (TB)</option>
+          <option value="PB">Petabytes (PB)</option>
+        </select>
+      </div>
     </div>
 
-    <script>
-        const mbInput = document.getElementById('mbInput');
-        const resBytes = document.getElementById('resBytes');
-        const resKb = document.getElementById('resKb');
-        const resGb = document.getElementById('resGb');
-        const resTb = document.getElementById('resTb');
+    <div class="unit-tabs">
+      <button id="tabDecimal" class="active" onclick="setBase(1000)">Decimal (1000)</button>
+      <button id="tabBinary" onclick="setBase(1024)">Binary (1024)</button>
+    </div>
+    <div class="unit-tabs-note">Decimal is used by storage manufacturers (1 KB = 1000 B); binary is used by operating systems (1 KiB = 1024 B).</div>
 
-        mbInput.addEventListener('input', () => {
-            const mb = parseFloat(mbInput.value) || 0;
-            resBytes.textContent = (mb * 1024 * 1024).toLocaleString();
-            resKb.textContent = (mb * 1024).toLocaleString();
-            resGb.textContent = (mb / 1024).toFixed(4);
-            resTb.textContent = (mb / (1024 * 1024)).toFixed(6);
-        });
-    </script>
+    <div class="result-list" id="resultList"></div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Conversion</h3>
+      <p>Every unit updates live as you type or change the source unit.</p>
+    </div>
+    <div class="feature">
+      <h3>🔀 Decimal &amp; Binary</h3>
+      <p>Toggle between 1000-based (SI) and 1024-based (IEC) calculations to match your use case.</p>
+    </div>
+    <div class="feature">
+      <h3>📋 One-Click Copy</h3>
+      <p>Copy any converted value straight to your clipboard.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All conversion happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Data Storage Converter</h2>
+  <ol class="steps">
+    <li><strong>Enter an amount:</strong> Type the number you want to convert.</li>
+    <li><strong>Pick the source unit:</strong> Choose bytes through petabytes.</li>
+    <li><strong>Choose decimal or binary:</strong> Match how your OS or manufacturer measures storage.</li>
+    <li><strong>Read or copy:</strong> Every other unit updates instantly; copy any result you need.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Why does my drive show less space than advertised?</summary>
+      <p>Manufacturers use decimal units (1 GB = 1,000,000,000 bytes) while operating systems often display binary units (1 GiB = 1,073,741,824 bytes), so the same drive shows a smaller number in your OS.</p>
+    </details>
+    <details>
+      <summary>What's the difference between KB and KiB?</summary>
+      <p>KB (kilobyte) technically means 1000 bytes in the decimal system, while KiB (kibibyte) means 1024 bytes in the binary system — though KB is often used loosely for both.</p>
+    </details>
+    <details>
+      <summary>Is my data sent to a server?</summary>
+      <p>No. All calculations happen entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related File &amp; Format Converters</h2>
+  <div class="related">
+    <a href="/json-formatter.html">📋 JSON Formatter</a>
+    <a href="/base64-converter.html">🔤 Base64 Encoder / Decoder</a>
+    <a href="/markdown-html.html">📝 Markdown to HTML</a>
+    <a href="/timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="/color-converter.html">🎨 Color Converter</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+const UNIT_NAMES = {
+  B: 'Bytes', KB: 'Kilobytes', MB: 'Megabytes', GB: 'Gigabytes', TB: 'Terabytes', PB: 'Petabytes'
+};
+
+let base = 1000;
+
+function setBase(b){
+  base = b;
+  document.getElementById('tabDecimal').classList.toggle('active', b === 1000);
+  document.getElementById('tabBinary').classList.toggle('active', b === 1024);
+  update();
+}
+
+function unitToBytes(value, unit){
+  const idx = UNITS.indexOf(unit);
+  return value * Math.pow(base, idx);
+}
+
+function formatNumber(n){
+  if(n === 0) return '0';
+  if(Math.abs(n) < 0.0001 || Math.abs(n) > 1e15){
+    return n.toExponential(4);
+  }
+  return n.toLocaleString(undefined, { maximumFractionDigits: 6 });
+}
+
+function update(){
+  const amount = parseFloat(document.getElementById('amountInput').value);
+  const fromUnit = document.getElementById('unitSelect').value;
+  const list = document.getElementById('resultList');
+
+  if(isNaN(amount)){
+    list.innerHTML = '';
+    return;
+  }
+
+  const bytes = unitToBytes(amount, fromUnit);
+
+  list.innerHTML = UNITS.map(u => {
+    const idx = UNITS.indexOf(u);
+    const value = bytes / Math.pow(base, idx);
+    const isSource = u === fromUnit;
+    return `
+      <div class="result-row ${isSource ? 'highlight' : ''}">
+        <div class="rlabel">${UNIT_NAMES[u]} (${u})</div>
+        <div class="rvalue-wrap">
+          <span class="rvalue">${formatNumber(value)}</span>
+          <button class="copy-small" onclick="copyValue('${formatNumber(value)}')">Copy</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function copyValue(text){
+  navigator.clipboard.writeText(text);
+}
+
+document.getElementById('amountInput').addEventListener('input', update);
+document.getElementById('unitSelect').addEventListener('change', update);
+
+update();
+</script>
+
 </body>
 </html>
