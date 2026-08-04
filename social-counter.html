@@ -1,74 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Character Counter - ToolNest</title>
-    <meta name="description" content="Check text length against character limits for Twitter, Instagram, and LinkedIn.">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
-        .nav-link:hover { color: #2563eb; background: #eff6ff; }
-        
-        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; }
-        .tool-desc { color: #64748b; margin-bottom: 2rem; }
-        
-        .form-group { margin-bottom: 1.5rem; }
-        .form-control { width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; height: 150px; resize: vertical; }
-        .form-control:focus { border-color: #2563eb; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Character Counter | Twitter/X, Instagram, LinkedIn Limits | ToolNest</title>
+<meta name="description" content="Check your post length against every major social platform's character limit at once. Free, 100% client-side social media character counter.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+    --green:#16a34a;
+    --amber:#d97706;
+    --red:#dc2626;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
 
-        .limits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .limit-card { background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .limit-card h4 { margin: 0 0 5px 0; color: #334155; font-size: 1rem; }
-        .limit-card p { margin: 0; color: #64748b; font-size: 0.9rem; }
-    </style>
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  textarea{
+    width:100%;
+    min-height:140px;
+    padding:14px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:15px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    resize:vertical;
+  }
+  textarea:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  .platform-list{margin-top:20px;display:flex;flex-direction:column;gap:12px;}
+  .platform-row{
+    background:#f8fafc;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+  }
+  .platform-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .platform-name{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .platform-count{font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;}
+  .platform-bar{height:7px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+  .platform-fill{height:100%;border-radius:999px;transition:width .15s ease, background .15s ease;}
+  .platform-warn{font-size:11.5px;color:var(--red);margin-top:6px;font-weight:600;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">ToolNest</a>
-        <a href="index.html" class="nav-link">← Back to Home</a>
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
+  </div>
+</header>
 
-    <div class="tool-container">
-        <h1 class="tool-title">📱 Social Media Character Counter</h1>
-        <p class="tool-desc">Type or paste your text to check limits for various platforms.</p>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">📈 SEO &amp; Marketing Tools</a> / <strong>Social Media Character Counter</strong></div>
 
-        <div class="form-group">
-            <textarea id="textInput" class="form-control" placeholder="Type your caption here..."></textarea>
-        </div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-        <div class="limits-grid">
-            <div class="limit-card">
-                <h4>X (Twitter) [280]</h4>
-                <p id="twitterCount">0 characters left</p>
-            </div>
-            <div class="limit-card">
-                <h4>LinkedIn Post [3000]</h4>
-                <p id="linkedinCount">0 characters left</p>
-            </div>
-        </div>
+  <div class="hero">
+    <div class="icon">📱</div>
+    <div>
+      <h1>Social Media Character Counter</h1>
+      <p>Check your post against every major platform's character limit at once, live. 100% local — nothing leaves your browser.</p>
     </div>
+  </div>
 
-    <script>
-        const textInput = document.getElementById('textInput');
-        const twitterCount = document.getElementById('twitterCount');
-        const linkedinCount = document.getElementById('linkedinCount');
+  <div class="panel">
+    <textarea id="textInput" placeholder="Write your post here...">Excited to share our new toolkit with the community! Check it out and let me know what you think. 🚀</textarea>
 
-        textInput.addEventListener('input', () => {
-            const len = textInput.value.length;
-            
-            const twRemain = 280 - len;
-            twitterCount.textContent = twRemain >= 0 ? `${twRemain} characters left` : `${Math.abs(twRemain)} over limit!`;
-            twitterCount.style.color = twRemain < 0 ? '#dc2626' : '#64748b';
+    <div class="platform-list" id="platformList"></div>
+  </div>
 
-            const liRemain = 3000 - len;
-            linkedinCount.textContent = liRemain >= 0 ? `${liRemain} characters left` : `${Math.abs(liRemain)} over limit!`;
-            linkedinCount.style.color = liRemain < 0 ? '#dc2626' : '#64748b';
-        });
-    </script>
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Live for Every Platform</h3>
+      <p>Type once and see your count against all major platform limits simultaneously.</p>
+    </div>
+    <div class="feature">
+      <h3>🎨 Visual Progress Bars</h3>
+      <p>Each bar shifts color as you approach or exceed a platform's limit.</p>
+    </div>
+    <div class="feature">
+      <h3>⚠️ Over-Limit Warnings</h3>
+      <p>A clear warning shows exactly how many characters over you are for any platform.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All counting happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Social Media Character Counter</h2>
+  <ol class="steps">
+    <li><strong>Write or paste your post:</strong> Drop your caption or post text into the box above.</li>
+    <li><strong>Check each platform:</strong> Every bar shows your count against that platform's limit.</li>
+    <li><strong>Watch for warnings:</strong> Red bars and a warning note mean you're over the limit there.</li>
+    <li><strong>Trim as needed:</strong> Edit your text until it fits the platforms you're posting to.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Are these limits always exactly accurate?</summary>
+      <p>They reflect each platform's commonly published limits, but platforms occasionally adjust them, and some count links, mentions, or emoji differently.</p>
+    </details>
+    <details>
+      <summary>Does this count emoji correctly?</summary>
+      <p>Counting uses standard character length, which is a close approximation — some emoji made of multiple code points may count slightly differently than on the platform itself.</p>
+    </details>
+    <details>
+      <summary>Is my post text sent to a server?</summary>
+      <p>No. All counting happens entirely client-side in your browser for privacy and speed.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related SEO &amp; Marketing Tools</h2>
+  <div class="related">
+    <a href="/word-counter.html">📝 Word & Character Counter</a>
+    <a href="/meta-tag-generator.html">🏷️ Meta Tag Generator</a>
+    <a href="/utm-builder.html">🔗 UTM Link Builder</a>
+    <a href="/qr-generator.html">📱 QR Code Generator</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const PLATFORMS = [
+  { name: 'X (Twitter) Post', icon: '𝕏', limit: 280 },
+  { name: 'Instagram Caption', icon: '📷', limit: 2200 },
+  { name: 'Facebook Post', icon: '👍', limit: 63206 },
+  { name: 'LinkedIn Post', icon: '💼', limit: 3000 },
+  { name: 'TikTok Caption', icon: '🎵', limit: 2200 },
+  { name: 'YouTube Title', icon: '▶️', limit: 100 },
+  { name: 'YouTube Description', icon: '▶️', limit: 5000 },
+  { name: 'Pinterest Description', icon: '📌', limit: 500 },
+  { name: 'Threads Post', icon: '🧵', limit: 500 },
+];
+
+function renderPlatforms(){
+  const list = document.getElementById('platformList');
+  list.innerHTML = PLATFORMS.map((p, i) => `
+    <div class="platform-row" id="row-${i}">
+      <div class="platform-top">
+        <div class="platform-name">${p.icon} ${p.name}</div>
+        <div class="platform-count" id="count-${i}">0 / ${p.limit.toLocaleString()}</div>
+      </div>
+      <div class="platform-bar"><div class="platform-fill" id="fill-${i}"></div></div>
+      <div class="platform-warn" id="warn-${i}" style="display:none;"></div>
+    </div>
+  `).join('');
+}
+
+function update(){
+  const text = document.getElementById('textInput').value;
+  const len = text.length;
+
+  PLATFORMS.forEach((p, i) => {
+    const pct = Math.min(100, (len / p.limit) * 100);
+    const fill = document.getElementById(`fill-${i}`);
+    const count = document.getElementById(`count-${i}`);
+    const warn = document.getElementById(`warn-${i}`);
+
+    count.textContent = `${len.toLocaleString()} / ${p.limit.toLocaleString()}`;
+
+    let color;
+    if(len > p.limit){ color = 'var(--red)'; }
+    else if(pct > 85){ color = 'var(--amber)'; }
+    else { color = 'var(--green)'; }
+
+    fill.style.width = pct + '%';
+    fill.style.background = color;
+    count.style.color = color;
+
+    if(len > p.limit){
+      warn.style.display = 'block';
+      warn.textContent = `⚠️ ${(len - p.limit).toLocaleString()} characters over the limit`;
+    } else {
+      warn.style.display = 'none';
+    }
+  });
+}
+
+document.getElementById('textInput').addEventListener('input', update);
+renderPlatforms();
+update();
+</script>
+
 </body>
 </html>
