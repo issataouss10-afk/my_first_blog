@@ -1,91 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lorem Ipsum Generator - ToolNest Free Designer Tools</title>
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Free online Lorem Ipsum generator tool. Generate placeholder dummy text for your web designs and layouts instantly on ToolNest.">
-    <meta name="keywords" content="lorem ipsum generator, dummy text, placeholder text, web design tools, toolnest">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .page-layout { display: flex; gap: 20px; align-items: flex-start; }
-        /* مساحة فارغة نظيفة للإعلانات في الجانب */
-        .ad-sidebar { width: 200px; min-height: 400px; }
-        .tool-main-content { flex: 1; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        /* مساحة فارغة نظيفة للإعلانات في الفوق والتحت */
-        .ad-banner { width: 100%; min-height: 90px; margin-bottom: 20px; }
-        
-        textarea { width: 100%; height: 200px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; resize: vertical; box-sizing: border-box; outline: none; margin-bottom: 15px; }
-        textarea:focus { border-color: #2563eb; }
-        .btn-group { display: flex; gap: 10px; margin-bottom: 15px; }
-        @media(max-width: 900px) { .ad-sidebar { display: none; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lorem Ipsum Generator | Placeholder Text Generator | ToolNest</title>
+<meta name="description" content="Generate Lorem Ipsum placeholder text by paragraphs, sentences, or words instantly. Free, 100% client-side Lorem Ipsum generator.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .controls-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:flex-end;
+    margin-bottom:18px;
+  }
+  .field{flex:1;min-width:140px;}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=number]{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:15px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);
+  }
+  input[type=number]:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  select{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:14px;color:var(--ink);background:#fff;
+  }
+
+  .checkbox-field{display:flex;align-items:center;gap:8px;padding-bottom:10px;}
+  .checkbox-field input{width:16px;height:16px;accent-color:var(--blue);}
+  .checkbox-field label{font-size:13.5px;color:var(--ink);white-space:nowrap;}
+
+  .generate-btn{
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:11px 22px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .generate-btn:hover{background:var(--blue-dark);}
+
+  .output-wrap{position:relative;}
+  textarea{
+    width:100%;
+    min-height:260px;
+    padding:16px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:14.5px;
+    line-height:1.7;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:#f8fafc;
+    resize:vertical;
+  }
+
+  .output-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
+  }
+  .word-tally{font-size:12.5px;color:var(--muted);}
+  .copy-btn{
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:8px 16px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <h1><a href="index.html" style="color:white; text-decoration:none;">ToolNest</a></h1>
-            <p>Lorem Ipsum Generator</p>
-        </div>
-    </header>
 
-    <main class="container" style="margin-top: 2rem; margin-bottom: 3rem;">
-        <!-- مكان فارغ نظيف لإعلان الفوق -->
-        <div class="ad-banner"></div>
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
 
-        <div class="page-layout">
-            <!-- مكان فارغ نظيف لإعلان الجانب الأيسر -->
-            <div class="ad-sidebar"></div>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">⚡ Productivity Tools</a> / <strong>Lorem Ipsum Generator</strong></div>
 
-            <!-- محتوى الأداة الأساسي -->
-            <div class="tool-main-content">
-                <h2>Lorem Ipsum Generator</h2>
-                <p style="color: #64748b; margin-bottom: 1.5rem;">Generate placeholder dummy text for your designs and layouts.</p>
-                
-                <div class="btn-group">
-                    <button class="btn" onclick="generateLorem()">Generate Paragraphs</button>
-                </div>
-                
-                <textarea id="outputLorem" readonly placeholder="Generated text will appear here..."></textarea>
-                
-                <button class="btn" style="background: #475569;" onclick="copyLorem()">Copy Text</button>
-            </div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-            <!-- مكان فارغ نظيف لإعلان الجانب الأيمن -->
-            <div class="ad-sidebar"></div>
-        </div>
+  <div class="hero">
+    <div class="icon">📄</div>
+    <div>
+      <h1>Lorem Ipsum Generator</h1>
+      <p>Generate placeholder text by paragraphs, sentences, or words for mockups and layouts. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
 
-        <!-- مكان فارغ نظيف لإعلان التحت -->
-        <div class="ad-banner" style="margin-top: 20px;"></div>
-    </main>
+  <div class="panel">
+    <div class="controls-row">
+      <div class="field">
+        <label for="amountInput">Amount</label>
+        <input type="number" id="amountInput" value="3" min="1" max="50">
+      </div>
+      <div class="field">
+        <label for="unitSelect">Unit</label>
+        <select id="unitSelect">
+          <option value="paragraphs" selected>Paragraphs</option>
+          <option value="sentences">Sentences</option>
+          <option value="words">Words</option>
+        </select>
+      </div>
+      <div class="checkbox-field">
+        <input type="checkbox" id="startClassic" checked>
+        <label for="startClassic">Start with "Lorem ipsum..."</label>
+      </div>
+      <button class="generate-btn" onclick="generate()">⚡ Generate</button>
+    </div>
 
-    <footer class="main-footer">
-        <p>&copy; 2026 ToolNest. Built for creators and developers.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.85rem;">
-            <a href="index.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Home</a> | 
-            <a href="privacy-policy.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Privacy Policy</a> | 
-            <a href="about.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">About Us</a> | 
-            <a href="terms.html" style="color: #60a5fa; text-decoration: none; margin: 0 5px;">Terms of Service</a>
-        </p>
-    </footer>
+    <div class="output-wrap">
+      <textarea id="output" readonly></textarea>
+    </div>
 
-    <script>
-        const loremText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    <div class="output-actions">
+      <span class="word-tally" id="wordTally">0 words</span>
+      <button class="copy-btn" onclick="copyOutput()">📋 Copy Text</button>
+    </div>
+  </div>
 
-        function generateLorem() {
-            // توليد فقرات وهمية جاهزة للتصميم
-            let result = loremText + "\n\n" + loremText + "\n\n" + loremText;
-            document.getElementById('outputLorem').value = result;
-        }
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Flexible Output</h3>
+      <p>Generate placeholder text by paragraphs, sentences, or a raw word count.</p>
+    </div>
+    <div class="feature">
+      <h3>📝 Classic Opening</h3>
+      <p>Optionally start with the traditional "Lorem ipsum dolor sit amet..." line.</p>
+    </div>
+    <div class="feature">
+      <h3>📋 One-Click Copy</h3>
+      <p>Copy the generated text straight to your clipboard for mockups and designs.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All generation happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
 
-        function copyLorem() {
-            const out = document.getElementById('outputLorem');
-            if(out.value) {
-                navigator.clipboard.writeText(out.value);
-                alert('Dummy text copied to clipboard!');
-            }
-        }
-    </script>
+  <h2 class="section-title">How to Use ToolNest Lorem Ipsum Generator</h2>
+  <ol class="steps">
+    <li><strong>Pick a unit:</strong> Choose paragraphs, sentences, or words.</li>
+    <li><strong>Set the amount:</strong> Enter how many you need.</li>
+    <li><strong>Generate:</strong> Click Generate to fill the output box.</li>
+    <li><strong>Copy it:</strong> Click Copy Text and paste it into your design or code.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>What is Lorem Ipsum?</summary>
+      <p>It's scrambled, meaningless Latin-derived text used since the 1500s as placeholder copy so a design's layout can be judged without real content distracting from it.</p>
+    </details>
+    <details>
+      <summary>Why start with the classic opening line?</summary>
+      <p>"Lorem ipsum dolor sit amet..." is the traditional recognizable start; uncheck it if you'd rather every paragraph look freshly scrambled.</p>
+    </details>
+    <details>
+      <summary>Is my generated text sent to a server?</summary>
+      <p>No. All text is generated entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Productivity Tools</h2>
+  <div class="related">
+    <a href="/word-counter.html">📝 Word & Character Counter</a>
+    <a href="/case-converter.html">🔤 Case Converter</a>
+    <a href="/qr-generator.html">📱 QR Code Generator</a>
+    <a href="/password-generator.html">🔑 Password Generator</a>
+    <a href="/markdown-html.html">📝 Markdown to HTML</a>
+    <a href="/json-formatter.html">📋 JSON Formatter</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const WORDS = [
+  "lorem","ipsum","dolor","sit","amet","consectetur","adipiscing","elit","sed","do",
+  "eiusmod","tempor","incididunt","ut","labore","et","dolore","magna","aliqua","enim",
+  "ad","minim","veniam","quis","nostrud","exercitation","ullamco","laboris","nisi","aliquip",
+  "ex","ea","commodo","consequat","duis","aute","irure","in","reprehenderit","voluptate",
+  "velit","esse","cillum","fugiat","nulla","pariatur","excepteur","sint","occaecat","cupidatat",
+  "non","proident","sunt","culpa","qui","officia","deserunt","mollit","anim","id",
+  "est","laborum","perspiciatis","unde","omnis","iste","natus","error","voluptatem","accusantium",
+  "doloremque","laudantium","totam","rem","aperiam","eaque","ipsa","quae","ab","illo",
+  "inventore","veritatis","quasi","architecto","beatae","vitae","dicta","sunt","explicabo"
+];
+
+function randomWord(){
+  return WORDS[Math.floor(Math.random() * WORDS.length)];
+}
+
+function capitalize(w){
+  return w.charAt(0).toUpperCase() + w.slice(1);
+}
+
+function makeSentence(minWords, maxWords){
+  const len = Math.floor(Math.random() * (maxWords - minWords + 1)) + minWords;
+  const words = [];
+  for(let i = 0; i < len; i++) words.push(randomWord());
+  let sentence = words.join(' ');
+  // occasionally add a comma
+  if(len > 6 && Math.random() > 0.6){
+    const pos = Math.floor(len / 2);
+    const parts = sentence.split(' ');
+    parts[pos] = parts[pos] + ',';
+    sentence = parts.join(' ');
+  }
+  return capitalize(sentence) + '.';
+}
+
+function makeParagraph(sentenceCount){
+  const sentences = [];
+  for(let i = 0; i < sentenceCount; i++){
+    sentences.push(makeSentence(6, 16));
+  }
+  return sentences.join(' ');
+}
+
+function classicOpening(){
+  return "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+}
+
+function generate(){
+  const amount = Math.max(1, Math.min(50, parseInt(document.getElementById('amountInput').value, 10) || 1));
+  const unit = document.getElementById('unitSelect').value;
+  const useClassic = document.getElementById('startClassic').checked;
+  let result = '';
+
+  if(unit === 'words'){
+    const words = [];
+    if(useClassic){
+      words.push(...classicOpening().replace('.', '').split(' '));
+    }
+    while(words.length < amount){
+      words.push(randomWord());
+    }
+    result = capitalize(words.slice(0, amount).join(' ')) + '.';
+  } else if(unit === 'sentences'){
+    const sentences = [];
+    if(useClassic) sentences.push(classicOpening());
+    while(sentences.length < amount){
+      sentences.push(makeSentence(6, 16));
+    }
+    result = sentences.slice(0, amount).join(' ');
+  } else {
+    const paragraphs = [];
+    for(let p = 0; p < amount; p++){
+      const sentenceCount = 3 + Math.floor(Math.random() * 3);
+      if(p === 0 && useClassic){
+        paragraphs.push(classicOpening() + ' ' + makeParagraph(sentenceCount - 1));
+      } else {
+        paragraphs.push(makeParagraph(sentenceCount));
+      }
+    }
+    result = paragraphs.join('\n\n');
+  }
+
+  document.getElementById('output').value = result;
+  const wordCount = result.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('wordTally').textContent = `${wordCount} words`;
+}
+
+function copyOutput(){
+  const text = document.getElementById('output').value;
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const old = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+generate();
+</script>
+
 </body>
 </html>
