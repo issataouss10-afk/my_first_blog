@@ -1,142 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Resizer - ToolNest</title>
-    <meta name="description" content="Resize your images quickly to specific dimensions online for free.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Resizer | Resize Images Online | ToolNest</title>
+<meta name="description" content="Resize images to exact dimensions right in your browser. Free, 100% client-side image resizer with aspect ratio lock and instant download.">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJF"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
 
-      gtag('config', 'G-4RLN0M7YFJF');
-    </script>
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
 
-    <link rel="stylesheet" href="style.css">
-    <style>
-        nav { background: #ffffff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
-        .nav-link { color: #475569; text-decoration: none; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; font-size: 0.95rem; }
-        .nav-link:hover { color: #2563eb; background: #eff6ff; }
-        
-        .tool-container { max-width: 700px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .tool-title { font-size: 1.8rem; color: #1e293b; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px; }
-        .tool-desc { color: #64748b; margin-bottom: 2rem; }
-        
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155; }
-        .form-control { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.2s; }
-        .form-control:focus { border-color: #2563eb; }
-        
-        .dimensions-row { display: flex; gap: 15px; }
-        .dimensions-row .form-group { flex: 1; }
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
 
-        .btn-primary { background: #2563eb; color: white; border: none; padding: 12px 20px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
-        .btn-primary:hover { background: #1d4ed8; }
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
 
-        .preview-section { margin-top: 2rem; text-align: center; display: none; }
-        .preview-section img { max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1rem; }
-        
-        .btn-download { display: inline-block; background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 650; transition: background 0.2s; }
-        .btn-download:hover { background: #059669; }
-    </style>
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .dropzone{
+    border:2px dashed var(--line);
+    border-radius:12px;
+    padding:40px 20px;
+    text-align:center;
+    cursor:pointer;
+    background:#f8fafc;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .dropzone:hover, .dropzone.dragover{border-color:var(--blue);background:#eef2ff;}
+  .dropzone .dz-icon{font-size:32px;margin-bottom:8px;}
+  .dropzone .dz-text{font-size:14px;color:var(--muted);}
+  .dropzone .dz-text strong{color:var(--blue);}
+  #fileInput{display:none;}
+
+  .editor{display:none;margin-top:10px;}
+  .editor.active{display:block;}
+
+  .preview-stage{
+    background:
+      linear-gradient(45deg,#f1f5f9 25%,transparent 25%),
+      linear-gradient(-45deg,#f1f5f9 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#f1f5f9 75%),
+      linear-gradient(-45deg,transparent 75%,#f1f5f9 75%);
+    background-size:20px 20px;
+    background-position:0 0,0 10px,10px -10px,-10px 0px;
+    background-color:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:260px;
+    padding:16px;
+    overflow:hidden;
+  }
+  .preview-stage img{max-width:100%;max-height:340px;border-radius:6px;}
+
+  .original-info{font-size:12.5px;color:var(--muted);margin-top:10px;text-align:center;}
+
+  .controls-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end;margin-top:20px;}
+  @media (max-width:640px){.controls-grid{grid-template-columns:1fr 1fr;}}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=number]{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:14.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  .lock-btn{
+    width:42px;height:42px;
+    border:1px solid var(--line);
+    background:#f8fafc;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+  }
+  .lock-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+  select{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:14px;color:var(--ink);background:#fff;
+  }
+
+  .quality-row{margin-top:16px;display:none;}
+  .quality-row.active{display:block;}
+  .quality-row .ctrl-label{
+    display:flex;justify-content:space-between;
+    font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;
+  }
+  input[type=range]{width:100%;accent-color:var(--blue);}
+
+  .actions-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+  .resize-btn{
+    background:var(--blue);color:#fff;border:none;padding:12px 20px;border-radius:10px;
+    font-size:14px;font-weight:700;cursor:pointer;flex:1;
+  }
+  .resize-btn:hover{background:var(--blue-dark);}
+  .download-btn{
+    background:#16a34a;color:#fff;border:none;padding:12px 20px;border-radius:10px;
+    font-size:14px;font-weight:700;cursor:pointer;flex:1;display:none;
+  }
+  .download-btn.active{display:block;}
+  .download-btn:hover{background:#15803d;}
+  .reset-btn{
+    background:#f1f5f9;color:var(--ink);border:1px solid var(--line);padding:12px 16px;border-radius:10px;
+    font-size:13.5px;font-weight:600;cursor:pointer;
+  }
+  .reset-btn:hover{background:#e2e8f0;}
+
+  .result-note{font-size:12.5px;color:var(--muted);margin-top:12px;text-align:center;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">ToolNest</a>
-        <a href="index.html" class="nav-link">← Back to Home</a>
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
     </nav>
+  </div>
+</header>
 
-    <div class="tool-container">
-        <h1 class="tool-title">📐 Image Resizer</h1>
-        <p class="tool-desc">Upload an image, set your desired width and height, and download it instantly.</p>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">🖼️ Image &amp; Design Tools</a> / <strong>Image Resizer</strong></div>
 
-        <div class="form-group">
-            <label for="imageInput">Select Image</label>
-            <input type="file" id="imageInput" accept="image/*" class="form-control">
-        </div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
 
-        <div class="dimensions-row">
-            <div class="form-group">
-                <label for="widthInput">Width (px)</label>
-                <input type="number" id="widthInput" class="form-control" placeholder="e.g. 500">
-            </div>
-            <div class="form-group">
-                <label for="heightInput">Height (px)</label>
-                <input type="number" id="heightInput" class="form-control" placeholder="e.g. 500">
-            </div>
-        </div>
+  <div class="hero">
+    <div class="icon">🖼️</div>
+    <div>
+      <h1>Image Resizer</h1>
+      <p>Resize any image to exact dimensions and download it, right in your browser. 100% local — your images are never uploaded anywhere.</p>
+    </div>
+  </div>
 
-        <button id="resizeBtn" class="btn-primary">Resize Image</button>
-
-        <div class="preview-section" id="previewSection">
-            <h3>Resized Image Preview:</h3>
-            <canvas id="outputCanvas" style="display:none;"></canvas>
-            <div>
-                <img id="imagePreview" alt="Resized Preview">
-            </div>
-            <a id="downloadBtn" class="btn-download" download="resized-image.png">Download Resized Image</a>
-        </div>
+  <div class="panel">
+    <div class="dropzone" id="dropzone">
+      <div class="dz-icon">🖼️</div>
+      <div class="dz-text"><strong>Click to upload</strong> or drag and drop an image</div>
+      <input type="file" id="fileInput" accept="image/*">
     </div>
 
-    <script>
-        const imageInput = document.getElementById('imageInput');
-        const widthInput = document.getElementById('widthInput');
-        const heightInput = document.getElementById('heightInput');
-        const resizeBtn = document.getElementById('resizeBtn');
-        const previewSection = document.getElementById('previewSection');
-        const imagePreview = document.getElementById('imagePreview');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const outputCanvas = document.getElementById('outputCanvas');
-        
-        let loadedImage = null;
+    <div class="editor" id="editor">
+      <div class="preview-stage">
+        <img id="previewImg" alt="Preview">
+      </div>
+      <div class="original-info" id="originalInfo"></div>
 
-        imageInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = new Image();
-                    img.onload = function() {
-                        loadedImage = img;
-                        widthInput.value = img.width;
-                        heightInput.value = img.height;
-                    }
-                    img.src = event.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
+      <div class="controls-grid">
+        <div class="field">
+          <label for="widthInput">Width (px)</label>
+          <input type="number" id="widthInput" min="1">
+        </div>
+        <div class="field">
+          <label for="heightInput">Height (px)</label>
+          <input type="number" id="heightInput" min="1">
+        </div>
+        <button class="lock-btn active" id="lockBtn" title="Lock aspect ratio" onclick="toggleLock()">🔗</button>
+      </div>
 
-        resizeBtn.addEventListener('click', () => {
-            if (!loadedImage) {
-                alert('Please select an image first!');
-                return;
-            }
+      <div class="grid2">
+        <div class="field">
+          <label for="formatSelect">Output Format</label>
+          <select id="formatSelect">
+            <option value="image/png" selected>PNG</option>
+            <option value="image/jpeg">JPEG</option>
+            <option value="image/webp">WebP</option>
+          </select>
+        </div>
+        <div class="field quality-row" id="qualityRow">
+          <div class="ctrl-label">Quality <span id="qualityVal">85%</span></div>
+          <input type="range" id="qualityRange" min="10" max="100" value="85">
+        </div>
+      </div>
 
-            const targetWidth = parseInt(widthInput.value);
-            const targetHeight = parseInt(heightInput.value);
+      <div class="actions-row">
+        <button class="resize-btn" onclick="resizeImage()">🔄 Resize Image</button>
+        <button class="download-btn" id="downloadBtn" onclick="downloadImage()">⬇️ Download</button>
+        <button class="reset-btn" onclick="resetTool()">Start Over</button>
+      </div>
+      <div class="result-note" id="resultNote"></div>
+    </div>
+  </div>
 
-            if (!targetWidth || !targetHeight || targetWidth <= 0 || targetHeight <= 0) {
-                alert('Please enter valid dimensions!');
-                return;
-            }
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Resizing</h3>
+      <p>Images are resized directly in your browser using the Canvas API — no upload wait.</p>
+    </div>
+    <div class="feature">
+      <h3>🔗 Aspect Ratio Lock</h3>
+      <p>Keep proportions locked so your image never looks stretched or squished.</p>
+    </div>
+    <div class="feature">
+      <h3>🎨 Format Conversion</h3>
+      <p>Resize and convert between PNG, JPEG, and WebP in the same step.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Private</h3>
+      <p>Your image never leaves your device — nothing is uploaded to any server.</p>
+    </div>
+  </div>
 
-            outputCanvas.width = targetWidth;
-            outputCanvas.height = targetHeight;
-            const ctx = outputCanvas.getContext('2d');
-            ctx.drawImage(loadedImage, 0, 0, targetWidth, targetHeight);
+  <h2 class="section-title">How to Use ToolNest Image Resizer</h2>
+  <ol class="steps">
+    <li><strong>Upload an image:</strong> Click the dropzone or drag and drop a file.</li>
+    <li><strong>Set dimensions:</strong> Enter width and/or height — the lock keeps the ratio proportional.</li>
+    <li><strong>Pick a format:</strong> Choose PNG, JPEG, or WebP, and set quality for JPEG/WebP.</li>
+    <li><strong>Resize and download:</strong> Click Resize Image, then Download to save the result.</li>
+  </ol>
 
-            const dataUrl = outputCanvas.toDataURL('image/png');
-            imagePreview.src = dataUrl;
-            downloadBtn.href = dataUrl;
-            previewSection.style.display = 'block';
-        });
-    </script>
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Will resizing reduce image quality?</summary>
+      <p>Shrinking an image generally preserves visual quality well; enlarging it beyond its original size can make it look softer or blurry since no new detail is created.</p>
+    </details>
+    <details>
+      <summary>What's the difference between the format options?</summary>
+      <p>PNG is lossless and good for graphics with transparency; JPEG and WebP are compressed and better suited for photos, with an adjustable quality trade-off.</p>
+    </details>
+    <details>
+      <summary>Is my image uploaded anywhere?</summary>
+      <p>No. The entire resize happens locally in your browser using the Canvas API — your image never leaves your device.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Image &amp; Design Tools</h2>
+  <div class="related">
+    <a href="/color-converter.html">🎨 Color Converter</a>
+    <a href="/color-extractor.html">🎨 Color Extractor</a>
+    <a href="/box-shadow.html">✨ Box Shadow Generator</a>
+    <a href="/glass-generator.html">🔮 CSS Glassmorphism Generator</a>
+    <a href="/qr-generator.html">📱 QR Code Generator</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+let originalImg = null;
+let originalWidth = 0, originalHeight = 0;
+let aspectRatio = 1;
+let locked = true;
+let resizedBlobUrl = null;
+let originalFileName = 'image';
+
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const editor = document.getElementById('editor');
+const previewImg = document.getElementById('previewImg');
+const widthInput = document.getElementById('widthInput');
+const heightInput = document.getElementById('heightInput');
+const formatSelect = document.getElementById('formatSelect');
+const qualityRow = document.getElementById('qualityRow');
+const qualityRange = document.getElementById('qualityRange');
+const downloadBtn = document.getElementById('downloadBtn');
+const resultNote = document.getElementById('resultNote');
+
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', () => {
+  if(fileInput.files.length) handleFile(fileInput.files[0]);
+});
+
+function handleFile(file){
+  if(!file.type.startsWith('image/')) return;
+  originalFileName = file.name.replace(/\.[^.]+$/, '') || 'image';
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      originalImg = img;
+      originalWidth = img.naturalWidth;
+      originalHeight = img.naturalHeight;
+      aspectRatio = originalWidth / originalHeight;
+      previewImg.src = e.target.result;
+      widthInput.value = originalWidth;
+      heightInput.value = originalHeight;
+      document.getElementById('originalInfo').textContent =
+        `Original: ${originalWidth} × ${originalHeight}px — ${(file.size/1024).toFixed(1)} KB`;
+      editor.classList.add('active');
+      downloadBtn.classList.remove('active');
+      resultNote.textContent = '';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function toggleLock(){
+  locked = !locked;
+  document.getElementById('lockBtn').classList.toggle('active', locked);
+}
+
+widthInput.addEventListener('input', () => {
+  if(locked && originalImg){
+    heightInput.value = Math.round(widthInput.value / aspectRatio);
+  }
+});
+heightInput.addEventListener('input', () => {
+  if(locked && originalImg){
+    widthInput.value = Math.round(heightInput.value * aspectRatio);
+  }
+});
+
+formatSelect.addEventListener('change', () => {
+  const isCompressible = formatSelect.value !== 'image/png';
+  qualityRow.classList.toggle('active', isCompressible);
+});
+
+qualityRange.addEventListener('input', () => {
+  document.getElementById('qualityVal').textContent = qualityRange.value + '%';
+});
+
+function resizeImage(){
+  if(!originalImg) return;
+  const w = parseInt(widthInput.value, 10);
+  const h = parseInt(heightInput.value, 10);
+  if(!w || !h || w < 1 || h < 1) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(originalImg, 0, 0, w, h);
+
+  const format = formatSelect.value;
+  const quality = format === 'image/png' ? undefined : qualityRange.value / 100;
+
+  canvas.toBlob(blob => {
+    if(resizedBlobUrl) URL.revokeObjectURL(resizedBlobUrl);
+    resizedBlobUrl = URL.createObjectURL(blob);
+    downloadBtn.classList.add('active');
+    resultNote.textContent = `Ready: ${w} × ${h}px — ${(blob.size/1024).toFixed(1)} KB`;
+  }, format, quality);
+}
+
+function downloadImage(){
+  if(!resizedBlobUrl) return;
+  const ext = formatSelect.value === 'image/png' ? 'png' : (formatSelect.value === 'image/webp' ? 'webp' : 'jpg');
+  const a = document.createElement('a');
+  a.href = resizedBlobUrl;
+  a.download = `${originalFileName}-resized.${ext}`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function resetTool(){
+  originalImg = null;
+  editor.classList.remove('active');
+  fileInput.value = '';
+  downloadBtn.classList.remove('active');
+  resultNote.textContent = '';
+}
+</script>
+
 </body>
 </html>
