@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UUID Generator | Free Online UUID/GUID Generator | ToolNest</title>
+<meta name="description" content="Generate random UUID v4 / GUID values instantly, one at a time or in bulk. Free, 100% client-side UUID generator with copy and export.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/uuid-generator.html">
+<meta name="theme-color" content="#2563eb">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="UUID Generator | ToolNest">
+<meta property="og:description" content="Generate random UUID v4 / GUID values instantly, one at a time or in bulk.">
+<meta property="og:url" content="https://toolnest-jet.vercel.app/uuid-generator.html">
+<meta property="og:site_name" content="ToolNest">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UUID Generator | ToolNest">
+<meta name="twitter:description" content="Free online UUID v4 / GUID generator, one at a time or in bulk.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ToolNest UUID Generator",
+  "url": "https://toolnest-jet.vercel.app/uuid-generator.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a UUID?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A UUID (Universally Unique Identifier) is a 128-bit value used to uniquely identify information, commonly written as 32 hex digits split into 5 groups by hyphens." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a UUID guaranteed to be unique?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not mathematically guaranteed, but a version 4 UUID has so many possible values that a collision is astronomically unlikely in practice." }
+    },
+    {
+      "@type": "Question",
+      "name": "Are UUIDs sent to a server?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All UUIDs are generated locally in your browser using the Web Crypto API." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .output-box{
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:10px;
+    padding:16px 18px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    word-break:break-all;
+  }
+  .output-actions{display:flex;gap:8px;flex-shrink:0;}
+  .icon-btn{
+    background:#1e293b;color:#e2e8f0;border:none;width:38px;height:38px;border-radius:8px;
+    font-size:15px;cursor:pointer;flex-shrink:0;
+  }
+  .icon-btn:hover{background:#334155;}
+
+  .options-row{
+    display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:20px;
+  }
+  .toggle-item{display:flex;align-items:center;gap:8px;font-size:13.5px;}
+  .toggle-item input{width:16px;height:16px;accent-color:var(--blue);}
+
+  .bulk-row{display:flex;align-items:center;gap:12px;margin-top:20px;flex-wrap:wrap;}
+  .bulk-row label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  .bulk-row input[type=number]{
+    width:100px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;
+  }
+  .generate-bulk-btn{
+    background:var(--blue);color:#fff;border:none;padding:10px 18px;border-radius:8px;
+    font-size:13.5px;font-weight:700;cursor:pointer;
+  }
+  .generate-bulk-btn:hover{background:var(--blue-dark);}
+
+  .bulk-output{
+    margin-top:16px;
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:10px;
+    padding:14px 16px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13px;
+    max-height:280px;
+    overflow-y:auto;
+    white-space:pre-wrap;
+    display:none;
+  }
+  .bulk-output.active{display:block;}
+  .bulk-actions{display:none;gap:8px;margin-top:10px;}
+  .bulk-actions.active{display:flex;}
+  .copy-btn{
+    background:var(--blue);color:#fff;border:none;padding:8px 16px;border-radius:8px;
+    font-size:12.5px;font-weight:700;cursor:pointer;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+  .download-btn{
+    background:#f1f5f9;color:var(--ink);border:1px solid var(--line);padding:8px 16px;border-radius:8px;
+    font-size:12.5px;font-weight:700;cursor:pointer;
+  }
+  .download-btn:hover{background:#e2e8f0;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>UUID Generator</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🆔</div>
+    <div>
+      <h1>UUID Generator</h1>
+      <p>Generate random UUID v4 / GUID values instantly, one at a time or in bulk. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="output-box">
+      <span id="uuidOutput">00000000-0000-4000-8000-000000000000</span>
+      <div class="output-actions">
+        <button class="icon-btn" onclick="generateOne()" title="Generate new">🔄</button>
+        <button class="icon-btn" onclick="copySingle()" title="Copy">📋</button>
+      </div>
+    </div>
+
+    <div class="options-row">
+      <div class="toggle-item">
+        <input type="checkbox" id="chkUppercase">
+        <label for="chkUppercase">Uppercase</label>
+      </div>
+      <div class="toggle-item">
+        <input type="checkbox" id="chkNoDashes">
+        <label for="chkNoDashes">No dashes</label>
+      </div>
+      <div class="toggle-item">
+        <input type="checkbox" id="chkBraces">
+        <label for="chkBraces">Wrap in braces {}</label>
+      </div>
+    </div>
+
+    <div class="bulk-row">
+      <label for="bulkCount">Bulk generate</label>
+      <input type="number" id="bulkCount" min="1" max="1000" value="10">
+      <button class="generate-bulk-btn" onclick="generateBulk()">⚡ Generate List</button>
+    </div>
+
+    <div class="bulk-output" id="bulkOutput"></div>
+    <div class="bulk-actions" id="bulkActions">
+      <button class="copy-btn" onclick="copyBulk()">📋 Copy All</button>
+      <button class="download-btn" onclick="downloadBulk()">⬇️ Download .txt</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Generation</h3>
+      <p>UUIDs are generated using your browser's cryptographically secure random number generator.</p>
+    </div>
+    <div class="feature">
+      <h3>📦 Bulk Generation</h3>
+      <p>Generate up to 1,000 UUIDs at once for seeding databases or test data.</p>
+    </div>
+    <div class="feature">
+      <h3>🎛️ Format Options</h3>
+      <p>Toggle uppercase, remove dashes, or wrap in braces to match your platform's format.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>UUIDs are never sent anywhere — they're generated entirely in your browser tab.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest UUID Generator</h2>
+  <ol class="steps">
+    <li><strong>Get a single UUID:</strong> One is generated automatically — click 🔄 for a new one.</li>
+    <li><strong>Adjust the format:</strong> Toggle uppercase, no dashes, or braces as needed.</li>
+    <li><strong>Generate in bulk:</strong> Set a count and click Generate List for multiple UUIDs at once.</li>
+    <li><strong>Copy or export:</strong> Copy any UUID, or download the full bulk list as a .txt file.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>What is a UUID used for?</summary>
+      <p>UUIDs are commonly used as unique identifiers for database records, API resources, session tokens, and distributed systems where IDs need to be generated without a central authority.</p>
+    </details>
+    <details>
+      <summary>What UUID version does this generate?</summary>
+      <p>This tool generates version 4 (random) UUIDs, the most common type, based on cryptographically secure random numbers rather than timestamps or hardware identifiers.</p>
+    </details>
+    <details>
+      <summary>Is my generated UUID sent to a server?</summary>
+      <p>No. Every UUID is generated entirely client-side in your browser using the Web Crypto API.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="json-to-ts.html">🔷 JSON to TypeScript</a>
+    <a href="json-formatter.html">📋 JSON Formatter</a>
+    <a href="password-generator.html">🔑 Password Generator</a>
+    <a href="timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="base64-converter.html">🔤 Base64 Encoder / Decoder</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+function rawUuidV4(){
+  // RFC 4122 version 4 UUID using crypto.getRandomValues
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40; // version 4
+  bytes[8] = (bytes[8] & 0x3f) | 0x80; // variant 10
+
+  const hex = [...bytes].map(b => b.toString(16).padStart(2, '0'));
+  return (
+    hex.slice(0,4).join('') + '-' +
+    hex.slice(4,6).join('') + '-' +
+    hex.slice(6,8).join('') + '-' +
+    hex.slice(8,10).join('') + '-' +
+    hex.slice(10,16).join('')
+  );
+}
+
+function formatUuid(raw){
+  let result = raw;
+  if(document.getElementById('chkNoDashes').checked){
+    result = result.replace(/-/g, '');
+  }
+  if(document.getElementById('chkUppercase').checked){
+    result = result.toUpperCase();
+  }
+  if(document.getElementById('chkBraces').checked){
+    result = '{' + result + '}';
+  }
+  return result;
+}
+
+let currentRaw = rawUuidV4();
+
+function generateOne(){
+  currentRaw = rawUuidV4();
+  document.getElementById('uuidOutput').textContent = formatUuid(currentRaw);
+}
+
+function refreshFormat(){
+  document.getElementById('uuidOutput').textContent = formatUuid(currentRaw);
+}
+
+['chkUppercase','chkNoDashes','chkBraces'].forEach(id => {
+  document.getElementById(id).addEventListener('change', refreshFormat);
+});
+
+function copySingle(){
+  const text = document.getElementById('uuidOutput').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btns = document.querySelectorAll('.icon-btn');
+    const btn = btns[1];
+    const old = btn.textContent;
+    btn.textContent = '✅';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+let bulkList = [];
+
+function generateBulk(){
+  const count = Math.max(1, Math.min(1000, parseInt(document.getElementById('bulkCount').value, 10) || 1));
+  bulkList = [];
+  for(let i = 0; i < count; i++){
+    bulkList.push(formatUuid(rawUuidV4()));
+  }
+  const out = document.getElementById('bulkOutput');
+  out.textContent = bulkList.join('\n');
+  out.classList.add('active');
+  document.getElementById('bulkActions').classList.add('active');
+}
+
+function copyBulk(){
+  if(bulkList.length === 0) return;
+  navigator.clipboard.writeText(bulkList.join('\n')).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const old = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+function downloadBulk(){
+  if(bulkList.length === 0) return;
+  const blob = new Blob([bulkList.join('\n')], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'uuids.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+
+refreshFormat();
+</script>
+
+</body>
+</html>
