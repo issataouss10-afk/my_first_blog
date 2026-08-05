@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientific Calculator | Free Online Calculator | ToolNest</title>
+<meta name="description" content="Free online scientific calculator with trigonometric, logarithmic, and exponential functions. 100% client-side, with calculation history.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/scientific-calculator.html">
+<meta name="theme-color" content="#2563eb">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Scientific Calculator | ToolNest">
+<meta property="og:description" content="Free online scientific calculator with trigonometric, logarithmic, and exponential functions.">
+<meta property="og:url" content="https://toolnest-jet.vercel.app/scientific-calculator.html">
+<meta property="og:site_name" content="ToolNest">
+
+<!-- WebApplication Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Scientific Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this scientific calculator free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is completely free with no limits." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does my data leave my computer?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All calculations run locally in your browser." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it support trigonometric functions?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Sin, cos, tan and their inverses are supported in both degrees and radians." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .calc-layout{display:grid;grid-template-columns:1fr 260px;gap:20px;}
+  @media (max-width:820px){.calc-layout{grid-template-columns:1fr;}}
+
+  .calc-body{max-width:420px;margin:0 auto;width:100%;}
+
+  .mode-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap;}
+  .angle-tabs{display:flex;gap:8px;}
+  .angle-tabs button{
+    border:1px solid var(--line);background:#f8fafc;color:var(--muted);
+    padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;
+  }
+  .angle-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .mem-indicator{font-size:11.5px;font-weight:700;color:var(--blue);background:#eef2ff;padding:5px 10px;border-radius:6px;min-width:24px;text-align:center;}
+
+  .display{
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:12px;
+    padding:16px 18px;
+    margin-bottom:14px;
+    text-align:right;
+    overflow:hidden;
+  }
+  .display .expr{
+    font-size:13px;
+    color:#94a3b8;
+    min-height:16px;
+    word-break:break-all;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .display .result{
+    font-size:32px;
+    font-weight:700;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    word-break:break-all;
+    margin-top:4px;
+  }
+
+  .keys{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .keys button{
+    border:1px solid var(--line);
+    background:#f8fafc;
+    color:var(--ink);
+    padding:14px 4px;
+    border-radius:10px;
+    font-size:14.5px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .keys button:hover{background:#eef2ff;border-color:#c7d2fe;}
+  .keys button:active{transform:scale(0.96);}
+  .keys button.fn{background:#f1f5f9;color:var(--blue);font-family:inherit;font-size:12.5px;}
+  .keys button.op{background:#eef2ff;color:var(--blue);font-weight:700;}
+  .keys button.eq{background:var(--blue);color:#fff;border-color:var(--blue);grid-column:span 2;}
+  .keys button.eq:hover{background:var(--blue-dark);}
+  .keys button.clear{background:#fef2f2;color:#dc2626;}
+  .keys button.zero{grid-column:span 1;}
+
+  .history-panel h3{font-size:14px;margin:0 0 10px;color:var(--ink);}
+  .history-list{
+    display:flex;flex-direction:column;gap:6px;
+    max-height:400px;overflow-y:auto;
+  }
+  .history-item{
+    background:#f8fafc;border:1px solid var(--line);border-radius:8px;
+    padding:8px 10px;font-size:12px;cursor:pointer;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .history-item:hover{border-color:var(--blue);}
+  .history-item .expr-line{color:var(--muted);word-break:break-all;}
+  .history-item .res-line{color:var(--ink);font-weight:700;margin-top:2px;}
+  .history-empty{font-size:12.5px;color:var(--muted);}
+  .clear-history-btn{
+    margin-top:10px;width:100%;background:#f1f5f9;border:1px solid var(--line);color:var(--muted);
+    padding:8px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;
+  }
+  .clear-history-btn:hover{background:#e2e8f0;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy-policy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>Scientific Calculator</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🧮</div>
+    <div>
+      <h1>Scientific Calculator</h1>
+      <p>A full scientific calculator with trigonometry, logarithms, powers, and memory functions. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="calc-layout">
+      <div class="calc-body">
+        <div class="mode-row">
+          <div class="angle-tabs">
+            <button id="tabDeg" class="active" onclick="setAngleMode('deg')">DEG</button>
+            <button id="tabRad" onclick="setAngleMode('rad')">RAD</button>
+          </div>
+          <div class="mem-indicator" id="memIndicator">M: 0</div>
+        </div>
+
+        <div class="display">
+          <div class="expr" id="exprLine">&nbsp;</div>
+          <div class="result" id="resultLine">0</div>
+        </div>
+
+        <div class="keys">
+          <button class="clear" onclick="calcClear()">AC</button>
+          <button class="fn" onclick="calcBackspace()">⌫</button>
+          <button class="fn" onclick="calcInput('(')">(</button>
+          <button class="fn" onclick="calcInput(')')">)</button>
+          <button class="op" onclick="calcInput('/')">÷</button>
+
+          <button class="fn" onclick="calcFunc('sin')">sin</button>
+          <button class="fn" onclick="calcFunc('cos')">cos</button>
+          <button class="fn" onclick="calcFunc('tan')">tan</button>
+          <button class="fn" onclick="calcFunc('log')">log</button>
+          <button class="op" onclick="calcInput('*')">×</button>
+
+          <button onclick="calcInput('7')">7</button>
+          <button onclick="calcInput('8')">8</button>
+          <button onclick="calcInput('9')">9</button>
+          <button class="fn" onclick="calcFunc('sqrt')">√</button>
+          <button class="op" onclick="calcInput('-')">−</button>
+
+          <button onclick="calcInput('4')">4</button>
+          <button onclick="calcInput('5')">5</button>
+          <button onclick="calcInput('6')">6</button>
+          <button class="fn" onclick="calcFunc('pow2')">x²</button>
+          <button class="op" onclick="calcInput('+')">+</button>
+
+          <button onclick="calcInput('1')">1</button>
+          <button onclick="calcInput('2')">2</button>
+          <button onclick="calcInput('3')">3</button>
+          <button class="fn" onclick="calcInput('^')">xʸ</button>
+          <button class="fn" onclick="calcFunc('fact')">n!</button>
+
+          <button class="zero" onclick="calcInput('0')">0</button>
+          <button onclick="calcInput('.')">.</button>
+          <button class="fn" onclick="calcFunc('pi')">π</button>
+          <button class="fn" onclick="calcFunc('e')">e</button>
+          <button class="eq" onclick="calcEquals()">=</button>
+
+          <button class="fn" onclick="calcMemory('mc')">MC</button>
+          <button class="fn" onclick="calcMemory('mr')">MR</button>
+          <button class="fn" onclick="calcMemory('m+')">M+</button>
+          <button class="fn" onclick="calcMemory('m-')">M−</button>
+          <button class="fn" onclick="calcFunc('inv')">1/x</button>
+        </div>
+      </div>
+
+      <div class="history-panel">
+        <h3>History</h3>
+        <div class="history-list" id="historyList">
+          <div class="history-empty">No calculations yet.</div>
+        </div>
+        <button class="clear-history-btn" onclick="clearHistory()">Clear History</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>📐 Trigonometry</h3>
+      <p>Sin, cos, tan, and their functions, switchable between degrees and radians.</p>
+    </div>
+    <div class="feature">
+      <h3>🧠 Memory Functions</h3>
+      <p>Store, recall, add to, or subtract from memory with M+, M−, MR, and MC.</p>
+    </div>
+    <div class="feature">
+      <h3>📜 Calculation History</h3>
+      <p>Every calculation is saved to a scrollable history — click any entry to reuse it.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>Every calculation happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Scientific Calculator</h2>
+  <ol class="steps">
+    <li><strong>Enter your expression:</strong> Use the number and operator keys, or functions like sin, log, and √.</li>
+    <li><strong>Switch angle mode:</strong> Toggle DEG or RAD depending on how you want trig functions evaluated.</li>
+    <li><strong>Use memory:</strong> Store a value with M+, subtract with M−, and recall it anytime with MR.</li>
+    <li><strong>Get the result:</strong> Press = to evaluate, and click any history entry to reload it.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Is this scientific calculator free?</summary>
+      <p>Yes. It is completely free to use with no limits on calculations.</p>
+    </details>
+    <details>
+      <summary>Does it support trigonometric functions?</summary>
+      <p>Yes. Sin, cos, and tan are supported and can be evaluated in either degrees or radians using the DEG/RAD toggle.</p>
+    </details>
+    <details>
+      <summary>Is my data sent to a server?</summary>
+      <p>No. Every calculation runs entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="/timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="/color-converter.html">🎨 Color Converter</a>
+    <a href="/base64-converter.html">🔤 Base64 Encoder / Decoder</a>
+    <a href="/uuid-generator.html">🆔 UUID Generator</a>
+    <a href="/css-clamp.html">🎨 CSS Clamp Generator</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy-policy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+let angleMode = 'deg';
+let expression = '';
+let memory = 0;
+let history = [];
+
+function setAngleMode(m){
+  angleMode = m;
+  document.getElementById('tabDeg').classList.toggle('active', m === 'deg');
+  document.getElementById('tabRad').classList.toggle('active', m === 'rad');
+}
+
+function updateDisplay(){
+  document.getElementById('exprLine').textContent = expression || '\u00A0';
+}
+
+function calcInput(val){
+  expression += val;
+  updateDisplay();
+}
+
+function calcBackspace(){
+  expression = expression.slice(0, -1);
+  updateDisplay();
+}
+
+function calcClear(){
+  expression = '';
+  document.getElementById('resultLine').textContent = '0';
+  updateDisplay();
+}
+
+function calcFunc(fn){
+  switch(fn){
+    case 'sin': expression += 'sin('; break;
+    case 'cos': expression += 'cos('; break;
+    case 'tan': expression += 'tan('; break;
+    case 'log': expression += 'log('; break;
+    case 'sqrt': expression += 'sqrt('; break;
+    case 'pow2': expression += '^2'; break;
+    case 'fact': expression += '!'; break;
+    case 'pi': expression += 'pi'; break;
+    case 'e': expression += 'e'; break;
+    case 'inv': expression = '1/(' + expression + ')'; break;
+  }
+  updateDisplay();
+}
+
+function factorial(n){
+  if(n < 0 || Math.floor(n) !== n) return NaN;
+  if(n > 170) return Infinity;
+  let result = 1;
+  for(let i = 2; i <= n; i++) result *= i;
+  return result;
+}
+
+function evaluateExpression(expr){
+  let e = expr;
+
+  // handle factorial: number! -> factorial(number)
+  e = e.replace(/(\d+(\.\d+)?)!/g, 'factorial($1)');
+
+  // handle power: a^b -> Math.pow(a,b) is tricky with precedence, so replace ^ with **
+  e = e.replace(/\^/g, '**');
+
+  // constants
+  e = e.replace(/\bpi\b/g, 'Math.PI');
+  e = e.replace(/\be\b/g, 'Math.E');
+
+  // functions with angle mode awareness
+  const trigWrap = (fnName, mathFn) => {
+    const re = new RegExp(fnName + '\\(', 'g');
+    e = e.replace(re, `__${fnName}__(`);
+  };
+  trigWrap('sin');
+  trigWrap('cos');
+  trigWrap('tan');
+
+  e = e.replace(/log\(/g, 'Math.log10(');
+  e = e.replace(/sqrt\(/g, 'Math.sqrt(');
+
+  const toRad = (x) => angleMode === 'deg' ? x * Math.PI / 180 : x;
+
+  const __sin__ = (x) => Math.sin(toRad(x));
+  const __cos__ = (x) => Math.cos(toRad(x));
+  const __tan__ = (x) => Math.tan(toRad(x));
+
+  // eslint-disable-next-line no-new-func
+  const fn = new Function('factorial', '__sin__', '__cos__', '__tan__', 'Math', `return (${e});`);
+  return fn(factorial, __sin__, __cos__, __tan__, Math);
+}
+
+function calcEquals(){
+  if(!expression.trim()) return;
+  try {
+    const result = evaluateExpression(expression);
+    if(result === undefined || result === null || Number.isNaN(result)){
+      document.getElementById('resultLine').textContent = 'Error';
+      return;
+    }
+    const rounded = Math.round(result * 1e10) / 1e10;
+    document.getElementById('resultLine').textContent = rounded;
+    addHistory(expression, rounded);
+    expression = String(rounded);
+    updateDisplay();
+  } catch(err){
+    document.getElementById('resultLine').textContent = 'Error';
+  }
+}
+
+function calcMemory(action){
+  const current = parseFloat(document.getElementById('resultLine').textContent) || 0;
+  if(action === 'mc'){ memory = 0; }
+  else if(action === 'mr'){ expression += memory; updateDisplay(); }
+  else if(action === 'm+'){ memory += current; }
+  else if(action === 'm-'){ memory -= current; }
+  document.getElementById('memIndicator').textContent = 'M: ' + memory;
+}
+
+function addHistory(expr, result){
+  history.unshift({ expr, result });
+  if(history.length > 20) history.pop();
+  renderHistory();
+}
+
+function renderHistory(){
+  const list = document.getElementById('historyList');
+  if(history.length === 0){
+    list.innerHTML = '<div class="history-empty">No calculations yet.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  history.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'history-item';
+    div.innerHTML = `<div class="expr-line">${item.expr}</div><div class="res-line">= ${item.result}</div>`;
+    div.onclick = () => {
+      expression = String(item.result);
+      updateDisplay();
+    };
+    list.appendChild(div);
+  });
+}
+
+function clearHistory(){
+  history = [];
+  renderHistory();
+}
+
+document.addEventListener('keydown', (e) => {
+  if(/[0-9.+\-*/()]/.test(e.key)){
+    calcInput(e.key);
+  } else if(e.key === 'Enter' || e.key === '='){
+    e.preventDefault();
+    calcEquals();
+  } else if(e.key === 'Backspace'){
+    calcBackspace();
+  } else if(e.key === 'Escape'){
+    calcClear();
+  }
+});
+
+updateDisplay();
+</script>
+
+</body>
+</html>
