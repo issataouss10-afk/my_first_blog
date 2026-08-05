@@ -193,4 +193,18 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+    <!-- Newest Tools Added -->
+    <url>
+        <loc>https://toolnest-jet.vercel.app/uuid-generator.html</loc>
+        <lastmod>2026-08-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://toolnest-jet.vercel.app/jwt-decoder.html</loc>
+        <lastmod>2026-08-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
