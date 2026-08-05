@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JWT Decoder | Decode JSON Web Tokens Online | ToolNest</title>
+<meta name="description" content="Decode a JWT token's header and payload instantly and check its expiry. Free, 100% client-side JWT decoder — your token never leaves your browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/jwt-decoder.html">
+<meta name="theme-color" content="#2563eb">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="JWT Decoder | ToolNest">
+<meta property="og:description" content="Decode a JWT token's header and payload instantly and check its expiry.">
+<meta property="og:url" content="https://toolnest-jet.vercel.app/jwt-decoder.html">
+<meta property="og:site_name" content="ToolNest">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JWT Decoder | ToolNest">
+<meta name="twitter:description" content="Free online JWT decoder — decode header and payload instantly.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ToolNest JWT Decoder",
+  "url": "https://toolnest-jet.vercel.app/jwt-decoder.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does this tool verify the JWT signature?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It only decodes the header and payload, which is possible without a secret key. Verifying the signature requires the signing key and isn't performed here." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my JWT token sent to a server?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Decoding happens entirely client-side in your browser using standard base64url decoding." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why can anyone read the payload of a JWT?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A JWT's header and payload are only base64url-encoded, not encrypted, so anyone with the token can decode and read them; only the signature prevents tampering." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+    --green:#16a34a;
+    --amber:#d97706;
+    --red:#dc2626;
+    --purple:#7c3aed;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  textarea{
+    width:100%;
+    min-height:110px;
+    padding:14px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    color:var(--ink);
+    resize:vertical;
+    word-break:break-all;
+  }
+  textarea:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  .error{color:var(--red);font-size:13px;margin-top:8px;min-height:16px;}
+
+  .warning-note{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background:#fffbeb;
+    border:1px solid #fde68a;
+    color:#92400e;
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:12.5px;
+    margin-top:16px;
+  }
+
+  .exp-banner{
+    display:none;
+    margin-top:16px;
+    border-radius:10px;
+    padding:12px 16px;
+    font-size:13.5px;
+    font-weight:700;
+  }
+  .exp-banner.active{display:block;}
+  .exp-banner.valid{background:#dcfce7;color:var(--green);}
+  .exp-banner.expired{background:#fee2e2;color:var(--red);}
+
+  .decoded-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px;}
+  @media (max-width:780px){.decoded-grid{grid-template-columns:1fr;}}
+
+  .decoded-card{
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .decoded-card .card-title{
+    padding:10px 14px;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .decoded-card.header .card-title{background:#eef2ff;color:var(--blue-dark);}
+  .decoded-card.payload .card-title{background:#f3e8ff;color:var(--purple);}
+  .decoded-card pre{
+    margin:0;
+    padding:14px;
+    background:#0f172a;
+    color:#e2e8f0;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12.5px;
+    max-height:320px;
+    overflow:auto;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .copy-small{
+    background:var(--blue);color:#fff;border:none;padding:5px 10px;border-radius:6px;
+    font-size:11px;font-weight:700;cursor:pointer;
+  }
+  .copy-small:hover{background:var(--blue-dark);}
+
+  .claims-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;}
+  .claims-table th, .claims-table td{text-align:left;padding:8px 10px;border-bottom:1px solid #1e293b;}
+  .claims-table th{color:#94a3b8;font-weight:600;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>JWT Decoder</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🪪</div>
+    <div>
+      <h1>JWT Decoder</h1>
+      <p>Paste a JWT and instantly see its decoded header and payload, plus expiry status. 100% local — your token never leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label for="jwtInput">JWT Token</label>
+      <textarea id="jwtInput" placeholder="Paste your JWT here (eyJhbGciOi...)"></textarea>
+      <div class="error" id="errorMsg"></div>
+    </div>
+
+    <div class="warning-note">
+      ⚠️ <span>This tool only <strong>decodes</strong> the token — it does not verify the signature. Anyone can decode a JWT's header and payload; never treat an unverified token as trusted.</span>
+    </div>
+
+    <div class="exp-banner" id="expBanner"></div>
+
+    <div class="decoded-grid" id="decodedGrid" style="display:none;">
+      <div class="decoded-card header">
+        <div class="card-title">
+          <span>Header</span>
+          <button class="copy-small" onclick="copySection('header')">Copy</button>
+        </div>
+        <pre id="headerOutput"></pre>
+      </div>
+      <div class="decoded-card payload">
+        <div class="card-title">
+          <span>Payload</span>
+          <button class="copy-small" onclick="copySection('payload')">Copy</button>
+        </div>
+        <pre id="payloadOutput"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Decoding</h3>
+      <p>Paste a token and the header and payload decode live as you type.</p>
+    </div>
+    <div class="feature">
+      <h3>⏱️ Expiry Check</h3>
+      <p>The <code>exp</code> claim is checked automatically and shown as valid or expired.</p>
+    </div>
+    <div class="feature">
+      <h3>📋 Copy Each Part</h3>
+      <p>Copy the decoded header or payload independently as pretty-printed JSON.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>Decoding happens entirely in your browser. Your token is never uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest JWT Decoder</h2>
+  <ol class="steps">
+    <li><strong>Paste your token:</strong> Drop a full JWT (three base64url parts separated by dots) into the field.</li>
+    <li><strong>Read the header:</strong> See the algorithm and token type.</li>
+    <li><strong>Read the payload:</strong> See all claims, including standard ones like <code>exp</code>, <code>iat</code>, and <code>sub</code>.</li>
+    <li><strong>Check expiry:</strong> A banner shows whether the token is still valid or has expired.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Does this verify the token's signature?</summary>
+      <p>No. Verifying a signature requires the secret or public key used to sign it, which this tool doesn't have. It only decodes the header and payload, which is always possible without any key.</p>
+    </details>
+    <details>
+      <summary>Why can I read the payload without a key?</summary>
+      <p>A JWT's header and payload are base64url-encoded, not encrypted — encoding just changes the representation, so anyone can decode and read them. Only the signature is cryptographically protected.</p>
+    </details>
+    <details>
+      <summary>Is my token sent to a server?</summary>
+      <p>No. All decoding happens entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="json-formatter.html">📋 JSON Formatter</a>
+    <a href="json-to-ts.html">🔷 JSON to TypeScript</a>
+    <a href="uuid-generator.html">🆔 UUID Generator</a>
+    <a href="base64-converter.html">🔤 Base64 Encoder / Decoder</a>
+    <a href="timestamp-converter.html">⏳ Timestamp Converter</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const jwtInput = document.getElementById('jwtInput');
+const errorMsg = document.getElementById('errorMsg');
+const decodedGrid = document.getElementById('decodedGrid');
+const expBanner = document.getElementById('expBanner');
+
+let decodedHeader = '';
+let decodedPayload = '';
+
+function base64UrlDecode(str){
+  let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+  while(base64.length % 4){ base64 += '='; }
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for(let i = 0; i < binary.length; i++){
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
+function formatDate(ts){
+  const d = new Date(ts * 1000);
+  return d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium' });
+}
+
+function decode(){
+  const token = jwtInput.value.trim();
+  errorMsg.textContent = '';
+  expBanner.className = 'exp-banner';
+  expBanner.textContent = '';
+
+  if(!token){
+    decodedGrid.style.display = 'none';
+    return;
+  }
+
+  const parts = token.split('.');
+  if(parts.length !== 3){
+    errorMsg.textContent = 'A JWT should have 3 parts separated by dots (header.payload.signature).';
+    decodedGrid.style.display = 'none';
+    return;
+  }
+
+  let headerObj, payloadObj;
+  try{
+    headerObj = JSON.parse(base64UrlDecode(parts[0]));
+  } catch(e){
+    errorMsg.textContent = 'Could not decode the header — check the token is valid.';
+    decodedGrid.style.display = 'none';
+    return;
+  }
+  try{
+    payloadObj = JSON.parse(base64UrlDecode(parts[1]));
+  } catch(e){
+    errorMsg.textContent = 'Could not decode the payload — check the token is valid.';
+    decodedGrid.style.display = 'none';
+    return;
+  }
+
+  decodedHeader = JSON.stringify(headerObj, null, 2);
+  decodedPayload = JSON.stringify(payloadObj, null, 2);
+
+  document.getElementById('headerOutput').textContent = decodedHeader;
+  document.getElementById('payloadOutput').textContent = decodedPayload;
+  decodedGrid.style.display = 'grid';
+
+  if(payloadObj.exp){
+    const now = Math.floor(Date.now() / 1000);
+    const isExpired = payloadObj.exp < now;
+    expBanner.classList.add('active', isExpired ? 'expired' : 'valid');
+    expBanner.textContent = isExpired
+      ? `⛔ Expired on ${formatDate(payloadObj.exp)}`
+      : `✅ Valid until ${formatDate(payloadObj.exp)}`;
+  }
+}
+
+function copySection(section){
+  const text = section === 'header' ? decodedHeader : decodedPayload;
+  if(!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const buttons = document.querySelectorAll('.copy-small');
+    const btn = section === 'header' ? buttons[0] : buttons[1];
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+jwtInput.addEventListener('input', decode);
+</script>
+
+</body>
+</html>
