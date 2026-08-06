@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regex Tester | Test Regular Expressions Online | ToolNest</title>
+<meta name="description" content="Test regular expressions against sample text with live match highlighting and capture groups. Free, 100% client-side regex tester.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/regex-tester.html">
+<meta name="theme-color" content="#2563eb">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Regex Tester | ToolNest">
+<meta property="og:description" content="Test regular expressions against sample text with live match highlighting.">
+<meta property="og:url" content="https://toolnest-jet.vercel.app/regex-tester.html">
+<meta property="og:site_name" content="ToolNest">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Regex Tester | ToolNest">
+<meta name="twitter:description" content="Free online regex tester with live match highlighting.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ToolNest Regex Tester",
+  "url": "https://toolnest-jet.vercel.app/regex-tester.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What regex flavor does this tester use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It uses your browser's native JavaScript regular expression engine, so behavior matches what you'd get in a JS project." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my text or pattern sent to a server?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. All matching runs entirely client-side in your browser." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+    --red:#dc2626;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .pattern-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .pattern-row .slash{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:18px;color:var(--muted);}
+  input[type=text]{
+    flex:1;min-width:200px;
+    padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+    font-size:15px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  .flags-row{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;}
+  .flag-item{display:flex;align-items:center;gap:6px;font-size:13px;}
+  .flag-item input{width:16px;height:16px;accent-color:var(--blue);}
+  .flag-item code{background:#f1f5f9;padding:1px 6px;border-radius:4px;font-weight:700;}
+
+  .error{color:var(--red);font-size:13px;margin-top:10px;min-height:16px;}
+
+  textarea{
+    width:100%;min-height:160px;margin-top:16px;
+    padding:14px;border:1px solid var(--line);border-radius:10px;
+    font-size:14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);
+    resize:vertical;
+  }
+
+  .highlight-box{
+    margin-top:16px;
+    padding:14px 16px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#f8fafc;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:14px;
+    white-space:pre-wrap;
+    word-break:break-word;
+    min-height:60px;
+  }
+  .highlight-box mark{
+    background:#fde68a;
+    color:#78350f;
+    padding:0 1px;
+    border-radius:2px;
+  }
+
+  .match-summary{font-size:13px;color:var(--muted);margin-top:10px;}
+  .matches-list{margin-top:14px;display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto;}
+  .match-row{
+    background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px;
+  }
+  .match-row .m-index{color:var(--muted);font-weight:700;margin-right:8px;}
+  .match-row .m-value{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--blue-dark);font-weight:700;}
+  .match-row .m-groups{margin-top:4px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>Regex Tester</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🧪</div>
+    <div>
+      <h1>Regex Tester</h1>
+      <p>Test a regular expression against sample text with live match highlighting and capture groups. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="pattern-row">
+      <span class="slash">/</span>
+      <input type="text" id="patternInput" value="\b[\w.-]+@[\w-]+\.[a-zA-Z]{2,}\b" placeholder="Enter your regex pattern">
+      <span class="slash">/<span id="flagsDisplay">gi</span></span>
+    </div>
+
+    <div class="flags-row">
+      <div class="flag-item"><input type="checkbox" id="flagG" checked><label for="flagG"><code>g</code> global</label></div>
+      <div class="flag-item"><input type="checkbox" id="flagI" checked><label for="flagI"><code>i</code> case-insensitive</label></div>
+      <div class="flag-item"><input type="checkbox" id="flagM"><label for="flagM"><code>m</code> multiline</label></div>
+      <div class="flag-item"><input type="checkbox" id="flagS"><label for="flagS"><code>s</code> dotAll</label></div>
+    </div>
+
+    <div class="error" id="errorMsg"></div>
+
+    <textarea id="testInput" placeholder="Paste your test text here...">Contact us at hello@toolnest.dev or support@example.com for help.</textarea>
+
+    <div class="highlight-box" id="highlightBox"></div>
+    <div class="match-summary" id="matchSummary"></div>
+    <div class="matches-list" id="matchesList"></div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Live Matching</h3>
+      <p>Matches highlight instantly as you edit the pattern, flags, or test text.</p>
+    </div>
+    <div class="feature">
+      <h3>🎯 Capture Groups</h3>
+      <p>Each match lists its full text and any capture groups it contains.</p>
+    </div>
+    <div class="feature">
+      <h3>🏳️ All Standard Flags</h3>
+      <p>Toggle global, case-insensitive, multiline, and dotAll matching modes.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>Matching runs entirely in your browser's JavaScript regex engine. Nothing is uploaded.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Regex Tester</h2>
+  <ol class="steps">
+    <li><strong>Enter a pattern:</strong> Type your regular expression in the pattern field.</li>
+    <li><strong>Set flags:</strong> Toggle global, case-insensitive, multiline, or dotAll as needed.</li>
+    <li><strong>Paste test text:</strong> Add the sample text you want to match against.</li>
+    <li><strong>Review matches:</strong> Matches highlight inline, with a detailed list including any groups.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>What regex engine does this use?</summary>
+      <p>It uses your browser's native JavaScript RegExp engine, so results match exactly what you'd get running the same pattern in JavaScript code.</p>
+    </details>
+    <details>
+      <summary>Why aren't multiple matches highlighting?</summary>
+      <p>Make sure the global (g) flag is enabled — without it, only the first match in the text is found.</p>
+    </details>
+    <details>
+      <summary>Is my pattern or text sent to a server?</summary>
+      <p>No. All matching happens entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="json-formatter.html">📋 JSON Formatter</a>
+    <a href="uuid-generator.html">🆔 UUID Generator</a>
+    <a href="jwt-decoder.html">🪪 JWT Decoder</a>
+    <a href="url-parser.html">🔗 URL Parser</a>
+    <a href="base64-converter.html">🔤 Base64 Encoder / Decoder</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const patternInput = document.getElementById('patternInput');
+const testInput = document.getElementById('testInput');
+const errorMsg = document.getElementById('errorMsg');
+const highlightBox = document.getElementById('highlightBox');
+const matchSummary = document.getElementById('matchSummary');
+const matchesList = document.getElementById('matchesList');
+const flagsDisplay = document.getElementById('flagsDisplay');
+
+function escapeHtml(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function getFlags(){
+  let f = '';
+  if(document.getElementById('flagG').checked) f += 'g';
+  if(document.getElementById('flagI').checked) f += 'i';
+  if(document.getElementById('flagM').checked) f += 'm';
+  if(document.getElementById('flagS').checked) f += 's';
+  return f;
+}
+
+function run(){
+  const pattern = patternInput.value;
+  const text = testInput.value;
+  const flags = getFlags();
+  flagsDisplay.textContent = flags;
+  errorMsg.textContent = '';
+
+  if(!pattern){
+    highlightBox.innerHTML = escapeHtml(text);
+    matchSummary.textContent = '';
+    matchesList.innerHTML = '';
+    return;
+  }
+
+  let regex;
+  try{
+    regex = new RegExp(pattern, flags);
+  } catch(e){
+    errorMsg.textContent = 'Invalid pattern: ' + e.message;
+    highlightBox.innerHTML = escapeHtml(text);
+    matchSummary.textContent = '';
+    matchesList.innerHTML = '';
+    return;
+  }
+
+  const matches = [];
+  if(flags.includes('g')){
+    let m;
+    let safety = 0;
+    while((m = regex.exec(text)) !== null && safety < 5000){
+      matches.push(m);
+      if(m[0] === ''){ regex.lastIndex++; }
+      safety++;
+    }
+  } else {
+    const m = regex.exec(text);
+    if(m) matches.push(m);
+  }
+
+  let html = '';
+  let lastIndex = 0;
+  matches.forEach(m => {
+    html += escapeHtml(text.slice(lastIndex, m.index));
+    html += '<mark>' + escapeHtml(m[0]) + '</mark>';
+    lastIndex = m.index + m[0].length;
+  });
+  html += escapeHtml(text.slice(lastIndex));
+  highlightBox.innerHTML = html || '<span style="color:#94a3b8;">No text to match against.</span>';
+
+  matchSummary.textContent = matches.length === 0
+    ? 'No matches found.'
+    : `${matches.length} match${matches.length === 1 ? '' : 'es'} found.`;
+
+  matchesList.innerHTML = matches.map((m, i) => {
+    const groups = m.slice(1).map((g, gi) => `Group ${gi+1}: ${g === undefined ? '(undefined)' : '"' + g + '"'}`).join(' · ');
+    return `
+      <div class="match-row">
+        <span class="m-index">#${i+1}</span>
+        <span class="m-value">"${escapeHtml(m[0])}"</span> at index ${m.index}
+        ${groups ? `<div class="m-groups">${escapeHtml(groups)}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+[patternInput, testInput].forEach(el => el.addEventListener('input', run));
+['flagG','flagI','flagM','flagS'].forEach(id => {
+  document.getElementById(id).addEventListener('change', run);
+});
+
+run();
+</script>
+
+</body>
+</html>
