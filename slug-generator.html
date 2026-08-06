@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slug Generator | URL Slug Generator Online | ToolNest</title>
+<meta name="description" content="Turn any title or text into a clean, SEO-friendly URL slug instantly. Free, 100% client-side slug generator with custom separators.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/slug-generator.html">
+<meta name="theme-color" content="#2563eb">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Slug Generator | ToolNest">
+<meta property="og:description" content="Turn any title into a clean, SEO-friendly URL slug instantly.">
+<meta property="og:url" content="https://toolnest-jet.vercel.app/slug-generator.html">
+<meta property="og:site_name" content="ToolNest">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Slug Generator | ToolNest">
+<meta name="twitter:description" content="Free online URL slug generator with custom separators.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ToolNest Slug Generator",
+  "url": "https://toolnest-jet.vercel.app/slug-generator.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a URL slug?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A slug is the readable part of a URL that identifies a page, usually lowercase words separated by hyphens, like 'best-coffee-shops-2026'." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my text sent to a server?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The slug is generated entirely client-side in your browser." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=text]{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+    font-size:15px;color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  .options-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-top:18px;}
+  .sep-tabs{display:flex;gap:8px;}
+  .sep-tabs button{
+    border:1px solid var(--line);background:#f8fafc;color:var(--muted);
+    padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;
+  }
+  .sep-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .toggle-item{display:flex;align-items:center;gap:8px;font-size:13.5px;}
+  .toggle-item input{width:16px;height:16px;accent-color:var(--blue);}
+
+  .output-box{
+    margin-top:18px;
+    background:#0f172a;
+    color:#e2e8f0;
+    border-radius:10px;
+    padding:16px 18px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:16px;
+    font-weight:600;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    word-break:break-all;
+  }
+  .copy-btn{
+    background:var(--blue);color:#fff;border:none;padding:9px 16px;border-radius:8px;
+    font-size:12.5px;font-weight:700;cursor:pointer;flex-shrink:0;
+  }
+  .copy-btn:hover{background:var(--blue-dark);}
+
+  .char-count{font-size:12px;color:var(--muted);margin-top:8px;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">📈 SEO &amp; Marketing Tools</a> / <strong>Slug Generator</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🔗</div>
+    <div>
+      <h1>Slug Generator</h1>
+      <p>Turn any title or text into a clean, SEO-friendly URL slug instantly. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label for="titleInput">Title or Text</label>
+      <input type="text" id="titleInput" value="10 Best Coffee Shops to Visit in 2026!" placeholder="Enter a blog title, product name, or any text">
+    </div>
+
+    <div class="options-row">
+      <div class="sep-tabs">
+        <button id="sepHyphen" class="active" onclick="setSeparator('-')">Hyphen (-)</button>
+        <button id="sepUnderscore" onclick="setSeparator('_')">Underscore (_)</button>
+      </div>
+      <div class="toggle-item">
+        <input type="checkbox" id="chkStopwords">
+        <label for="chkStopwords">Remove common words (a, the, and...)</label>
+      </div>
+    </div>
+
+    <label style="display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:18px;margin-bottom:8px;">Generated Slug</label>
+    <div class="output-box">
+      <span id="slugOutput">10-best-coffee-shops-to-visit-in-2026</span>
+      <button class="copy-btn" onclick="copyOutput()">📋 Copy</button>
+    </div>
+    <div class="char-count" id="charCount"></div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Live Generation</h3>
+      <p>The slug updates instantly as you type your title.</p>
+    </div>
+    <div class="feature">
+      <h3>🔤 Custom Separator</h3>
+      <p>Choose hyphens (the SEO standard) or underscores to match your platform.</p>
+    </div>
+    <div class="feature">
+      <h3>🧹 Stopword Removal</h3>
+      <p>Optionally strip common filler words like "a", "the", and "and" for a shorter slug.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All generation happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Slug Generator</h2>
+  <ol class="steps">
+    <li><strong>Type or paste your title:</strong> Enter a blog post title, product name, or any text.</li>
+    <li><strong>Pick a separator:</strong> Hyphens are the SEO-recommended default.</li>
+    <li><strong>Optionally trim stopwords:</strong> Toggle to remove common filler words for a shorter slug.</li>
+    <li><strong>Copy it:</strong> Click Copy and paste the slug into your CMS or URL field.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Why use hyphens instead of underscores?</summary>
+      <p>Search engines like Google treat hyphens as word separators but generally don't split words on underscores, making hyphens the recommended choice for SEO-friendly URLs.</p>
+    </details>
+    <details>
+      <summary>What happens to accented or special characters?</summary>
+      <p>Accented letters are converted to their closest plain equivalent, and other special characters and punctuation are removed to keep the slug URL-safe.</p>
+    </details>
+    <details>
+      <summary>Is my text sent to a server?</summary>
+      <p>No. The slug is generated entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related SEO &amp; Marketing Tools</h2>
+  <div class="related">
+    <a href="meta-tag-generator.html">🏷️ Meta Tag Generator</a>
+    <a href="utm-builder.html">🔗 UTM Link Builder</a>
+    <a href="social-counter.html">📱 Social Media Character Counter</a>
+    <a href="case-converter.html">🔤 Case Converter</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+let separator = '-';
+
+const STOPWORDS = new Set(['a','an','the','and','or','but','of','in','on','at','to','for','with','is','are','was','were']);
+
+function setSeparator(sep){
+  separator = sep;
+  document.getElementById('sepHyphen').classList.toggle('active', sep === '-');
+  document.getElementById('sepUnderscore').classList.toggle('active', sep === '_');
+  update();
+}
+
+function slugify(text){
+  let normalized = text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, ''); // strip accents
+
+  let words = normalized
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if(document.getElementById('chkStopwords').checked){
+    words = words.filter(w => !STOPWORDS.has(w));
+  }
+
+  return words.join(separator);
+}
+
+function update(){
+  const text = document.getElementById('titleInput').value;
+  const slug = slugify(text);
+  document.getElementById('slugOutput').textContent = slug || '—';
+  document.getElementById('charCount').textContent = slug ? `${slug.length} characters` : '';
+}
+
+document.getElementById('titleInput').addEventListener('input', update);
+document.getElementById('chkStopwords').addEventListener('change', update);
+
+function copyOutput(){
+  const text = document.getElementById('slugOutput').textContent;
+  if(!text || text === '—') return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const old = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = old, 1200);
+  });
+}
+
+update();
+</script>
+
+</body>
+</html>
