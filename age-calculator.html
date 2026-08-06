@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator | Calculate Your Exact Age | ToolNest</title>
+<meta name="description" content="Calculate your exact age in years, months, and days, plus your next birthday countdown. Free, 100% client-side age calculator.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/age-calculator.html">
+<meta name="theme-color" content="#2563eb">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Age Calculator | ToolNest">
+<meta property="og:description" content="Calculate your exact age in years, months, and days, plus your next birthday countdown.">
+<meta property="og:url" content="https://toolnest-jet.vercel.app/age-calculator.html">
+<meta property="og:site_name" content="ToolNest">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Age Calculator | ToolNest">
+<meta name="twitter:description" content="Free online age calculator — years, months, days, and next birthday.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ToolNest Age Calculator",
+  "url": "https://toolnest-jet.vercel.app/age-calculator.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is age calculated exactly?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The calculator finds the full years, months, and days between your birth date and the selected date, accounting for varying month lengths and leap years." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my birth date sent to a server?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The calculation happens entirely in your browser and nothing is stored or transmitted." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:600px){.grid2{grid-template-columns:1fr;}}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=date]{
+    width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+    font-size:15px;color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  .error{color:#dc2626;font-size:13px;margin-top:8px;min-height:16px;}
+
+  .result-hero{
+    margin-top:22px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    border-radius:14px;
+    padding:26px;
+    text-align:center;
+  }
+  .result-hero .big-age{font-size:42px;font-weight:800;line-height:1;}
+  .result-hero .big-age small{font-size:16px;font-weight:600;opacity:.85;}
+  .result-hero .sub{font-size:13.5px;opacity:.9;margin-top:8px;}
+
+  .stats-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px;
+  }
+  @media (max-width:640px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+  .stat-card{
+    background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center;
+  }
+  .stat-card .num{font-size:20px;font-weight:800;color:var(--blue);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .stat-card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:700;margin-top:4px;}
+
+  .birthday-note{
+    margin-top:18px;
+    background:#eef2ff;border:1px solid #dbe3fd;border-radius:10px;
+    padding:12px 16px;font-size:13.5px;color:var(--blue-dark);font-weight:600;
+  }
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">⚡ Productivity Tools</a> / <strong>Age Calculator</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🎂</div>
+    <div>
+      <h1>Age Calculator</h1>
+      <p>Calculate your exact age in years, months, and days, plus a countdown to your next birthday. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="grid2">
+      <div class="field">
+        <label for="birthDate">Date of Birth</label>
+        <input type="date" id="birthDate">
+      </div>
+      <div class="field">
+        <label for="asOfDate">Calculate Age As Of</label>
+        <input type="date" id="asOfDate">
+      </div>
+    </div>
+    <div class="error" id="errorMsg"></div>
+
+    <div class="result-hero" id="resultHero" style="display:none;">
+      <div class="big-age"><span id="bigYears">0</span> <small>years old</small></div>
+      <div class="sub" id="preciseAge"></div>
+    </div>
+
+    <div class="stats-grid" id="statsGrid" style="display:none;">
+      <div class="stat-card"><div class="num" id="statMonths">0</div><div class="label">Total Months</div></div>
+      <div class="stat-card"><div class="num" id="statWeeks">0</div><div class="label">Total Weeks</div></div>
+      <div class="stat-card"><div class="num" id="statDays">0</div><div class="label">Total Days</div></div>
+      <div class="stat-card"><div class="num" id="statHours">0</div><div class="label">Total Hours</div></div>
+    </div>
+
+    <div class="birthday-note" id="birthdayNote" style="display:none;"></div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Instant Calculation</h3>
+      <p>Your exact age updates live as soon as you pick a birth date.</p>
+    </div>
+    <div class="feature">
+      <h3>📅 Calculate As Of Any Date</h3>
+      <p>Find out how old someone was (or will be) on any specific date, not just today.</p>
+    </div>
+    <div class="feature">
+      <h3>🎉 Next Birthday Countdown</h3>
+      <p>See exactly how many days remain until the next birthday.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>All calculation happens in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Age Calculator</h2>
+  <ol class="steps">
+    <li><strong>Pick a birth date:</strong> Select the date of birth to calculate from.</li>
+    <li><strong>Set the "as of" date:</strong> Defaults to today, but can be any date.</li>
+    <li><strong>Read the result:</strong> See the exact age in years, months, and days.</li>
+    <li><strong>Check the stats:</strong> Total months, weeks, days, and hours lived, plus the next birthday countdown.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Why does the age change depending on the "as of" date?</summary>
+      <p>The calculator finds the exact age at whatever date you set, so it can be used to check age on a past or future date, not just today.</p>
+    </details>
+    <details>
+      <summary>Does this account for leap years?</summary>
+      <p>Yes, the calculation is based on real calendar dates, so leap years and varying month lengths are handled automatically.</p>
+    </details>
+    <details>
+      <summary>Is my date of birth sent to a server?</summary>
+      <p>No. All calculation happens entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Productivity Tools</h2>
+  <div class="related">
+    <a href="timestamp-converter.html">⏳ Timestamp Converter</a>
+    <a href="word-counter.html">📝 Word & Character Counter</a>
+    <a href="lorem-ipsum.html">📄 Lorem Ipsum Generator</a>
+    <a href="qr-generator.html">📱 QR Code Generator</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+const birthDateInput = document.getElementById('birthDate');
+const asOfDateInput = document.getElementById('asOfDate');
+const errorMsg = document.getElementById('errorMsg');
+
+const today = new Date();
+asOfDateInput.value = today.toISOString().slice(0,10);
+const defaultBirth = new Date(today.getFullYear() - 25, today.getMonth(), today.getDate());
+birthDateInput.value = defaultBirth.toISOString().slice(0,10);
+
+function calculate(){
+  errorMsg.textContent = '';
+  const birthVal = birthDateInput.value;
+  const asOfVal = asOfDateInput.value;
+
+  document.getElementById('resultHero').style.display = 'none';
+  document.getElementById('statsGrid').style.display = 'none';
+  document.getElementById('birthdayNote').style.display = 'none';
+
+  if(!birthVal || !asOfVal) return;
+
+  const birth = new Date(birthVal + 'T00:00:00');
+  const asOf = new Date(asOfVal + 'T00:00:00');
+
+  if(birth > asOf){
+    errorMsg.textContent = 'Birth date must be before the "as of" date.';
+    return;
+  }
+
+  let years = asOf.getFullYear() - birth.getFullYear();
+  let months = asOf.getMonth() - birth.getMonth();
+  let days = asOf.getDate() - birth.getDate();
+
+  if(days < 0){
+    months--;
+    const prevMonth = new Date(asOf.getFullYear(), asOf.getMonth(), 0);
+    days += prevMonth.getDate();
+  }
+  if(months < 0){
+    years--;
+    months += 12;
+  }
+
+  const msDiff = asOf - birth;
+  const totalDays = Math.floor(msDiff / (1000*60*60*24));
+  const totalWeeks = Math.floor(totalDays / 7);
+  const totalMonths = years * 12 + months;
+  const totalHours = Math.floor(msDiff / (1000*60*60));
+
+  document.getElementById('bigYears').textContent = years;
+  document.getElementById('preciseAge').textContent = `${years} years, ${months} months, and ${days} days old`;
+  document.getElementById('resultHero').style.display = 'block';
+
+  document.getElementById('statMonths').textContent = totalMonths.toLocaleString();
+  document.getElementById('statWeeks').textContent = totalWeeks.toLocaleString();
+  document.getElementById('statDays').textContent = totalDays.toLocaleString();
+  document.getElementById('statHours').textContent = totalHours.toLocaleString();
+  document.getElementById('statsGrid').style.display = 'grid';
+
+  // Next birthday countdown (relative to asOf date)
+  let nextBirthday = new Date(asOf.getFullYear(), birth.getMonth(), birth.getDate());
+  if(nextBirthday < asOf){
+    nextBirthday = new Date(asOf.getFullYear() + 1, birth.getMonth(), birth.getDate());
+  }
+  const daysToBirthday = Math.round((nextBirthday - asOf) / (1000*60*60*24));
+  const note = document.getElementById('birthdayNote');
+  note.style.display = 'block';
+  note.textContent = daysToBirthday === 0
+    ? '🎉 Birthday is today!'
+    : `🎂 ${daysToBirthday} day${daysToBirthday === 1 ? '' : 's'} until the next birthday.`;
+}
+
+birthDateInput.addEventListener('input', calculate);
+asOfDateInput.addEventListener('input', calculate);
+calculate();
+</script>
+
+</body>
+</html>
