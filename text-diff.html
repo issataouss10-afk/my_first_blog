@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Diff Checker | Compare Two Texts Online | ToolNest</title>
+<meta name="description" content="Compare two blocks of text or code and instantly see what's added, removed, or changed. Free, 100% client-side text diff checker.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/text-diff.html">
+<meta name="theme-color" content="#2563eb">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Text Diff Checker | ToolNest">
+<meta property="og:description" content="Compare two blocks of text or code and instantly see what's changed.">
+<meta property="og:url" content="https://toolnest-jet.vercel.app/text-diff.html">
+<meta property="og:site_name" content="ToolNest">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Text Diff Checker | ToolNest">
+<meta name="twitter:description" content="Free online text diff checker — compare two texts line by line.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ToolNest Text Diff Checker",
+  "url": "https://toolnest-jet.vercel.app/text-diff.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does the diff comparison work?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The tool compares the two texts line by line, marking lines only in the first text as removed and lines only in the second as added." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my text sent to a server?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The comparison runs entirely client-side in your browser." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --radius:14px;
+    --green:#16a34a;
+    --red:#dc2626;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;}
+  nav.site a:hover{color:var(--ink);}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb strong{color:var(--ink);}
+
+  .ad{
+    background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;
+    font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;
+  }
+
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{
+    font-size:34px;background:#eef2ff;width:56px;height:56px;
+    display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;
+  }
+  .hero h1{margin:4px 0 6px;font-size:28px;}
+  .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media (max-width:780px){.split{grid-template-columns:1fr;}}
+  .pane-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  textarea{
+    width:100%;min-height:220px;
+    padding:14px;border:1px solid var(--line);border-radius:10px;
+    font-size:13.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);
+    resize:vertical;
+  }
+  textarea:focus{outline:2px solid var(--blue);outline-offset:1px;}
+
+  .options-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:16px;}
+  .toggle-item{display:flex;align-items:center;gap:8px;font-size:13.5px;}
+  .toggle-item input{width:16px;height:16px;accent-color:var(--blue);}
+  .compare-btn{
+    background:var(--blue);color:#fff;border:none;padding:11px 20px;border-radius:10px;
+    font-size:14px;font-weight:700;cursor:pointer;
+  }
+  .compare-btn:hover{background:var(--blue-dark);}
+
+  .summary-row{display:flex;gap:16px;margin-top:18px;flex-wrap:wrap;font-size:13px;}
+  .summary-badge{padding:6px 12px;border-radius:999px;font-weight:700;}
+  .summary-badge.added{background:#dcfce7;color:var(--green);}
+  .summary-badge.removed{background:#fee2e2;color:var(--red);}
+
+  .diff-output{
+    margin-top:16px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13px;
+    max-height:500px;
+    overflow-y:auto;
+  }
+  .diff-line{
+    display:flex;
+    padding:4px 12px;
+    white-space:pre-wrap;
+    word-break:break-word;
+    border-bottom:1px solid #f1f5f9;
+  }
+  .diff-line .ln{color:#94a3b8;width:34px;flex-shrink:0;user-select:none;}
+  .diff-line.added{background:#f0fdf4;color:#15803d;}
+  .diff-line.removed{background:#fef2f2;color:#b91c1c;}
+  .diff-line.same{color:var(--ink);}
+  .diff-line .marker{width:16px;flex-shrink:0;font-weight:700;}
+
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;}
+  .feature p{margin:0;font-size:13px;color:var(--muted);}
+
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;}
+  .steps li{margin-bottom:6px;}
+
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;}
+  .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <div class="brand">🪶 ToolNest</div>
+    <nav class="site">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">Developer Tools</a> / <strong>Text Diff Checker</strong></div>
+
+  <div class="ad">Advertisement Area (Top Banner)</div>
+
+  <div class="hero">
+    <div class="icon">🔍</div>
+    <div>
+      <h1>Text Diff Checker</h1>
+      <p>Compare two blocks of text or code and instantly see what's added, removed, or unchanged. 100% local — nothing leaves your browser.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="split">
+      <div>
+        <div class="pane-label">Original Text</div>
+        <textarea id="textA">Hello world
+This is the original version.
+Line three stays the same.
+Old line to be removed.</textarea>
+      </div>
+      <div>
+        <div class="pane-label">Changed Text</div>
+        <textarea id="textB">Hello world
+This is the updated version.
+Line three stays the same.
+New line that was added.</textarea>
+      </div>
+    </div>
+
+    <div class="options-row">
+      <div class="toggle-item">
+        <input type="checkbox" id="chkIgnoreCase">
+        <label for="chkIgnoreCase">Ignore case</label>
+      </div>
+      <div class="toggle-item">
+        <input type="checkbox" id="chkIgnoreWhitespace">
+        <label for="chkIgnoreWhitespace">Ignore leading/trailing whitespace</label>
+      </div>
+      <button class="compare-btn" onclick="compare()">⚡ Compare</button>
+    </div>
+
+    <div class="summary-row" id="summaryRow"></div>
+    <div class="diff-output" id="diffOutput"></div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <h3>⚡ Line-by-Line Comparison</h3>
+      <p>See exactly which lines were added, removed, or stayed the same.</p>
+    </div>
+    <div class="feature">
+      <h3>🎛️ Flexible Matching</h3>
+      <p>Ignore case or leading/trailing whitespace when comparing lines.</p>
+    </div>
+    <div class="feature">
+      <h3>📊 Quick Summary</h3>
+      <p>See the total lines added and removed at a glance before scrolling the detail.</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 100% Local</h3>
+      <p>Comparison runs entirely in your browser's memory. Nothing is uploaded or logged.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Text Diff Checker</h2>
+  <ol class="steps">
+    <li><strong>Paste the original text:</strong> Add the first version on the left.</li>
+    <li><strong>Paste the changed text:</strong> Add the updated version on the right.</li>
+    <li><strong>Set options:</strong> Toggle ignore case or whitespace if needed.</li>
+    <li><strong>Compare:</strong> Click Compare to see line-by-line differences highlighted.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details>
+      <summary>Does this compare word-by-word or line-by-line?</summary>
+      <p>This tool compares line by line — a line is marked as added or removed if it doesn't have an exact (or option-adjusted) match on the other side.</p>
+    </details>
+    <details>
+      <summary>Can I use this to compare code?</summary>
+      <p>Yes, it works well for comparing code snippets, config files, or any plain text — just watch for indentation differences unless you enable the whitespace option.</p>
+    </details>
+    <details>
+      <summary>Is my text sent to a server?</summary>
+      <p>No. The comparison runs entirely client-side in your browser.</p>
+    </details>
+  </div>
+
+  <h2 class="section-title">Related Developer Utilities</h2>
+  <div class="related">
+    <a href="json-formatter.html">📋 JSON Formatter</a>
+    <a href="regex-tester.html">🧪 Regex Tester</a>
+    <a href="jwt-decoder.html">🪪 JWT Decoder</a>
+    <a href="uuid-generator.html">🆔 UUID Generator</a>
+  </div>
+
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Service</a>
+  <a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+function escapeHtml(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function normalizeLine(line){
+  let l = line;
+  if(document.getElementById('chkIgnoreWhitespace').checked) l = l.trim();
+  if(document.getElementById('chkIgnoreCase').checked) l = l.toLowerCase();
+  return l;
+}
+
+// Longest Common Subsequence based line diff
+function diffLines(a, b){
+  const normA = a.map(normalizeLine);
+  const normB = b.map(normalizeLine);
+  const n = a.length, m = b.length;
+
+  const dp = Array.from({length: n+1}, () => new Array(m+1).fill(0));
+  for(let i = n-1; i >= 0; i--){
+    for(let j = m-1; j >= 0; j--){
+      dp[i][j] = normA[i] === normB[j] ? dp[i+1][j+1] + 1 : Math.max(dp[i+1][j], dp[i][j+1]);
+    }
+  }
+
+  const result = [];
+  let i = 0, j = 0;
+  while(i < n && j < m){
+    if(normA[i] === normB[j]){
+      result.push({ type: 'same', text: a[i] });
+      i++; j++;
+    } else if(dp[i+1][j] >= dp[i][j+1]){
+      result.push({ type: 'removed', text: a[i] });
+      i++;
+    } else {
+      result.push({ type: 'added', text: b[j] });
+      j++;
+    }
+  }
+  while(i < n){ result.push({ type: 'removed', text: a[i] }); i++; }
+  while(j < m){ result.push({ type: 'added', text: b[j] }); j++; }
+
+  return result;
+}
+
+function compare(){
+  const a = document.getElementById('textA').value.split('\n');
+  const b = document.getElementById('textB').value.split('\n');
+
+  const diff = diffLines(a, b);
+
+  let added = 0, removed = 0;
+  const html = diff.map((d, idx) => {
+    if(d.type === 'added') added++;
+    if(d.type === 'removed') removed++;
+    const marker = d.type === 'added' ? '+' : (d.type === 'removed' ? '−' : '');
+    return `<div class="diff-line ${d.type}"><span class="ln">${idx+1}</span><span class="marker">${marker}</span><span>${escapeHtml(d.text) || ' '}</span></div>`;
+  }).join('');
+
+  document.getElementById('diffOutput').innerHTML = html;
+  document.getElementById('summaryRow').innerHTML = `
+    <span class="summary-badge added">+${added} added</span>
+    <span class="summary-badge removed">−${removed} removed</span>
+  `;
+}
+
+compare();
+</script>
+
+</body>
+</html>
