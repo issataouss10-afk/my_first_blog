@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tip Calculator | Calculate Tip & Split the Bill | ToolNest</title>
+<meta name="description" content="Calculate the tip amount, total bill, and per-person split instantly. Free, 100% client-side tip calculator.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/tip-calculator.html">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{--blue:#2563eb;--blue-dark:#1d4ed8;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc;--card:#ffffff;--radius:14px;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;}
+  a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;} nav.site a:hover{color:var(--ink);}
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;} .crumb strong{color:var(--ink);}
+  .ad{background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;}
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{font-size:34px;background:#eef2ff;width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;}
+  .hero h1{margin:4px 0 6px;font-size:28px;} .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=number]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);}
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  .tip-tabs{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+  .tip-tabs button{border:1px solid var(--line);background:#f8fafc;color:var(--muted);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;}
+  .tip-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  @media (max-width:600px){.grid2{grid-template-columns:1fr;}}
+  .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;}
+  @media (max-width:640px){.result-grid{grid-template-columns:1fr;}}
+  .result-card{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:16px;text-align:center;}
+  .result-card.highlight{background:#eef2ff;border-color:#c7d2fe;}
+  .result-card .num{font-size:22px;font-weight:800;color:var(--blue);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .result-card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:700;margin-top:4px;}
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;} .feature p{margin:0;font-size:13px;color:var(--muted);}
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;} .steps li{margin-bottom:6px;}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;} .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+<header class="site"><div class="site-inner"><div class="brand">🪶 ToolNest</div>
+<nav class="site"><a href="/">Home</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav>
+</div></header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">⚡ Productivity Tools</a> / <strong>Tip Calculator</strong></div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
+  <div class="hero">
+    <div class="icon">🧾</div>
+    <div><h1>Tip Calculator</h1><p>Calculate the tip amount, total bill, and per-person split instantly. 100% local — nothing leaves your browser.</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label for="billInput">Bill Amount</label>
+      <input type="number" id="billInput" value="50" step="0.01">
+    </div>
+
+    <div class="field" style="margin-top:16px;">
+      <label for="tipInput">Tip Percentage</label>
+      <input type="number" id="tipInput" value="15" min="0" max="100">
+      <div class="tip-tabs">
+        <button onclick="setTip(10)">10%</button>
+        <button class="active" onclick="setTip(15)">15%</button>
+        <button onclick="setTip(18)">18%</button>
+        <button onclick="setTip(20)">20%</button>
+        <button onclick="setTip(25)">25%</button>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="peopleInput">Split Between (people)</label>
+        <input type="number" id="peopleInput" value="1" min="1">
+      </div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-card"><div class="num" id="tipAmount">$7.50</div><div class="label">Tip Amount</div></div>
+      <div class="result-card highlight"><div class="num" id="totalAmount">$57.50</div><div class="label">Total Bill</div></div>
+      <div class="result-card"><div class="num" id="perPerson">$57.50</div><div class="label">Per Person</div></div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature"><h3>⚡ Instant Calculation</h3><p>Every field updates the tip, total, and split live.</p></div>
+    <div class="feature"><h3>🏷️ Quick Tip Presets</h3><p>One-tap buttons for the most common tip percentages.</p></div>
+    <div class="feature"><h3>👥 Split the Bill</h3><p>Divide the total evenly between any number of people.</p></div>
+    <div class="feature"><h3>🔒 100% Local</h3><p>All calculation happens in your browser's memory. Nothing is uploaded or logged.</p></div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Tip Calculator</h2>
+  <ol class="steps">
+    <li><strong>Enter the bill amount:</strong> Type in the pre-tip total.</li>
+    <li><strong>Set the tip percentage:</strong> Use a preset or type a custom value.</li>
+    <li><strong>Set how many people are splitting:</strong> Defaults to 1.</li>
+    <li><strong>Read the results:</strong> Tip amount, total bill, and per-person share update instantly.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details><summary>Is the tip calculated before or after tax?</summary><p>This calculator applies the tip percentage directly to the bill amount you enter — enter a pre-tax or post-tax amount depending on your local convention.</p></details>
+    <details><summary>Can I use decimal amounts for the bill?</summary><p>Yes, the bill field accepts decimal values like 42.75 for exact totals.</p></details>
+    <details><summary>Is my data sent to a server?</summary><p>No. All calculation happens entirely client-side in your browser.</p></details>
+  </div>
+
+  <h2 class="section-title">Related Productivity Tools</h2>
+  <div class="related">
+    <a href="percentage-calculator.html">💯 Percentage Calculator</a>
+    <a href="unit-converter.html">📐 Unit Converter</a>
+    <a href="bmi-calculator.html">⚖️ BMI Calculator</a>
+  </div>
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a><a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+function setTip(val){
+  document.getElementById('tipInput').value = val;
+  document.querySelectorAll('.tip-tabs button').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent) === val);
+  });
+  calculate();
+}
+
+function calculate(){
+  const bill = parseFloat(document.getElementById('billInput').value) || 0;
+  const tipPct = parseFloat(document.getElementById('tipInput').value) || 0;
+  const people = Math.max(1, parseInt(document.getElementById('peopleInput').value, 10) || 1);
+
+  const tipAmount = bill * (tipPct / 100);
+  const total = bill + tipAmount;
+  const perPerson = total / people;
+
+  document.getElementById('tipAmount').textContent = '$' + tipAmount.toFixed(2);
+  document.getElementById('totalAmount').textContent = '$' + total.toFixed(2);
+  document.getElementById('perPerson').textContent = '$' + perPerson.toFixed(2);
+}
+
+['billInput','tipInput','peopleInput'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calculate);
+});
+calculate();
+</script>
+</body>
+</html>
