@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer | Free Online Timer & Stopwatch | ToolNest</title>
+<meta name="description" content="Set a countdown timer or use a stopwatch right in your browser, with a sound alert when time's up. Free, 100% client-side timer.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/countdown-timer.html">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{--blue:#2563eb;--blue-dark:#1d4ed8;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc;--card:#ffffff;--radius:14px;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;}
+  a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;} nav.site a:hover{color:var(--ink);}
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;} .crumb strong{color:var(--ink);}
+  .ad{background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;}
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{font-size:34px;background:#eef2ff;width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;}
+  .hero h1{margin:4px 0 6px;font-size:28px;} .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);}
+  .mode-tabs{display:flex;gap:8px;margin-bottom:20px;}
+  .mode-tabs button{border:1px solid var(--line);background:#f8fafc;color:var(--muted);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;}
+  .mode-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .mode-panel{display:none;} .mode-panel.active{display:block;}
+  .timer-display{
+    text-align:center;font-size:56px;font-weight:800;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0f172a;color:#e2e8f0;border-radius:14px;padding:32px;letter-spacing:2px;
+  }
+  .timer-display.done{background:#7f1d1d;}
+  .set-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px;}
+  .set-row .field label{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;text-align:center;}
+  .set-row input[type=number]{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:16px;text-align:center;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .actions-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center;}
+  .btn{border:none;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;}
+  .btn-start{background:var(--blue);color:#fff;} .btn-start:hover{background:var(--blue-dark);}
+  .btn-pause{background:#f1f5f9;color:var(--ink);border:1px solid var(--line);}
+  .btn-reset{background:#f1f5f9;color:var(--ink);border:1px solid var(--line);}
+  .btn-lap{background:#f1f5f9;color:var(--ink);border:1px solid var(--line);}
+  .laps-list{margin-top:16px;max-height:220px;overflow-y:auto;}
+  .lap-row{display:flex;justify-content:space-between;padding:8px 12px;background:#f8fafc;border:1px solid var(--line);border-radius:8px;margin-top:6px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;}
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;} .timer-display{font-size:38px;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;} .feature p{margin:0;font-size:13px;color:var(--muted);}
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;} .steps li{margin-bottom:6px;}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;} .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+<header class="site"><div class="site-inner"><div class="brand">🪶 ToolNest</div>
+<nav class="site"><a href="/">Home</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav>
+</div></header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">⚡ Productivity Tools</a> / <strong>Countdown Timer</strong></div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
+  <div class="hero">
+    <div class="icon">⏱️</div>
+    <div><h1>Countdown Timer</h1><p>Set a countdown timer or use a stopwatch, right in your browser. 100% local — nothing leaves your browser.</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="mode-tabs">
+      <button class="active" data-mode="countdown" onclick="setMode('countdown')">Countdown Timer</button>
+      <button data-mode="stopwatch" onclick="setMode('stopwatch')">Stopwatch</button>
+    </div>
+
+    <div class="mode-panel active" id="mode-countdown">
+      <div class="timer-display" id="countdownDisplay">00:05:00</div>
+      <div class="set-row">
+        <div class="field"><label>Hours</label><input type="number" id="hoursInput" value="0" min="0"></div>
+        <div class="field"><label>Minutes</label><input type="number" id="minutesInput" value="5" min="0" max="59"></div>
+        <div class="field"><label>Seconds</label><input type="number" id="secondsInput" value="0" min="0" max="59"></div>
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-start" onclick="startCountdown()">▶️ Start</button>
+        <button class="btn btn-pause" onclick="pauseCountdown()">⏸️ Pause</button>
+        <button class="btn btn-reset" onclick="resetCountdown()">🔄 Reset</button>
+      </div>
+    </div>
+
+    <div class="mode-panel" id="mode-stopwatch">
+      <div class="timer-display" id="stopwatchDisplay">00:00:00.0</div>
+      <div class="actions-row">
+        <button class="btn btn-start" onclick="startStopwatch()">▶️ Start</button>
+        <button class="btn btn-pause" onclick="pauseStopwatch()">⏸️ Pause</button>
+        <button class="btn btn-lap" onclick="lapStopwatch()">🚩 Lap</button>
+        <button class="btn btn-reset" onclick="resetStopwatch()">🔄 Reset</button>
+      </div>
+      <div class="laps-list" id="lapsList"></div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature"><h3>⏱️ Countdown Timer</h3><p>Set hours, minutes, and seconds, and get a sound alert when time's up.</p></div>
+    <div class="feature"><h3>⏲️ Stopwatch with Laps</h3><p>Track elapsed time and record lap splits along the way.</p></div>
+    <div class="feature"><h3>🔔 Audible Alert</h3><p>A beep plays automatically when the countdown reaches zero.</p></div>
+    <div class="feature"><h3>🔒 100% Local</h3><p>Everything runs in your browser tab. Nothing is uploaded or logged.</p></div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest Countdown Timer</h2>
+  <ol class="steps">
+    <li><strong>Pick a mode:</strong> Countdown Timer or Stopwatch.</li>
+    <li><strong>Set the time (countdown mode):</strong> Enter hours, minutes, and seconds.</li>
+    <li><strong>Start it:</strong> Click Start — the display updates live.</li>
+    <li><strong>Pause, lap, or reset:</strong> Use the buttons as needed while it runs.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details><summary>Will the alert sound if my tab is in the background?</summary><p>Most browsers still play the alert sound for background tabs, but behavior can vary — keep the tab open for the most reliable alert.</p></details>
+    <details><summary>Does the timer keep running if I close the tab?</summary><p>No, the timer only runs while the page is open in your browser.</p></details>
+    <details><summary>Is my data sent to a server?</summary><p>No. The timer runs entirely in your browser tab.</p></details>
+  </div>
+
+  <h2 class="section-title">Related Productivity Tools</h2>
+  <div class="related">
+    <a href="tip-calculator.html">🧾 Tip Calculator</a>
+    <a href="age-calculator.html">🎂 Age Calculator</a>
+    <a href="percentage-calculator.html">💯 Percentage Calculator</a>
+  </div>
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a><a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+function setMode(m){
+  document.querySelectorAll('.mode-tabs button').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('mode-countdown').classList.toggle('active', m === 'countdown');
+  document.getElementById('mode-stopwatch').classList.toggle('active', m === 'stopwatch');
+}
+
+function pad(n){ return n.toString().padStart(2,'0'); }
+
+function playBeep(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.5);
+  } catch(e){}
+}
+
+// Countdown
+let countdownInterval = null;
+let countdownRemaining = 300;
+
+function updateCountdownDisplay(){
+  const h = Math.floor(countdownRemaining / 3600);
+  const m = Math.floor((countdownRemaining % 3600) / 60);
+  const s = countdownRemaining % 60;
+  document.getElementById('countdownDisplay').textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+}
+
+function startCountdown(){
+  if(countdownInterval) return;
+  if(countdownRemaining <= 0){
+    const h = parseInt(document.getElementById('hoursInput').value, 10) || 0;
+    const m = parseInt(document.getElementById('minutesInput').value, 10) || 0;
+    const s = parseInt(document.getElementById('secondsInput').value, 10) || 0;
+    countdownRemaining = h*3600 + m*60 + s;
+  }
+  document.getElementById('countdownDisplay').classList.remove('done');
+  countdownInterval = setInterval(() => {
+    countdownRemaining--;
+    if(countdownRemaining <= 0){
+      countdownRemaining = 0;
+      updateCountdownDisplay();
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+      document.getElementById('countdownDisplay').classList.add('done');
+      playBeep();
+      return;
+    }
+    updateCountdownDisplay();
+  }, 1000);
+}
+
+function pauseCountdown(){
+  clearInterval(countdownInterval);
+  countdownInterval = null;
+}
+
+function resetCountdown(){
+  clearInterval(countdownInterval);
+  countdownInterval = null;
+  const h = parseInt(document.getElementById('hoursInput').value, 10) || 0;
+  const m = parseInt(document.getElementById('minutesInput').value, 10) || 0;
+  const s = parseInt(document.getElementById('secondsInput').value, 10) || 0;
+  countdownRemaining = h*3600 + m*60 + s;
+  document.getElementById('countdownDisplay').classList.remove('done');
+  updateCountdownDisplay();
+}
+
+['hoursInput','minutesInput','secondsInput'].forEach(id => {
+  document.getElementById(id).addEventListener('input', resetCountdown);
+});
+updateCountdownDisplay();
+
+// Stopwatch
+let stopwatchStart = 0;
+let stopwatchElapsed = 0;
+let stopwatchInterval = null;
+
+function formatStopwatch(ms){
+  const totalMs = Math.floor(ms);
+  const h = Math.floor(totalMs / 3600000);
+  const m = Math.floor((totalMs % 3600000) / 60000);
+  const s = Math.floor((totalMs % 60000) / 1000);
+  const tenths = Math.floor((totalMs % 1000) / 100);
+  return `${pad(h)}:${pad(m)}:${pad(s)}.${tenths}`;
+}
+
+function updateStopwatchDisplay(){
+  const elapsed = stopwatchElapsed + (stopwatchInterval ? Date.now() - stopwatchStart : 0);
+  document.getElementById('stopwatchDisplay').textContent = formatStopwatch(elapsed);
+}
+
+function startStopwatch(){
+  if(stopwatchInterval) return;
+  stopwatchStart = Date.now();
+  stopwatchInterval = setInterval(updateStopwatchDisplay, 100);
+}
+
+function pauseStopwatch(){
+  if(!stopwatchInterval) return;
+  stopwatchElapsed += Date.now() - stopwatchStart;
+  clearInterval(stopwatchInterval);
+  stopwatchInterval = null;
+}
+
+function resetStopwatch(){
+  clearInterval(stopwatchInterval);
+  stopwatchInterval = null;
+  stopwatchElapsed = 0;
+  document.getElementById('stopwatchDisplay').textContent = '00:00:00.0';
+  document.getElementById('lapsList').innerHTML = '';
+}
+
+let lapCount = 0;
+function lapStopwatch(){
+  const elapsed = stopwatchElapsed + (stopwatchInterval ? Date.now() - stopwatchStart : 0);
+  lapCount++;
+  const row = document.createElement('div');
+  row.className = 'lap-row';
+  row.innerHTML = `<span>Lap ${lapCount}</span><span>${formatStopwatch(elapsed)}</span>`;
+  document.getElementById('lapsList').prepend(row);
+}
+</script>
+</body>
+</html>
