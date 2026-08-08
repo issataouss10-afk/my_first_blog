@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4RLN0M7YFJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4RLN0M7YFJ');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator | Calculate Your Body Mass Index | ToolNest</title>
+<meta name="description" content="Calculate your Body Mass Index (BMI) instantly in metric or imperial units. Free, 100% client-side BMI calculator.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://toolnest-jet.vercel.app/bmi-calculator.html">
+<meta name="theme-color" content="#2563eb">
+<style>
+  :root{--blue:#2563eb;--blue-dark:#1d4ed8;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc;--card:#ffffff;--radius:14px;--green:#16a34a;--amber:#d97706;--red:#dc2626;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;}
+  a{color:var(--blue);text-decoration:none;} a:hover{text-decoration:underline;}
+  header.site{background:#fff;border-bottom:1px solid var(--line);}
+  .site-inner{max-width:1040px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-weight:800;font-size:18px;color:var(--ink);}
+  nav.site a{margin-left:20px;color:var(--muted);font-weight:500;font-size:14px;} nav.site a:hover{color:var(--ink);}
+  .wrap{max-width:1040px;margin:0 auto;padding:24px 20px 60px;}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;} .crumb strong{color:var(--ink);}
+  .ad{background:#f1f5f9;border:1px dashed var(--line);color:#94a3b8;font-size:12px;text-align:center;padding:14px;border-radius:10px;margin:20px 0;}
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .hero .icon{font-size:34px;background:#eef2ff;width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:14px;flex-shrink:0;}
+  .hero h1{margin:4px 0 6px;font-size:28px;} .hero p{margin:0;color:var(--muted);font-size:15px;max-width:640px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(15,23,42,.04);}
+  .unit-tabs{display:flex;gap:8px;margin-bottom:20px;}
+  .unit-tabs button{border:1px solid var(--line);background:#f8fafc;color:var(--muted);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;}
+  .unit-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:600px){.grid2{grid-template-columns:1fr;}}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+  input[type=number]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);}
+  input:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  .result-hero{margin-top:22px;background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:24px;text-align:center;}
+  .result-hero .big-num{font-size:40px;font-weight:800;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .result-hero .cat-tag{display:inline-block;margin-top:8px;padding:6px 16px;border-radius:999px;font-weight:700;font-size:13.5px;}
+  .cat-under{background:#dbeafe;color:#1e40af;}
+  .cat-normal{background:#dcfce7;color:var(--green);}
+  .cat-over{background:#fef3c7;color:var(--amber);}
+  .cat-obese{background:#fee2e2;color:var(--red);}
+  .scale-bar{display:flex;height:10px;border-radius:999px;overflow:hidden;margin-top:20px;}
+  .scale-seg{height:100%;}
+  .scale-labels{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:6px;}
+  .note{font-size:12px;color:var(--muted);margin-top:16px;background:#fffbeb;border:1px solid #fde68a;padding:10px 14px;border-radius:8px;}
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;}
+  @media (max-width:720px){.features{grid-template-columns:1fr;}}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .feature h3{margin:0 0 6px;font-size:14px;} .feature p{margin:0;font-size:13px;color:var(--muted);}
+  h2.section-title{font-size:19px;margin:36px 0 14px;}
+  .steps{padding-left:20px;color:var(--muted);font-size:14px;} .steps li{margin-bottom:6px;}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px;}
+  .faq summary{font-weight:600;font-size:14px;cursor:pointer;} .faq p{margin:8px 0 0;color:var(--muted);font-size:13.5px;}
+  .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+  .related a{background:#f1f5f9;padding:8px 14px;border-radius:999px;font-size:13px;color:var(--ink);font-weight:500;}
+  .related a:hover{background:#e2e8f0;text-decoration:none;}
+  footer.site{border-top:1px solid var(--line);margin-top:40px;padding:24px 20px;text-align:center;font-size:13px;color:var(--muted);}
+  footer.site a{margin:0 8px;color:var(--muted);}
+</style>
+</head>
+<body>
+<header class="site"><div class="site-inner"><div class="brand">🪶 ToolNest</div>
+<nav class="site"><a href="/">Home</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></nav>
+</div></header>
+
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> / <a href="/">⚡ Productivity Tools</a> / <strong>BMI Calculator</strong></div>
+  <div class="ad">Advertisement Area (Top Banner)</div>
+  <div class="hero">
+    <div class="icon">⚖️</div>
+    <div><h1>BMI Calculator</h1><p>Calculate your Body Mass Index instantly in metric or imperial units. 100% local — nothing leaves your browser.</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="unit-tabs">
+      <button class="active" data-unit="metric" onclick="setUnit('metric')">Metric (kg/cm)</button>
+      <button data-unit="imperial" onclick="setUnit('imperial')">Imperial (lb/in)</button>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label id="weightLabel">Weight (kg)</label>
+        <input type="number" id="weightInput" value="70">
+      </div>
+      <div class="field">
+        <label id="heightLabel">Height (cm)</label>
+        <input type="number" id="heightInput" value="175">
+      </div>
+    </div>
+
+    <div class="result-hero">
+      <div class="big-num" id="bmiValue">22.9</div>
+      <div class="cat-tag cat-normal" id="catTag">Normal weight</div>
+
+      <div class="scale-bar">
+        <div class="scale-seg" style="background:#93c5fd;width:18.5%;"></div>
+        <div class="scale-seg" style="background:#86efac;width:6.5%;"></div>
+        <div class="scale-seg" style="background:#fde047;width:5%;"></div>
+        <div class="scale-seg" style="background:#fca5a5;width:70%;"></div>
+      </div>
+      <div class="scale-labels"><span>18.5</span><span>25</span><span>30</span><span>40+</span></div>
+    </div>
+
+    <div class="note">ℹ️ BMI is a general screening measure and doesn't account for muscle mass, bone density, or body composition. It's not a diagnosis — consult a healthcare professional for personalized advice.</div>
+  </div>
+
+  <div class="features">
+    <div class="feature"><h3>⚡ Instant Calculation</h3><p>Your BMI updates live as you enter weight and height.</p></div>
+    <div class="feature"><h3>🌍 Metric &amp; Imperial</h3><p>Switch between kg/cm and lb/in depending on what you're used to.</p></div>
+    <div class="feature"><h3>📊 Visual Scale</h3><p>See exactly where your BMI falls on the standard WHO scale.</p></div>
+    <div class="feature"><h3>🔒 100% Local</h3><p>All calculation happens in your browser's memory. Nothing is uploaded or logged.</p></div>
+  </div>
+
+  <h2 class="section-title">How to Use ToolNest BMI Calculator</h2>
+  <ol class="steps">
+    <li><strong>Pick a unit system:</strong> Metric (kg/cm) or Imperial (lb/in).</li>
+    <li><strong>Enter your weight and height:</strong> The BMI updates instantly.</li>
+    <li><strong>Read your category:</strong> See where your BMI falls on the standard scale.</li>
+  </ol>
+
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq">
+    <details><summary>How is BMI calculated?</summary><p>BMI is weight in kilograms divided by height in meters squared (kg/m²), using standard unit conversions for imperial input.</p></details>
+    <details><summary>Is BMI accurate for everyone?</summary><p>BMI is a general population screening tool and can be less accurate for athletes, older adults, and others with different body compositions — it doesn't replace professional medical assessment.</p></details>
+    <details><summary>Is my data sent to a server?</summary><p>No. All calculation happens entirely client-side in your browser.</p></details>
+  </div>
+
+  <h2 class="section-title">Related Productivity Tools</h2>
+  <div class="related">
+    <a href="percentage-calculator.html">💯 Percentage Calculator</a>
+    <a href="unit-converter.html">📐 Unit Converter</a>
+    <a href="age-calculator.html">🎂 Age Calculator</a>
+  </div>
+  <div class="ad">Advertisement Area (Bottom Banner)</div>
+</div>
+
+<footer class="site">
+  <a href="/about.html">About Us</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a><a href="/contact.html">Contact</a>
+  <div style="margin-top:8px;">© 2026 ToolNest. All rights reserved. Fast, secure, client-side web tools.</div>
+</footer>
+
+<script>
+let unit = 'metric';
+
+function setUnit(u){
+  unit = u;
+  document.querySelectorAll('.unit-tabs button').forEach(b => b.classList.toggle('active', b.dataset.unit === u));
+  if(u === 'metric'){
+    document.getElementById('weightLabel').textContent = 'Weight (kg)';
+    document.getElementById('heightLabel').textContent = 'Height (cm)';
+    document.getElementById('weightInput').value = 70;
+    document.getElementById('heightInput').value = 175;
+  } else {
+    document.getElementById('weightLabel').textContent = 'Weight (lb)';
+    document.getElementById('heightLabel').textContent = 'Height (in)';
+    document.getElementById('weightInput').value = 154;
+    document.getElementById('heightInput').value = 69;
+  }
+  calculate();
+}
+
+function calculate(){
+  const weight = parseFloat(document.getElementById('weightInput').value);
+  const height = parseFloat(document.getElementById('heightInput').value);
+  if(isNaN(weight) || isNaN(height) || height <= 0 || weight <= 0) return;
+
+  let bmi;
+  if(unit === 'metric'){
+    const heightM = height / 100;
+    bmi = weight / (heightM * heightM);
+  } else {
+    bmi = (weight / (height * height)) * 703;
+  }
+
+  document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+
+  const tag = document.getElementById('catTag');
+  let category, cls;
+  if(bmi < 18.5){ category = 'Underweight'; cls = 'cat-under'; }
+  else if(bmi < 25){ category = 'Normal weight'; cls = 'cat-normal'; }
+  else if(bmi < 30){ category = 'Overweight'; cls = 'cat-over'; }
+  else { category = 'Obesity'; cls = 'cat-obese'; }
+  tag.className = 'cat-tag ' + cls;
+  tag.textContent = category;
+}
+
+document.getElementById('weightInput').addEventListener('input', calculate);
+document.getElementById('heightInput').addEventListener('input', calculate);
+calculate();
+</script>
+</body>
+</html>
+
